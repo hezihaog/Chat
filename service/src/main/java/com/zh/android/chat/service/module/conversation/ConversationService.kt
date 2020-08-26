@@ -7,4 +7,8 @@ import com.alibaba.android.arouter.facade.template.IProvider
  * @date 2020/08/26
  */
 interface ConversationService : IProvider {
+    /**
+     * 获取会话首页
+     */
+    fun getConversationMainFragment(): String
 }

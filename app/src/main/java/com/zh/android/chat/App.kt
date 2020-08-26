@@ -9,6 +9,7 @@ import com.lzy.okgo.cookie.CookieJarImpl
 import com.lzy.okgo.cookie.store.DBCookieStore
 import com.lzy.okgo.https.HttpsUtils
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor
+import com.zh.android.base.util.activity.ActivityProvider
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -21,6 +22,7 @@ class App : Application() {
         super.onCreate()
         initHttp()
         initRouter()
+        initActivityProvider()
     }
 
     private fun initHttp() {
@@ -56,5 +58,12 @@ class App : Application() {
             ARouter.openDebug()
         }
         ARouter.init(this)
+    }
+
+    /**
+     * 初始化全局Activity管理
+     */
+    private fun initActivityProvider() {
+        ActivityProvider.initialize()
     }
 }

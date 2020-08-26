@@ -15,7 +15,9 @@ import com.zh.android.chat.service.AppConstant
  */
 @Interceptor(priority = 1)
 class LoginRouterInterceptor : IInterceptor {
-    override fun init(context: Context?) {}
+    override fun init(context: Context?) {
+    }
+
     override fun process(postcard: Postcard, callback: InterceptorCallback) {
         val isNeedInterceptor = postcard.extra == AppConstant.Flag.IS_NEED_LOGIN
         if (isNeedInterceptor) {

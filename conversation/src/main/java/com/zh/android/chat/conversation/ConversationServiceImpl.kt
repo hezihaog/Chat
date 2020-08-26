@@ -3,6 +3,7 @@ package com.zh.android.chat.conversation
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.chat.conversation.ui.fragment.ConversationMainFragment
 import com.zh.android.chat.service.module.conversation.ConversationService
 
 /**
@@ -12,5 +13,9 @@ import com.zh.android.chat.service.module.conversation.ConversationService
 @Route(path = ARouterUrl.CONVERSATION_SERVICE, name = "会话模块服务")
 class ConversationServiceImpl : ConversationService {
     override fun init(context: Context?) {
+    }
+
+    override fun getConversationMainFragment(): String {
+        return ConversationMainFragment::class.java.name
     }
 }

@@ -11,6 +11,7 @@ import com.zh.android.base.widget.CustomRadioButton
 import com.zh.android.base.widget.CustomRadioGroup
 import com.zh.android.base.widget.iconfont.IconFontTextView
 import com.zh.android.chat.home.R
+import com.zh.android.chat.service.module.conversation.ConversationService
 import com.zh.android.chat.service.module.discovery.DiscoveryService
 import com.zh.android.chat.service.module.friend.FriendService
 import com.zh.android.chat.service.module.login.LoginService
@@ -30,6 +31,10 @@ class HomeMainFragment : BaseFragment(), CustomRadioGroup.OnCheckedChangeListene
     var mLoginService: LoginService? = null
 
     @JvmField
+    @Autowired(name = ARouterUrl.CONVERSATION_SERVICE)
+    var mConversationService: ConversationService? = null
+
+    @JvmField
     @Autowired(name = ARouterUrl.FRIEND_SERVICE)
     var mFriendService: FriendService? = null
 
@@ -44,9 +49,9 @@ class HomeMainFragment : BaseFragment(), CustomRadioGroup.OnCheckedChangeListene
     private val vPager: ViewPager2 by bindView(R.id.pager)
     private val vTabGroup: CustomRadioGroup by bindView(R.id.tab_group)
 
-    private val vTabHome: CustomRadioButton by bindView(R.id.tab_conversation)
-    private val vTabWork: CustomRadioButton by bindView(R.id.tab_friend)
-    private val vTabNotice: CustomRadioButton by bindView(R.id.tab_discovery)
+    private val vTabConversation: CustomRadioButton by bindView(R.id.tab_conversation)
+    private val vTabFriend: CustomRadioButton by bindView(R.id.tab_friend)
+    private val vTabDiscovery: CustomRadioButton by bindView(R.id.tab_discovery)
     private val vTabMine: CustomRadioButton by bindView(R.id.tab_mine)
 
     /**
@@ -82,6 +87,13 @@ class HomeMainFragment : BaseFragment(), CustomRadioGroup.OnCheckedChangeListene
     private fun setupTab() {
         val tabItems = mutableListOf<BaseFragmentStateAdapter.TabInfo>()
         //配置TabFragment
+        mConversationService?.let {
+            tabItems.add(
+                BaseFragmentStateAdapter.TabInfo(
+                    it.getConversationMainFragment()
+                )
+            )
+        }
         mFriendService?.let {
             tabItems.add(
                 BaseFragmentStateAdapter.TabInfo(
@@ -90,15 +102,28 @@ class HomeMainFragment : BaseFragment(), CustomRadioGroup.OnCheckedChangeListene
             )
         }
         mDiscoveryService?.let {
-            tabItems.add(BaseFragmentStateAdapter.TabInfo(it.getDiscoveryFragment()))
+            tabItems.add(
+                BaseFragmentStateAdapter.TabInfo(
+                    it.getDiscoveryFragment()
+                )
+            )
         }
         mMineService?.let {
-            tabItems.add(BaseFragmentStateAdapter.TabInfo(it.getMineFragment()))
+            tabItems.add(
+                BaseFragmentStateAdapter.TabInfo(
+                    it.getMineFragment()
+                )
+            )
         }
         vPager.run {
             //禁用滑动切换
             isUserInputEnabled = false
-            adapter = BaseFragmentStateAdapter(context!!, childFragmentManager, lifecycle, tabItems)
+            adapter = BaseFragmentStateAdapter(
+                fragmentActivity,
+                childFragmentManager,
+                lifecycle,
+                tabItems
+            )
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -109,29 +134,14 @@ class HomeMainFragment : BaseFragment(), CustomRadioGroup.OnCheckedChangeListene
             vPager.offscreenPageLimit = tabItems.count()
         }
         //设置切换回调
-        vTabHome.onCheckedStatusChangeListener = this
-        vTabWork.onCheckedStatusChangeListener = this
-        vTabNotice.onCheckedStatusChangeListener = this
+        vTabConversation.onCheckedStatusChangeListener = this
+        vTabFriend.onCheckedStatusChangeListener = this
+        vTabDiscovery.onCheckedStatusChangeListener = this
         vTabMine.onCheckedStatusChangeListener = this
         //单选按钮点击切换监听
         vTabGroup.setOnCheckedChangeListener(this)
         //默认选中第一个Tab
         vTabGroup.setCheckButton(Tab.CONVERSATION.tabId)
-        vTabGroup.setOnDoubleCheckListener(object : CustomRadioGroup.OnDoubleCheckListener {
-            override fun onDoubleCheck(
-                group: CustomRadioGroup?,
-                button: CustomRadioButton?
-            ): Boolean {
-                return false
-            }
-
-            override fun onDoubleCheckFinish(
-                group: CustomRadioGroup?,
-                button: CustomRadioButton?,
-                isChecked: Boolean
-            ) {
-            }
-        })
     }
 
     /**

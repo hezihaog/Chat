@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mine_mine">我</string>
+    <string name="mine_logout">退出登录</string>
+</resources>

@@ -9,7 +9,8 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingEnd">20dp</item>
         <item name="android:paddingBottom">10dp</item>
-        <item name="android:textColor">@color/base_gray</item>
+        <item name="android:textColor">@color/base_black</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
         <item name="android:textSize">@dimen/base_dimen_sp_15</item>
         <item name="android:digits">
             1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM>
@@ -30,8 +31,8 @@
         <item name="android:layout_marginTop">@dimen/base_dimen_10</item>
         <item name="android:layout_marginEnd">@dimen/base_dimen_10</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingTop">@dimen/base_dimen_6</item>
-        <item name="android:paddingBottom">@dimen/base_dimen_6</item>
+        <item name="android:paddingTop">@dimen/base_dimen_8</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_8</item>
         <item name="android:textColor">@color/base_white</item>
         <item name="android:textSize">@dimen/base_dimen_sp_14</item>
     </style>

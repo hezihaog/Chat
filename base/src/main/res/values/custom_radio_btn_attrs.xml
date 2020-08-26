@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自定义单选组 -->
+    <declare-styleable name="LingJiRadioGroup">
+        <!-- 是否默认选中第一个，默认为true，默认都不选中 -->
+        <attr name="crg_is_default_checked_one" format="boolean" />
+    </declare-styleable>
+
+    <!-- 自定义单选按钮 -->
+    <declare-styleable name="LingJiRadioButton">
+        <!-- 是否默认选择 -->
+        <attr name="crb_checked" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -7,4 +7,8 @@ import com.alibaba.android.arouter.facade.template.IProvider
  * @date 2020/08/26
  */
 interface FriendService : IProvider {
+    /**
+     * 获取好友首页Fragment
+     */
+    fun getFriendMainFragment(): String
 }

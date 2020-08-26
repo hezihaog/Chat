@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.alibaba.android.arouter.launcher.ARouter
 
@@ -24,7 +25,7 @@ abstract class BaseFragment : BaseSupportFragment(), LayoutCallback, LifecycleOw
         get() = this
 
     val activityLifecycleOwner: LifecycleOwner
-        get() = activity!!
+        get() = hostActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,5 +77,9 @@ abstract class BaseFragment : BaseSupportFragment(), LayoutCallback, LifecycleOw
     }
 
     override fun setData() {
+    }
+
+    override fun getHostActivity(): FragmentActivity {
+        return activity!!
     }
 }

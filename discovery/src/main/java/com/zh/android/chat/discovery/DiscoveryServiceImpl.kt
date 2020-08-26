@@ -3,6 +3,7 @@ package com.zh.android.chat.discovery
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.chat.discovery.ui.fragment.DiscoveryFragment
 import com.zh.android.chat.service.module.discovery.DiscoveryService
 
 /**
@@ -12,5 +13,9 @@ import com.zh.android.chat.service.module.discovery.DiscoveryService
 @Route(path = ARouterUrl.DISCOVERY_SERVICE, name = "发现模块服务")
 class DiscoveryServiceImpl : DiscoveryService {
     override fun init(context: Context?) {
+    }
+
+    override fun getDiscoveryFragment(): String {
+        return DiscoveryFragment::class.java.name
     }
 }

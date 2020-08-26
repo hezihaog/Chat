@@ -1,0 +1,11 @@
+<resources>
+    <string name="home_main_conversation">会话</string>
+    <string name="home_main_friend">通讯录</string>
+    <string name="home_main_discovery">发现</string>
+    <string name="home_main_mine">我</string>
+    
+    <string name="home_main_conversation_icon_font"></string>
+    <string name="home_main_friend_icon_font"></string>
+    <string name="home_main_discovery_icon_font"></string>
+    <string name="home_main_mine_icon_font"></string>
+</resources>

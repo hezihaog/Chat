@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 底部Tab，整一个Tab -->
+    <style name="home_main_tab_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:paddingTop">@dimen/base_dimen_5</item>
+    </style>
+
+    <!-- 底部Tab，Icon -->
+    <style name="home_main_tab_item_icon_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_23</item>
+        <item name="android:textColor">@drawable/home_tab_text_color</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- 底部Tab，文字 -->
+    <style name="home_main_tab_item_text_style">
+        <item name="android:layout_marginTop">@dimen/base_dimen_2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_12</item>
+        <item name="android:textColor">@drawable/home_tab_text_color</item>
+    </style>
+
+    <!-- 底部Tab，Icon和文字的包裹布局 -->
+    <style name="home_main_tab_item_style">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+</resources>

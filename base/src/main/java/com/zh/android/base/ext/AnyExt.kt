@@ -13,6 +13,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.util.context.ContextProvider
 import com.zh.android.base.util.toast.ToastUtil
 import java.io.FileDescriptor
@@ -128,7 +129,7 @@ fun runTaskOnUiWithDelayed(task: () -> Unit, delayMillis: Long) {
  * 修复Rv的notifyItemRemoved，由于notifyItemRemoved后，position位置后的条目无法自动onBindView
  * 所以增加该拓展自动调用notifyItemRangeChanged，在删除后重新绑定position后的条目
  */
-fun androidx.recyclerview.widget.RecyclerView.Adapter<*>.fixNotifyItemRemoved(position: Int) {
+fun RecyclerView.Adapter<*>.fixNotifyItemRemoved(position: Int) {
     notifyItemRemoved(position)
     if (position < itemCount) {
         notifyItemRangeChanged(position, itemCount - position)

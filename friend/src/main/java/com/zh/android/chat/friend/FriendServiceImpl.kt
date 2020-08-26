@@ -3,6 +3,7 @@ package com.zh.android.chat.friend
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.chat.friend.ui.fragment.FriendMainFragment
 import com.zh.android.chat.service.module.friend.FriendService
 
 /**
@@ -12,5 +13,9 @@ import com.zh.android.chat.service.module.friend.FriendService
 @Route(path = ARouterUrl.FRIEND_SERVICE, name = "好友模块服务")
 class FriendServiceImpl : FriendService {
     override fun init(context: Context?) {
+    }
+
+    override fun getFriendMainFragment(): String {
+        return FriendMainFragment::class.java.name
     }
 }

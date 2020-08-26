@@ -1,15 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="首页"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@id/tab_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_zero_point_five"
+        android:background="@color/base_list_divider3"
+        app:layout_constraintBottom_toTopOf="@id/tab_group" />
+
+    <com.zh.android.base.widget.LingJiRadioGroup
+        android:id="@+id/tab_group"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/base_bottom_tab_height"
+        android:background="@color/home_tab_bar_bg"
+        android:orientation="horizontal"
+        app:crg_is_default_checked_one="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.zh.android.base.widget.LingJiRadioButton
+            android:id="@+id/tab_conversation"
+            style="@style/home_main_tab_style"
+            app:crb_checked="true">
+
+            <LinearLayout
+                style="@style/home_main_tab_item_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.zh.android.base.widget.iconfont.IconFontTextView
+                    android:id="@+id/tab_icon"
+                    style="@style/home_main_tab_item_icon_style"
+                    android:text="@string/home_main_conversation_icon_font" />
+
+                <TextView
+                    android:id="@+id/tab_text"
+                    style="@style/home_main_tab_item_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_main_conversation" />
+            </LinearLayout>
+        </com.zh.android.base.widget.LingJiRadioButton>
+
+        <com.zh.android.base.widget.LingJiRadioButton
+            android:id="@+id/tab_friend"
+            style="@style/home_main_tab_style">
+
+            <LinearLayout
+                style="@style/home_main_tab_item_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.zh.android.base.widget.iconfont.IconFontTextView
+                    android:id="@id/tab_icon"
+                    style="@style/home_main_tab_item_icon_style"
+                    android:text="@string/home_main_friend_icon_font" />
+
+                <TextView
+                    android:id="@id/tab_text"
+                    style="@style/home_main_tab_item_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_main_friend" />
+            </LinearLayout>
+        </com.zh.android.base.widget.LingJiRadioButton>
+
+        <com.zh.android.base.widget.LingJiRadioButton
+            android:id="@+id/tab_discovery"
+            style="@style/home_main_tab_style">
+
+            <LinearLayout
+                style="@style/home_main_tab_item_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.zh.android.base.widget.iconfont.IconFontTextView
+                    android:id="@id/tab_icon"
+                    style="@style/home_main_tab_item_icon_style"
+                    android:text="@string/home_main_discovery_icon_font" />
+
+                <TextView
+                    android:id="@id/tab_text"
+                    style="@style/home_main_tab_item_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_main_discovery" />
+            </LinearLayout>
+        </com.zh.android.base.widget.LingJiRadioButton>
+
+        <com.zh.android.base.widget.LingJiRadioButton
+            android:id="@+id/tab_mine"
+            style="@style/home_main_tab_style">
+
+            <LinearLayout
+                style="@style/home_main_tab_item_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.zh.android.base.widget.iconfont.IconFontTextView
+                    android:id="@id/tab_icon"
+                    style="@style/home_main_tab_item_icon_style"
+                    android:text="@string/home_main_mine_icon_font" />
+
+                <com.zh.android.base.widget.iconfont.IconFontTextView
+                    android:id="@id/tab_text"
+                    style="@style/home_main_tab_item_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_main_mine" />
+            </LinearLayout>
+        </com.zh.android.base.widget.LingJiRadioButton>
+    </com.zh.android.base.widget.LingJiRadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

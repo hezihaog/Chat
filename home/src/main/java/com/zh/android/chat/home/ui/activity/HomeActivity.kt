@@ -5,7 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
 import com.zh.android.chat.home.R
-import com.zh.android.chat.home.ui.fragment.HomeFragment
+import com.zh.android.chat.home.ui.fragment.HomeMainFragment
 
 /**
  * @author wally
@@ -18,6 +18,6 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onBindView(view: View?) {
-        loadRootFragment(R.id.base_container, HomeFragment.newInstance())
+        loadRootFragment(R.id.base_container, HomeMainFragment.newInstance())
     }
 }

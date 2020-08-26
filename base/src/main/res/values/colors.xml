@@ -1,9 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="base_white">#FFFFFF</color>
-    <color name="base_black2">#1B1D13</color>
-    <color name="base_black3">#A6000000</color>
+    <color name="base_white2">#B3FFFFFF</color>
+    <color name="base_black">#000000</color>
     <color name="base_transparent">#00000000</color>
+
+    <color name="base_color_primary">#3A3C5E</color>
+    <color name="base_color_primary2">#5172B1</color>
+    <color name="base_color_primary_dark">#313353</color>
     <color name="base_txt_color_hint">#A2A3B0</color>
+    <color name="base_txt_color_hint2">#9B9CAB</color>
+    <color name="base_txt_color_hint3">#9F9F9F</color>
+    <color name="base_txt_color_hint4">#CCCCCC</color>
+    <color name="base_txt_color_hint5">#777777</color>
+    <color name="base_txt_color_hint6">#F9F9F9</color>
+    <color name="base_txt_color_hint7">#888888</color>
+    <color name="base_txt_color_hint8">#D3D3D3</color>
+    <color name="base_txt_color_hint9">#8E8E8E</color>
+    <color name="base_txt_color_hint10">#80000000</color>
+    <color name="base_txt_color_hint11">#FF7F7F7F</color>
+    <color name="base_txt_color_hint12">#304156</color>
+    <color name="base_txt_color_hint13">#5F5F5F</color>
+    <color name="base_txt_color_hint14">#40000000</color>
+    <color name="base_txt_color_hint15">#80000000</color>
+    <color name="base_color_accent">#3A3C5E</color>
+    <color name="base_color_accent2">#D2A163</color>
+    <color name="base_txt_color_yellow">#E2B042</color>
     <color name="base_txt_color_normal">#333333</color>
+    <color name="base_txt_color_normal2">#555555</color>
+    <color name="base_txt_color_normal3">#333</color>
+    <color name="base_txt_color_normal4">#555555</color>
+    <color name="base_txt_color_normal5">#000000</color>
+    <color name="base_txt_color_normal6">#444444</color>
+    <color name="base_txt_color_normal7">#D9000000</color>
+    <color name="base_txt_color_normal8">#FF222222</color>
+    <color name="base_txt_color_normal9">#99000000</color>
+    <color name="base_txt_color_normal10">#FF000000</color>
+    <color name="base_list_divider">#F5F5F5</color>
+    <color name="base_list_divider2">#EAEAEA</color>
+    <color name="base_list_divider3">#E8E8E9</color>
+    <color name="base_list_divider4">#33000000</color>
+    <color name="base_list_divider5">#EBEBEB</color>
+    <color name="base_list_divider6">#E9E9E9</color>
+    <color name="base_list_divider7">#E2E2E2</color>
+    <color name="base_bottom_line_color_normal">#EDEDED</color>
+    <color name="base_text_color_primary">#FFFFFF</color>
+    <color name="base_txt_color_normal_second">#666666</color>
+    <color name="base_txt_color_normal_second3">#DDDDDD</color>
+    <color name="base_dot_color">#E94941</color>
+    <color name="base_dim_mask">#73000000</color>
+
+    <color name="base_red">#FD1F1F</color>
+    <color name="base_red2">#FF4600</color>
+    <color name="base_red3">#FE4E4E</color>
+    <color name="base_blue">#48B6E2</color>
+    <color name="base_blue2">#0091FF</color>
+    <color name="base_gray">#60617D</color>
+    <color name="base_green">#4DD865</color>
+    <color name="base_green2">#02BE09</color>
+    <color name="base_orange">#FF9E00</color>
+    <color name="base_orange2">#FF6800</color>
+    <color name="base_yellow">#F6C445</color>
+
+    <color name="base_window_bg">#F5F6F9</color>
 </resources>

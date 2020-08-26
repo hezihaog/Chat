@@ -64,7 +64,7 @@ public abstract class BaseActivity extends BaseSupportActivity
     }
 
     @Override
-    public FragmentActivity getActivity() {
+    public FragmentActivity getHostActivity() {
         return this;
     }
 }

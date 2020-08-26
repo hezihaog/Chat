@@ -13,5 +13,5 @@ public interface LifecycleOwnerExt extends LifecycleOwner {
     /**
      * 获取Activity
      */
-    FragmentActivity getActivity();
+    FragmentActivity getHostActivity();
 }

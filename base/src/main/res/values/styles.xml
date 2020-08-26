@@ -20,4 +20,10 @@
         <item name="android:activityCloseEnterAnimation">@anim/anim_fade_in</item>
         <item name="android:activityCloseExitAnimation">@anim/anim_fade_out</item>
     </style>
+
+    <style name="base_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/base_dimen_zero_point_five</item>
+        <item name="android:background">@color/base_list_divider3</item>
+    </style>
 </resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View style="@style/base_divider" />
+
+            <EditText
+                android:id="@+id/username"
+                style="@style/login_input"
+                android:hint="@string/login_username" />
+
+            <View style="@style/login_input_divider" />
+
+            <EditText
+                android:id="@+id/password"
+                style="@style/login_input"
+                android:hint="@string/login_password"
+                android:inputType="textPassword" />
+
+            <View style="@style/login_input_divider" />
+
+            <TextView
+                android:id="@+id/login"
+                style="@style/login_btn"
+                android:background="@drawable/login_btn_blue"
+                android:text="@string/login_login" />
+
+            <TextView
+                android:id="@+id/register"
+                style="@style/login_btn"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/login_btn_green"
+                android:text="@string/login_register" />
+
+            <View style="@style/base_divider" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -18,30 +18,30 @@ import com.zh.android.base.R;
  * <b>@author:</b> zihe <br>
  * <b>Description:</b> 自定义单选按钮 <br>
  */
-public class LingJiRadioButton extends FrameLayout {
+public class CustomRadioButton extends FrameLayout {
     private boolean mIsChecked = false;
     private OnClickChatRadioButtonListener mOnClickChatRadioButtonListener;
     private OnCheckedStatusChangeListener mOnCheckedStatusChangeListener;
 
-    public LingJiRadioButton(@NonNull Context context) {
+    public CustomRadioButton(@NonNull Context context) {
         super(context);
         init(context, null, 0);
     }
 
-    public LingJiRadioButton(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public CustomRadioButton(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
     }
 
-    public LingJiRadioButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CustomRadioButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         if (attrs != null) {
-            TypedArray typedArray = context.obtainStyledAttributes(R.styleable.LingJiRadioButton);
-            mIsChecked = typedArray.getBoolean(R.styleable.LingJiRadioButton_crb_checked, false);
+            TypedArray typedArray = context.obtainStyledAttributes(R.styleable.CustomRadioButton);
+            mIsChecked = typedArray.getBoolean(R.styleable.CustomRadioButton_crb_checked, false);
             typedArray.recycle();
         }
         //设置一个点击事件监听，是为了能让OnClickCustomRadioButtonListener能够响应
@@ -102,7 +102,7 @@ public class LingJiRadioButton extends FrameLayout {
      * 在设置点击事件的时候也会转调该监听
      */
     public interface OnClickChatRadioButtonListener {
-        void onClickCustomRadioButton(LingJiRadioButton button);
+        void onClickCustomRadioButton(CustomRadioButton button);
     }
 
     public void setOnClickChatRadioButtonListener(OnClickChatRadioButtonListener onClickChatRadioButtonListener) {
@@ -120,7 +120,7 @@ public class LingJiRadioButton extends FrameLayout {
         /**
          * 当切换选中时回调
          */
-        void onCheckedStatusChangeListener(LingJiRadioButton button, boolean isChecked);
+        void onCheckedStatusChangeListener(CustomRadioButton button, boolean isChecked);
     }
 
     public void setOnCheckedStatusChangeListener(OnCheckedStatusChangeListener onCheckedStatusChangeListener) {
@@ -131,7 +131,7 @@ public class LingJiRadioButton extends FrameLayout {
         return mOnCheckedStatusChangeListener;
     }
 
-    public LingJiRadioButton getSelf() {
+    public CustomRadioButton getSelf() {
         return this;
     }
 }

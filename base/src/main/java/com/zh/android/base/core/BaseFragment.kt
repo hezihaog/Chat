@@ -25,7 +25,7 @@ abstract class BaseFragment : BaseSupportFragment(), LayoutCallback, LifecycleOw
         get() = this
 
     val activityLifecycleOwner: LifecycleOwner
-        get() = hostActivity
+        get() = fragmentActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +79,7 @@ abstract class BaseFragment : BaseSupportFragment(), LayoutCallback, LifecycleOw
     override fun setData() {
     }
 
-    override fun getHostActivity(): FragmentActivity {
+    override fun getFragmentActivity(): FragmentActivity {
         return activity!!
     }
 }

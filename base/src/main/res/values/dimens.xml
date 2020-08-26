@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="base_status_bar_height">0dp</dimen>
-    <dimen name="base_top_bar_height">45dp</dimen>
-    <dimen name="base_top_bar_btn_height">45dp</dimen>
-    <dimen name="base_top_bar_btn_width">45dp</dimen>
-    <dimen name="base_tab_height">40dp</dimen>
+    <dimen name="base_top_bar_height">40dp</dimen>
+    <dimen name="base_top_bar_btn_height">@dimen/base_top_bar_height</dimen>
+    <dimen name="base_top_bar_btn_width">@dimen/base_top_bar_height</dimen>
+
     <dimen name="base_bottom_tab_height">54dp</dimen>
     <dimen name="base_txt_size_normal">15sp</dimen>
 </resources>

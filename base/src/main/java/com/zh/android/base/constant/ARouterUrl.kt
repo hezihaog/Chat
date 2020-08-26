@@ -6,6 +6,8 @@ package com.zh.android.base.constant
  */
 class ARouterUrl {
     companion object {
+        const val IS_LOGIN_INTERCEPTOR = "is_login_interceptor"
+
         //============================== 登录 ==============================
         private const val LOGIN_GROUP = "/login"
         const val LOGIN_SERVICE = "${LOGIN_GROUP}s/module"

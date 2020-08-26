@@ -1,0 +1,21 @@
+<resources>
+    <string name="base_net_error">网络不好呢，请稍候重试</string>
+
+    <string name="base_tip">提示</string>
+    <string name="base_confirm">确定</string>
+    <string name="base_confirm2">确认</string>
+    <string name="base_cancel">取消</string>
+    <string name="base_refuse">拒绝</string>
+    <string name="base_more">更多</string>
+    <string name="base_go_setting">去设置</string>
+
+    <string name="base_request_error_tip_msg">获取数据失败，请稍候重试</string>
+    <string name="base_request_data_is_wrong">获取的数据有误，请稍候重试</string>
+    <string name="base_request_no_network">获取数据失败，当前未连接网络</string>
+    <string name="base_operation_success">操作成功</string>
+    <string name="base_operation_fail">操作失败，请重试</string>
+
+    <string name="base_setting">设置</string>
+
+    <string name="base_refresh">刷新</string>
+</resources>

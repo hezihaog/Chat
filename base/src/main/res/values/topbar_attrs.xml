@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--************ TopBar自定义属性 ***********-->
+    <declare-styleable name="TopBar">
+        <attr name="topbar_title_gravity" format="enum">
+            <enum name="left_center" value="19"/>
+            <enum name="center" value="17"/>
+        </attr>
+        <attr name="topbar_height" format="dimension"/>
+        <attr name="topbar_need_separator" format="boolean"/>
+        <attr name="topbar_separator_color" format="color"/>
+        <attr name="topbar_separator_height" format="dimension"/>
+        <attr name="topbar_bg_color" format="color"/>
+        <attr name="topbar_left_back_drawable_id" format="reference"/>
+        <attr name="topbar_title_text_size" format="dimension"/>
+        <attr name="topbar_title_text_size_with_subtitle" format="dimension"/>
+        <attr name="topbar_subtitle_text_size" format="dimension"/>
+        <attr name="topbar_title_color" format="color"/>
+        <attr name="topbar_subtitle_color" format="color"/>
+        <attr name="topbar_title_margin_horizontal_when_no_btn_aside" format="dimension"/>
+        <attr name="topbar_title_container_padding_horizontal" format="dimension"/>
+        <attr name="topbar_image_btn_width" format="dimension"/>
+        <attr name="topbar_image_btn_height" format="dimension"/>
+        <attr name="topbar_text_btn_padding_horizontal" format="dimension"/>
+        <attr name="topbar_text_btn_color_state_list" format="reference"/>
+        <attr name="topbar_text_btn_text_size" format="dimension"/>
+        <!-- 标题 -->
+        <attr name="topbar_title_text" format="string|reference"/>
+        <!-- 子标题 -->
+        <attr name="topbar_sub_title_text" format="string|reference"/>
+    </declare-styleable>
+</resources>

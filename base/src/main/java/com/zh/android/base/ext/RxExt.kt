@@ -48,6 +48,15 @@ fun <T> Observable<T>.lifecycle(owner: LifecycleOwner): ObservableSubscribeProxy
 }
 
 /**
+ * 当Observable被订阅时，回调指定闭包，在Ui线程调用
+ */
+fun <T> Observable<T>.doOnSubscribeUi(task: () -> Unit): Observable<T> {
+    return this.doOnSubscribe {
+        runTaskOnUi(task)
+    }
+}
+
+/**
  * 拓展AutoDispose绑定生命周期后返回的ObservableSubscribeProxy，增加DSL
  */
 fun <T : Any> ObservableSubscribeProxy<T>.subscribeBy(onNext: (T) -> Unit = onNextStub,

@@ -11,7 +11,7 @@ import androidx.lifecycle.LifecycleOwner;
  */
 public interface LifecycleOwnerExt extends LifecycleOwner {
     /**
-     * 获取Activity
+     * 获取FragmentActivity
      */
-    FragmentActivity getHostActivity();
+    FragmentActivity getFragmentActivity();
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 默认的左边图标返回图标Id -->
+    <item name="topbar_item_back" type="id"/>
+    <!-- 分享 -->
+    <item name="topbar_item_share" type="id"/>
+    <!-- 更多 -->
+    <item name="topbar_item_more" type="id"/>
+    <!--关注-->
+    <item name="topbar_item_focus" type="id"/>
+
+    <!--标题-->
+    <item name="topbar_title_layout" type="id"/>
+    <!--标题栏叠加在后面的View-->
+    <item name="top_bar_bg" type="id"/>
+</resources>

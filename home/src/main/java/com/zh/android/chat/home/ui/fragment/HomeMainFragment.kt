@@ -7,9 +7,8 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ui.fragment.BaseFragmentStateAdapter
-import com.zh.android.base.util.loading.WaitLoadingController
-import com.zh.android.base.widget.LingJiRadioButton
-import com.zh.android.base.widget.LingJiRadioGroup
+import com.zh.android.base.widget.CustomRadioButton
+import com.zh.android.base.widget.CustomRadioGroup
 import com.zh.android.base.widget.iconfont.IconFontTextView
 import com.zh.android.chat.home.R
 import com.zh.android.chat.service.module.discovery.DiscoveryService
@@ -23,8 +22,8 @@ import kotterknife.bindView
  * @date 2020/08/26
  * 首页
  */
-class HomeMainFragment : BaseFragment(), LingJiRadioGroup.OnCheckedChangeListener,
-    LingJiRadioButton.OnCheckedStatusChangeListener {
+class HomeMainFragment : BaseFragment(), CustomRadioGroup.OnCheckedChangeListener,
+    CustomRadioButton.OnCheckedStatusChangeListener {
 
     @JvmField
     @Autowired(name = ARouterUrl.LOGIN_SERVICE)
@@ -43,16 +42,12 @@ class HomeMainFragment : BaseFragment(), LingJiRadioGroup.OnCheckedChangeListene
     var mMineService: MineService? = null
 
     private val vPager: ViewPager2 by bindView(R.id.pager)
-    private val vTabGroup: LingJiRadioGroup by bindView(R.id.tab_group)
+    private val vTabGroup: CustomRadioGroup by bindView(R.id.tab_group)
 
-    private val vTabHome: LingJiRadioButton by bindView(R.id.tab_conversation)
-    private val vTabWork: LingJiRadioButton by bindView(R.id.tab_friend)
-    private val vTabNotice: LingJiRadioButton by bindView(R.id.tab_discovery)
-    private val vTabMine: LingJiRadioButton by bindView(R.id.tab_mine)
-
-    private val mLoadingController by lazy {
-        WaitLoadingController(hostActivity, fragment)
-    }
+    private val vTabHome: CustomRadioButton by bindView(R.id.tab_conversation)
+    private val vTabWork: CustomRadioButton by bindView(R.id.tab_friend)
+    private val vTabNotice: CustomRadioButton by bindView(R.id.tab_discovery)
+    private val vTabMine: CustomRadioButton by bindView(R.id.tab_mine)
 
     /**
      * Tab位置
@@ -122,17 +117,17 @@ class HomeMainFragment : BaseFragment(), LingJiRadioGroup.OnCheckedChangeListene
         vTabGroup.setOnCheckedChangeListener(this)
         //默认选中第一个Tab
         vTabGroup.setCheckButton(Tab.CONVERSATION.tabId)
-        vTabGroup.setOnDoubleCheckListener(object : LingJiRadioGroup.OnDoubleCheckListener {
+        vTabGroup.setOnDoubleCheckListener(object : CustomRadioGroup.OnDoubleCheckListener {
             override fun onDoubleCheck(
-                group: LingJiRadioGroup?,
-                button: LingJiRadioButton?
+                group: CustomRadioGroup?,
+                button: CustomRadioButton?
             ): Boolean {
                 return false
             }
 
             override fun onDoubleCheckFinish(
-                group: LingJiRadioGroup?,
-                button: LingJiRadioButton?,
+                group: CustomRadioGroup?,
+                button: CustomRadioButton?,
                 isChecked: Boolean
             ) {
             }
@@ -156,9 +151,9 @@ class HomeMainFragment : BaseFragment(), LingJiRadioGroup.OnCheckedChangeListene
     }
 
     override fun onCheckChange(
-        group: LingJiRadioGroup?,
-        checkedButton: LingJiRadioButton?,
-        uncheckButton: LingJiRadioButton?
+        group: CustomRadioGroup?,
+        checkedButton: CustomRadioButton?,
+        uncheckButton: CustomRadioButton?
     ) {
         checkedButton?.let { btn ->
             val index = when (btn.id) {
@@ -187,7 +182,7 @@ class HomeMainFragment : BaseFragment(), LingJiRadioGroup.OnCheckedChangeListene
     /**
      * 单选按钮状态改变
      */
-    override fun onCheckedStatusChangeListener(button: LingJiRadioButton?, isChecked: Boolean) {
+    override fun onCheckedStatusChangeListener(button: CustomRadioButton?, isChecked: Boolean) {
         button?.let {
             //Tab的Icon
             val tabIconView: IconFontTextView? = it.findViewById(R.id.tab_icon)

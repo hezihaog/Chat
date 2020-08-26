@@ -21,7 +21,7 @@
         android:background="@color/base_list_divider3"
         app:layout_constraintBottom_toTopOf="@id/tab_group" />
 
-    <com.zh.android.base.widget.LingJiRadioGroup
+    <com.zh.android.base.widget.CustomRadioGroup
         android:id="@+id/tab_group"
         android:layout_width="0dp"
         android:layout_height="@dimen/base_bottom_tab_height"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.zh.android.base.widget.LingJiRadioButton
+        <com.zh.android.base.widget.CustomRadioButton
             android:id="@+id/tab_conversation"
             style="@style/home_main_tab_style"
             app:crb_checked="true">
@@ -55,9 +55,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/home_main_conversation" />
             </LinearLayout>
-        </com.zh.android.base.widget.LingJiRadioButton>
+        </com.zh.android.base.widget.CustomRadioButton>
 
-        <com.zh.android.base.widget.LingJiRadioButton
+        <com.zh.android.base.widget.CustomRadioButton
             android:id="@+id/tab_friend"
             style="@style/home_main_tab_style">
 
@@ -79,9 +79,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/home_main_friend" />
             </LinearLayout>
-        </com.zh.android.base.widget.LingJiRadioButton>
+        </com.zh.android.base.widget.CustomRadioButton>
 
-        <com.zh.android.base.widget.LingJiRadioButton
+        <com.zh.android.base.widget.CustomRadioButton
             android:id="@+id/tab_discovery"
             style="@style/home_main_tab_style">
 
@@ -103,9 +103,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/home_main_discovery" />
             </LinearLayout>
-        </com.zh.android.base.widget.LingJiRadioButton>
+        </com.zh.android.base.widget.CustomRadioButton>
 
-        <com.zh.android.base.widget.LingJiRadioButton
+        <com.zh.android.base.widget.CustomRadioButton
             android:id="@+id/tab_mine"
             style="@style/home_main_tab_style">
 
@@ -127,6 +127,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/home_main_mine" />
             </LinearLayout>
-        </com.zh.android.base.widget.LingJiRadioButton>
-    </com.zh.android.base.widget.LingJiRadioGroup>
+        </com.zh.android.base.widget.CustomRadioButton>
+    </com.zh.android.base.widget.CustomRadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

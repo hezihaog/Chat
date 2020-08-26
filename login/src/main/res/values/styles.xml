@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="login_input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/base_gray</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_15</item>
+        <item name="android:digits">
+            1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM>
+        </item>
+    </style>
+
+    <style name="login_input_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/base_dimen_zero_point_five</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:background">@color/base_list_divider3</item>
+    </style>
+
+    <style name="login_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/base_dimen_10</item>
+        <item name="android:layout_marginTop">@dimen/base_dimen_10</item>
+        <item name="android:layout_marginEnd">@dimen/base_dimen_10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/base_dimen_6</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_6</item>
+        <item name="android:textColor">@color/base_white</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_14</item>
+    </style>
+</resources>

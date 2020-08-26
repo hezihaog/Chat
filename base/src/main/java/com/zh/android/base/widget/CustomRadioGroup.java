@@ -19,15 +19,15 @@ import java.util.List;
  * <b>@author:</b> zihe <br>
  * <b>Description:</b> 自定义单选组 <br>
  */
-public class LingJiRadioGroup extends LinearLayout {
+public class CustomRadioGroup extends LinearLayout {
     /**
      * 当前选择的按钮
      */
-    private LingJiRadioButton mCurrentCheckButton;
+    private CustomRadioButton mCurrentCheckButton;
     /**
      * 上次选择的按钮
      */
-    private LingJiRadioButton mPreCheckButton;
+    private CustomRadioButton mPreCheckButton;
     private OnCheckedChangeListener mCheckedChangeListener;
     private OnPrepareCheckListener mPrepareCheckListener;
     private OnDoubleCheckListener mDoubleCheckListener;
@@ -36,25 +36,25 @@ public class LingJiRadioGroup extends LinearLayout {
      */
     private boolean mIsDefaultCheckOneBtn = false;
 
-    public LingJiRadioGroup(Context context) {
+    public CustomRadioGroup(Context context) {
         super(context);
         init(context, null, 0);
     }
 
-    public LingJiRadioGroup(Context context, @Nullable AttributeSet attrs) {
+    public CustomRadioGroup(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
     }
 
-    public LingJiRadioGroup(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CustomRadioGroup(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
     }
 
     private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         if (attrs != null) {
-            TypedArray typedArray = context.obtainStyledAttributes(R.styleable.LingJiRadioGroup);
-            mIsDefaultCheckOneBtn = typedArray.getBoolean(R.styleable.LingJiRadioGroup_crg_is_default_checked_one, false);
+            TypedArray typedArray = context.obtainStyledAttributes(R.styleable.CustomRadioGroup);
+            mIsDefaultCheckOneBtn = typedArray.getBoolean(R.styleable.CustomRadioGroup_crg_is_default_checked_one, false);
             typedArray.recycle();
         }
     }
@@ -65,8 +65,8 @@ public class LingJiRadioGroup extends LinearLayout {
         //是否存在有按钮设置了选中
         boolean isHasCheckedBtn = false;
         //获取所有子按钮
-        List<LingJiRadioButton> allButtonList = getAllButton();
-        for (LingJiRadioButton button : allButtonList) {
+        List<CustomRadioButton> allButtonList = getAllButton();
+        for (CustomRadioButton button : allButtonList) {
             //配置默认选择
             if (button.isChecked()) {
                 if (!isHasCheckedBtn) {
@@ -77,23 +77,23 @@ public class LingJiRadioGroup extends LinearLayout {
             } else {
                 button.setChecked(false);
             }
-            button.setOnClickChatRadioButtonListener(new LingJiRadioButton.OnClickChatRadioButtonListener() {
+            button.setOnClickChatRadioButtonListener(new CustomRadioButton.OnClickChatRadioButtonListener() {
                 @Override
-                public void onClickCustomRadioButton(LingJiRadioButton button) {
+                public void onClickCustomRadioButton(CustomRadioButton button) {
                     if (button.isChecked()) {
                         //如果之前就已经选择了，回调二次选择
                         if (mDoubleCheckListener != null) {
-                            boolean isNeedUncheck = mDoubleCheckListener.onDoubleCheck(LingJiRadioGroup.this, button);
+                            boolean isNeedUncheck = mDoubleCheckListener.onDoubleCheck(CustomRadioGroup.this, button);
                             if (isNeedUncheck) {
                                 button.setChecked(false);
                             }
-                            mDoubleCheckListener.onDoubleCheckFinish(LingJiRadioGroup.this, button, button.isChecked());
+                            mDoubleCheckListener.onDoubleCheckFinish(CustomRadioGroup.this, button, button.isChecked());
                         }
                     } else {
                         boolean isIntercept = false;
                         //切换当前按钮，回调
                         if (mPrepareCheckListener != null) {
-                            isIntercept = mPrepareCheckListener.onPrepareCheck(LingJiRadioGroup.this, button);
+                            isIntercept = mPrepareCheckListener.onPrepareCheck(CustomRadioGroup.this, button);
                         }
                         //不拦截，则进行选中
                         if (!isIntercept) {
@@ -115,12 +115,12 @@ public class LingJiRadioGroup extends LinearLayout {
     /**
      * 获取所有按钮
      */
-    public List<LingJiRadioButton> getAllButton() {
-        List<LingJiRadioButton> buttons = new ArrayList<>();
+    public List<CustomRadioButton> getAllButton() {
+        List<CustomRadioButton> buttons = new ArrayList<>();
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
-            if (getChildAt(i) instanceof LingJiRadioButton) {
-                buttons.add((LingJiRadioButton) getChildAt(i));
+            if (getChildAt(i) instanceof CustomRadioButton) {
+                buttons.add((CustomRadioButton) getChildAt(i));
             }
         }
         return buttons;
@@ -130,9 +130,9 @@ public class LingJiRadioGroup extends LinearLayout {
      * 使用按钮的Id，设置当前选择的按钮
      */
     public void setCheckButton(int buttonId) {
-        LingJiRadioButton needCheckButton = null;
-        List<LingJiRadioButton> allButton = getAllButton();
-        for (LingJiRadioButton button : allButton) {
+        CustomRadioButton needCheckButton = null;
+        List<CustomRadioButton> allButton = getAllButton();
+        for (CustomRadioButton button : allButton) {
             if (buttonId == button.getId()) {
                 needCheckButton = button;
                 break;
@@ -146,13 +146,13 @@ public class LingJiRadioGroup extends LinearLayout {
     /**
      * 设置当前选择的按钮
      */
-    public void setCheckButton(LingJiRadioButton checkButton) {
+    public void setCheckButton(CustomRadioButton checkButton) {
         //将当前需要选择的选中
         checkButton.setChecked(true);
         //将不是当前的取消选中
-        List<LingJiRadioButton> allButtonList = getAllButton();
+        List<CustomRadioButton> allButtonList = getAllButton();
         for (int i = 0; i < allButtonList.size(); i++) {
-            LingJiRadioButton needUncheckButton = allButtonList.get(i);
+            CustomRadioButton needUncheckButton = allButtonList.get(i);
             if (needUncheckButton != checkButton) {
                 needUncheckButton.setChecked(false);
             }
@@ -169,8 +169,8 @@ public class LingJiRadioGroup extends LinearLayout {
      * 取消选中所有按钮
      */
     public void uncheckAllButton() {
-        List<LingJiRadioButton> allButtonList = getAllButton();
-        for (LingJiRadioButton button : allButtonList) {
+        List<CustomRadioButton> allButtonList = getAllButton();
+        for (CustomRadioButton button : allButtonList) {
             button.setChecked(false);
             this.mPreCheckButton = mCurrentCheckButton;
             this.mCurrentCheckButton = button;
@@ -183,14 +183,14 @@ public class LingJiRadioGroup extends LinearLayout {
     /**
      * 获取当前选择的按钮
      */
-    public LingJiRadioButton getCheckButton() {
+    public CustomRadioButton getCheckButton() {
         return this.mCurrentCheckButton;
     }
 
     /**
      * 获取上一次选择的按钮
      */
-    public LingJiRadioButton getPreCheckButton() {
+    public CustomRadioButton getPreCheckButton() {
         return this.mPreCheckButton;
     }
 
@@ -205,7 +205,7 @@ public class LingJiRadioGroup extends LinearLayout {
          * @param checkedButton 当前选择的按钮
          * @param uncheckButton 被反选的按钮
          */
-        void onCheckChange(LingJiRadioGroup group, LingJiRadioButton checkedButton, LingJiRadioButton uncheckButton);
+        void onCheckChange(CustomRadioGroup group, CustomRadioButton checkedButton, CustomRadioButton uncheckButton);
     }
 
     /**
@@ -219,7 +219,7 @@ public class LingJiRadioGroup extends LinearLayout {
          * @param prepareCheckButton 准备选择的按钮
          * @return 是否拦截，返回true代表拦截，则允许选择，返回false代表允许选择
          */
-        boolean onPrepareCheck(LingJiRadioGroup group, LingJiRadioButton prepareCheckButton);
+        boolean onPrepareCheck(CustomRadioGroup group, CustomRadioButton prepareCheckButton);
     }
 
     /**
@@ -233,14 +233,14 @@ public class LingJiRadioGroup extends LinearLayout {
          * @param button 按钮
          * @return 返回true为需要反选，返回false为不需要
          */
-        boolean onDoubleCheck(LingJiRadioGroup group, LingJiRadioButton button);
+        boolean onDoubleCheck(CustomRadioGroup group, CustomRadioButton button);
 
         /**
          * 重选中结束后的回调，在这里可以处理重选中而取消选中时的处理
          *
          * @param isChecked 是否选中
          */
-        void onDoubleCheckFinish(LingJiRadioGroup group, LingJiRadioButton button, boolean isChecked);
+        void onDoubleCheckFinish(CustomRadioGroup group, CustomRadioButton button, boolean isChecked);
     }
 
     public void setOnCheckedChangeListener(OnCheckedChangeListener checkedChangeListener) {

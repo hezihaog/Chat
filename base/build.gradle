@@ -1,0 +1,76 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode 100
+        versionName "1.0.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    api rootProject.ext.deps.kotlin
+    api rootProject.ext.deps.v7
+    api rootProject.ext.deps.rv
+    api rootProject.ext.deps.design
+    api rootProject.ext.deps.constraint
+    api rootProject.ext.deps.fragment_ktx
+    api rootProject.ext.deps.viewpager2
+
+    api rootProject.ext.deps.multidex
+    api rootProject.ext.deps.util_code
+
+    //http
+    api rootProject.ext.deps.gson
+    api rootProject.ext.deps.okhttp
+    api rootProject.ext.deps.okgo
+    api rootProject.ext.deps.okgo_rx
+    api rootProject.ext.deps.okhttp
+
+    api rootProject.ext.deps.arouterapi
+    api rootProject.ext.deps.arouterannotation
+
+    api rootProject.ext.deps.kotterknife
+    api rootProject.ext.deps.indicator
+
+    api rootProject.ext.deps.multitype
+    api rootProject.ext.deps.smartrefresh
+    api rootProject.ext.deps.smartrefresh_header
+
+    api rootProject.ext.deps.rx_kotlin
+    api rootProject.ext.deps.rx_android
+    api rootProject.ext.deps.rx_autodispose
+    api rootProject.ext.deps.rx_autodispose_archcomponents
+    api rootProject.ext.deps.rx_binding2
+
+    api rootProject.ext.deps.jetpack_lifecycle
+    kapt rootProject.ext.deps.jetpack_lifecycle_compiler
+
+    api rootProject.ext.deps.rx_permission
+    api rootProject.ext.deps.fragmentation
+    api rootProject.ext.deps.logger
+
+    testImplementation rootProject.ext.deps.junit
+    androidTestImplementation rootProject.ext.deps.runner
+    androidTestImplementation rootProject.ext.deps.espresso
+}

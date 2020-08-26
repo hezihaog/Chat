@@ -1,0 +1,11 @@
+include ':setting'
+include ':discovery'
+include ':friend'
+include ':conversation'
+include ':home'
+include ':mine'
+include ':service'
+include ':login'
+include ':base'
+include ':app'
+rootProject.name = "Chat"

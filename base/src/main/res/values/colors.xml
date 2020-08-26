@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="base_white">#FFFFFF</color>
+    <color name="base_black2">#1B1D13</color>
+    <color name="base_black3">#A6000000</color>
+    <color name="base_transparent">#00000000</color>
+    <color name="base_txt_color_hint">#A2A3B0</color>
+    <color name="base_txt_color_normal">#333333</color>
+</resources>

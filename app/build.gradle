@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.zh.android.chat"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode 100
+        versionName "1.0.0"
+        multiDexEnabled true
+
+//        ndk {
+//            abiFilters "armeabi-v7a"
+//        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+        additionalParameters += '--multi-dex'
+        //每个包内方法数上限（根据实际项目配置这个数，来适配4.0-4.4一些低端机型，因为拆分的dex太大，这些低端机型加载不了dex）
+        //additionalParameters += '--set-max-idx-number=45000'
+        additionalParameters += '--minimal-main-dex'
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        disable 'MissingTranslation', 'ExtraTranslation', 'GoogleAppIndexingWarning'
+    }
+
+    flavorDimensions "default"
+    //多渠道打包配置，buildConfigField配置字符串的话，注意要单引号包双引号，例如：'"xxxx"'
+    productFlavors {
+        //开发包
+        developer {
+            applicationIdSuffix ".internal"
+            manifestPlaceholders = [app_name: "Chat-测试"]
+            buildConfigField("boolean", "DEBUG_ENABLE", "true")
+        }
+
+        //正式包
+        production {
+            manifestPlaceholders = [app_name: "Chat"]
+            buildConfigField("boolean", "DEBUG_ENABLE", "false")
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+        arg("AROUTER_GENERATE_DOC", "enable")
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api rootProject.ext.deps.kotlin
+    kapt rootProject.ext.deps.aroutercompiler
+    kapt rootProject.ext.deps.jetpack_lifecycle_compiler
+
+    //依赖的模块
+    api project(path: ':login')
+    api project(path: ':home')
+    api project(path: ':conversation')
+    api project(path: ':friend')
+    api project(path: ':discovery')
+    api project(path: ':mine')
+    api project(path: ':setting')
+
+    testImplementation rootProject.ext.deps.junit
+    androidTestImplementation rootProject.ext.deps.runner
+    androidTestImplementation rootProject.ext.deps.espresso
+}

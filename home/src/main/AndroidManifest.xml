@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zh.android.chat.home">
+
+    <application>
+        <activity
+            android:name=".ui.activity.HomeActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:launchMode="singleTop" />
+    </application>
+</manifest>

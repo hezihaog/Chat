@@ -37,4 +37,16 @@ class LoginPresenter {
                 }
             }
     }
+
+    /**
+     * 注册
+     * @param username 用户名
+     * @param password 密码
+     */
+    fun register(
+        username: String,
+        password: String
+    ): Observable<HttpModel<*>> {
+        return LoginRequester.register(TAG, username, password)
+    }
 }

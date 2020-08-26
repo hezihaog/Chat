@@ -1,5 +1,7 @@
 package com.zh.android.chat.login.ui.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -12,8 +14,10 @@ import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.TopBar
+import com.zh.android.chat.login.LoginUIHelper
 import com.zh.android.chat.login.R
 import com.zh.android.chat.login.http.LoginPresenter
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.home.HomeService
 import kotterknife.bindView
 
@@ -42,6 +46,11 @@ class LoginFragment : BaseFragment() {
     }
 
     companion object {
+        /**
+         * 跳转注册使用的RequestCode
+         */
+        private const val REQUEST_CODE_REGISTER = 100
+
         fun newInstance(args: Bundle? = null): LoginFragment {
             val fragment = LoginFragment()
             fragment.arguments = args
@@ -85,7 +94,21 @@ class LoginFragment : BaseFragment() {
         }
         //注册
         vRegister.click {
-            toast("注册")
+            LoginUIHelper.goRegister(fragmentActivity, REQUEST_CODE_REGISTER)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            //注册成功，清空密码，设置刚刚注册的用户名
+            REQUEST_CODE_REGISTER -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val registerUserName = data.getStringExtra(AppConstant.Key.USER_NAME)
+                    vUsername.setText(registerUserName)
+                    vPassword.setText("")
+                }
+            }
         }
     }
 

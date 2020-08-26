@@ -35,4 +35,12 @@
         <item name="android:textColor">@color/base_white</item>
         <item name="android:textSize">@dimen/base_dimen_sp_14</item>
     </style>
+
+    <style name="login_input_item_name">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/base_dimen_20</item>
+        <item name="android:textColor">@color/base_black</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_13</item>
+    </style>
 </resources>

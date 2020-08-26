@@ -40,5 +40,26 @@ class LoginRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 注册
+         * @param username 用户名
+         * @param password 密码
+         */
+        fun register(
+            tag: String,
+            username: String,
+            password: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.LOGIN_REGISTER)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, String>().apply {
+                    put("username", username)
+                    put("password", password.md5Pwd)
+                }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

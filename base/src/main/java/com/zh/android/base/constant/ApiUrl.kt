@@ -38,6 +38,15 @@ object ApiUrl {
 
     //---------------------------- 业务 ----------------------------
 
+    /**
+     * 登录
+     */
     val LOGIN_LOGIN
         get() = "$BASE_URL/user/login"
+
+    /**
+     * 注册
+     */
+    val LOGIN_REGISTER
+        get() = "$BASE_URL/user/register"
 }

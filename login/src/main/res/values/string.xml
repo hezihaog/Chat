@@ -2,8 +2,12 @@
 <resources>
     <string name="login_username">用户名</string>
     <string name="login_password">密码</string>
+    <string name="login_verify_password">确认密码</string>
     <string name="login_login">登录</string>
     <string name="login_register">注册</string>
     <string name="login_username_input_hint">请输入用户名</string>
     <string name="login_pwd_input_hint">请输入密码</string>
+    <string name="login_verify_pwd_input_hint">请输入确认密码</string>
+    <string name="login_verify_pwd_fail">两次密码输入不一致</string>
+    <string name="login_register_success">注册成功</string>
 </resources>

@@ -6,5 +6,10 @@
             android:name=".ui.activity.LoginActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

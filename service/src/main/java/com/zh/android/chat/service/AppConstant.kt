@@ -13,4 +13,10 @@ class AppConstant private constructor() {
             const val IS_NEED_LOGIN = 1000
         }
     }
+
+    class Key private constructor() {
+        companion object {
+            const val USER_NAME = "key_user_name"
+        }
+    }
 }

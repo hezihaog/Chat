@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <EditText
+        android:id="@+id/nickname_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="@string/mine_nickname_input_hint"
+        android:paddingStart="@dimen/base_dimen_10"
+        android:paddingTop="@dimen/base_dimen_8"
+        android:paddingEnd="@dimen/base_dimen_10"
+        android:paddingBottom="@dimen/base_dimen_8"
+        android:textColor="@color/base_black"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="@dimen/base_dimen_sp_15" />
+
+    <View style="@style/base_divider2" />
+</LinearLayout>

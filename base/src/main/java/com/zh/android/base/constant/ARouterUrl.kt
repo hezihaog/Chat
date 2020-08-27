@@ -47,6 +47,11 @@ class ARouterUrl {
         private const val MINE_GROUP = "/mine"
         const val MINE_SERVICE = "${MINE_GROUP}s/module"
 
+        /**
+         * 修改昵称
+         */
+        const val MINE_MODIFY_NICKNAME = "${MINE_GROUP}/modify/nickname"
+
         //============================== 设置 ==============================
         private const val SETTING_GROUP = "/setting"
         const val SETTING_SERVICE = "${SETTING_GROUP}s/module"

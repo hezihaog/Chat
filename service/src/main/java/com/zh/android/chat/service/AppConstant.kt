@@ -16,7 +16,15 @@ class AppConstant private constructor() {
 
     class Key private constructor() {
         companion object {
+            const val USER_ID = "key_user_id"
             const val USER_NAME = "key_user_name"
+            const val NICK_NAME = "key_nickname"
+        }
+    }
+
+    class Action private constructor() {
+        companion object {
+            const val UPDATE_NICKNAME = "action_update_nickname"
         }
     }
 }

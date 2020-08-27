@@ -7,4 +7,9 @@
     <string name="mine_nickname">昵称</string>
     <string name="mine_account">账号</string>
     <string name="mine_qrcode">二维码</string>
+
+    <string name="mine_modify_nickname">修改昵称</string>
+    <string name="mine_nickname_input_hint">请输入新的昵称</string>
+    <string name="mine_save">保存</string>
+    <string name="mine_modify_success">修改成功</string>
 </resources>

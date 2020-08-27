@@ -1,5 +1,9 @@
 package com.zh.android.chat.mine.ui.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,14 +12,19 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.widget.TopBar
+import com.zh.android.chat.mine.MineUIHelper
 import com.zh.android.chat.mine.R
 import com.zh.android.chat.mine.http.MinePresenter
 import com.zh.android.chat.mine.item.MineImageItemViewBinder
 import com.zh.android.chat.mine.item.MineTextItemViewBinder
 import com.zh.android.chat.mine.model.MineImageItemModel
 import com.zh.android.chat.mine.model.MineTextItemModel
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.login.LoginService
+import com.zh.android.chat.service.module.mine.model.User
+import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -34,6 +43,11 @@ class MineFragment : BaseFragment() {
     private val vLogout: TextView by bindView(R.id.logout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
 
+    /**
+     * 用户信息
+     */
+    private var mUserInfo: User? = null
+
     private val mMinePresenter by lazy {
         MinePresenter()
     }
@@ -48,7 +62,9 @@ class MineFragment : BaseFragment() {
                 when (item.itemId) {
                     //昵称
                     R.id.mine_item_nickname -> {
-                        toast("修改昵称")
+                        mUserInfo?.let {
+                            MineUIHelper.goModifyNickname(fragmentActivity, it.id, it.nickname)
+                        }
                     }
                 }
             })
@@ -64,6 +80,27 @@ class MineFragment : BaseFragment() {
                 }
             })
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //更新昵称
+        BroadcastRegistry(lifecycleOwner).register(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val newNickName = intent?.getStringExtra(AppConstant.Key.NICK_NAME) ?: ""
+                Observable.fromIterable(mListItems)
+                    .filter {
+                        it is MineTextItemModel && it.itemId == R.id.mine_item_nickname
+                    }.cast(MineTextItemModel::class.java)
+                    .map {
+                        it.text = newNickName
+                    }
+                    .lifecycle(lifecycleOwner)
+                    .subscribe {
+                        mListAdapter.notifyDataSetChanged()
+                    }
+            }
+        }, AppConstant.Action.UPDATE_NICKNAME)
     }
 
     override fun onInflaterViewId(): Int {
@@ -96,6 +133,8 @@ class MineFragment : BaseFragment() {
                 .subscribe({ httpModel ->
                     if (handlerErrorCode(httpModel)) {
                         httpModel.result?.let {
+                            //保存用户信息
+                            mUserInfo = it
                             render(
                                 it.picNormal,
                                 it.nickname,

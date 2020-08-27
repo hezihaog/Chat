@@ -56,4 +56,9 @@ object ApiUrl {
      * 获取用户信息
      */
     val MINE_GET_USER_INFO = "${BASE_URL}/user/getUserInfo"
+
+    /**
+     * 更新昵称
+     */
+    val MINE_UPDATE_NICKNAME = "${BASE_URL}/user/updateNickname"
 }

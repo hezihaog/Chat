@@ -19,7 +19,7 @@ data class MineTextItemModel(
     /**
      * 条目显示的文字
      */
-    val text: String,
+    var text: String,
     /**
      * 是否可以点击，如果为true，点击时会回调
      */

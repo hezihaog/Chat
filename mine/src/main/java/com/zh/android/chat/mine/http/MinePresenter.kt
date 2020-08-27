@@ -23,4 +23,16 @@ class MinePresenter {
     ): Observable<HttpModel<User>> {
         return MineRequester.getUserInfo(TAG, userId)
     }
+
+    /**
+     * 更新昵称
+     * @param userId 用户Id
+     * @param newNickName 新的昵称
+     */
+    fun updateNickName(
+        userId: String,
+        newNickName: String
+    ): Observable<HttpModel<*>> {
+        return MineRequester.updateNickName(TAG, userId, newNickName)
+    }
 }

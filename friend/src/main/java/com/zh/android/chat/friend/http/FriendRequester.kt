@@ -9,6 +9,7 @@ import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.ext.toJson
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
+import com.zh.android.chat.friend.model.FriendRequest
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
 
@@ -69,6 +70,22 @@ class FriendRequester {
                     put("fromUserid", fromUserId)
                     put("toUserid", toUserId)
                 }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 查找某个用户Id的所有好友请求
+         */
+        fun getUserAllFriendRequest(
+            tag: String,
+            userId: String
+        ): Observable<HttpModel<List<FriendRequest>>> {
+            val type = genericGsonType<HttpModel<List<FriendRequest>>>()
+            val request: GetRequest<HttpModel<List<FriendRequest>>> =
+                OkGo.get(ApiUrl.GET_USER_ALL_FRIEND_REQUEST)
+            return request.tag(tag)
+                .params("userId", userId)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

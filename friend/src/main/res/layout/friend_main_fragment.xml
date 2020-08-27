@@ -42,6 +42,48 @@
         <View style="@style/base_divider" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/friend_request_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="@dimen/base_dimen_15"
+            android:paddingTop="@dimen/base_dimen_10"
+            android:paddingEnd="@dimen/base_dimen_5"
+            android:paddingBottom="@dimen/base_dimen_10"
+            android:text="@string/friend_request_num"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_13" />
+
+        <TextView
+            android:id="@+id/friend_request_num"
+            android:layout_width="@dimen/base_dimen_15"
+            android:layout_height="@dimen/base_dimen_15"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_marginEnd="@dimen/base_dimen_10"
+            android:background="@drawable/friend_bg_request_num"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/base_white"
+            android:textSize="@dimen/base_dimen_sp_10"
+            tools:text="13" />
+
+        <com.zh.android.base.widget.iconfont.IconFontTextView
+            style="@style/base_arrow_icon"
+            android:layout_marginEnd="@dimen/base_dimen_15"
+            android:text="@string/base_right_arrow" />
+    </LinearLayout>
+
+    <View style="@style/base_divider" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

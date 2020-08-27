@@ -18,4 +18,6 @@
     <string name="base_setting">设置</string>
 
     <string name="base_refresh">刷新</string>
+
+    <string name="base_right_arrow"></string>
 </resources>

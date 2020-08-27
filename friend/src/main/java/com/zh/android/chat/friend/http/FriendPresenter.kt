@@ -1,6 +1,7 @@
 package com.zh.android.chat.friend.http
 
 import com.zh.android.base.http.HttpModel
+import com.zh.android.chat.friend.model.FriendRequest
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
 
@@ -44,5 +45,14 @@ class FriendPresenter {
         toUserId: String
     ): Observable<HttpModel<*>> {
         return FriendRequester.sendFriendRequest(TAG, fromUserId, toUserId)
+    }
+
+    /**
+     * 查找某个用户Id的所有好友请求
+     */
+    fun getUserAllFriendRequest(
+        userId: String
+    ): Observable<HttpModel<List<FriendRequest>>> {
+        return FriendRequester.getUserAllFriendRequest(TAG, userId)
     }
 }

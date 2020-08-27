@@ -78,4 +78,9 @@ object ApiUrl {
      * 发送好友请求
      */
     val SEND_FRIEND_REQUEST = "${BASE_URL}/friend/sendRequest"
+
+    /**
+     * 查找某个用户Id的所有好友请求
+     */
+    val GET_USER_ALL_FRIEND_REQUEST = "${BASE_URL}/friend/getUserAllFriendRequest"
 }

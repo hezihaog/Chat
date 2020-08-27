@@ -36,12 +36,8 @@
 
         <com.zh.android.base.widget.iconfont.IconFontTextView
             android:id="@+id/arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            style="@style/base_arrow_icon"
             android:layout_marginEnd="@dimen/base_dimen_15"
-            android:gravity="center"
-            android:text="@string/mine_item_right_arrow"
             android:visibility="gone"
             tools:visibility="visible" />
     </LinearLayout>

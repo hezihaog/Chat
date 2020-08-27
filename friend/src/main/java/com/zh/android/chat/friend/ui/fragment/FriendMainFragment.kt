@@ -8,9 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.github.promeg.pinyinhelper.Pinyin
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.handlerErrorCode
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.friend.R
 import com.zh.android.chat.friend.http.FriendPresenter
@@ -40,6 +38,8 @@ class FriendMainFragment : BaseFragment() {
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
     private val vSlideBar: SlideBar by bindView(R.id.slide_bar)
     private val vCheckLetterView: TextView by bindView(R.id.check_letter)
+    private val vFriendRequestLayout: View by bindView(R.id.friend_request_layout)
+    private val vFriendRequestNum: TextView by bindView(R.id.friend_request_num)
 
     private val mListItems by lazy {
         Items()
@@ -101,12 +101,24 @@ class FriendMainFragment : BaseFragment() {
                 vCheckLetterView.visibility = View.GONE
             }
         })
+        vFriendRequestLayout.click {
+            //跳转到好友申请列表
+            toast("好友申请列表")
+        }
     }
 
     /**
      * 刷新好友列表
      */
     private fun refresh() {
+        getUserFriendList()
+        getAllFriendRequest()
+    }
+
+    /**
+     * 获取我的好友列表
+     */
+    private fun getUserFriendList() {
         mLoginService?.run {
             val userId = getUserId()
             mFriendPresenter.getUserFriendList(userId)
@@ -119,6 +131,33 @@ class FriendMainFragment : BaseFragment() {
                             mListItems.addAll(generateItems(it))
                             mListAdapter.notifyDataSetChanged()
                         }
+                    }
+                }, { error ->
+                    error.printStackTrace()
+                })
+        }
+    }
+
+    /**
+     * 获取我所有的好友请求
+     */
+    private fun getAllFriendRequest() {
+        mLoginService?.run {
+            val userId = getUserId()
+            mFriendPresenter.getUserAllFriendRequest(userId)
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({ httpModel ->
+                    if (handlerErrorCode(httpModel)) {
+                        val list = httpModel.result
+                        vFriendRequestLayout.visibility = if (list.isNullOrEmpty()) {
+                            View.GONE
+                        } else {
+                            View.VISIBLE
+                        }
+                        //请求数量
+                        val requestNum = (list?.size ?: 0).toString()
+                        vFriendRequestNum.text = requestNum
                     }
                 }, { error ->
                     error.printStackTrace()

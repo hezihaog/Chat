@@ -3,4 +3,10 @@
     <string name="friend_module_name">通讯录</string>
     <string name="friend_search_icon"></string>
     <string name="friend_search_friend">搜索朋友</string>
+    <string name="friend_add_friend">添加好友</string>
+    <string name="friend_search">搜索</string>
+    <string name="friend_search_tip">请输入您要搜索的内容</string>
+    <string name="friend_add">添加</string>
+    <string name="friend_back">返回</string>
+    <string name="friend_chat_no">Chat号：%1$s</string>
 </resources>

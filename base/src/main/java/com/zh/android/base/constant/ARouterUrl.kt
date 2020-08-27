@@ -39,6 +39,16 @@ class ARouterUrl {
         private const val FRIEND_GROUP = "/friend"
         const val FRIEND_SERVICE = "${FRIEND_GROUP}s/module"
 
+        /**
+         * 添加好友
+         */
+        const val FRIEND_ADD_FRIEND ="${FRIEND_GROUP}/add/friend"
+
+        /**
+         * 用户资料
+         */
+        const val FRIEND_USER_PROFILE = "${FRIEND_GROUP}/user/profile"
+
         //============================== 发现 ==============================
         private const val DISCOVERY_GROUP = "/discovery"
         const val DISCOVERY_SERVICE = "${DISCOVERY_GROUP}s/module"

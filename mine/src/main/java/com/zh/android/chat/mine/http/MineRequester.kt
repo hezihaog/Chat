@@ -28,7 +28,7 @@ class MineRequester {
             userId: String
         ): Observable<HttpModel<User>> {
             val type = genericGsonType<HttpModel<User>>()
-            val request: GetRequest<HttpModel<User>> = OkGo.get(ApiUrl.MINE_GET_USER_INFO)
+            val request: GetRequest<HttpModel<User>> = OkGo.get(ApiUrl.GET_USER_INFO)
             return request.tag(tag)
                 .params("userid", userId)
                 .converter(ModelConvert(type))
@@ -46,7 +46,7 @@ class MineRequester {
             newNickName: String
         ): Observable<HttpModel<*>> {
             val type = genericGsonType<HttpModel<*>>()
-            val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.MINE_UPDATE_NICKNAME)
+            val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.UPDATE_NICKNAME)
             return request.tag(tag)
                 .upJson(LinkedHashMap<String, String>().apply {
                     put("id", userId)

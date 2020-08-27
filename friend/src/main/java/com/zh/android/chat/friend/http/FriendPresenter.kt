@@ -23,4 +23,14 @@ class FriendPresenter {
     ): Observable<HttpModel<List<User>>> {
         return FriendRequester.getUserFriendList(TAG, userId)
     }
+
+    /**
+     * 根据用户名搜索用户信息
+     * @param username 用户名
+     */
+    fun findUserByUsername(
+        username: String
+    ): Observable<HttpModel<User>> {
+        return FriendRequester.findUserByUsername(TAG, username)
+    }
 }

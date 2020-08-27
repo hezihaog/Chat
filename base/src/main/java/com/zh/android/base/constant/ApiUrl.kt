@@ -41,13 +41,13 @@ object ApiUrl {
     /**
      * 登录
      */
-    val LOGIN_LOGIN
+    val LOGIN
         get() = "$BASE_URL/user/login"
 
     /**
      * 注册
      */
-    val LOGIN_REGISTER
+    val REGISTER
         get() = "$BASE_URL/user/register"
 
     //---------------------------- 用户 ----------------------------
@@ -55,17 +55,22 @@ object ApiUrl {
     /**
      * 获取用户信息
      */
-    val MINE_GET_USER_INFO = "${BASE_URL}/user/getUserInfo"
+    val GET_USER_INFO = "${BASE_URL}/user/getUserInfo"
+
+    /**
+     * 根据用户名搜索用户信息
+     */
+    val FIND_BY_USERNAME = "${BASE_URL}/user/findByUsername"
 
     /**
      * 更新昵称
      */
-    val MINE_UPDATE_NICKNAME = "${BASE_URL}/user/updateNickname"
+    val UPDATE_NICKNAME = "${BASE_URL}/user/updateNickname"
 
     //---------------------------- 好友 ----------------------------
 
     /**
      * 获取用户的好友列表
      */
-    val FRIEND_GET_USER_FRIEND_LIST = "${BASE_URL}/friend/getUserFriendList"
+    val GET_USER_FRIEND_LIST = "${BASE_URL}/friend/getUserFriendList"
 }

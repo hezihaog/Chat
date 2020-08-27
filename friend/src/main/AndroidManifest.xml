@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zh.android.chat.friend">
 
-    /
+    <application>
+        <activity android:name=".ui.activity.AddFriendActivity" />
+        <activity android:name=".ui.activity.UserProfileActivity" />
+    </application>
 </manifest>

@@ -31,7 +31,7 @@ class LoginRequester {
             password: String
         ): Observable<HttpModel<LoginModel>> {
             val type = genericGsonType<HttpModel<LoginModel>>()
-            val request: PostRequest<HttpModel<LoginModel>> = OkGo.post(ApiUrl.LOGIN_LOGIN)
+            val request: PostRequest<HttpModel<LoginModel>> = OkGo.post(ApiUrl.LOGIN)
             return request.tag(tag)
                 .upJson(LinkedHashMap<String, String>().apply {
                     put("username", username)
@@ -52,7 +52,7 @@ class LoginRequester {
             password: String
         ): Observable<HttpModel<*>> {
             val type = genericGsonType<HttpModel<*>>()
-            val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.LOGIN_REGISTER)
+            val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.REGISTER)
             return request.tag(tag)
                 .upJson(LinkedHashMap<String, String>().apply {
                     put("username", username)

@@ -27,9 +27,25 @@ class FriendRequester {
         ): Observable<HttpModel<List<User>>> {
             val type = genericGsonType<HttpModel<List<User>>>()
             val request: GetRequest<HttpModel<List<User>>> =
-                OkGo.get(ApiUrl.FRIEND_GET_USER_FRIEND_LIST)
+                OkGo.get(ApiUrl.GET_USER_FRIEND_LIST)
             return request.tag(tag)
                 .params("userId", userId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 根据用户名搜索用户信息
+         * @param username 用户名
+         */
+        fun findUserByUsername(
+            tag: String,
+            username: String
+        ): Observable<HttpModel<User>> {
+            val type = genericGsonType<HttpModel<User>>()
+            val request: GetRequest<HttpModel<User>> = OkGo.get(ApiUrl.FIND_BY_USERNAME)
+            return request.tag(tag)
+                .params("friendUsername", username)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

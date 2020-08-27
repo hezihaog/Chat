@@ -6,10 +6,13 @@
 
     <include layout="@layout/base_top_bar" />
 
+    <androidx.legacy.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_10" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/base_dimen_20"
         android:fillViewport="true">
 
         <LinearLayout

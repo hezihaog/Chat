@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 发现首页条目布局 -->
+    <style name="discovery_main_item_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/base_white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 发现首页条目的图标 -->
+    <style name="discovery_main_item_icon">
+        <item name="android:layout_width">@dimen/base_dimen_30</item>
+        <item name="android:layout_height">@dimen/base_dimen_30</item>
+        <item name="android:layout_marginStart">@dimen/base_dimen_15</item>
+        <item name="android:layout_marginTop">@dimen/base_dimen_8</item>
+        <item name="android:layout_marginEnd">@dimen/base_dimen_15</item>
+        <item name="android:layout_marginBottom">@dimen/base_dimen_8</item>
+    </style>
+
+    <!-- 发现首页条目的文字 -->
+    <style name="discovery_main_item_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/base_dimen_15</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/base_black</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_15</item>
+    </style>
+</resources>

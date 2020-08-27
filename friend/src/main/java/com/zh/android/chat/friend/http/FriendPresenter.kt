@@ -33,4 +33,16 @@ class FriendPresenter {
     ): Observable<HttpModel<User>> {
         return FriendRequester.findUserByUsername(TAG, username)
     }
+
+    /**
+     * 发送好友请求
+     * @param fromUserId 发送请求的用户Id
+     * @param toUserId 要添加的用户Id
+     */
+    fun sendFriendRequest(
+        fromUserId: String,
+        toUserId: String
+    ): Observable<HttpModel<*>> {
+        return FriendRequester.sendFriendRequest(TAG, fromUserId, toUserId)
+    }
 }

@@ -12,7 +12,9 @@ import com.zh.android.base.ext.*
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.friend.R
+import com.zh.android.chat.friend.http.FriendPresenter
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.mine.model.User
 import kotterknife.bindView
@@ -23,6 +25,10 @@ import kotterknife.bindView
  * 用户资料
  */
 class UserProfileFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.LOGIN_SERVICE)
+    var mLoginService: LoginService? = null
+
     @JvmField
     @Autowired(name = ARouterUrl.MINE_SERVICE)
     var mMineService: MineService? = null
@@ -42,7 +48,11 @@ class UserProfileFragment : BaseFragment() {
      */
     private var mUserInfo: User? = null
 
-    private val mWaitController: WaitLoadingController by lazy {
+    private val mFriendPresenter by lazy {
+        FriendPresenter()
+    }
+
+    private val mWaitController by lazy {
         WaitLoadingController(fragmentActivity, lifecycleOwner)
     }
 
@@ -65,7 +75,17 @@ class UserProfileFragment : BaseFragment() {
             }
         }
         vAdd.click {
-
+            //检查fromUserId
+            val fromUserId = mLoginService?.getUserId() ?: ""
+            if (fromUserId.isBlank()) {
+                return@click
+            }
+            //检查toUserId
+            val toUserId = mUserInfo?.id ?: ""
+            if (toUserId.isBlank()) {
+                return@click
+            }
+            sendFriendRequest(fromUserId, mUserId)
         }
         vBack.click {
             fragmentActivity.finish()
@@ -107,5 +127,23 @@ class UserProfileFragment : BaseFragment() {
             vNickname.text = nickname
             vUsername.text = getString(R.string.friend_chat_no, username)
         }
+    }
+
+    /**
+     * 发送好友请求
+     */
+    private fun sendFriendRequest(fromUserId: String, toUserId: String) {
+        mFriendPresenter.sendFriendRequest(fromUserId, toUserId)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.friend_request_success)
+                    fragmentActivity.finish()
+                }
+            }, { error ->
+                error.printStackTrace()
+                showRequestError()
+            })
     }
 }

@@ -9,4 +9,5 @@
     <string name="friend_add">添加</string>
     <string name="friend_back">返回</string>
     <string name="friend_chat_no">Chat号：%1$s</string>
+    <string name="friend_request_success">申请成功</string>
 </resources>

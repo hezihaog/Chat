@@ -26,4 +26,8 @@
         <item name="android:layout_height">@dimen/base_dimen_zero_point_five</item>
         <item name="android:background">@color/base_list_divider3</item>
     </style>
+
+    <style name="base_divider2" parent="base_divider">
+        <item name="android:layout_marginStart">@dimen/base_dimen_15</item>
+    </style>
 </resources>

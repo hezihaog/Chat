@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/base_dimen_15"
+        android:paddingBottom="@dimen/base_dimen_15">
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_13"
+            tools:text="账号" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/base_dimen_15"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/base_dimen_sp_13"
+            tools:text="root" />
+
+        <com.zh.android.base.widget.iconfont.IconFontTextView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/base_dimen_15"
+            android:gravity="center"
+            android:text="@string/mine_item_right_arrow"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <View style="@style/base_divider2" />
+</LinearLayout>

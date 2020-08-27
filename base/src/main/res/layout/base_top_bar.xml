@@ -11,7 +11,7 @@
     app:topbar_image_btn_width="@dimen/base_top_bar_height"
     app:topbar_left_back_drawable_id="@drawable/base_topview_back"
     app:topbar_need_separator="false"
-    app:topbar_separator_color="@color/base_bottom_line_color_normal"
+    app:topbar_separator_color="@color/base_txt_color_normal_second"
     app:topbar_separator_height="@dimen/base_dimen_zero_point_five"
     app:topbar_subtitle_color="@color/base_black"
     app:topbar_subtitle_text_size="@dimen/base_dimen_sp_11"

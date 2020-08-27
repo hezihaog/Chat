@@ -36,7 +36,7 @@ public class IconFontTextView extends AppCompatTextView {
         setIncludeFontPadding(false);
     }
 
-    public static class IconFontTypeFace {
+    private static class IconFontTypeFace {
         /**
          * 用static,整个app共用整个typeface就够了
          */

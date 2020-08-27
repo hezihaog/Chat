@@ -1,15 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/base_top_bar" />
 
-    <Button
-        android:id="@+id/logout"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/mine_logout" />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/base_dimen_20"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View style="@style/base_divider2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/base_refresh_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_25"
+                android:orientation="vertical">
+
+                <View style="@style/base_divider" />
+
+                <TextView
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/base_white"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/base_dimen_15"
+                    android:paddingBottom="@dimen/base_dimen_15"
+                    android:text="@string/mine_logout"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15" />
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

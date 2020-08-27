@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 头像 -->
+    <item name="mine_item_avatar" type="id" />
+    <!-- 昵称 -->
+    <item name="mine_item_nickname" type="id" />
+    <!-- 账号 -->
+    <item name="mine_item_account" type="id" />
+    <!-- 二维码 -->
+    <item name="mine_item_qrcode" type="id" />
+</resources>

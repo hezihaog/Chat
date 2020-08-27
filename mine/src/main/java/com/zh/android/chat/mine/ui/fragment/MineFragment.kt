@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.toast
+import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.mine.R
+import com.zh.android.chat.mine.http.MinePresenter
 import com.zh.android.chat.mine.item.MineImageItemViewBinder
 import com.zh.android.chat.mine.item.MineTextItemViewBinder
 import com.zh.android.chat.mine.model.MineImageItemModel
@@ -34,6 +34,9 @@ class MineFragment : BaseFragment() {
     private val vLogout: TextView by bindView(R.id.logout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
 
+    private val mMinePresenter by lazy {
+        MinePresenter()
+    }
 
     private val mListItems by lazy {
         Items()
@@ -82,14 +85,44 @@ class MineFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
+        //先渲染空数据
+        render("", "", "", "")
+        //再拉取远程数据
+        mLoginService?.run {
+            val userId = getUserId()
+            mMinePresenter.getUserInfo(userId)
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({ httpModel ->
+                    if (handlerErrorCode(httpModel)) {
+                        httpModel.result?.let {
+                            render(
+                                it.picNormal,
+                                it.nickname,
+                                it.username,
+                                it.qrCode ?: ""
+                            )
+                        }
+                    }
+                }, { error ->
+                    error.printStackTrace()
+                })
+        }
+    }
+
+    /**
+     * 渲染数据
+     * @param avatar
+     */
+    private fun render(avatar: String, nickname: String, account: String, qrCode: String) {
         mListItems.clear()
         //头像
         mListItems.add(
             MineImageItemModel(
                 R.id.mine_item_avatar,
                 getString(R.string.mine_avatar),
+                avatar,
                 R.drawable.mine_default_user_avatar,
-                "",
                 true
             )
         )
@@ -98,7 +131,7 @@ class MineFragment : BaseFragment() {
             MineTextItemModel(
                 R.id.mine_item_nickname,
                 getString(R.string.mine_nickname),
-                "hezihao",
+                nickname,
                 true
             )
         )
@@ -107,7 +140,7 @@ class MineFragment : BaseFragment() {
             MineTextItemModel(
                 R.id.mine_item_account,
                 getString(R.string.mine_account),
-                "root"
+                account
             )
         )
         //二维码
@@ -115,8 +148,8 @@ class MineFragment : BaseFragment() {
             MineImageItemModel(
                 R.id.mine_item_qrcode,
                 getString(R.string.mine_qrcode),
+                qrCode,
                 R.drawable.mine_qrcode,
-                "",
                 true
             )
         )

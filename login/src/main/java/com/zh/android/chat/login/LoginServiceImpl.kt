@@ -21,6 +21,10 @@ class LoginServiceImpl : LoginService {
         return LoginStorage.isLogin()
     }
 
+    override fun getUserId(): String {
+        return LoginStorage.getUserId()
+    }
+
     override fun goLogin() {
         ARouter.getInstance()
             .build(ARouterUrl.LOGIN_LOGIN)

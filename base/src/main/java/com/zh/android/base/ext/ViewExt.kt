@@ -1,5 +1,6 @@
 package com.zh.android.base.ext
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
@@ -7,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import com.zh.android.base.R
 import com.zh.android.base.util.SoftKeyBoardUtil
 import com.zh.android.base.util.listener.DelayOnClickListener
 import com.zh.android.base.util.rx.RxUtil
+import com.zh.android.imageloader.ImageLoader
+import com.zh.android.imageloader.LoadOption
 import io.reactivex.Observable
 
 
@@ -278,4 +282,89 @@ fun EditText.showKeyboard() {
  */
 fun EditText.hideKeyboard() {
     SoftKeyBoardUtil.hideKeyboard(this)
+}
+
+/**
+ * 加载图片
+ * @param defaultImgResId 默认图片的资源Id
+ */
+fun ImageView.loadUrlImage(url: String?, defaultImgResId: Int = R.drawable.base_avatar_round) {
+    val activity = context as Activity
+    ImageLoader.get(activity).loader.load(
+        activity, LoadOption(
+            LoadOption.Builder()
+                .setUrl(url)
+                .setDefaultImgResId(defaultImgResId)
+        ), this
+    )
+}
+
+/**
+ * 加载资源文件的图片
+ */
+fun ImageView.loadResDrawable(resId: Int, defaultImgResId: Int = R.drawable.base_avatar_round) {
+    val activity = context as Activity
+    ImageLoader.get(activity).loader.load(
+        activity, LoadOption(
+            LoadOption.Builder()
+                .setDrawableResId(resId)
+                .setDefaultImgResId(defaultImgResId)
+        ), this
+    )
+}
+
+/**
+ * 加载图片，没有默认图
+ */
+fun ImageView.loadUrlImageNotDefault(url: String?) {
+    loadUrlImage(url, 0)
+}
+
+/**
+ * 加载图片为圆形图片，一般用于头像
+ */
+fun ImageView.loadUrlImageToRound(
+    url: String?,
+    defaultImgResId: Int = R.drawable.base_avatar_round
+) {
+    val activity = context as Activity
+    ImageLoader.get(activity).loader.load(
+        activity, LoadOption(
+            LoadOption.Builder()
+                .setUrl(url)
+                .setRound()
+                .setDefaultImgResId(defaultImgResId)
+        ), this
+    )
+}
+
+/**
+ * 加载图片带圆角
+ */
+fun ImageView.loadUrlImageToCorner(
+    url: String?,
+    defaultImgResId: Int = R.drawable.base_avatar_round
+) {
+    val activity = context as Activity
+    ImageLoader.get(activity).loader.load(
+        activity, LoadOption(
+            LoadOption.Builder()
+                .setUrl(url)
+                .setDefaultImgResId(defaultImgResId)
+                .setRadius(8f)
+        ), this
+    )
+}
+
+/**
+ * 加载默认图片
+ */
+fun ImageView.loadDefaultImage(resId: Int = R.drawable.base_avatar_round) {
+    val activity = context as Activity
+    ImageLoader.get(activity).loader.load(
+        activity, LoadOption(
+            LoadOption.Builder()
+                .setDrawable(activity.getDrawable(resId))
+        ), this
+    )
 }

@@ -56,6 +56,9 @@
     <color name="base_blue">#4B19FF</color>
     <color name="base_blue2">#0091FF</color>
     <color name="base_gray">#60617D</color>
+    <color name="base_gray2">#FAFAFA</color>
+    <color name="base_gray3">#F7F7F7</color>
+    <color name="base_gray4">#A6A6A6</color>
     <color name="base_green">#00F067</color>
     <color name="base_green2">#02BE09</color>
     <color name="base_orange">#FF9E00</color>

@@ -61,4 +61,11 @@ object ApiUrl {
      * 更新昵称
      */
     val MINE_UPDATE_NICKNAME = "${BASE_URL}/user/updateNickname"
+
+    //---------------------------- 好友 ----------------------------
+
+    /**
+     * 获取用户的好友列表
+     */
+    val FRIEND_GET_USER_FRIEND_LIST = "${BASE_URL}/friend/getUserFriendList"
 }

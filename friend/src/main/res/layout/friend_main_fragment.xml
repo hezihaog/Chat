@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_gray2"
+        android:orientation="vertical">
+
+        <View style="@style/base_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/base_dimen_5"
+            android:paddingBottom="@dimen/base_dimen_5">
+
+            <com.zh.android.base.widget.iconfont.IconFontTextView
+                android:layout_width="@dimen/base_dimen_20"
+                android:layout_height="@dimen/base_dimen_20"
+                android:gravity="center"
+                android:text="@string/friend_search_icon"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_dimen_2"
+                android:text="@string/friend_search_friend"
+                android:textColor="@android:color/darker_gray" />
+        </LinearLayout>
+
+        <View style="@style/base_divider" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/base_refresh_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.zh.android.chat.friend.widget.SlideBar
+            android:id="@+id/slide_bar"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:visibility="visible"
+            app:slb_select_bg_color="@android:color/darker_gray"
+            app:slb_select_txt_color="@android:color/white"
+            app:slb_un_select_bg_color="@android:color/transparent"
+            app:slb_un_select_txt_color="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/check_letter"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/friend_bg_contact_letter_flow"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:visibility="gone"
+            tools:text="A"
+            tools:visibility="visible" />
+    </FrameLayout>
+</LinearLayout>

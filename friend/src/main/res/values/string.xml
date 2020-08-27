@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="friend_module_name">通讯录</string>
+    <string name="friend_search_icon"></string>
+    <string name="friend_search_friend">搜索朋友</string>
 </resources>

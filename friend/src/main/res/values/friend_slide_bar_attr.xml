@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlideBar">
+        <!-- 选中时，文字颜色 -->
+        <attr name="slb_select_txt_color" format="color|reference" />
+        <!-- 非选中时，文字颜色 -->
+        <attr name="slb_un_select_txt_color" format="color|reference" />
+        <!-- 选中时，滑动条背景颜色 -->
+        <attr name="slb_select_bg_color" format="color|reference" />
+        <!-- 非选中时，滑动条背景颜色 -->
+        <attr name="slb_un_select_bg_color" format="color|reference" />
+    </declare-styleable>
+</resources>

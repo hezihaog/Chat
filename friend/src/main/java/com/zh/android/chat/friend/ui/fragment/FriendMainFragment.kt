@@ -8,8 +8,12 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.github.promeg.pinyinhelper.Pinyin
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.*
+import com.zh.android.base.ext.click
+import com.zh.android.base.ext.handlerErrorCode
+import com.zh.android.base.ext.ioToMain
+import com.zh.android.base.ext.lifecycle
 import com.zh.android.base.widget.TopBar
+import com.zh.android.chat.friend.FriendUIHelper
 import com.zh.android.chat.friend.R
 import com.zh.android.chat.friend.http.FriendPresenter
 import com.zh.android.chat.friend.item.FriendViewBinder
@@ -103,7 +107,7 @@ class FriendMainFragment : BaseFragment() {
         })
         vFriendRequestLayout.click {
             //跳转到好友申请列表
-            toast("好友申请列表")
+            FriendUIHelper.goFriendRequestRecord(fragmentActivity)
         }
     }
 

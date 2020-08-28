@@ -83,4 +83,14 @@ object ApiUrl {
      * 查找某个用户Id的所有好友请求
      */
     val GET_USER_ALL_FRIEND_REQUEST = "${BASE_URL}/friend/getUserAllFriendRequest"
+
+    /**
+     * 接受好友请求
+     */
+    val ACCEPT_FRIEND_REQUEST = "${BASE_URL}/friend/acceptFriendReq"
+
+    /**
+     * 忽略好友请求
+     */
+    val IGNORE_FRIEND_REQUEST = "${BASE_URL}/friend/ignoreFriendReq"
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/base_dimen_15"
+        android:paddingTop="@dimen/base_dimen_8"
+        android:paddingEnd="@dimen/base_dimen_15"
+        android:paddingBottom="@dimen/base_dimen_8">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/base_dimen_45"
+            android:layout_height="@dimen/base_dimen_45"
+            android:src="@drawable/base_avatar_round" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:layout_marginEnd="@dimen/base_dimen_15"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15"
+                tools:text="root" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/friend_request_tip"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/base_dimen_sp_13" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ignore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/friend_btn_white"
+            android:paddingStart="@dimen/base_dimen_15"
+            android:paddingTop="@dimen/base_dimen_8"
+            android:paddingEnd="@dimen/base_dimen_15"
+            android:paddingBottom="@dimen/base_dimen_8"
+            android:text="@string/friend_request_ignore"
+            android:textColor="@color/base_black" />
+
+        <TextView
+            android:id="@+id/allow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:background="@drawable/friend_btn_green"
+            android:paddingStart="@dimen/base_dimen_15"
+            android:paddingTop="@dimen/base_dimen_8"
+            android:paddingEnd="@dimen/base_dimen_15"
+            android:paddingBottom="@dimen/base_dimen_8"
+            android:text="@string/friend_request_allow"
+            android:textColor="@color/base_white" />
+    </LinearLayout>
+
+    <View style="@style/base_divider" />
+</LinearLayout>

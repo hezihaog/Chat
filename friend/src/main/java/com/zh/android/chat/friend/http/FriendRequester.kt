@@ -89,5 +89,37 @@ class FriendRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 接收对方的好友请求
+         * @param requestId 好友请求记录的Id
+         */
+        fun acceptFriendRequest(
+            tag: String,
+            requestId: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.ACCEPT_FRIEND_REQUEST)
+            return request.tag(tag)
+                .params("reqid", requestId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 忽略对方的好友请求
+         * @param requestId 好友请求记录的Id
+         */
+        fun ignoreFriendRequest(
+            tag: String,
+            requestId: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.IGNORE_FRIEND_REQUEST)
+            return request.tag(tag)
+                .params("reqid", requestId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

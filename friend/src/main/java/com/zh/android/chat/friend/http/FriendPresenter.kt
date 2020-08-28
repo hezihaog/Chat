@@ -55,4 +55,24 @@ class FriendPresenter {
     ): Observable<HttpModel<List<FriendRequest>>> {
         return FriendRequester.getUserAllFriendRequest(TAG, userId)
     }
+
+    /**
+     * 接收对方的好友请求
+     * @param requestId 好友请求记录的Id
+     */
+    fun acceptFriendRequest(
+        requestId: String
+    ): Observable<HttpModel<*>> {
+        return FriendRequester.acceptFriendRequest(TAG, requestId)
+    }
+
+    /**
+     * 忽略对方的好友请求
+     * @param requestId 好友请求记录的Id
+     */
+    fun ignoreFriendRequest(
+        requestId: String
+    ): Observable<HttpModel<*>> {
+        return FriendRequester.ignoreFriendRequest(TAG, requestId)
+    }
 }

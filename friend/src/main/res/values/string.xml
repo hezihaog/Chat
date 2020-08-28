@@ -11,4 +11,9 @@
     <string name="friend_chat_no">Chat号：%1$s</string>
     <string name="friend_request_success">申请成功</string>
     <string name="friend_request_num">好友申请：</string>
+    <string name="friend_request">好友申请</string>
+    <string name="friend_request_tip">请求添加好友</string>
+    <string name="friend_request_ignore">忽略</string>
+    <string name="friend_request_allow">通过</string>
+    <string name="friend_request_operation_success">操作成功</string>
 </resources>

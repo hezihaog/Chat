@@ -4,5 +4,6 @@
     <application>
         <activity android:name=".ui.activity.AddFriendActivity" />
         <activity android:name=".ui.activity.UserProfileActivity" />
+        <activity android:name=".ui.activity.FriendRequestRecordActivity" />
     </application>
 </manifest>

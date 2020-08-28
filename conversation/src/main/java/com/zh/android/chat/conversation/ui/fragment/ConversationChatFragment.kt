@@ -180,7 +180,7 @@ class ConversationChatFragment : BaseFragment() {
                     //绑定连接
                     bindConnection()
                     //已读消息
-                    //readLastMsg()
+                    readLastMsg()
                     //发送心跳
                     sendHeartBeatMsg()
                 }

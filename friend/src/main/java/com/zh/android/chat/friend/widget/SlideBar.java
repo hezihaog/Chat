@@ -113,7 +113,7 @@ public class SlideBar extends View {
             mPaint.setColor(mUnSelectTextColor);
         }
         mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStyle(Paint.Style.FILL);
         mTextRect = new Rect();
     }
 

@@ -99,10 +99,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:visibility="visible"
-            app:slb_select_bg_color="@android:color/darker_gray"
+            app:slb_select_bg_color="@color/base_gray4"
             app:slb_select_txt_color="@android:color/white"
             app:slb_un_select_bg_color="@android:color/transparent"
-            app:slb_un_select_txt_color="@android:color/darker_gray" />
+            app:slb_un_select_txt_color="@color/base_gray4" />
 
         <TextView
             android:id="@+id/check_letter"

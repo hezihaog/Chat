@@ -7,6 +7,10 @@
 
     <include layout="@layout/base_top_bar" />
 
+    <androidx.legacy.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_10" />
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/base_refresh_layout"
         android:layout_width="match_parent"

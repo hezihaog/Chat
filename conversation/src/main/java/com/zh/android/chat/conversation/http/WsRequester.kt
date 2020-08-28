@@ -4,6 +4,7 @@ import com.hule.dashi.websocket.RxWebSocket
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.util.json.JsonProxy
 import com.zh.android.chat.conversation.enums.MessageType
+import com.zh.android.chat.conversation.enums.ReadStatus
 import com.zh.android.chat.conversation.model.ChatRecord
 import com.zh.android.chat.conversation.model.Message
 import io.reactivex.Observable
@@ -31,7 +32,7 @@ class WsRequester {
                     "",
                     userId,
                     "",
-                    "",
+                    ReadStatus.UNREAD.code,
                     System.currentTimeMillis(),
                     ""
                 )
@@ -61,7 +62,7 @@ class WsRequester {
                     "",
                     userId,
                     friendId,
-                    "",
+                    ReadStatus.UNREAD.code,
                     System.currentTimeMillis(),
                     text
                 )
@@ -95,7 +96,7 @@ class WsRequester {
                     recordId,
                     "",
                     "",
-                    "",
+                    ReadStatus.READ.code,
                     System.currentTimeMillis(),
                     ""
                 )

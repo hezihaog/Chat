@@ -118,4 +118,9 @@ object ApiUrl {
      * 获取聊天记录列表
      */
     val GET_CHAT_RECORD_LIST = "${BASE_URL}/chatrecord/getChatRecordList"
+
+    /**
+     * 获取用户的所有会话
+     */
+    val GET_ALL_CONVERSATION = "${BASE_URL}/chatrecord/getAllConversation"
 }

@@ -26,7 +26,7 @@ data class ChatRecord(
     /**
      * 是否已读
      */
-    val hasRead: String,
+    val hasRead: Int,
     /**
      * 消息创建时间
      */

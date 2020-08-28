@@ -28,6 +28,15 @@ class ConversationPresenter {
     }
 
     /**
+     * 获取用户的所有会话
+     */
+    fun getAllConversation(
+        userId: String
+    ): Observable<HttpModel<List<ChatRecord>>> {
+        return ConversationRequester.getAllConversation(TAG, userId)
+    }
+
+    /**
      * 绑定连接
      * @param userId 用户Id
      */

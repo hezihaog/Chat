@@ -36,5 +36,21 @@ class ConversationRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 获取用户的所有会话
+         */
+        fun getAllConversation(
+            tag: String,
+            userId: String
+        ): Observable<HttpModel<List<ChatRecord>>> {
+            val type = genericGsonType<HttpModel<List<ChatRecord>>>()
+            val request: PostRequest<HttpModel<List<ChatRecord>>> =
+                OkGo.post(ApiUrl.GET_ALL_CONVERSATION)
+            return request.tag(tag)
+                .params("userId", userId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

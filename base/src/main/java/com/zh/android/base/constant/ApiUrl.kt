@@ -9,6 +9,11 @@ package com.zh.android.base.constant
  */
 object ApiUrl {
     /**
+     * 心跳间隔时间
+     */
+    const val WS_HE_INTERVAL_TIME = 15
+
+    /**
      * 平台号
      */
     const val PLATFORM = "23"
@@ -29,11 +34,25 @@ object ApiUrl {
     const val CODE_SUCCESS = 0
 
     /**
+     * 主机地址
+     */
+    private val HOST: String
+        get() = "192.168.1.102"
+
+    /**
      * Url基础部分
      */
     private val BASE_URL: String
         get() {
-            return "http://192.168.1.102:9000"
+            return "http://${HOST}:9000"
+        }
+
+    /**
+     * WebSocket连接Url
+     */
+    val WS_URL: String
+        get() {
+            return "ws://${HOST}:9001/ws"
         }
 
     //---------------------------- 登录 ----------------------------
@@ -93,4 +112,10 @@ object ApiUrl {
      * 忽略好友请求
      */
     val IGNORE_FRIEND_REQUEST = "${BASE_URL}/friend/ignoreFriendReq"
+
+    //---------------------------- 聊天 ----------------------------
+    /**
+     * 获取聊天记录列表
+     */
+    val GET_CHAT_RECORD_LIST = "${BASE_URL}/chatrecord/getChatRecordList"
 }

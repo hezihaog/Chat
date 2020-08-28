@@ -1,3 +1,4 @@
+include ':websocket'
 include ':imageloader'
 include ':setting'
 include ':discovery'

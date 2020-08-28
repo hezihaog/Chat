@@ -52,6 +52,7 @@ dependencies {
 
     api project(path: ':base')
     api project(path: ':service')
+    api project(path: ':websocket')
 
     kapt rootProject.ext.deps.aroutercompiler
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler

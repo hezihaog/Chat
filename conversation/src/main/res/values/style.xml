@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 消息布局基类 -->
+    <style name="conversation_chat_msg_item_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/base_dimen_15</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_15</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- 消息布局，发送者 -->
+    <style name="conversation_chat_msg_item_layout_sender" parent="@style/conversation_chat_msg_item_layout">
+        <item name="android:paddingStart">@dimen/base_dimen_10</item>
+        <item name="android:paddingEnd">@dimen/base_dimen_10</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <!-- 消息布局，接收者 -->
+    <style name="conversation_chat_msg_item_layout_receiver" parent="@style/conversation_chat_msg_item_layout">
+        <item name="android:paddingStart">@dimen/base_dimen_15</item>
+        <item name="android:paddingEnd">@dimen/base_dimen_10</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <!-- 聊天室-头像 -->
+    <style name="conversation_chat_avatar">
+        <item name="android:layout_width">@dimen/base_dimen_40</item>
+        <item name="android:layout_height">@dimen/base_dimen_40</item>
+    </style>
+
+    <!-- 聊天气泡布局 -->
+    <style name="conversation_chat_msg_content_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- 发送者-气泡 -->
+    <style name="conversation_chat_bubble_sender" parent="conversation_chat_bubble_base">
+        <item name="android:background">@drawable/conversation_chat_bg_msg_send</item>
+        <item name="android:textColor">@color/base_txt_color_normal</item>
+    </style>
+
+    <!-- 聊天气泡布局-发送者 -->
+    <style name="conversation_chat_msg_content_sender" parent="conversation_chat_msg_content_base">
+        <item name="android:layout_marginEnd">@dimen/base_dimen_10</item>
+    </style>
+
+    <!-- 聊天气泡布局-接收者 -->
+    <style name="conversation_chat_msg_content_receiver" parent="conversation_chat_msg_content_base">
+        <item name="android:layout_marginStart">@dimen/base_dimen_10</item>
+    </style>
+
+    <!-- 聊天气泡箭头基类 -->
+    <style name="conversation_chat_bubble_arrow_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/base_dimen_14</item>
+    </style>
+
+    <!-- 聊天气泡箭头-发送者 -->
+    <style name="conversation_chat_bubble_arrow_sender" parent="conversation_chat_bubble_arrow_base">
+        <item name="android:src">@drawable/conversation_chat_bubble_arrow_sender</item>
+    </style>
+
+    <!-- 聊天气泡箭头-接收者 -->
+    <style name="conversation_chat_bubble_arrow_receiver" parent="conversation_chat_bubble_arrow_base">
+        <item name="android:src">@drawable/conversation_chat_bubble_arrow_receiver</item>
+    </style>
+
+    <!-- 气泡基类 -->
+    <style name="conversation_chat_bubble_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:maxWidth">@dimen/base_dimen_230</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_15</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/base_dimen_10</item>
+        <item name="android:paddingEnd">@dimen/base_dimen_10</item>
+        <item name="android:paddingTop">@dimen/base_dimen_10</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_10</item>
+    </style>
+
+    <!-- 接收者-气泡 -->
+    <style name="conversation_chat_bubble_receiver" parent="conversation_chat_bubble_base">
+        <item name="android:background">@drawable/conversation_chat_bg_msg_receiver</item>
+        <item name="android:textColor">@color/base_txt_color_normal</item>
+    </style>
+</resources>

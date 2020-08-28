@@ -35,6 +35,11 @@ class ARouterUrl {
         private const val CONVERSATION_GROUP = "/conversation"
         const val CONVERSATION_SERVICE = "${CONVERSATION_GROUP}s/module"
 
+        /**
+         * 聊天会话
+         */
+        const val CONVERSATION_CHAT = "${CONVERSATION_GROUP}/chat"
+
         //============================== 好友 ==============================
         private const val FRIEND_GROUP = "/friend"
         const val FRIEND_SERVICE = "${FRIEND_GROUP}s/module"

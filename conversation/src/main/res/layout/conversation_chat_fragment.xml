@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/base_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/base_refresh_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View style="@style/base_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/msg_input"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/base_dimen_45"
+                android:layout_marginStart="@dimen/base_dimen_15"
+                android:layout_marginTop="@dimen/base_dimen_8"
+                android:layout_marginBottom="@dimen/base_dimen_8"
+                android:layout_weight="1"
+                android:background="@drawable/conversation_bg_input"
+                android:hint="@string/conversation_chat_input_tip"
+                android:paddingStart="@dimen/base_dimen_15"
+                android:paddingTop="@dimen/base_dimen_8"
+                android:paddingEnd="@dimen/base_dimen_15"
+                android:paddingBottom="@dimen/base_dimen_8"
+                android:textColor="@color/base_black"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="@dimen/base_dimen_sp_15" />
+
+            <TextView
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/base_dimen_8"
+                android:layout_marginEnd="@dimen/base_dimen_8"
+                android:background="@drawable/base_btn_green2"
+                android:paddingStart="@dimen/base_dimen_15"
+                android:paddingTop="@dimen/base_dimen_8"
+                android:paddingEnd="@dimen/base_dimen_15"
+                android:paddingBottom="@dimen/base_dimen_8"
+                android:text="@string/conversation_send"
+                android:textColor="@color/base_white"
+                android:textSize="@dimen/base_dimen_sp_12" />
+        </LinearLayout>
+
+        <View style="@style/base_divider" />
+    </LinearLayout>
+</LinearLayout>

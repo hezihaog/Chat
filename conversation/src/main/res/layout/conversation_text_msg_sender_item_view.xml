@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/conversation_chat_msg_item_layout_sender">
+
+    <LinearLayout style="@style/conversation_chat_msg_content_sender">
+
+        <TextView
+            android:id="@+id/content"
+            style="@style/conversation_chat_bubble_sender"
+            tools:text="您好呀" />
+
+        <ImageView style="@style/conversation_chat_bubble_arrow_sender" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/avatar"
+        style="@style/conversation_chat_avatar"
+        tools:src="@drawable/base_avatar_round" />
+</LinearLayout>

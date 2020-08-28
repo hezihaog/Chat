@@ -21,6 +21,7 @@ import com.zh.android.chat.friend.item.LetterViewBinder
 import com.zh.android.chat.friend.model.LetterModel
 import com.zh.android.chat.friend.widget.SlideBar
 import com.zh.android.chat.friend.widget.SlideBar.OnSelectItemListener
+import com.zh.android.chat.service.module.conversation.ConversationService
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.model.User
 import kotterknife.bindView
@@ -37,6 +38,10 @@ class FriendMainFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.LOGIN_SERVICE)
     var mLoginService: LoginService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.CONVERSATION_SERVICE)
+    var mConversationService: ConversationService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
@@ -55,6 +60,10 @@ class FriendMainFragment : BaseFragment() {
             //好友条目
             register(User::class.java, FriendViewBinder {
                 //跳转到会话
+                mConversationService?.goConversationChat(
+                    fragmentActivity,
+                    it.id, it.nickname
+                )
             })
         }
     }

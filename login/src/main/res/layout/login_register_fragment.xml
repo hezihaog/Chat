@@ -83,7 +83,7 @@
                 style="@style/login_btn"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/login_btn_green"
+                android:background="@drawable/base_btn_green2"
                 android:text="@string/login_register" />
 
             <View style="@style/base_divider" />

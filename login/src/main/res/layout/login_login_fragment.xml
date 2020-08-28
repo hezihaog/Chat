@@ -41,14 +41,14 @@
             <TextView
                 android:id="@+id/login"
                 style="@style/login_btn"
-                android:background="@drawable/login_btn_blue"
+                android:background="@drawable/base_btn_blue2"
                 android:text="@string/login_login" />
 
             <TextView
                 android:id="@+id/register"
                 style="@style/login_btn"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/login_btn_green"
+                android:background="@drawable/base_btn_green2"
                 android:text="@string/login_register" />
 
             <View style="@style/base_divider" />

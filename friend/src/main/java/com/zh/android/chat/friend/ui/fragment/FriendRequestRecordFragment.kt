@@ -91,7 +91,7 @@ class FriendRequestRecordFragment : BaseFragment() {
 
     override fun onBindView(view: View?) {
         vTopBar.apply {
-            addLeftBackImageView().click {
+            addLeftBackImageButton().click {
                 fragmentActivity.finish()
             }
             setTitle(getString(R.string.friend_request))

@@ -73,7 +73,7 @@
         <TextView
             android:id="@+id/add"
             style="@style/friend_btn"
-            android:background="@drawable/friend_btn_blue"
+            android:background="@drawable/base_btn_blue"
             android:text="@string/friend_add"
             android:textColor="@color/base_white" />
 
@@ -84,7 +84,7 @@
         <TextView
             android:id="@+id/back"
             style="@style/friend_btn"
-            android:background="@drawable/friend_btn_white"
+            android:background="@drawable/base_btn_white"
             android:text="@string/friend_back"
             android:textColor="@color/base_black" />
     </LinearLayout>

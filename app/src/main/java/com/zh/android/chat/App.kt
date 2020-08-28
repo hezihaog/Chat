@@ -1,6 +1,7 @@
 package com.zh.android.chat
 
 import android.app.Application
+import android.content.Context
 import com.alibaba.android.arouter.launcher.ARouter
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheEntity
@@ -9,6 +10,10 @@ import com.lzy.okgo.cookie.CookieJarImpl
 import com.lzy.okgo.cookie.store.DBCookieStore
 import com.lzy.okgo.https.HttpsUtils
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter
+import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.zh.android.base.util.activity.ActivityProvider
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
@@ -22,6 +27,7 @@ class App : Application() {
         super.onCreate()
         initHttp()
         initRouter()
+        initRefresh()
         initActivityProvider()
     }
 
@@ -58,6 +64,20 @@ class App : Application() {
             ARouter.openDebug()
         }
         ARouter.init(this)
+    }
+
+    private fun initRefresh() {
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context: Context?, layout: RefreshLayout? ->
+            ClassicsHeader(
+                context
+            )
+        }
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context: Context, layout: RefreshLayout? ->
+            val footer = ClassicsFooter(context)
+            footer.setDrawableSize(20f)
+            footer.setBackgroundColor(context.resources.getColor(R.color.base_list_divider))
+            footer
+        }
     }
 
     /**

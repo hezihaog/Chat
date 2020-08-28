@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     app:srlDisableContentWhenRefresh="true">
 
-    <androidx.legacy.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/base_dimen_10" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/base_refresh_list"
         android:layout_width="match_parent"

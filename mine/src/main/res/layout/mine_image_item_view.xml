@@ -29,9 +29,8 @@
             android:layout_width="@dimen/base_dimen_40"
             android:layout_height="@dimen/base_dimen_40"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/base_dimen_15"
-            android:layout_marginEnd="@dimen/base_dimen_15"
-            android:gravity="end"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_marginEnd="@dimen/base_dimen_10"
             android:src="@drawable/mine_default_user_avatar" />
 
         <com.zh.android.base.widget.iconfont.IconFontTextView

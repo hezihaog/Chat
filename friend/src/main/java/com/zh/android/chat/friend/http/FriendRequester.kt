@@ -48,7 +48,7 @@ class FriendRequester {
             val type = genericGsonType<HttpModel<User>>()
             val request: GetRequest<HttpModel<User>> = OkGo.get(ApiUrl.FIND_BY_USERNAME)
             return request.tag(tag)
-                .params("friendUsername", username)
+                .params("username", username)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

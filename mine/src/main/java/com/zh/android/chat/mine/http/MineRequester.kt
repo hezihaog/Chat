@@ -30,7 +30,7 @@ class MineRequester {
             val type = genericGsonType<HttpModel<User>>()
             val request: GetRequest<HttpModel<User>> = OkGo.get(ApiUrl.GET_USER_INFO)
             return request.tag(tag)
-                .params("userid", userId)
+                .params("userId", userId)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

@@ -105,7 +105,7 @@ class LoginFragment : BaseFragment() {
             REQUEST_CODE_REGISTER -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val registerUserName = data.getStringExtra(AppConstant.Key.USER_NAME)
-                    vUsername.setText(registerUserName)
+                    vUsername.setTextWithSelection(registerUserName)
                     vPassword.setText("")
                 }
             }

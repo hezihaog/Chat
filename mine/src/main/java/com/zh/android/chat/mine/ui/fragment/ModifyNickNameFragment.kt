@@ -79,8 +79,7 @@ class ModifyNickNameFragment : BaseFragment() {
     override fun setData() {
         super.setData()
         vNickNameInput.run {
-            setText(mOriginNickName)
-            setSelection(mOriginNickName.length)
+            setTextWithSelection(mOriginNickName)
         }
     }
 }

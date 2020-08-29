@@ -93,6 +93,7 @@ class MineFragment : BaseFragment() {
                         it is MineTextItemModel && it.itemId == R.id.mine_item_nickname
                     }.cast(MineTextItemModel::class.java)
                     .map {
+                        mUserInfo?.nickname = newNickName
                         it.text = newNickName
                     }
                     .lifecycle(lifecycleOwner)

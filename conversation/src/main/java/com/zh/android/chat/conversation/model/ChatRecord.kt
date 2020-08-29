@@ -31,7 +31,7 @@ data class ChatRecord(
      * 消息创建时间
      */
     @SerializedName(value = "createtime")
-    val createTime: Long,
+    val createTime: String,
     /**
      * 消息内容
      */

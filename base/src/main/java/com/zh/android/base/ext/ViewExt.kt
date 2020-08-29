@@ -78,6 +78,18 @@ fun TextView.setTextWithDefault(text: CharSequence?, default: CharSequence = "")
 }
 
 /**
+ * 设置文字，并且将光标移动到末尾
+ */
+fun EditText.setTextWithSelection(text: CharSequence?) {
+    if (text.isNullOrBlank()) {
+        setText("")
+    } else {
+        setText(text)
+        setSelection(text.length)
+    }
+}
+
+/**
  * 给TextView设置text时去掉null字样
  */
 var TextView.notNullText: String?

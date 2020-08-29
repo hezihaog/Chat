@@ -33,7 +33,7 @@ class WsRequester {
                     userId,
                     "",
                     ReadStatus.UNREAD.code,
-                    System.currentTimeMillis(),
+                    "",
                     ""
                 )
                 val msg = Message(
@@ -63,7 +63,7 @@ class WsRequester {
                     userId,
                     friendId,
                     ReadStatus.UNREAD.code,
-                    System.currentTimeMillis(),
+                    "",
                     text
                 )
                 val msg = Message(
@@ -97,7 +97,7 @@ class WsRequester {
                     "",
                     "",
                     ReadStatus.READ.code,
-                    System.currentTimeMillis(),
+                    "",
                     ""
                 )
                 val msg = Message(

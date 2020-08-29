@@ -28,7 +28,7 @@ data class User(
     /**
      * 昵称
      */
-    val nickname: String,
+    var nickname: String,
     /**
      * 二维码图片
      */

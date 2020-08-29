@@ -1,6 +1,5 @@
 package com.zh.android.chat.service.module.mine.model
 
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 /**
@@ -32,7 +31,6 @@ data class User(
     /**
      * 二维码图片
      */
-    @SerializedName(value = "qrcode")
     val qrCode: String?,
     /**
      * 客户端Id

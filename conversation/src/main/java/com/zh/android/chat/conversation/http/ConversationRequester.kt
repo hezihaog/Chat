@@ -8,6 +8,7 @@ import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.chat.conversation.model.ChatRecord
+import com.zh.android.chat.conversation.model.Conversation
 import io.reactivex.Observable
 
 /**
@@ -43,9 +44,9 @@ class ConversationRequester {
         fun getAllConversation(
             tag: String,
             userId: String
-        ): Observable<HttpModel<List<ChatRecord>>> {
-            val type = genericGsonType<HttpModel<List<ChatRecord>>>()
-            val request: PostRequest<HttpModel<List<ChatRecord>>> =
+        ): Observable<HttpModel<List<Conversation>>> {
+            val type = genericGsonType<HttpModel<List<Conversation>>>()
+            val request: PostRequest<HttpModel<List<Conversation>>> =
                 OkGo.post(ApiUrl.GET_ALL_CONVERSATION)
             return request.tag(tag)
                 .params("userId", userId)

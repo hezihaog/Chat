@@ -15,7 +15,7 @@ import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.http.ConversationPresenter
 import com.zh.android.chat.conversation.item.ConversationMainViewBinder
-import com.zh.android.chat.conversation.model.ChatRecord
+import com.zh.android.chat.conversation.model.Conversation
 import com.zh.android.chat.service.module.conversation.ConversationService
 import com.zh.android.chat.service.module.login.LoginService
 import kotterknife.bindView
@@ -49,11 +49,12 @@ class ConversationMainFragment : BaseFragment() {
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            register(ChatRecord::class.java, ConversationMainViewBinder {
+            register(Conversation::class.java, ConversationMainViewBinder {
                 //跳转到会话
                 mConversationService?.goConversationChat(
                     fragmentActivity,
-                    it.userId, it.userId
+                    if (isMeSend(it.fromUser.id)) it.toUser.id else it.fromUser.id,
+                    if (isMeSend(it.fromUser.nickname)) it.toUser.nickname else it.fromUser.nickname
                 )
             })
         }
@@ -79,8 +80,8 @@ class ConversationMainFragment : BaseFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun setData() {
+        super.setData()
         refresh()
     }
 
@@ -97,7 +98,11 @@ class ConversationMainFragment : BaseFragment() {
                     vRefreshLayout.finishRefresh()
                     if (handlerErrorCode(httpModel)) {
                         mListItems.clear()
-                        mListItems.addAll(httpModel.result ?: mutableListOf())
+                        val list = (httpModel.result ?: mutableListOf()).map {
+                            it.isMe = isMeSend(it.fromUser.id)
+                            it
+                        }
+                        mListItems.addAll(list)
                         mListAdapter.notifyDataSetChanged()
                     }
                 }, { error ->
@@ -106,5 +111,13 @@ class ConversationMainFragment : BaseFragment() {
                     vRefreshLayout.finishRefresh(false)
                 })
         }
+    }
+
+    /**
+     * 是否是我发送的消息
+     */
+    private fun isMeSend(userId: String): Boolean {
+        val myUserId = mLoginService?.getUserId() ?: ""
+        return myUserId == userId
     }
 }

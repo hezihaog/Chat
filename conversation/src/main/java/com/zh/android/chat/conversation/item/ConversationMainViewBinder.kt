@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
+import com.zh.android.base.ext.setTextWithDefault
 import com.zh.android.chat.conversation.R
-import com.zh.android.chat.conversation.enums.ReadStatus
-import com.zh.android.chat.conversation.model.ChatRecord
+import com.zh.android.chat.conversation.model.Conversation
 import me.drakeet.multitype.ItemViewBinder
 
 /**
@@ -19,27 +19,25 @@ import me.drakeet.multitype.ItemViewBinder
  * 会话首页条目
  */
 class ConversationMainViewBinder(
-    private val itemClickCallback: (item: ChatRecord) -> Unit
+    private val itemClickCallback: (item: Conversation) -> Unit
 ) :
-    ItemViewBinder<ChatRecord, ConversationMainViewBinder.ViewHolder>() {
+    ItemViewBinder<Conversation, ConversationMainViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         return ViewHolder(inflater.inflate(R.layout.conversation_main_item_view, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
+    override fun onBindViewHolder(holder: ViewHolder, item: Conversation) {
         item.run {
-            val context = holder.itemView.context
-            holder.vAvatar.loadUrlImageToRound("")
-            holder.vName.text = userId
-            holder.vMsg.apply {
-                text = message
-                //未读为红色，已读则灰色
-                if (ReadStatus.UNREAD.code == hasRead) {
-                    setTextColor(context.resources.getColor(R.color.base_red))
-                } else if (ReadStatus.READ.code == hasRead) {
-                    setTextColor(context.resources.getColor(android.R.color.darker_gray))
+            val avatar = if (isMe) toUser.picNormal else fromUser.picNormal
+            holder.vAvatar.loadUrlImageToRound(avatar)
+            holder.vName.apply {
+                if (isMe) {
+                    setTextWithDefault(toUser.nickname)
+                } else {
+                    setTextWithDefault(fromUser.nickname)
                 }
             }
+            holder.vMsg.text = message
             holder.itemView.click {
                 itemClickCallback(this)
             }

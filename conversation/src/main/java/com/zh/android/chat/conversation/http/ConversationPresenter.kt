@@ -3,6 +3,7 @@ package com.zh.android.chat.conversation.http
 import com.hule.dashi.websocket.RxWebSocket
 import com.zh.android.base.http.HttpModel
 import com.zh.android.chat.conversation.model.ChatRecord
+import com.zh.android.chat.conversation.model.Conversation
 import io.reactivex.Observable
 
 /**
@@ -32,7 +33,7 @@ class ConversationPresenter {
      */
     fun getAllConversation(
         userId: String
-    ): Observable<HttpModel<List<ChatRecord>>> {
+    ): Observable<HttpModel<List<Conversation>>> {
         return ConversationRequester.getAllConversation(TAG, userId)
     }
 

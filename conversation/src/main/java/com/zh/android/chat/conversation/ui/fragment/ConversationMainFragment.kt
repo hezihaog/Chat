@@ -54,7 +54,7 @@ class ConversationMainFragment : BaseFragment() {
                 mConversationService?.goConversationChat(
                     fragmentActivity,
                     if (isMeSend(it.fromUser.id)) it.toUser.id else it.fromUser.id,
-                    if (isMeSend(it.fromUser.nickname)) it.toUser.nickname else it.fromUser.nickname
+                    if (isMeSend(it.fromUser.id)) it.toUser.nickname else it.fromUser.nickname
                 )
             })
         }

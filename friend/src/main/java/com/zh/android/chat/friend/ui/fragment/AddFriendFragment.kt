@@ -59,7 +59,7 @@ class AddFriendFragment : BaseFragment() {
                     .lifecycle(lifecycleOwner)
                     .subscribe({ httpModel ->
                         if (handlerErrorCode(httpModel)) {
-                            httpModel.result?.let {
+                            httpModel.data?.let {
                                 //跳转到用户资料页面
                                 mFriendService?.goUserProfile(fragmentActivity, it.id)
                             }

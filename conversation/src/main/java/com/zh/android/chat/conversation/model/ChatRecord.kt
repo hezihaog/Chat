@@ -1,6 +1,5 @@
 package com.zh.android.chat.conversation.model
 
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 /**
@@ -16,13 +15,11 @@ data class ChatRecord(
     /**
      * 发消息的用户的Id
      */
-    @SerializedName(value = "userid")
-    val userId: String,
+    val fromUserId: String,
     /**
      * 接收消息的用户的Id
      */
-    @SerializedName(value = "friendid")
-    val friendId: String,
+    val toUserId: String,
     /**
      * 是否已读
      */
@@ -30,7 +27,6 @@ data class ChatRecord(
     /**
      * 消息创建时间
      */
-    @SerializedName(value = "createtime")
     val createTime: String,
     /**
      * 消息内容

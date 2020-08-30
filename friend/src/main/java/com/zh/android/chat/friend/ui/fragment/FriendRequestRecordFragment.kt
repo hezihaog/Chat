@@ -128,7 +128,7 @@ class FriendRequestRecordFragment : BaseFragment() {
                 .subscribe({ httpModel ->
                     vRefreshLayout.finishRefresh()
                     if (handlerErrorCode(httpModel)) {
-                        val list = httpModel.result ?: mutableListOf()
+                        val list = httpModel.data ?: mutableListOf()
                         mListItems.clear()
                         mListItems.addAll(list)
                         mListAdapter.notifyDataSetChanged()

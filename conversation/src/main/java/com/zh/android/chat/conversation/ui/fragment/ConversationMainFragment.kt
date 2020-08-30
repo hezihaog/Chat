@@ -61,7 +61,7 @@ class ConversationMainFragment : BaseFragment() {
     }
 
     override fun onInflaterViewId(): Int {
-        return R.layout.base_refresh_layout_with_top_bar
+        return R.layout.conversation_main_fragment
     }
 
     override fun onBindView(view: View?) {
@@ -98,7 +98,7 @@ class ConversationMainFragment : BaseFragment() {
                     vRefreshLayout.finishRefresh()
                     if (handlerErrorCode(httpModel)) {
                         mListItems.clear()
-                        val list = (httpModel.result ?: mutableListOf()).map {
+                        val list = (httpModel.data ?: mutableListOf()).map {
                             it.isMe = isMeSend(it.fromUser.id)
                             it
                         }

@@ -67,8 +67,8 @@ class FriendRequester {
             val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.SEND_FRIEND_REQUEST)
             return request.tag(tag)
                 .upJson(LinkedHashMap<String, String>().apply {
-                    put("fromUserid", fromUserId)
-                    put("toUserid", toUserId)
+                    put("fromUserId", fromUserId)
+                    put("toUserId", toUserId)
                 }.toJson())
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
@@ -101,7 +101,7 @@ class FriendRequester {
             val type = genericGsonType<HttpModel<*>>()
             val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.ACCEPT_FRIEND_REQUEST)
             return request.tag(tag)
-                .params("reqid", requestId)
+                .params("reqId", requestId)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -117,7 +117,7 @@ class FriendRequester {
             val type = genericGsonType<HttpModel<*>>()
             val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.IGNORE_FRIEND_REQUEST)
             return request.tag(tag)
-                .params("reqid", requestId)
+                .params("reqId", requestId)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

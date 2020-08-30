@@ -29,7 +29,7 @@ class LoginPresenter {
             .doOnNext {
                 if (handlerErrorCode(it)) {
                     //保存信息到本地
-                    it.result?.let { data ->
+                    it.data?.let { data ->
                         LogUtils.json(data.toString())
                         LoginStorage.saveUserId(data.id)
                         LoginStorage.saveUsername(data.username)

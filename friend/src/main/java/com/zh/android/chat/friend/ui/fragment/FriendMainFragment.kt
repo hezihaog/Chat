@@ -139,7 +139,7 @@ class FriendMainFragment : BaseFragment() {
                 .lifecycle(lifecycleOwner)
                 .subscribe({ httpModel ->
                     if (handlerErrorCode(httpModel)) {
-                        httpModel.result?.let {
+                        httpModel.data?.let {
                             mListItems.clear()
                             mListItems.addAll(generateItems(it))
                             mListAdapter.notifyDataSetChanged()
@@ -162,7 +162,7 @@ class FriendMainFragment : BaseFragment() {
                 .lifecycle(lifecycleOwner)
                 .subscribe({ httpModel ->
                     if (handlerErrorCode(httpModel)) {
-                        val list = httpModel.result
+                        val list = httpModel.data
                         vFriendRequestLayout.visibility = if (list.isNullOrEmpty()) {
                             View.GONE
                         } else {

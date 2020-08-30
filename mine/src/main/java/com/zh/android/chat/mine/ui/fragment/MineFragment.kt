@@ -133,7 +133,7 @@ class MineFragment : BaseFragment() {
                 .lifecycle(lifecycleOwner)
                 .subscribe({ httpModel ->
                     if (handlerErrorCode(httpModel)) {
-                        httpModel.result?.let {
+                        httpModel.data?.let {
                             //保存用户信息
                             mUserInfo = it
                             render(
@@ -162,7 +162,7 @@ class MineFragment : BaseFragment() {
                 R.id.mine_item_avatar,
                 getString(R.string.mine_avatar),
                 avatar,
-                R.drawable.mine_default_user_avatar,
+                R.drawable.base_avatar_round,
                 true
             )
         )

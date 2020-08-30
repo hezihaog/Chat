@@ -81,7 +81,7 @@ class ConversationChatFragment : BaseFragment() {
                     TextMsgSenderViewBinder::class.java
                 } else {
                     //是否是我的发的
-                    val isMe = model.userId == loginUserId
+                    val isMe = model.fromUserId == loginUserId
                     if (isMe) {
                         TextMsgSenderViewBinder::class.java
                     } else {
@@ -153,7 +153,7 @@ class ConversationChatFragment : BaseFragment() {
                     .lifecycle(lifecycleOwner)
                     .subscribe({ httpModel ->
                         if (handlerErrorCode(httpModel)) {
-                            val list = httpModel.result ?: mutableListOf()
+                            val list = httpModel.data ?: mutableListOf()
                             mListItems.addAll(list)
                             mListAdapter.notifyDataSetChanged()
                         }

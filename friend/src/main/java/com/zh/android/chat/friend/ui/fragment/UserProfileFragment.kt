@@ -104,7 +104,7 @@ class UserProfileFragment : BaseFragment() {
                 .subscribe({ httpModel ->
                     mWaitController.hideWait()
                     if (handlerErrorCode(httpModel)) {
-                        httpModel.result?.let {
+                        httpModel.data?.let {
                             mUserInfo = it
                             render()
                         }

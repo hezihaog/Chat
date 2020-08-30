@@ -1,6 +1,7 @@
 package com.zh.android.base.http
 
 import android.text.TextUtils
+import com.zh.android.base.constant.ApiUrl
 import java.io.Serializable
 
 /**
@@ -15,9 +16,9 @@ open class HttpModel<T> : Serializable {
     }
 
     /**
-     * 是否成功
+     * 响应码，0为成功，非0为失败
      */
-    var success: Boolean = false
+    var code: Int = 1
 
     /**
      * 附带消息
@@ -27,14 +28,18 @@ open class HttpModel<T> : Serializable {
     /**
      * 结果
      */
-    open var result: T? = null
+    open var data: T? = null
 
     fun isMsgNull(): Boolean {
         return TextUtils.isEmpty(message)
     }
 
+    fun code(): Int {
+        return code
+    }
+
     fun success(): Boolean {
-        return success
+        return code == ApiUrl.CODE_SUCCESS
     }
 
     fun notSuccess(): Boolean {
@@ -46,6 +51,6 @@ open class HttpModel<T> : Serializable {
     }
 
     override fun toString(): String {
-        return "HttpModel(success=$success, message=$message, result=$result)"
+        return "HttpModel(code=$code, message=$message, result=$data)"
     }
 }

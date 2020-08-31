@@ -47,7 +47,7 @@ class ARouterUrl {
         /**
          * 添加好友
          */
-        const val FRIEND_ADD_FRIEND ="${FRIEND_GROUP}/add/friend"
+        const val FRIEND_ADD_FRIEND = "${FRIEND_GROUP}/add/friend"
 
         /**
          * 用户资料
@@ -71,6 +71,11 @@ class ARouterUrl {
          * 修改昵称
          */
         const val MINE_MODIFY_NICKNAME = "${MINE_GROUP}/modify/nickname"
+
+        /**
+         * 修改头像
+         */
+        const val MINE_MODIFY_AVATAR = "${MINE_GROUP}/modify/avatar"
 
         //============================== 设置 ==============================
         private const val SETTING_GROUP = "/setting"

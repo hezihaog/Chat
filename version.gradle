@@ -77,13 +77,17 @@ ext {
             util_code                    : "com.blankj:utilcodex:1.25.9",
 
             //拼音库
-            pinyin                       : "com.github.promeg:tinypinyin:2.0.3"
+            pinyin                       : "com.github.promeg:tinypinyin:2.0.3",
+
+            //压缩库
+            flora                        : "com.ghnor:flora:1.0.0-alpha1",
+            //图片选择
+            take_photo                   : "com.github.LuckSiege.PictureSelector:picture_library:v2.5.8"
     ]
 
     android = [
             compileSdkVersion       : 28,
             minSdkVersion           : 21,
-            targetSdkVersion        : 28,
-            androidSupportSdkVersion: "27.1.1"
+            targetSdkVersion        : 28
     ]
 }

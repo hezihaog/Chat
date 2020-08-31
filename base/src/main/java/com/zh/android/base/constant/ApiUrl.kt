@@ -40,11 +40,25 @@ object ApiUrl {
         get() = "192.168.1.102"
 
     /**
+     * 图片服务器地址
+     */
+    private val IMAGE_HOST: String
+        get() = "192.168.211.131"
+
+    /**
      * Url基础部分
      */
-    private val BASE_URL: String
+    val BASE_URL: String
         get() {
             return "http://${HOST}:9000"
+        }
+
+    /**
+     * 图片服务器地址
+     */
+    val IMAGE_URL: String
+        get() {
+            return "http://${IMAGE_HOST}/"
         }
 
     /**
@@ -85,6 +99,11 @@ object ApiUrl {
      * 更新昵称
      */
     val UPDATE_NICKNAME = "${BASE_URL}/user/updateNickname"
+
+    /**
+     * 上传头像
+     */
+    val UPLOAD_AVATAR = "${BASE_URL}/user/uploadAvatar"
 
     //---------------------------- 好友 ----------------------------
 

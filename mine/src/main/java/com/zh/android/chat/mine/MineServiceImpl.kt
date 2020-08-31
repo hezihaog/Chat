@@ -1,11 +1,15 @@
 package com.zh.android.chat.mine
 
+import android.app.Activity
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.http.HttpModel
 import com.zh.android.chat.mine.http.MinePresenter
 import com.zh.android.chat.mine.ui.fragment.MineFragment
+import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
@@ -29,5 +33,13 @@ class MineServiceImpl : MineService {
 
     override fun getUserInfo(userId: String): Observable<HttpModel<User>> {
         return mMinePresenter.getUserInfo(userId)
+    }
+
+    override fun goModifyAvatar(activity: Activity, userId: String, avatarUrl: String) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MINE_MODIFY_AVATAR)
+            .withString(AppConstant.Key.USER_ID, userId)
+            .withString(AppConstant.Key.AVATAR_URL, avatarUrl)
+            .startNavigation(activity)
     }
 }

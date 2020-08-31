@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.BroadcastRegistry
@@ -23,6 +24,7 @@ import com.zh.android.chat.mine.model.MineImageItemModel
 import com.zh.android.chat.mine.model.MineTextItemModel
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.login.LoginService
+import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
 import kotterknife.bindView
@@ -38,6 +40,10 @@ class MineFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.LOGIN_SERVICE)
     var mLoginService: LoginService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.MINE_SERVICE)
+    var mMineService: MineService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vLogout: TextView by bindView(R.id.logout)
@@ -72,7 +78,9 @@ class MineFragment : BaseFragment() {
             register(MineImageItemModel::class.java, MineImageItemViewBinder { _, item ->
                 when (item.itemId) {
                     R.id.mine_item_avatar -> {
-                        toast("修改头像")
+                        val userId = mLoginService?.getUserId() ?: ""
+                        val avatarUrl = mUserInfo?.picNormal ?: ""
+                        mMineService?.goModifyAvatar(fragmentActivity, userId, avatarUrl)
                     }
                     R.id.mine_item_qrcode -> {
                         toast("查看二维码")
@@ -137,7 +145,7 @@ class MineFragment : BaseFragment() {
                             //保存用户信息
                             mUserInfo = it
                             render(
-                                it.picNormal,
+                                "${ApiUrl.IMAGE_URL}${it.picNormal}",
                                 it.nickname,
                                 it.username,
                                 it.qrCode ?: ""
@@ -152,7 +160,6 @@ class MineFragment : BaseFragment() {
 
     /**
      * 渲染数据
-     * @param avatar
      */
     private fun render(avatar: String, nickname: String, account: String, qrCode: String) {
         mListItems.clear()

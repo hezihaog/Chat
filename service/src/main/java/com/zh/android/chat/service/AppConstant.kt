@@ -19,6 +19,7 @@ class AppConstant private constructor() {
             const val USER_ID = "key_user_id"
             const val USER_NAME = "key_user_name"
             const val NICK_NAME = "key_nickname"
+            const val AVATAR_URL = "key_avatar_url"
 
             /**
              * 聊天记录的Id

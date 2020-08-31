@@ -3,5 +3,6 @@
 
     <application>
         <activity android:name=".ui.activity.ModifyNickNameActivity" />
+        <activity android:name=".ui.activity.ModifyAvatarActivity" />
     </application>
 </manifest>

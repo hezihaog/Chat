@@ -16,4 +16,7 @@
 
     <string name="mine_take_photo">拍照</string>
     <string name="mine_take_gallery">从相册中选择</string>
+
+    <string name="mine_my_qr_code">我的二维码</string>
+    <string name="mine_qr_code_tip">扫一扫上面的二维码，加我Chat</string>
 </resources>

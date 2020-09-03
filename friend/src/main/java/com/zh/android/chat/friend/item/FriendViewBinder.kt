@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.chat.friend.R
@@ -26,7 +27,7 @@ class FriendViewBinder(
 
     override fun onBindViewHolder(holder: ViewHolder, item: User) {
         item.run {
-            holder.vAvatar.loadUrlImageToRound(picNormal)
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(picNormal))
             holder.vName.text = nickname
             holder.itemView.click {
                 itemClickCallback(this)

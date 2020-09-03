@@ -30,6 +30,7 @@ class AppConstant private constructor() {
 
     class Action private constructor() {
         companion object {
+            const val UPDATE_AVATAR = "action_update_avatar"
             const val UPDATE_NICKNAME = "action_update_nickname"
         }
     }

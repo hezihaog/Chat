@@ -77,6 +77,11 @@ class ARouterUrl {
          */
         const val MINE_MODIFY_AVATAR = "${MINE_GROUP}/modify/avatar"
 
+        /**
+         * 我的二维码
+         */
+        const val MINE_MY_QR_CODE = "${MINE_GROUP}/my/qrcode"
+
         //============================== 设置 ==============================
         private const val SETTING_GROUP = "/setting"
         const val SETTING_SERVICE = "${SETTING_GROUP}s/module"

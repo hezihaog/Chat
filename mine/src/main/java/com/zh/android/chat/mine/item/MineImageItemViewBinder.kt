@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
+import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.widget.iconfont.IconFontTextView
 import com.zh.android.chat.mine.R
 import com.zh.android.chat.mine.model.MineImageItemModel
@@ -29,7 +30,11 @@ class MineImageItemViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: MineImageItemModel) {
         item.run {
             holder.vItemName.text = itemName
-            holder.vImage.loadUrlImage(imageUrl, defaultImageResId)
+            if (isCircleImage) {
+                holder.vImage.loadUrlImageToRound(imageUrl, defaultImageResId)
+            } else {
+                holder.vImage.loadUrlImage(imageUrl, defaultImageResId)
+            }
             holder.vArrow.run {
                 //是否显示箭头
                 visibility = if (isCanClick) {

@@ -1,5 +1,6 @@
 package com.zh.android.chat.mine.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -8,6 +9,7 @@ import com.luck.picture.lib.photoview.PhotoView
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.base.util.takephoto.RxTakePhoto
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.mine.R
@@ -64,7 +66,7 @@ class ModifyAvatarFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
-        vPhotoView.loadUrlImage("${ApiUrl.IMAGE_URL}${mAvatarUrl}")
+        vPhotoView.loadUrlImage(ApiUrl.getFullImageUrl(mAvatarUrl))
     }
 
     /**
@@ -82,7 +84,7 @@ class ModifyAvatarFragment : BaseFragment() {
                 val observable = when (which) {
                     0 -> {
                         //拍照
-                        rxTakePhoto.startByCamera(fragmentActivity)
+                        rxTakePhoto.startByCamera(fragmentActivity, true)
                     }
                     1 -> {
                         //选择图库
@@ -117,8 +119,14 @@ class ModifyAvatarFragment : BaseFragment() {
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
-                    val newAvatarUrl = "${ApiUrl.IMAGE_URL}${httpModel.data?.picNormal}"
+                    val newAvatarUrl = ApiUrl.getFullImageUrl(httpModel.data?.picNormal)
                     vPhotoView.loadUrlImage(newAvatarUrl)
+                    //通知更新头像
+                    AppBroadcastManager.sendBroadcast(AppConstant.Action.UPDATE_AVATAR,
+                        Intent().apply {
+                            putExtra(AppConstant.Key.AVATAR_URL, newAvatarUrl)
+                        }
+                    )
                 }
             }, {
                 it.printStackTrace()

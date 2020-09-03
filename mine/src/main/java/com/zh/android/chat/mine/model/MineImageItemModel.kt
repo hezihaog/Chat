@@ -19,7 +19,7 @@ data class MineImageItemModel(
     /**
      * 图片的Url，加载网络图片时，使用
      */
-    val imageUrl: String = "",
+    var imageUrl: String = "",
     /**
      * 加入图片失败时，使用的默认图片的资源Id
      */
@@ -27,7 +27,11 @@ data class MineImageItemModel(
     /**
      * 是否可以点击，如果为true，点击时会回调
      */
-    val isCanClick: Boolean = false
+    val isCanClick: Boolean = false,
+    /**
+     * 是否是要裁切成圆形
+     */
+    val isCircleImage: Boolean = false
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -8591987583696258173L

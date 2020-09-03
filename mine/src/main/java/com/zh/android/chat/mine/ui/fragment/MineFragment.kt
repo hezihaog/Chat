@@ -12,7 +12,10 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.*
+import com.zh.android.base.ext.click
+import com.zh.android.base.ext.handlerErrorCode
+import com.zh.android.base.ext.ioToMain
+import com.zh.android.base.ext.lifecycle
 import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.mine.MineUIHelper
@@ -83,7 +86,7 @@ class MineFragment : BaseFragment() {
                         mMineService?.goModifyAvatar(fragmentActivity, userId, avatarUrl)
                     }
                     R.id.mine_item_qrcode -> {
-                        toast("查看二维码")
+                        MineUIHelper.goMyQrCode(fragmentActivity)
                     }
                 }
             })
@@ -92,6 +95,24 @@ class MineFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //更新头像
+        BroadcastRegistry(lifecycleOwner).register(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val newAvatarUrl = intent?.getStringExtra(AppConstant.Key.AVATAR_URL) ?: ""
+                Observable.fromIterable(mListItems)
+                    .filter {
+                        it is MineImageItemModel && it.itemId == R.id.mine_item_avatar
+                    }.cast(MineImageItemModel::class.java)
+                    .map {
+                        mUserInfo?.picNormal = newAvatarUrl
+                        it.imageUrl = newAvatarUrl
+                    }
+                    .lifecycle(lifecycleOwner)
+                    .subscribe {
+                        mListAdapter.notifyDataSetChanged()
+                    }
+            }
+        }, AppConstant.Action.UPDATE_AVATAR)
         //更新昵称
         BroadcastRegistry(lifecycleOwner).register(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
@@ -145,7 +166,7 @@ class MineFragment : BaseFragment() {
                             //保存用户信息
                             mUserInfo = it
                             render(
-                                "${ApiUrl.IMAGE_URL}${it.picNormal}",
+                                ApiUrl.getFullImageUrl(it.picNormal),
                                 it.nickname,
                                 it.username,
                                 it.qrCode ?: ""
@@ -170,7 +191,8 @@ class MineFragment : BaseFragment() {
                 getString(R.string.mine_avatar),
                 avatar,
                 R.drawable.base_avatar_round,
-                true
+                isCanClick = true,
+                isCircleImage = true
             )
         )
         //昵称

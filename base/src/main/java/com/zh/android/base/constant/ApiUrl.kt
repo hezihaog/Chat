@@ -48,7 +48,7 @@ object ApiUrl {
     /**
      * Url基础部分
      */
-    val BASE_URL: String
+    private val BASE_URL: String
         get() {
             return "http://${HOST}:9000"
         }
@@ -56,10 +56,25 @@ object ApiUrl {
     /**
      * 图片服务器地址
      */
-    val IMAGE_URL: String
+    private val IMAGE_URL: String
         get() {
             return "http://${IMAGE_HOST}/"
         }
+
+    /**
+     * 拼接出完整的图片地址Url
+     */
+    fun getFullImageUrl(imageUrl: String?): String {
+        if (imageUrl.isNullOrBlank()) {
+            return ""
+        }
+        //已经拼接过了，不需要再拼接
+        if (imageUrl.startsWith(IMAGE_URL)) {
+            return imageUrl
+        }
+        //没有拼接，再拼接返回
+        return IMAGE_URL + imageUrl
+    }
 
     /**
      * WebSocket连接Url

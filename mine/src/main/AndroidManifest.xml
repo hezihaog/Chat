@@ -4,5 +4,6 @@
     <application>
         <activity android:name=".ui.activity.ModifyNickNameActivity" />
         <activity android:name=".ui.activity.ModifyAvatarActivity" />
+        <activity android:name=".ui.activity.MyQrCodeActivity" />
     </application>
 </manifest>

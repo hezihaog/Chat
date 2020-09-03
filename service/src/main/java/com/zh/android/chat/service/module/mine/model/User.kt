@@ -23,7 +23,7 @@ data class User(
     /**
      * 头像
      */
-    val picNormal: String,
+    var picNormal: String,
     /**
      * 昵称
      */

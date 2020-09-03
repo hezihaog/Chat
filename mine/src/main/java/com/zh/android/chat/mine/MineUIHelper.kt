@@ -26,5 +26,14 @@ class MineUIHelper private constructor() {
                 .withString(AppConstant.Key.NICK_NAME, originNickName)
                 .startNavigation(activity)
         }
+
+        /**
+         * 跳转到我的二维码
+         */
+        fun goMyQrCode(activity: Activity) {
+            ARouter.getInstance()
+                .build(ARouterUrl.MINE_MY_QR_CODE)
+                .startNavigation(activity)
+        }
     }
 }

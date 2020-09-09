@@ -60,14 +60,14 @@ public class RxTakePhoto {
     /**
      * 从图库中选择图片，只选择1张图片
      */
-    public Observable<TakePhotoEvent> startByGallery(FragmentActivity activity) {
-        return startByGallery(activity, 1);
+    public Observable<TakePhotoEvent> startByGallery(FragmentActivity activity, boolean isCrop) {
+        return startByGallery(activity, 1, isCrop);
     }
 
     /**
      * 从图库中选择图片，可以设定还剩余多少张
      */
-    public Observable<TakePhotoEvent> startByGallery(FragmentActivity activity, int residueSelectPicCount) {
+    public Observable<TakePhotoEvent> startByGallery(FragmentActivity activity, int residueSelectPicCount, boolean isCrop) {
         return getTakePhotoObservable(activity)
                 .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
                     @Override
@@ -85,7 +85,7 @@ public class RxTakePhoto {
                                     public void onTakeCancel() {
                                         emitter.onNext(createTakePhotoCancelEvent());
                                     }
-                                }, residueSelectPicCount);
+                                }, residueSelectPicCount, isCrop);
                             }
                         });
                     }

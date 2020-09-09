@@ -88,7 +88,7 @@ class ModifyAvatarFragment : BaseFragment() {
                     }
                     1 -> {
                         //选择图库
-                        rxTakePhoto.startByGallery(fragmentActivity)
+                        rxTakePhoto.startByGallery(fragmentActivity, true)
                     }
                     else -> Observable.empty()
                 }

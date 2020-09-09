@@ -9,6 +9,7 @@ import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.mine.R
 import com.zh.android.chat.mine.http.MinePresenter
@@ -27,12 +28,17 @@ class MyQrCodeFragment : BaseFragment() {
     var mLoginService: LoginService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
+    private val vContent: View by bindView(R.id.content)
     private val vAvatar: ImageView by bindView(R.id.avatar)
     private val vNickName: TextView by bindView(R.id.nickname)
     private val vQrCode: ImageView by bindView(R.id.qr_code)
 
     private val mMinePresenter by lazy {
         MinePresenter()
+    }
+
+    private val mWaitController by lazy {
+        WaitLoadingController(fragmentActivity, fragment)
     }
 
     companion object {
@@ -61,6 +67,17 @@ class MyQrCodeFragment : BaseFragment() {
         mLoginService?.run {
             val userId = getUserId()
             mMinePresenter.getUserInfo(userId)
+                .doOnSubscribeUi {
+                    vContent.setGone()
+                    mWaitController.showWait()
+                }
+                .doOnError {
+                    mWaitController.hideWait()
+                }
+                .doOnNext {
+                    vContent.setVisible()
+                    mWaitController.hideWait()
+                }
                 .ioToMain()
                 .lifecycle(lifecycleOwner)
                 .subscribe({ httpModel ->

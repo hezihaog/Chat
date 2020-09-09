@@ -7,85 +7,101 @@
 
     <include layout="@layout/base_top_bar" />
 
-    <androidx.legacy.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/base_dimen_15" />
-
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/base_white"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         android:visibility="gone"
         tools:visibility="visible">
 
-        <View style="@style/base_divider" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/base_dimen_15"
-            android:paddingTop="@dimen/base_dimen_sp_8"
-            android:paddingEnd="@dimen/base_dimen_15"
-            android:paddingBottom="@dimen/base_dimen_sp_8">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/avatar"
-                android:layout_width="@dimen/base_dimen_45"
-                android:layout_height="@dimen/base_dimen_45"
-                tools:src="@drawable/base_avatar_round" />
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_15" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/base_dimen_15"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/base_white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/nickname"
+                <View style="@style/base_divider" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="@color/base_black"
-                    android:textSize="@dimen/base_dimen_sp_15"
-                    tools:text="root" />
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/base_dimen_15"
+                    android:paddingTop="@dimen/base_dimen_sp_8"
+                    android:paddingEnd="@dimen/base_dimen_15"
+                    android:paddingBottom="@dimen/base_dimen_sp_8">
+
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="@dimen/base_dimen_45"
+                        android:layout_height="@dimen/base_dimen_45"
+                        tools:src="@drawable/base_avatar_round" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/base_dimen_15"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nickname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="@color/base_black"
+                            android:textSize="@dimen/base_dimen_sp_15"
+                            tools:text="root" />
+
+                        <TextView
+                            android:id="@+id/username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="@color/base_black"
+                            android:textSize="@dimen/base_dimen_sp_15"
+                            tools:text="admin" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_dimen_15" />
 
                 <TextView
-                    android:id="@+id/username"
+                    android:id="@+id/add"
+                    style="@style/friend_btn"
+                    android:background="@drawable/base_btn_blue"
+                    android:text="@string/friend_add"
+                    android:textColor="@color/base_white" />
+
+                <androidx.legacy.widget.Space
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="@color/base_black"
-                    android:textSize="@dimen/base_dimen_sp_15"
-                    tools:text="admin" />
+                    android:layout_height="@dimen/base_dimen_15" />
+
+                <TextView
+                    android:id="@+id/back"
+                    style="@style/friend_btn"
+                    android:background="@drawable/base_btn_white"
+                    android:text="@string/friend_back"
+                    android:textColor="@color/base_black" />
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_dimen_15" />
             </LinearLayout>
         </LinearLayout>
-
-        <View style="@style/base_divider" />
-
-        <androidx.legacy.widget.Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/base_dimen_15" />
-
-        <TextView
-            android:id="@+id/add"
-            style="@style/friend_btn"
-            android:background="@drawable/base_btn_blue"
-            android:text="@string/friend_add"
-            android:textColor="@color/base_white" />
-
-        <androidx.legacy.widget.Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/base_dimen_15" />
-
-        <TextView
-            android:id="@+id/back"
-            style="@style/friend_btn"
-            android:background="@drawable/base_btn_white"
-            android:text="@string/friend_back"
-            android:textColor="@color/base_black" />
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

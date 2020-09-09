@@ -8,29 +8,28 @@
 
     <include layout="@layout/base_top_bar" />
 
-    <LinearLayout
-        android:id="@+id/content"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
 
-        <androidx.legacy.widget.Space
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/base_dimen_10" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_dimen_15"
-            android:layout_marginEnd="@dimen/base_dimen_15"
-            android:layout_marginBottom="@dimen/base_dimen_15"
-            android:fillViewport="true">
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_10" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_dimen_15"
+                android:layout_marginEnd="@dimen/base_dimen_15"
+                android:layout_marginBottom="@dimen/base_dimen_15"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -99,6 +98,6 @@
                         android:textSize="@dimen/base_dimen_sp_15" />
                 </FrameLayout>
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

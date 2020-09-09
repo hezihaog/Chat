@@ -70,5 +70,6 @@ class AddFriendFragment : BaseFragment() {
                     })
             }
         }
+        vInput.requestFocus()
     }
 }

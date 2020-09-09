@@ -6,72 +6,84 @@
 
     <include layout="@layout/base_top_bar" />
 
-    <androidx.legacy.widget.Space
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_dimen_10" />
-
-    <LinearLayout style="@style/discovery_main_item_layout">
-
-        <View style="@style/base_divider" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
-            android:id="@+id/friend_circle_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                style="@style/discovery_main_item_icon"
-                android:src="@drawable/discovery_friend_circle" />
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_10" />
 
-            <TextView
-                style="@style/discovery_main_item_text"
-                android:text="@string/discovery_friend_circle" />
+            <LinearLayout style="@style/discovery_main_item_layout">
+
+                <View style="@style/base_divider" />
+
+                <LinearLayout
+                    android:id="@+id/friend_circle_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/discovery_main_item_icon"
+                        android:src="@drawable/discovery_friend_circle" />
+
+                    <TextView
+                        style="@style/discovery_main_item_text"
+                        android:text="@string/discovery_friend_circle" />
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_20" />
+
+            <LinearLayout style="@style/discovery_main_item_layout">
+
+                <View style="@style/base_divider" />
+
+                <LinearLayout
+                    android:id="@+id/add_friend_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/discovery_main_item_icon"
+                        android:src="@drawable/discovery_add_friend" />
+
+                    <TextView
+                        style="@style/discovery_main_item_text"
+                        android:text="@string/discovery_add_friend" />
+                </LinearLayout>
+
+                <View style="@style/base_divider2" />
+
+                <LinearLayout
+                    android:id="@+id/scan_qrcode_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/discovery_main_item_icon"
+                        android:src="@drawable/discovery_scan_qrcode" />
+
+                    <TextView
+                        style="@style/discovery_main_item_text"
+                        android:text="@string/discovery_scan_qrcode" />
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
         </LinearLayout>
-
-        <View style="@style/base_divider" />
-    </LinearLayout>
-
-    <androidx.legacy.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/base_dimen_20" />
-
-    <LinearLayout style="@style/discovery_main_item_layout">
-
-        <View style="@style/base_divider" />
-
-        <LinearLayout
-            android:id="@+id/add_friend_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                style="@style/discovery_main_item_icon"
-                android:src="@drawable/discovery_add_friend" />
-
-            <TextView
-                style="@style/discovery_main_item_text"
-                android:text="@string/discovery_add_friend" />
-        </LinearLayout>
-
-        <View style="@style/base_divider2" />
-
-        <LinearLayout
-            android:id="@+id/scan_qrcode_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                style="@style/discovery_main_item_icon"
-                android:src="@drawable/discovery_scan_qrcode" />
-
-            <TextView
-                style="@style/discovery_main_item_text"
-                android:text="@string/discovery_scan_qrcode" />
-        </LinearLayout>
-
-        <View style="@style/base_divider" />
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

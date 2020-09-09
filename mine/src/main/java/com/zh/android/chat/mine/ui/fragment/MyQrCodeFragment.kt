@@ -28,7 +28,7 @@ class MyQrCodeFragment : BaseFragment() {
     var mLoginService: LoginService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
-    private val vContent: View by bindView(R.id.content)
+    private val vContent: View by bindView(R.id.content_layout)
     private val vAvatar: ImageView by bindView(R.id.avatar)
     private val vNickName: TextView by bindView(R.id.nickname)
     private val vQrCode: ImageView by bindView(R.id.qr_code)

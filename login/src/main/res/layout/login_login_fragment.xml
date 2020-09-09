@@ -7,51 +7,58 @@
 
     <include layout="@layout/base_top_bar" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/base_white"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <View style="@style/base_divider" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/base_white"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/username"
-                style="@style/login_input"
-                android:hint="@string/login_username" />
+                <View style="@style/base_divider" />
 
-            <View style="@style/login_input_divider" />
+                <EditText
+                    android:id="@+id/username"
+                    style="@style/login_input"
+                    android:hint="@string/login_username"
+                    android:inputType="textEmailAddress" />
 
-            <EditText
-                android:id="@+id/password"
-                style="@style/login_input"
-                android:hint="@string/login_password"
-                android:inputType="textPassword" />
+                <View style="@style/login_input_divider" />
 
-            <View style="@style/login_input_divider" />
+                <EditText
+                    android:id="@+id/password"
+                    style="@style/login_input"
+                    android:hint="@string/login_password"
+                    android:inputType="textPassword" />
 
-            <TextView
-                android:id="@+id/login"
-                style="@style/login_btn"
-                android:background="@drawable/base_btn_blue2"
-                android:text="@string/login_login" />
+                <View style="@style/login_input_divider" />
 
-            <TextView
-                android:id="@+id/register"
-                style="@style/login_btn"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/base_btn_green2"
-                android:text="@string/login_register" />
+                <TextView
+                    android:id="@+id/login"
+                    style="@style/login_btn"
+                    android:background="@drawable/base_btn_blue2"
+                    android:text="@string/login_login" />
 
-            <View style="@style/base_divider" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/register"
+                    style="@style/login_btn"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/base_btn_green2"
+                    android:text="@string/login_register" />
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

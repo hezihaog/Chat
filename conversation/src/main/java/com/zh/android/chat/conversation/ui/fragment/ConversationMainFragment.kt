@@ -80,8 +80,8 @@ class ConversationMainFragment : BaseFragment() {
         }
     }
 
-    override fun setData() {
-        super.setData()
+    override fun onResume() {
+        super.onResume()
         refresh()
     }
 

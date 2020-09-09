@@ -87,6 +87,7 @@ fun EditText.setTextWithSelection(text: CharSequence?) {
         setText(text)
         setSelection(text.length)
     }
+    requestFocus()
 }
 
 /**

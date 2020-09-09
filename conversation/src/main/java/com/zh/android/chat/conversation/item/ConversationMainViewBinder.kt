@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.ext.setTextWithDefault
@@ -29,7 +30,7 @@ class ConversationMainViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: Conversation) {
         item.run {
             val avatar = if (isMe) toUser.picNormal else fromUser.picNormal
-            holder.vAvatar.loadUrlImageToRound(avatar)
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(avatar))
             holder.vName.apply {
                 if (isMe) {
                     setTextWithDefault(toUser.nickname)

@@ -154,7 +154,15 @@ class MineFragment : BaseFragment() {
         super.setData()
         //先渲染空数据
         render("", "", "", "")
+    }
+
+    override fun onResume() {
+        super.onResume()
         //再拉取远程数据
+        getUserInfo()
+    }
+
+    private fun getUserInfo() {
         mLoginService?.run {
             val userId = getUserId()
             mMinePresenter.getUserInfo(userId)

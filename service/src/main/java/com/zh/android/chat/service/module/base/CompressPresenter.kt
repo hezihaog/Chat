@@ -1,9 +1,9 @@
 package com.zh.android.chat.service.module.base
 
 import android.app.Activity
-import android.graphics.Bitmap
-import com.ghnor.flora.Flora
 import io.reactivex.Observable
+import top.zibin.luban.Luban
+import java.io.File
 
 /**
  * @author wally
@@ -38,12 +38,12 @@ class CompressPresenter {
     ): Observable<List<String>> {
         return Observable.just(filePaths)
             .concatMap {
-                val compressFilePaths = Flora.with(activity)
-                    .bitmapConfig(Bitmap.Config.ARGB_8888)
-                    .compressTaskNum(filePaths.size)
+                val compressFilePaths = Luban.with(activity)
                     .load(filePaths)
-                    .compressSync()
-                Observable.fromIterable<String>(compressFilePaths)
+                    .get()
+                Observable.fromIterable<File>(compressFilePaths)
+            }.map {
+                it.path
             }.toList()
             .toObservable()
     }

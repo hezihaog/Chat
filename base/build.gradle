@@ -73,7 +73,7 @@ dependencies {
     api rootProject.ext.deps.fragmentation
     api rootProject.ext.deps.logger
 
-    api rootProject.ext.deps.flora
+    api rootProject.ext.deps.luban
     api rootProject.ext.deps.take_photo
 
     testImplementation rootProject.ext.deps.junit

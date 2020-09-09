@@ -80,7 +80,7 @@ ext {
             pinyin                       : "com.github.promeg:tinypinyin:2.0.3",
 
             //压缩库
-            flora                        : "com.ghnor:flora:1.0.0-alpha1",
+            luban                        : "top.zibin:Luban:1.1.8",
             //图片选择
             take_photo                   : "com.github.LuckSiege.PictureSelector:picture_library:v2.5.8",
 

@@ -39,7 +39,7 @@ public class RxUtil {
      * @param unit           时间单位，倒计时3秒，单位为秒
      */
     public static Observable<Integer> countdown(long startDelayTime, long cycle, int time, TimeUnit unit) {
-        final int countTime = time < 0 ? 0 : time;
+        final int countTime = Math.max(time, 0);
         return Observable.interval(startDelayTime, cycle, unit)
                 .map(new Function<Long, Integer>() {
                     @Override

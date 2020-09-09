@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View style="@style/base_divider" />
+
+            <EditText
+                android:id="@+id/phone"
+                style="@style/login_input"
+                android:hint="@string/login_phone" />
+
+            <View style="@style/login_input_divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/auth_code"
+                    style="@style/login_input"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="@string/login_auth_code"
+                    android:inputType="textPassword" />
+
+                <TextView
+                    android:id="@+id/get_auth_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_dimen_10"
+                    android:layout_marginEnd="@dimen/base_dimen_10"
+                    android:background="@drawable/base_btn_green"
+                    android:paddingStart="@dimen/base_dimen_8"
+                    android:paddingTop="@dimen/base_dimen_5"
+                    android:paddingEnd="@dimen/base_dimen_8"
+                    android:paddingBottom="@dimen/base_dimen_5"
+                    android:text="@string/login_get_auth_code"
+                    android:textColor="@color/base_white" />
+            </LinearLayout>
+
+            <View style="@style/login_input_divider" />
+
+            <TextView
+                android:id="@+id/login"
+                style="@style/login_btn"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/base_btn_blue2"
+                android:text="@string/login_login" />
+
+            <View style="@style/base_divider" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

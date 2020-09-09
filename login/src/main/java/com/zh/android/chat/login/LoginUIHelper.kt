@@ -19,5 +19,14 @@ class LoginUIHelper private constructor() {
                 .build(ARouterUrl.LOGIN_REGISTER)
                 .startNavigation(activity, requestCode)
         }
+
+        /**
+         * 跳转到短信登录
+         */
+        fun goLoginByPhone(activity: Activity) {
+            ARouter.getInstance()
+                .build(ARouterUrl.LOGIN_BY_PHONE)
+                .startNavigation(activity)
+        }
     }
 }

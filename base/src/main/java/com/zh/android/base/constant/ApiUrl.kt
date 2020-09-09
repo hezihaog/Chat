@@ -9,6 +9,11 @@ package com.zh.android.base.constant
  */
 object ApiUrl {
     /**
+     * 登录验证码过期时间，单位秒
+     */
+    const val LOGIN_AUTH_CODE_EXPIRE_TIME = 60
+
+    /**
      * 二维码的scheme
      */
     const val QR_CODE_SCHEME = "chat"
@@ -107,6 +112,18 @@ object ApiUrl {
      */
     val REGISTER
         get() = "$BASE_URL/user/register"
+
+    /**
+     * 获取验证码
+     */
+    val GET_AUTH_CODE
+        get() = "$BASE_URL/user/getAuthCode"
+
+    /**
+     * 验证码登录
+     */
+    val LOGIN_BY_AUTH_CODE
+        get() = "$BASE_URL/user/loginByAuthCode"
 
     //---------------------------- 用户 ----------------------------
 

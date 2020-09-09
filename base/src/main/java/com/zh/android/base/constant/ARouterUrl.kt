@@ -22,6 +22,11 @@ class ARouterUrl {
          */
         const val LOGIN_REGISTER = "$LOGIN_GROUP/register"
 
+        /**
+         * 手机号登录
+         */
+        const val LOGIN_BY_PHONE = "${LOGIN_GROUP}/login/phone"
+
         //============================== 首页 ==============================
         private const val HOME_GROUP = "/home"
         const val HOME_SERVICE = "${HOME_GROUP}s/module"

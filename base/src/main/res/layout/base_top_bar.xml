@@ -17,7 +17,7 @@
     app:topbar_subtitle_text_size="@dimen/base_dimen_sp_11"
     app:topbar_text_btn_color_state_list="@color/topbar_text_color"
     app:topbar_text_btn_padding_horizontal="@dimen/base_dimen_12"
-    app:topbar_text_btn_text_size="16sp"
+    app:topbar_text_btn_text_size="@dimen/base_dimen_sp_13"
     app:topbar_title_color="@color/base_black"
     app:topbar_title_container_padding_horizontal="@dimen/base_dimen_8"
     app:topbar_title_gravity="center"

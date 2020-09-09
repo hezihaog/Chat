@@ -1,6 +1,7 @@
 package com.zh.android.chat.login.http
 
 import com.lzy.okgo.OkGo
+import com.lzy.okgo.request.GetRequest
 import com.lzy.okgo.request.PostRequest
 import com.lzy.okrx2.adapter.ObservableBody
 import com.zh.android.base.constant.ApiUrl
@@ -58,6 +59,41 @@ class LoginRequester {
                     put("username", username)
                     put("password", password.md5Pwd)
                 }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 获取验证码
+         * @param telephone 手机号
+         */
+        fun getAuthCode(
+            tag: String,
+            telephone: String
+        ): Observable<HttpModel<String>> {
+            val type = genericGsonType<HttpModel<String>>();
+            val request: GetRequest<HttpModel<String>> = OkGo.get(ApiUrl.GET_AUTH_CODE)
+            return request.tag(tag)
+                .params("telephone", telephone)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 验证码登录
+         * @param telephone 手机号
+         * @param authCode  验证码
+         */
+        fun loginByAuthCode(
+            tag: String,
+            telephone: String,
+            authCode: String
+        ): Observable<HttpModel<LoginModel>> {
+            val type = genericGsonType<HttpModel<LoginModel>>()
+            val request: PostRequest<HttpModel<LoginModel>> = OkGo.post(ApiUrl.LOGIN_BY_AUTH_CODE)
+            return request.tag(tag)
+                .params("telephone", telephone)
+                .params("authCode", authCode)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

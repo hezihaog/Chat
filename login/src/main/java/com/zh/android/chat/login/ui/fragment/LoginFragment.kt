@@ -63,7 +63,16 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun onBindView(view: View?) {
-        vTopBar.setTitle(getAppContext().getApplicationName())
+        vTopBar.apply {
+            setTitle(getAppContext().getApplicationName())
+            addRightTextButton(
+                getString(R.string.login_by_phone),
+                R.id.login_by_phone
+            ).click {
+                //手机号登录
+                LoginUIHelper.goLoginByPhone(fragmentActivity)
+            }
+        }
         //登录
         vLogin.click {
             val username = vUsername.text.toString()

@@ -49,4 +49,36 @@ class LoginPresenter {
     ): Observable<HttpModel<*>> {
         return LoginRequester.register(TAG, username, password)
     }
+
+    /**
+     * 获取验证码
+     * @param telephone 手机号
+     */
+    fun getAuthCode(
+        telephone: String
+    ): Observable<HttpModel<String>> {
+        return LoginRequester.getAuthCode(TAG, telephone)
+    }
+
+    /**
+     * 验证码登录
+     * @param telephone 手机号
+     * @param authCode  验证码
+     */
+    fun loginByAuthCode(
+        telephone: String,
+        authCode: String
+    ): Observable<HttpModel<LoginModel>> {
+        return LoginRequester.loginByAuthCode(TAG, telephone, authCode)
+            .doOnNext {
+                if (handlerErrorCode(it)) {
+                    //保存信息到本地
+                    it.data?.let { data ->
+                        LogUtils.json(data.toString())
+                        LoginStorage.saveUserId(data.id)
+                        LoginStorage.saveUsername(data.username)
+                    }
+                }
+            }
+    }
 }

@@ -63,6 +63,11 @@ class ARouterUrl {
         private const val DISCOVERY_GROUP = "/discovery"
         const val DISCOVERY_SERVICE = "${DISCOVERY_GROUP}s/module"
 
+        /**
+         * 二维码扫描
+         */
+        const val QR_CODE_SCAN = "${DISCOVERY_GROUP}/qrcode/scan"
+
         //============================== 我的 ==============================
         private const val MINE_GROUP = "/mine"
         const val MINE_SERVICE = "${MINE_GROUP}s/module"

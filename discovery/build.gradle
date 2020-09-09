@@ -53,6 +53,8 @@ dependencies {
     api project(path: ':base')
     api project(path: ':service')
 
+    api rootProject.ext.deps.qr_code_scan
+
     kapt rootProject.ext.deps.aroutercompiler
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler
 

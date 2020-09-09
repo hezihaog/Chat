@@ -82,12 +82,15 @@ ext {
             //压缩库
             flora                        : "com.ghnor:flora:1.0.0-alpha1",
             //图片选择
-            take_photo                   : "com.github.LuckSiege.PictureSelector:picture_library:v2.5.8"
+            take_photo                   : "com.github.LuckSiege.PictureSelector:picture_library:v2.5.8",
+
+            //二维码扫描
+            qr_code_scan                 : "cn.bingoogolapple:bga-qrcode-zxing:1.3.7"
     ]
 
     android = [
-            compileSdkVersion       : 28,
-            minSdkVersion           : 21,
-            targetSdkVersion        : 28
+            compileSdkVersion: 28,
+            minSdkVersion    : 21,
+            targetSdkVersion : 28
     ]
 }

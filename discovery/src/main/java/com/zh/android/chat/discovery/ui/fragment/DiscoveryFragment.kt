@@ -2,12 +2,15 @@ package com.zh.android.chat.discovery.ui.fragment
 
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
+import com.zh.android.base.ext.lifecycle
 import com.zh.android.base.ext.toast
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.discovery.R
+import com.zh.android.chat.service.module.discovery.DiscoveryService
 import com.zh.android.chat.service.module.friend.FriendService
 import kotterknife.bindView
 
@@ -20,6 +23,10 @@ class DiscoveryFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.FRIEND_SERVICE)
     var mFriendService: FriendService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.DISCOVERY_SERVICE)
+    var mDiscoveryService: DiscoveryService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vFriendCircleLayout: View by bindView(R.id.friend_circle_layout)
@@ -43,7 +50,16 @@ class DiscoveryFragment : BaseFragment() {
             }
         }
         vScanQrcodeLayout.click {
-            toast("扫描二维码")
+            mDiscoveryService?.run {
+                goQrCodeScan(fragmentActivity)
+                    .lifecycle(lifecycleOwner)
+                    .subscribe({
+                        LogUtils.d("跳转二维码扫描：成功")
+                    }, {
+                        it.printStackTrace()
+                        LogUtils.d("跳转二维码扫描：失败")
+                    })
+            }
         }
     }
 }

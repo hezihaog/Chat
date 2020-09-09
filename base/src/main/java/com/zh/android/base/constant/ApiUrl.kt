@@ -9,6 +9,16 @@ package com.zh.android.base.constant
  */
 object ApiUrl {
     /**
+     * 二维码的scheme
+     */
+    const val QR_CODE_SCHEME = "chat"
+
+    /**
+     * 二维码的path
+     */
+    const val QR_CODE_USER_PATH = "/user/qrcode"
+
+    /**
      * 心跳间隔时间
      */
     const val WS_HE_INTERVAL_TIME = 15

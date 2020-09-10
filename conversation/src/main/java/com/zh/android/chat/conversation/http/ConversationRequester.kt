@@ -1,7 +1,7 @@
 package com.zh.android.chat.conversation.http
 
 import com.lzy.okgo.OkGo
-import com.lzy.okgo.request.PostRequest
+import com.lzy.okgo.request.GetRequest
 import com.lzy.okrx2.adapter.ObservableBody
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
@@ -29,8 +29,8 @@ class ConversationRequester {
             friendUserId: String
         ): Observable<HttpModel<List<ChatRecord>>> {
             val type = genericGsonType<HttpModel<List<ChatRecord>>>()
-            val request: PostRequest<HttpModel<List<ChatRecord>>> =
-                OkGo.post(ApiUrl.GET_CHAT_RECORD_LIST)
+            val request: GetRequest<HttpModel<List<ChatRecord>>> =
+                OkGo.get(ApiUrl.GET_CHAT_RECORD_LIST)
             return request.tag(tag)
                 .params("userId", userId)
                 .params("friendUserId", friendUserId)
@@ -46,8 +46,8 @@ class ConversationRequester {
             userId: String
         ): Observable<HttpModel<List<Conversation>>> {
             val type = genericGsonType<HttpModel<List<Conversation>>>()
-            val request: PostRequest<HttpModel<List<Conversation>>> =
-                OkGo.post(ApiUrl.GET_ALL_CONVERSATION)
+            val request: GetRequest<HttpModel<List<Conversation>>> =
+                OkGo.get(ApiUrl.GET_ALL_CONVERSATION)
             return request.tag(tag)
                 .params("userId", userId)
                 .converter(ModelConvert(type))

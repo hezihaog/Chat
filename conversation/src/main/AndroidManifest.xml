@@ -3,5 +3,15 @@
 
     <application>
         <activity android:name=".ui.activity.ConversationChatActivity" />
+
+        <!-- 开机启动 -->
+        <receiver android:name=".receiver.SystemBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.ConversationMqttService" />
     </application>
 </manifest>

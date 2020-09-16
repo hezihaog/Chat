@@ -30,6 +30,14 @@ class AppConstant private constructor() {
 
     class Action private constructor() {
         companion object {
+            /**
+             * 用户登录
+             */
+            const val LOGIN_USER_LOGIN = "action_user_login"
+            /**
+             * 用户退出登录
+             */
+            const val LOGIN_USER_LOGOUT = "action_user_logout"
             const val UPDATE_AVATAR = "action_update_avatar"
             const val UPDATE_NICKNAME = "action_update_nickname"
         }

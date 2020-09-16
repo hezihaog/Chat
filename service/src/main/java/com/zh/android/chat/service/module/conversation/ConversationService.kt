@@ -23,4 +23,9 @@ interface ConversationService : IProvider {
         friendUserId: String,
         friendNickName: String
     )
+
+    /**
+     * 开启会话模块的Mqtt服务
+     */
+    fun startMqttService()
 }

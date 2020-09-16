@@ -1,8 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.alibaba.arouter'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -39,27 +35,14 @@ android {
     }
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
-        arg("AROUTER_GENERATE_DOC", "enable")
-    }
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api rootProject.ext.deps.kotlin
 
-    api project(path: ':base')
-    api project(path: ':service')
-    //聊天连接
-    api project(path: ':websocket')
-    //离线推送
-    api project(path: ':mqtt')
+    api project(path: ':contextprovider')
 
-    kapt rootProject.ext.deps.aroutercompiler
-    kapt rootProject.ext.deps.jetpack_lifecycle_compiler
-
+    api rootProject.ext.deps.mqtt
+    api rootProject.ext.deps.mqtt_service
+    api rootProject.ext.deps.rx_java
     testImplementation rootProject.ext.deps.junit
     androidTestImplementation rootProject.ext.deps.runner
     androidTestImplementation rootProject.ext.deps.espresso

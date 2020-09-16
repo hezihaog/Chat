@@ -1,3 +1,4 @@
+include ':mqtt'
 include ':contextprovider'
 include ':websocket'
 include ':imageloader'

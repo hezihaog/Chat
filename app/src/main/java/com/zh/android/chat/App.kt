@@ -15,6 +15,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.zh.android.base.util.activity.ActivityProvider
+import com.zh.android.base.util.monitor.AppMonitor
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -25,10 +26,18 @@ import java.util.concurrent.TimeUnit
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        initAppMonitor()
         initHttp()
         initRouter()
         initRefresh()
         initActivityProvider()
+    }
+
+    /**
+     * 初始化前后台监听
+     */
+    private fun initAppMonitor() {
+        AppMonitor.get().initialize(this)
     }
 
     private fun initHttp() {

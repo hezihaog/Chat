@@ -3,8 +3,10 @@ package com.zh.android.chat.login.http
 import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.ext.handlerErrorCode
 import com.zh.android.base.http.HttpModel
+import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.chat.login.LoginStorage
 import com.zh.android.chat.login.model.LoginModel
+import com.zh.android.chat.service.AppConstant
 import io.reactivex.Observable
 
 /**
@@ -34,6 +36,8 @@ class LoginPresenter {
                         LoginStorage.saveUserId(data.id)
                         LoginStorage.saveUsername(data.username)
                     }
+                    //通知其他模块
+                    AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGIN)
                 }
             }
     }

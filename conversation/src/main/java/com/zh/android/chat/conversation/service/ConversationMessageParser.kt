@@ -4,7 +4,7 @@ import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.ext.genericGsonTypeToken
 import com.zh.android.base.util.json.JsonProxy
 import com.zh.android.chat.conversation.enums.MessageType
-import com.zh.android.chat.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.model.Message
 import com.zh.android.mqtt.MqttMessage
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer

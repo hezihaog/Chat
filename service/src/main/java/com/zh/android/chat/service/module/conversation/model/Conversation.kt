@@ -1,4 +1,4 @@
-package com.zh.android.chat.conversation.model
+package com.zh.android.chat.service.module.conversation.model
 
 import com.zh.android.chat.service.module.mine.model.User
 import java.io.Serializable

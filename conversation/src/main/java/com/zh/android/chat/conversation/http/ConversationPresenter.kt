@@ -2,8 +2,8 @@ package com.zh.android.chat.conversation.http
 
 import com.hule.dashi.websocket.RxWebSocket
 import com.zh.android.base.http.HttpModel
-import com.zh.android.chat.conversation.model.ChatRecord
-import com.zh.android.chat.conversation.model.Conversation
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
+import com.zh.android.chat.service.module.conversation.model.Conversation
 import io.reactivex.Observable
 
 /**

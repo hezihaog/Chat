@@ -7,8 +7,8 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
-import com.zh.android.chat.conversation.model.ChatRecord
-import com.zh.android.chat.conversation.model.Conversation
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
+import com.zh.android.chat.service.module.conversation.model.Conversation
 import io.reactivex.Observable
 
 /**

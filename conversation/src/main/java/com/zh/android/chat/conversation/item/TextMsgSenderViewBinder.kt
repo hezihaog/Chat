@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.chat.conversation.R
-import com.zh.android.chat.conversation.model.ChatRecord
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import me.drakeet.multitype.ItemViewBinder
 
 /**

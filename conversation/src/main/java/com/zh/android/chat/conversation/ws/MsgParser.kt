@@ -5,8 +5,8 @@ import com.hule.dashi.websocket.WebSocketInfo
 import com.zh.android.base.util.json.JsonProxy
 import com.zh.android.chat.conversation.WebSocketAgent
 import com.zh.android.chat.conversation.enums.MessageType
-import com.zh.android.chat.conversation.model.ChatRecord
-import com.zh.android.chat.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
+import com.zh.android.chat.service.module.conversation.model.Message
 import io.reactivex.Observable
 
 /**
@@ -55,7 +55,7 @@ class MsgParser(
                         && message.type == MessageType.SEND.code
                         && message.chatRecord != null
                     ) {
-                        callback.onReceiveTextMsg(message.chatRecord)
+                        callback.onReceiveTextMsg(message.chatRecord!!)
                     }
                 }
                 Observable.just(it)

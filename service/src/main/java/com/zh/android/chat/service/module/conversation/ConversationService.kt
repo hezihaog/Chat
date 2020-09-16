@@ -2,6 +2,7 @@ package com.zh.android.chat.service.module.conversation
 
 import android.app.Activity
 import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.module.conversation.model.Message
 
 /**
  * @author wally
@@ -28,4 +29,10 @@ interface ConversationService : IProvider {
      * 开启会话模块的Mqtt服务
      */
     fun startMqttService()
+
+    /**
+     * 发送离线聊天消息通知栏通知
+     * @param message 消息实体
+     */
+    fun sendOfflineChatMessageNotification(message: Message)
 }

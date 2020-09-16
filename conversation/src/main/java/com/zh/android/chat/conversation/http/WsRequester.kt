@@ -5,8 +5,8 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.util.json.JsonProxy
 import com.zh.android.chat.conversation.enums.MessageType
 import com.zh.android.chat.conversation.enums.ReadStatus
-import com.zh.android.chat.conversation.model.ChatRecord
-import com.zh.android.chat.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
+import com.zh.android.chat.service.module.conversation.model.Message
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import java.util.concurrent.TimeUnit

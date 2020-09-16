@@ -11,7 +11,7 @@ import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.ext.setTextWithDefault
 import com.zh.android.chat.conversation.R
-import com.zh.android.chat.conversation.model.Conversation
+import com.zh.android.chat.service.module.conversation.model.Conversation
 import me.drakeet.multitype.ItemViewBinder
 
 /**

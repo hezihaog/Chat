@@ -1,6 +1,6 @@
 package com.zh.android.chat.conversation.service
 
-import com.zh.android.chat.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.model.Message
 
 /**
  * @author wally

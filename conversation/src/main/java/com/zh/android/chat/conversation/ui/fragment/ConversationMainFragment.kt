@@ -15,7 +15,7 @@ import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.http.ConversationPresenter
 import com.zh.android.chat.conversation.item.ConversationMainViewBinder
-import com.zh.android.chat.conversation.model.Conversation
+import com.zh.android.chat.service.module.conversation.model.Conversation
 import com.zh.android.chat.service.module.conversation.ConversationService
 import com.zh.android.chat.service.module.login.LoginService
 import kotterknife.bindView

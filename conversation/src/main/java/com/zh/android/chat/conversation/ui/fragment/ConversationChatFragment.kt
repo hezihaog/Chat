@@ -14,16 +14,18 @@ import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.WebSocketAgent
 import com.zh.android.chat.conversation.http.ConversationPresenter
 import com.zh.android.chat.conversation.item.TextMsgReceiverViewBinder
 import com.zh.android.chat.conversation.item.TextMsgSenderViewBinder
-import com.zh.android.chat.conversation.model.ChatRecord
 import com.zh.android.chat.conversation.ws.MsgParser
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import com.zh.android.chat.service.module.login.LoginService
+import com.zh.android.chat.service.module.mine.MineService
 import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
@@ -39,6 +41,10 @@ class ConversationChatFragment : BaseFragment() {
     @Autowired(name = ARouterUrl.LOGIN_SERVICE)
     var mLoginService: LoginService? = null
 
+    @JvmField
+    @Autowired(name = ARouterUrl.MINE_SERVICE)
+    var mMineService: MineService? = null
+
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
@@ -49,7 +55,6 @@ class ConversationChatFragment : BaseFragment() {
      * 好友信息
      */
     private val mFriendUserId: String by bindArgument(AppConstant.Key.USER_ID, "")
-    private val mFriendNickName: String by bindArgument(AppConstant.Key.NICK_NAME, "")
 
     /**
      * 某个聊天记录的Id，一般是从会话首页进入时，传过来，我们对记录进行已读即可
@@ -60,6 +65,10 @@ class ConversationChatFragment : BaseFragment() {
      * 连接地址
      */
     private val mWsUrl = ApiUrl.WS_URL
+
+    private val mWaitController by lazy {
+        WaitLoadingController(fragmentActivity, lifecycleOwner)
+    }
 
     private val mConversationPresenter by lazy {
         ConversationPresenter()
@@ -109,7 +118,6 @@ class ConversationChatFragment : BaseFragment() {
             addLeftBackImageButton().click {
                 fragmentActivity.finish()
             }
-            setTitle(mFriendNickName)
         }
         vRefreshLayout.apply {
             setEnableRefresh(false)
@@ -137,8 +145,35 @@ class ConversationChatFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
+        getUserInfo()
         loadChatRecordList()
         connectionChatServer()
+    }
+
+    /**
+     * 获取用户信息
+     */
+    private fun getUserInfo() {
+        mMineService?.run {
+            getUserInfo(mFriendUserId)
+                .doOnSubscribeUi {
+                    mWaitController.showWait()
+                }
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({ httpModel ->
+                    mWaitController.hideWait()
+                    if (handlerErrorCode(httpModel)) {
+                        httpModel.data?.let {
+                            vTopBar.setTitle(it.nickname)
+                        }
+                    }
+                }, { error ->
+                    error.printStackTrace()
+                    showRequestError()
+                    mWaitController.hideWait()
+                })
+        }
     }
 
     /**

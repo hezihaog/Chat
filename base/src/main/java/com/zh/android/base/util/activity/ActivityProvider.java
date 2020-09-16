@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 
-import com.zh.android.base.util.context.ContextProvider;
+import com.zh.android.contextprovider.ContextProvider;
 
 import java.util.LinkedList;
 import java.util.concurrent.CopyOnWriteArrayList;

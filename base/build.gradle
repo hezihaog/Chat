@@ -30,6 +30,7 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
+    api project(path: ':contextprovider')
     api project(path: ':imageloader')
 
     api rootProject.ext.deps.kotlin

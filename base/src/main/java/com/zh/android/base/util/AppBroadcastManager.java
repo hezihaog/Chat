@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.zh.android.base.util.context.ContextProvider;
+import com.zh.android.contextprovider.ContextProvider;
 
 
 /**

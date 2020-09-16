@@ -9,11 +9,5 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <application android:networkSecurityConfig="@xml/network_security_config">
-        <!-- 全局Context提供者 -->
-        <provider
-            android:name=".util.context.ApplicationContextProvider"
-            android:authorities="${applicationId}.contextprovider"
-            android:exported="false" />
-    </application>
+    <application android:networkSecurityConfig="@xml/network_security_config" />
 </manifest>

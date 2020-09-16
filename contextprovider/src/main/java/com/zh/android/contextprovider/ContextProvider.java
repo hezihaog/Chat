@@ -1,10 +1,12 @@
-package com.zh.android.base.util.context;
+package com.zh.android.contextprovider;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+
+import java.lang.reflect.InvocationTargetException;
 
 
 /**
@@ -34,7 +36,7 @@ public class ContextProvider {
                 if (instance == null) {
                     Context context = ApplicationContextProvider.mContext;
                     if (context == null) {
-                        throw new IllegalStateException("context == null");
+                        context = getApplicationByReflect();
                     }
                     instance = new ContextProvider(context);
                 }
@@ -52,6 +54,26 @@ public class ContextProvider {
 
     public Application getApplication() {
         return (Application) mContext.getApplicationContext();
+    }
+
+    /**
+     * 反射ActivityThread获取Context
+     */
+    private static Application getApplicationByReflect() {
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> activityThread = Class.forName("android.app.ActivityThread");
+            Object thread = activityThread.getMethod("currentActivityThread").invoke(null);
+            Object app = activityThread.getMethod("getApplication").invoke(thread);
+            if (app == null) {
+                throw new NullPointerException("u should init first");
+            }
+            return (Application) app;
+        } catch (NoSuchMethodException | IllegalAccessException
+                | InvocationTargetException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("u should init first");
     }
 
     private void ensureInitMainHandler() {

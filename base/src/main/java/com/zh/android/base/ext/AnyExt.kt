@@ -14,7 +14,7 @@ import android.view.LayoutInflater
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.util.context.ContextProvider
+import com.zh.android.contextprovider.ContextProvider
 import com.zh.android.base.util.toast.ToastUtil
 import java.io.FileDescriptor
 import java.io.InputStream

@@ -1,3 +1,4 @@
+include ':contextprovider'
 include ':websocket'
 include ':imageloader'
 include ':setting'

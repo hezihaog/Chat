@@ -1,11 +1,16 @@
 package com.zh.android.chat.home.ui.activity
 
+import android.Manifest
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.apkfuns.logutils.LogUtils
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
+import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.util.DeviceIdUtil
 import com.zh.android.base.util.NotificationUtil
 import com.zh.android.chat.home.R
 import com.zh.android.chat.home.ui.fragment.HomeMainFragment
@@ -30,6 +35,16 @@ class HomeActivity : BaseActivity() {
         }
         //开启会话模块的推送服务
         mConversationService?.startMqttService()
+        //获取唯一设备Id
+        RxPermissions(this).apply {
+            request(Manifest.permission.READ_PHONE_STATE)
+                .lifecycle(lifecycleOwner)
+                .subscribe {
+                    val deviceUniqueId =
+                        DeviceIdUtil.getDeviceUniqueId(fragmentActivity.application)
+                    LogUtils.d("deviceUniqueId：$deviceUniqueId")
+                }
+        }
     }
 
     override fun onInflaterViewId(): Int {

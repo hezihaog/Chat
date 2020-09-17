@@ -118,6 +118,7 @@ class ConversationChatFragment : BaseFragment() {
             addLeftBackImageButton().click {
                 fragmentActivity.finish()
             }
+            setTitle(R.string.conversation_connection_ing)
         }
         vRefreshLayout.apply {
             setEnableRefresh(false)

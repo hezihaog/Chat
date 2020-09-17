@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.NotificationUtils
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.base.util.NotificationUtil
 import com.zh.android.base.util.monitor.AppMonitor
 import com.zh.android.chat.conversation.service.ConversationMqttService
 import com.zh.android.chat.conversation.ui.activity.ConversationChatActivity
@@ -60,16 +60,22 @@ class ConversationServiceImpl : ConversationService {
 
     override fun sendOfflineChatMessageNotification(message: Message) {
         message.chatRecord?.let {
-            NotificationUtils.create(
+            NotificationUtil.create(
                 mContext,
                 10086,
+                mContext.resources.getString(R.string.conversation_offline_chat_message_notification_channel_id),
+                mContext.resources.getString(R.string.conversation_offline_chat_message_notification_channel_name),
                 //跳转到聊天页面
                 Intent(mContext, ConversationChatActivity::class.java).apply {
                     putExtra(AppConstant.Key.USER_ID, it.fromUserId)
                 },
                 R.drawable.base_notification_icon,
                 mContext.getString(R.string.conversation_receiver_new_chat_message),
-                it.message
+                it.message,
+                false,
+                true,
+                true,
+                false
             )
         }
     }

@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
+import com.zh.android.base.util.NotificationUtil
 import com.zh.android.chat.home.R
 import com.zh.android.chat.home.ui.fragment.HomeMainFragment
 import com.zh.android.chat.service.AppConstant
@@ -23,6 +24,10 @@ class HomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //检查是否开启通知，没开启马上开启
+        if (!NotificationUtil.checkNotificationEnable(this)) {
+            NotificationUtil.goNotificationSetting(this)
+        }
         //开启会话模块的推送服务
         mConversationService?.startMqttService()
     }
@@ -35,5 +40,9 @@ class HomeActivity : BaseActivity() {
         if (findFragment(HomeMainFragment::class.java) == null) {
             loadRootFragment(R.id.base_container, HomeMainFragment.newInstance())
         }
+    }
+
+    override fun onBackPressedSupport() {
+        moveTaskToBack(true)
     }
 }

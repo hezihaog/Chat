@@ -3,5 +3,8 @@
     <string name="conversation_module_name">会话</string>
     <string name="conversation_chat_input_tip">请输入要发送的内容</string>
     <string name="conversation_send">发送</string>
+    <string name="conversation_connection_ing">正在连接…</string>
     <string name="conversation_receiver_new_chat_message">收到一条新消息</string>
+    <string name="conversation_offline_chat_message_notification_channel_id">10086</string>
+    <string name="conversation_offline_chat_message_notification_channel_name">离线聊天消息</string>
 </resources>

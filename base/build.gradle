@@ -73,6 +73,7 @@ dependencies {
     api rootProject.ext.deps.rx_permission
     api rootProject.ext.deps.fragmentation
     api rootProject.ext.deps.logger
+    api rootProject.ext.deps.reflection_joor
 
     api rootProject.ext.deps.luban
     api rootProject.ext.deps.take_photo

@@ -42,4 +42,21 @@ class AppConstant private constructor() {
             const val UPDATE_NICKNAME = "action_update_nickname"
         }
     }
+
+    class HttpParameter {
+        companion object {
+            /**
+             * 平台
+             */
+            const val PLATFORM = "platform"
+            /**
+             * 令牌
+             */
+            const val TOKEN = "token"
+            /**
+             * 登录账号的用户Id
+             */
+            const val USER_ID = "userId"
+        }
+    }
 }

@@ -48,7 +48,7 @@ ext {
             fragmentation                : 'me.yokeyword:fragmentationx:1.0.1',
 
             gson                         : "com.google.code.gson:gson:$gson_version",
-            okhttp                       : "com.squareup.okhttp3:okhttp:3.10.0",
+            okhttp                       : "com.squareup.okhttp3:okhttp:3.12.0",
             okgo                         : "com.lzy.net:okgo:3.0.4",
             okgo_rx                      : "com.lzy.net:okrx2:2.0.2",
             rx_permission                : "com.github.tbruyelle:rxpermissions:0.10.2",
@@ -69,6 +69,9 @@ ext {
             circle_image_view            : "de.hdodenhof:circleimageview:3.0.0",
             //混淆
             free_proGuard                : "com.blankj:free-proguard:0.0.12",
+
+            //反射封装类库
+            reflection_joor               : "org.jooq:joor-java-6:0.9.7",
 
             //日志
             logger                       : "com.apkfuns.logutils:library:1.7.5",

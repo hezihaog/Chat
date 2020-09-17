@@ -18,6 +18,11 @@ interface LoginService : IProvider {
     fun getUserId(): String
 
     /**
+     * 获取Token
+     */
+    fun getToken(): String
+
+    /**
      * 跳转到登录
      */
     fun goLogin()

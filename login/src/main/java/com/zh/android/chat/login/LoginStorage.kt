@@ -21,6 +21,11 @@ object LoginStorage {
      */
     private const val KEY_USERNAME = "login_key_username"
 
+    /**
+     * Token令牌
+     */
+    private const val KEY_TOKEN = "login_key_token"
+
     @JvmStatic
     fun saveUserId(userId: String) {
         SPUtils.getInstance().put(KEY_USER_ID, userId)
@@ -41,12 +46,22 @@ object LoginStorage {
         return SPUtils.getInstance().getString(KEY_USERNAME)
     }
 
+    @JvmStatic
+    fun saveToken(token: String) {
+        SPUtils.getInstance().put(KEY_TOKEN, token)
+    }
+
+    @JvmStatic
+    fun getToken(): String {
+        return SPUtils.getInstance().getString(KEY_TOKEN)
+    }
+
     /**
      * 判断是否登录
      */
     @JvmStatic
     fun isLogin(): Boolean {
-        return getUserId().isNotBlank()
+        return getToken().isNotBlank()
     }
 
     /**
@@ -57,6 +72,7 @@ object LoginStorage {
         SPUtils.getInstance().run {
             remove(KEY_USER_ID)
             remove(KEY_USERNAME)
+            remove(KEY_TOKEN)
         }
     }
 }

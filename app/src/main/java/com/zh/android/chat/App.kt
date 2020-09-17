@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
+import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
 import okhttp3.OkHttpClient
@@ -56,6 +57,8 @@ class App : Application() {
             //信任所有证书,不安全有风险
             val sslParams = HttpsUtils.getSslSocketFactory()
             sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+            //添加自定义拦截器
+            RequestProcessor.getInstance().with(this)
         }
         //其他统一的配置
         OkGo.getInstance().init(this)

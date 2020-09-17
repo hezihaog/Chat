@@ -15,7 +15,11 @@ data class LoginModel(
     /**
      * 用户名
      */
-    val username: String
+    val username: String,
+    /**
+     * 令牌
+     */
+    val token: String
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -1L

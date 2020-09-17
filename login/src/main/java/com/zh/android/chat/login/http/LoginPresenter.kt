@@ -35,6 +35,7 @@ class LoginPresenter {
                         LogUtils.json(data.toString())
                         LoginStorage.saveUserId(data.id)
                         LoginStorage.saveUsername(data.username)
+                        LoginStorage.saveToken(data.token)
                     }
                     //通知其他模块
                     AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGIN)
@@ -81,6 +82,7 @@ class LoginPresenter {
                         LogUtils.json(data.toString())
                         LoginStorage.saveUserId(data.id)
                         LoginStorage.saveUsername(data.username)
+                        LoginStorage.saveToken(data.token)
                     }
                 }
             }

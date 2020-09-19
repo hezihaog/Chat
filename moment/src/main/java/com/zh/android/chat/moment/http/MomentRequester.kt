@@ -11,6 +11,7 @@ import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.base.http.PageModel
 import com.zh.android.chat.moment.model.LikeMomentModel
+import com.zh.android.chat.moment.model.MomentCommentModel
 import com.zh.android.chat.moment.model.MomentLikeRecordModel
 import com.zh.android.chat.moment.model.MomentModel
 import io.reactivex.Observable
@@ -66,17 +67,41 @@ class MomentRequester {
         }
 
         /**
+         * 获取动态评论列表
+         */
+        fun getMomentCommentList(
+            tag: String,
+            momentId: String,
+            pageNum: Int,
+            pageSize: Int
+        ): Observable<HttpModel<PageModel<MomentCommentModel>>> {
+            val type = genericGsonType<HttpModel<PageModel<MomentCommentModel>>>()
+            val request: GetRequest<HttpModel<PageModel<MomentCommentModel>>> =
+                OkGo.get(ApiUrl.GET_MOMENT_COMMENT_LIST)
+            return request.tag(tag)
+                .params("momentId", momentId)
+                .params("pageNum", pageNum)
+                .params("pageSize", pageSize)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
          * 获取动态点赞列表
          */
         fun getMomentLikeList(
             tag: String,
-            momentId: String
+            momentId: String,
+            pageNum: Int,
+            pageSize: Int
         ): Observable<HttpModel<PageModel<MomentLikeRecordModel>>> {
             val type = genericGsonType<HttpModel<PageModel<MomentLikeRecordModel>>>()
             val request: GetRequest<HttpModel<PageModel<MomentLikeRecordModel>>> =
                 OkGo.get(ApiUrl.GET_MOMENT_LIKE_LIST)
             return request.tag(tag)
                 .params("momentId", momentId)
+                .params("pageNum", pageNum)
+                .params("pageSize", pageSize)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

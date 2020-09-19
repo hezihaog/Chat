@@ -86,7 +86,7 @@ class MomentLikeFragment : BaseFragment() {
     ) {
         val isFirstPage = pageNum == ApiUrl.FIRST_PAGE
         val pageSize = ApiUrl.PAGE_SIZE
-        mMomentPresenter.getMomentLikeList(momentId)
+        mMomentPresenter.getMomentLikeList(momentId, pageNum, pageSize)
             .ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->

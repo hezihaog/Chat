@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,43 +8,48 @@
 
     <include layout="@layout/base_top_bar" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/base_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:elevation="0dp">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/header_view"
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                app:layout_scrollFlags="scroll">
+                app:elevation="0dp">
 
-                <include layout="@layout/moment_detail_header_item_view" />
-            </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/header_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    app:layout_scrollFlags="scroll">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_bar"
+                    <include layout="@layout/moment_detail_header_item_view" />
+                </FrameLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/base_white"
+                    app:tabIndicatorColor="@color/base_color_primary"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorHeight="@dimen/base_dimen_2"
+                    app:tabSelectedTextColor="@color/base_color_primary"
+                    app:tabTextColor="@color/base_gray4" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_page"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/base_white"
-                app:tabIndicatorColor="@color/base_color_primary"
-                app:tabIndicatorFullWidth="true"
-                app:tabIndicatorHeight="@dimen/base_dimen_2"
-                app:tabSelectedTextColor="@color/base_color_primary"
-                app:tabTextColor="@color/base_gray4" />
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_page"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/base_white"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

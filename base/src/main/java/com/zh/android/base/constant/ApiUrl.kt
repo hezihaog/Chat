@@ -206,6 +206,11 @@ object ApiUrl {
     val GET_MOMENT_LIKE_LIST = "${BASE_URL}/moment/getMomentLikeList"
 
     /**
+     * 获取动态的评论列表
+     */
+    val GET_MOMENT_COMMENT_LIST = "${BASE_URL}/moment/getMomentCommentList"
+
+    /**
      * 点赞动态
      */
     val LIKE_MOMENT = "${BASE_URL}/moment/likeMoment"

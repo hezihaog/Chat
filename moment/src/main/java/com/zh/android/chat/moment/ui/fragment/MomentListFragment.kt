@@ -99,7 +99,7 @@ class MomentListFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
-        vRefreshLayout.autoRefresh()
+        refresh()
     }
 
     private fun refresh() {

@@ -10,6 +10,7 @@ import com.linghit.base.util.argument.bindArgument
 import com.lzy.ninegrid.ImageInfo
 import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
@@ -28,6 +29,7 @@ import kotterknife.bindView
  */
 class MomentDetailFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
+    private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vHeaderView: View by bindView(R.id.header_view)
     private val vTabBar: TabLayout by bindView(R.id.tab_bar)
     private val vPager: ViewPager2 by bindView(R.id.view_page)
@@ -73,6 +75,12 @@ class MomentDetailFragment : BaseFragment() {
             }
             setTitle(R.string.moment_detail)
         }
+        vRefreshLayout.apply {
+            setOnRefreshListener {
+                refresh()
+            }
+            setEnableLoadMore(false)
+        }
         setupTab()
     }
 
@@ -107,6 +115,10 @@ class MomentDetailFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
+        refresh()
+    }
+
+    private fun refresh() {
         getMomentDetail()
     }
 
@@ -119,12 +131,14 @@ class MomentDetailFragment : BaseFragment() {
             .ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
+                vRefreshLayout.finishRefresh()
                 if (handlerErrorCode(httpModel)) {
                     renderHeaderView(httpModel.data)
                 }
             }, {
                 it.printStackTrace()
                 showRequestError()
+                vRefreshLayout.finishRefresh()
             })
     }
 

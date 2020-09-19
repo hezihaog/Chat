@@ -9,6 +9,10 @@ import java.io.Serializable
  */
 class LikeMomentModel(
     /**
+     * 动态Id
+     */
+    val momentId: String,
+    /**
      * 是否点赞
      */
     val liked: Boolean,

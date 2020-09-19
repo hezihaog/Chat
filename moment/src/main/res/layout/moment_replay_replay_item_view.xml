@@ -12,7 +12,22 @@
         android:layout_height="wrap_content"
         android:textColor="@color/base_blue"
         android:textSize="@dimen/base_dimen_sp_14"
-        tools:text="西部世界：" />
+        tools:text="西部世界" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/moment_replay"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/base_dimen_sp_14" />
+
+    <TextView
+        android:id="@+id/reply_user_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/base_blue"
+        android:textSize="@dimen/base_dimen_sp_14"
+        tools:text="阳光明媚：" />
 
     <TextView
         android:id="@+id/content"

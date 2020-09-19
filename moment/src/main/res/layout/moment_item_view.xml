@@ -143,5 +143,5 @@
     <View
         style="@style/base_divider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_dimen_15" />
+        android:layout_height="@dimen/base_dimen_10" />
 </LinearLayout>

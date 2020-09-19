@@ -131,15 +131,19 @@ class MomentListFragment : BaseFragment() {
                 if (handlerErrorCode(httpModel)) {
                     httpModel?.data?.let { response ->
                         //更新数据
-                        mListItems.forEach {
-                            if (it is MomentModel) {
-                                val model = it as MomentModel
-                                model.liked = response.liked
-                                model.likes = response.likes
+                        mListItems
+                            //只取一个动态类型
+                            .filterIsInstance<MomentModel>()
+                            //只修改自己那一个动态
+                            .filter {
+                                it.id == response.momentId
                             }
-                        }
-                        mListAdapter.notifyDataSetChanged()
+                            .forEach {
+                                it.liked = response.liked
+                                it.likes = response.likes
+                            }
                     }
+                    mListAdapter.notifyDataSetChanged()
                 }
             }, {
                 it.printStackTrace()

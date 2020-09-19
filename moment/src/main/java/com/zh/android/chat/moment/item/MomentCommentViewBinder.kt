@@ -12,6 +12,7 @@ import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.base.ext.setGone
 import com.zh.android.base.ext.setVisible
 import com.zh.android.chat.moment.R
+import com.zh.android.chat.moment.enums.MomentReplyType
 import com.zh.android.chat.moment.model.MomentCommentModel
 import com.zh.android.chat.moment.model.MomentCommentReplyModel
 import me.drakeet.multitype.ItemViewBinder
@@ -49,7 +50,22 @@ class MomentCommentViewBinder :
                 holder.commentList.apply {
                     layoutManager = LinearLayoutManager(context)
                     adapter = MultiTypeAdapter(items).apply {
-                        register(MomentCommentReplyModel::class.java, CommentReplyViewBinder())
+                        //2种类型
+                        register(MomentCommentReplyModel::class.java)
+                            .to(CommentReplyViewBinder(), ReplyReplyViewBinder())
+                            .withClassLinker { _, model ->
+                                when (model.type) {
+                                    MomentReplyType.COMMENT_REPLY.code -> {
+                                        CommentReplyViewBinder::class.java
+                                    }
+                                    MomentReplyType.REPLY_REPLY.code -> {
+                                        ReplyReplyViewBinder::class.java
+                                    }
+                                    else -> {
+                                        CommentReplyViewBinder::class.java
+                                    }
+                                }
+                            }
                     }
                 }
             }
@@ -65,15 +81,15 @@ class MomentCommentViewBinder :
     }
 
     /**
-     * 评论的回复，或者回复的回复
+     * 评论的回复
      */
     class CommentReplyViewBinder :
-        ItemViewBinder<MomentCommentReplyModel, CommentReplyViewBinder.ChildViewHolder>() {
+        ItemViewBinder<MomentCommentReplyModel, CommentReplyViewBinder.CommentReplyViewHolder>() {
         override fun onCreateViewHolder(
             inflater: LayoutInflater,
             parent: ViewGroup
-        ): ChildViewHolder {
-            return ChildViewHolder(
+        ): CommentReplyViewHolder {
+            return CommentReplyViewHolder(
                 inflater.inflate(
                     R.layout.moment_comment_replay_item_view,
                     parent,
@@ -82,7 +98,10 @@ class MomentCommentViewBinder :
             )
         }
 
-        override fun onBindViewHolder(holder: ChildViewHolder, item: MomentCommentReplyModel) {
+        override fun onBindViewHolder(
+            holder: CommentReplyViewHolder,
+            item: MomentCommentReplyModel
+        ) {
             val context = holder.itemView.context
             item.run {
                 holder.nickname.text =
@@ -91,8 +110,49 @@ class MomentCommentViewBinder :
             }
         }
 
-        class ChildViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        class CommentReplyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val nickname: TextView = view.findViewById(R.id.nickname)
+            val content: TextView = view.findViewById(R.id.content)
+        }
+    }
+
+    /**
+     * 回复的回复
+     */
+    class ReplyReplyViewBinder :
+        ItemViewBinder<MomentCommentReplyModel, ReplyReplyViewBinder.ReplyReplyViewHolder>() {
+        override fun onCreateViewHolder(
+            inflater: LayoutInflater,
+            parent: ViewGroup
+        ): ReplyReplyViewHolder {
+            return ReplyReplyViewHolder(
+                inflater.inflate(
+                    R.layout.moment_replay_replay_item_view,
+                    parent,
+                    false
+                )
+            )
+        }
+
+        override fun onBindViewHolder(holder: ReplyReplyViewHolder, item: MomentCommentReplyModel) {
+            val context = holder.itemView.context
+            item.run {
+                //发起回复的人
+                holder.nickname.text =
+                    context.resources.getString(R.string.moment_comment_replay, userInfo.nickname)
+                //被回复的人
+                holder.replyUserNickname.text =
+                    context.resources.getString(
+                        R.string.moment_comment_replay,
+                        replyUserInfo.nickname
+                    )
+                holder.content.text = content
+            }
+        }
+
+        class ReplyReplyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val nickname: TextView = view.findViewById(R.id.nickname)
+            val replyUserNickname: TextView = view.findViewById(R.id.reply_user_nickname)
             val content: TextView = view.findViewById(R.id.content)
         }
     }

@@ -28,15 +28,15 @@ class MomentCommentReplyModel(
     /**
      * 被回复的人的用户Id
      */
-    val replyUserId: String,
+    val replyUserInfo: User,
     /**
      * 回复内容
      */
     val content: String,
     /**
-     * 回复的回复列表
+     * 1为评论的回复，2为回复的回复
      */
-    val replyList: List<MomentCommentReplyModel>
+    val type: Int
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -8591987583696258173L

@@ -7,5 +7,6 @@
     <string name="moment_publish">发布</string>
     <string name="moment_share">分享</string>
     <string name="moment_default_count">0</string>
-    <string name="moment_comment_replay">%1$s：</string>
+    <string name="moment_comment_replay">%1$s:</string>
+    <string name="moment_replay">回复</string>
 </resources>

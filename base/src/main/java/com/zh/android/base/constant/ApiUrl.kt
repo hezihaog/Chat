@@ -65,7 +65,7 @@ object ApiUrl {
      */
     private val BASE_URL: String
         get() {
-            return "http://${HOST}:9000"
+            return "http://${HOST}:9002"
         }
 
     /**

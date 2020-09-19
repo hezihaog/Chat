@@ -59,13 +59,21 @@ class MomentItemViewBinder(
                 holder.nineGridView.setGone()
             }
             //点赞数量
-            holder.likeText.text = likes.toString()
+            holder.likeText.apply {
+                text = likes.toString()
+                //文字颜色
+                if (liked) {
+                    setTextColor(context.resources.getColor(R.color.base_blue))
+                } else {
+                    setTextColor(context.resources.getColor(R.color.base_gray4))
+                }
+            }
             holder.likeSymbol.apply {
                 //切换点赞颜色
-                if (isLike) {
-                    setColorFilter(R.color.base_gray4)
+                if (liked) {
+                    setImageResource(R.drawable.moment_liked)
                 } else {
-                    setColorFilter(R.color.base_blue)
+                    setImageResource(R.drawable.moment_like)
                 }
             }
             //点赞操作

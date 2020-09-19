@@ -36,7 +36,7 @@ class MomentModel(
     /**
      * 是否点赞了
      */
-    val isLike: Boolean,
+    val liked: Boolean,
     /**
      * 创建时间
      */

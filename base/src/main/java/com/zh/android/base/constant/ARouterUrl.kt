@@ -87,6 +87,11 @@ class ARouterUrl {
          */
         const val MOMENT_DETAIL = "${MOMENT_GROUP}/detail"
 
+        /**
+         * 动态发布
+         */
+        const val MOMENT_PUBLISH = "${MOMENT_GROUP}/publish"
+
         //============================== 我的 ==============================
         private const val MINE_GROUP = "/mine"
         const val MINE_SERVICE = "${MINE_GROUP}s/module"

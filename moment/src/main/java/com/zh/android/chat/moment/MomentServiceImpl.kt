@@ -30,4 +30,10 @@ class MomentServiceImpl : MomentService {
             .withString(AppConstant.Key.MOMENT_ID, momentId)
             .startNavigation(activity)
     }
+
+    override fun goMomentPublish(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MOMENT_PUBLISH)
+            .startNavigation(activity)
+    }
 }

@@ -7,15 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.handlerErrorCode
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentItemViewBinder
 import com.zh.android.chat.moment.model.MomentModel
+import com.zh.android.chat.service.ext.getLoginService
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -37,7 +35,17 @@ class MomentListFragment : BaseFragment() {
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            register(MomentModel::class.java, MomentItemViewBinder())
+            register(MomentModel::class.java, MomentItemViewBinder(
+                { position, item ->
+                    toast("点赞操作")
+                }, { position, item ->
+                    toast("点击评论，跳转详情")
+                }, { position, item ->
+                    toast("触发分享")
+                }, { position, item ->
+                    toast("跳转动态详情")
+                }
+            ))
         }
     }
 
@@ -81,7 +89,7 @@ class MomentListFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
-        refresh()
+        vRefreshLayout.autoRefresh()
     }
 
     /**
@@ -90,10 +98,12 @@ class MomentListFragment : BaseFragment() {
     private fun getMomentList(
         pageNum: Int
     ) {
+        val userId = getLoginService()?.getUserId()
         val isFirstPage = pageNum == ApiUrl.FIRST_PAGE
         val pageSize = ApiUrl.PAGE_SIZE
-        mMomentPresenter.getMomentList(pageNum, ApiUrl.PAGE_SIZE)
-            .ioToMain()
+        mMomentPresenter.getMomentList(
+            userId, pageNum, ApiUrl.PAGE_SIZE
+        ).ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {

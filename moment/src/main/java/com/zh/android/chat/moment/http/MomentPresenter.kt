@@ -20,9 +20,10 @@ class MomentPresenter {
      * @param pageSize 每页多少条
      */
     fun getMomentList(
+        userId: String?,
         pageNum: Int,
         pageSize: Int
     ): Observable<HttpModel<PageModel<MomentModel>>> {
-        return MomentRequester.getMomentList(TAG, pageNum, pageSize)
+        return MomentRequester.getMomentList(TAG, userId, pageNum, pageSize)
     }
 }

@@ -53,7 +53,7 @@ object ApiUrl {
      */
     private val HOST: String
         //get() = "192.168.1.102"
-        get() = "192.168.100.26"
+        get() = "192.168.43.110"
     //get() = "api.chat.com"
 
     /**

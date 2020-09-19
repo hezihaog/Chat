@@ -74,11 +74,75 @@
         android:layout_marginStart="@dimen/base_dimen_15"
         android:layout_marginEnd="@dimen/base_dimen_15"
         android:layout_marginBottom="@dimen/base_dimen_15"
+        android:visibility="gone"
         app:ngv_gridSpacing="@dimen/base_dimen_3"
         app:ngv_maxSize="6"
         app:ngv_mode="grid"
         app:ngv_singleImageRatio="1"
-        app:ngv_singleImageSize="@dimen/base_dimen_250" />
+        app:ngv_singleImageSize="@dimen/base_dimen_250"
+        tools:visibility="visible" />
+
+    <View
+        style="@style/base_divider"
+        android:layout_width="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/base_dimen_15"
+        android:paddingTop="@dimen/base_dimen_10"
+        android:paddingEnd="@dimen/base_dimen_15"
+        android:paddingBottom="@dimen/base_dimen_10">
+
+        <LinearLayout
+            android:id="@+id/like_layout"
+            style="@style/moment_symbol_layout"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:id="@+id/like_symbol"
+                style="@style/moment_symbol_image"
+                android:src="@drawable/moment_like" />
+
+            <TextView
+                android:id="@+id/like_text"
+                style="@style/moment_symbol_text"
+                android:text="0" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/comment_layout"
+            style="@style/moment_symbol_layout"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/comment_symbol"
+                style="@style/moment_symbol_image"
+                android:src="@drawable/moment_comment" />
+
+            <TextView
+                android:id="@+id/comment_text"
+                style="@style/moment_symbol_text"
+                android:text="0" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/share_layout"
+            style="@style/moment_symbol_layout"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:id="@+id/share_symbol"
+                style="@style/moment_symbol_image"
+                android:src="@drawable/moment_share" />
+
+            <TextView
+                android:id="@+id/share_text"
+                style="@style/moment_symbol_text"
+                android:text="@string/moment_share" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <View
         style="@style/base_divider"

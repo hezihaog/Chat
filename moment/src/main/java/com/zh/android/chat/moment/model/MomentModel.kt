@@ -34,6 +34,10 @@ class MomentModel(
      */
     val comments: Int,
     /**
+     * 是否点赞了
+     */
+    val isLike: Boolean,
+    /**
      * 创建时间
      */
     val createTime: String

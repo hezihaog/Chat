@@ -25,6 +25,7 @@ class MomentRequester {
          */
         fun getMomentList(
             tag: String,
+            userId: String?,
             pageNum: Int,
             pageSize: Int
         ): Observable<HttpModel<PageModel<MomentModel>>> {
@@ -32,6 +33,7 @@ class MomentRequester {
             val request: GetRequest<HttpModel<PageModel<MomentModel>>> =
                 OkGo.get(ApiUrl.GET_MOMENT_LIST)
             return request.tag(tag)
+                .params("userId", userId)
                 .params("pageNum", pageNum)
                 .params("pageSize", pageSize)
                 .converter(ModelConvert(type))

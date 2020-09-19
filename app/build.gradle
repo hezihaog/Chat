@@ -86,6 +86,7 @@ dependencies {
     api project(path: ':conversation')
     api project(path: ':friend')
     api project(path: ':discovery')
+    api project(path: ':moment')
     api project(path: ':mine')
     api project(path: ':setting')
 

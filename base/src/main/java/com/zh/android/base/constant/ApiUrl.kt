@@ -52,13 +52,16 @@ object ApiUrl {
      * 主机地址
      */
     private val HOST: String
-        get() = "192.168.1.102"
+        //get() = "192.168.1.102"
+        get() = "192.168.100.26"
+    //get() = "api.chat.com"
 
     /**
      * 图片服务器地址
      */
     private val IMAGE_HOST: String
         get() = "192.168.211.131"
+    //get() = "image.chat.com"
 
     /**
      * Url基础部分
@@ -184,4 +187,11 @@ object ApiUrl {
      * 获取用户的所有会话
      */
     val GET_ALL_CONVERSATION = "${BASE_URL}/chatRecord/getAllConversation"
+
+    //---------------------------- 动态 ----------------------------
+
+    /**
+     * 获取动态列表
+     */
+    val GET_MOMENT_LIST = "${BASE_URL}/moment/getMomentList"
 }

@@ -73,6 +73,15 @@ class ARouterUrl {
          */
         const val QR_CODE_SCAN = "${DISCOVERY_GROUP}/qrcode/scan"
 
+        //============================== 动态 ==============================
+        private const val MOMENT_GROUP = "/moment"
+        const val MOMENT_SERVICE = "${MOMENT_GROUP}s/module"
+
+        /**
+         * 动态列表
+         */
+        const val MOMENT_LIST = "${MOMENT_GROUP}/list"
+
         //============================== 我的 ==============================
         private const val MINE_GROUP = "/mine"
         const val MINE_SERVICE = "${MINE_GROUP}s/module"

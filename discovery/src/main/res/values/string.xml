@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="discovery_module_name">发现</string>
-    <string name="discovery_friend_circle">朋友圈</string>
+    <string name="discovery_moment">动态</string>
     <string name="discovery_add_friend">添加好友</string>
     <string name="discovery_scan_qrcode">扫一扫</string>
     <string name="discovery_ambient_brightness_tip">\n环境过暗，请打开闪光灯</string>

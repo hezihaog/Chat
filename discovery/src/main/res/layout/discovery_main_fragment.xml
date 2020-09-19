@@ -25,18 +25,18 @@
                 <View style="@style/base_divider" />
 
                 <LinearLayout
-                    android:id="@+id/friend_circle_layout"
+                    android:id="@+id/friend_moment_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <ImageView
                         style="@style/discovery_main_item_icon"
-                        android:src="@drawable/discovery_friend_circle" />
+                        android:src="@drawable/discovery_moment" />
 
                     <TextView
                         style="@style/discovery_main_item_text"
-                        android:text="@string/discovery_friend_circle" />
+                        android:text="@string/discovery_moment" />
                 </LinearLayout>
 
                 <View style="@style/base_divider" />

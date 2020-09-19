@@ -8,6 +8,7 @@ import com.zh.android.chat.service.module.friend.FriendService
 import com.zh.android.chat.service.module.home.HomeService
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.MineService
+import com.zh.android.chat.service.module.moment.MomentService
 import com.zh.android.chat.service.module.setting.SettingService
 
 /**
@@ -50,6 +51,14 @@ fun getFriendService(): FriendService? {
 fun getDiscoveryService(): DiscoveryService? {
     return ARouter.getInstance().build(ARouterUrl.DISCOVERY_SERVICE)
         .navigation() as? DiscoveryService
+}
+
+/**
+ * 获取动态模块服务
+ */
+fun getMomentService(): MomentService? {
+    return ARouter.getInstance().build(ARouterUrl.MOMENT_SERVICE)
+        .navigation() as? MomentService
 }
 
 /**

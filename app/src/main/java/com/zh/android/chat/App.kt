@@ -2,7 +2,10 @@ package com.zh.android.chat
 
 import android.app.Application
 import android.content.Context
+import android.graphics.Bitmap
+import android.widget.ImageView
 import com.alibaba.android.arouter.launcher.ARouter
+import com.lzy.ninegrid.NineGridView
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheEntity
 import com.lzy.okgo.cache.CacheMode
@@ -14,9 +17,12 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
+import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
+import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
+import com.zh.android.imageloader.ImageLoader
+import com.zh.android.imageloader.strategy.impl.GlideLoader
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -32,6 +38,7 @@ class App : Application() {
         initRouter()
         initRefresh()
         initActivityProvider()
+        initImage()
     }
 
     /**
@@ -97,5 +104,23 @@ class App : Application() {
      */
     private fun initActivityProvider() {
         ActivityProvider.initialize()
+    }
+
+    /**
+     * 初始化图片加载
+     */
+    private fun initImage() {
+        //图片加载
+        ImageLoader.get(this).loader = GlideLoader()
+        //九宫格图片控件
+        NineGridView.setImageLoader(object : NineGridView.ImageLoader {
+            override fun onDisplayImage(context: Context?, imageView: ImageView?, url: String?) {
+                imageView?.loadUrlImage(url, R.drawable.ic_default_image)
+            }
+
+            override fun getCacheImage(url: String?): Bitmap? {
+                return null
+            }
+        })
     }
 }

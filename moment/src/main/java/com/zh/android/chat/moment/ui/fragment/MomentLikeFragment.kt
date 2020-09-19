@@ -1,23 +1,20 @@
 package com.zh.android.chat.moment.ui.fragment
 
-import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.*
-import com.zh.android.base.util.ShareUtil
-import com.zh.android.base.widget.TopBar
+import com.zh.android.base.ext.handlerErrorCode
+import com.zh.android.base.ext.ioToMain
+import com.zh.android.base.ext.lifecycle
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
-import com.zh.android.chat.moment.item.MomentItemViewBinder
-import com.zh.android.chat.moment.model.MomentModel
-import com.zh.android.chat.service.ext.getLoginService
-import com.zh.android.chat.service.module.moment.MomentService
+import com.zh.android.chat.moment.item.MomentLikeRecordViewBinder
+import com.zh.android.chat.moment.model.MomentLikeRecordModel
+import com.zh.android.chat.service.AppConstant
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -25,16 +22,13 @@ import me.drakeet.multitype.MultiTypeAdapter
 /**
  * @author wally
  * @date 2020/09/19
- * 动态列表
+ * 动态点赞列表
  */
-class MomentListFragment : BaseFragment() {
-    @JvmField
-    @Autowired(name = ARouterUrl.MOMENT_SERVICE)
-    var mMomentService: MomentService? = null
-
-    private val vTopBar: TopBar by bindView(R.id.top_bar)
+class MomentLikeFragment : BaseFragment() {
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
+
+    private val mMomentId by bindArgument(AppConstant.Key.MOMENT_ID, "")
 
     private var mCurrentPage: Int = ApiUrl.FIRST_PAGE
 
@@ -43,19 +37,7 @@ class MomentListFragment : BaseFragment() {
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            register(MomentModel::class.java, MomentItemViewBinder(
-                { _, item ->
-                    //取反状态
-                    val isLike = !item.liked
-                    likeOrRemoveLikeMoment(isLike, item.id)
-                }, { _, item ->
-                    mMomentService?.goMomentDetail(fragmentActivity, item.id)
-                }, { _, item ->
-                    ShareUtil.shareText(fragmentActivity, item.content)
-                }, { _, item ->
-                    mMomentService?.goMomentDetail(fragmentActivity, item.id)
-                }
-            ))
+            register(MomentLikeRecordModel::class.java, MomentLikeRecordViewBinder())
         }
     }
 
@@ -63,30 +45,13 @@ class MomentListFragment : BaseFragment() {
         MomentPresenter()
     }
 
-    companion object {
-        fun newInstance(args: Bundle? = Bundle()): MomentListFragment {
-            val fragment = MomentListFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
     override fun onInflaterViewId(): Int {
-        return R.layout.base_refresh_layout_with_top_bar
+        return R.layout.base_refresh_layout
     }
 
     override fun onBindView(view: View?) {
-        vTopBar.apply {
-            addLeftBackImageButton().click {
-                fragmentActivity.finish()
-            }
-            setTitle(R.string.moment_module_name)
-            addRightTextButton(R.string.moment_publish, R.id.moment_publish)
-        }
         vRefreshLayout.apply {
-            setOnRefreshListener {
-                refresh()
-            }
+            setEnableRefresh(false)
             setOnLoadMoreListener {
                 loadMore()
             }
@@ -99,66 +64,30 @@ class MomentListFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
-        vRefreshLayout.autoRefresh()
+        refresh()
     }
 
     private fun refresh() {
         mCurrentPage = ApiUrl.FIRST_PAGE
-        getMomentList(mCurrentPage)
+        getMomentLikeList(mMomentId, mCurrentPage)
     }
 
     private fun loadMore() {
         val nextPage = mCurrentPage + 1
-        getMomentList(nextPage)
+        getMomentLikeList(mMomentId, nextPage)
     }
 
     /**
-     * 点赞或取消点赞，动态
+     * 获取动态点赞列表
      */
-    private fun likeOrRemoveLikeMoment(isLike: Boolean, momentId: String) {
-        val userId = getLoginService()?.getUserId()
-        if (userId.isNullOrBlank()) {
-            return
-        }
-        val observable = if (isLike) {
-            mMomentPresenter.likeMoment(momentId, userId)
-        } else {
-            mMomentPresenter.removeLikeMoment(momentId, userId)
-        }
-        observable.ioToMain()
-            .lifecycle(lifecycleOwner)
-            .subscribe({ httpModel ->
-                if (handlerErrorCode(httpModel)) {
-                    httpModel?.data?.let { response ->
-                        //更新数据
-                        mListItems.forEach {
-                            if (it is MomentModel) {
-                                val model = it as MomentModel
-                                model.liked = response.liked
-                                model.likes = response.likes
-                            }
-                        }
-                        mListAdapter.notifyDataSetChanged()
-                    }
-                }
-            }, {
-                it.printStackTrace()
-                showRequestError()
-            })
-    }
-
-    /**
-     * 获取动态列表
-     */
-    private fun getMomentList(
+    private fun getMomentLikeList(
+        momentId: String,
         pageNum: Int
     ) {
-        val userId = getLoginService()?.getUserId()
         val isFirstPage = pageNum == ApiUrl.FIRST_PAGE
         val pageSize = ApiUrl.PAGE_SIZE
-        mMomentPresenter.getMomentList(
-            userId, pageNum, ApiUrl.PAGE_SIZE
-        ).ioToMain()
+        mMomentPresenter.getMomentLikeList(momentId)
+            .ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {

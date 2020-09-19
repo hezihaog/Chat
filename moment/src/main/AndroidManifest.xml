@@ -3,5 +3,6 @@
 
     <application>
         <activity android:name=".ui.activity.MomentListActivity" />
+        <activity android:name=".ui.activity.MomentDetailActivity" />
     </application>
 </manifest>

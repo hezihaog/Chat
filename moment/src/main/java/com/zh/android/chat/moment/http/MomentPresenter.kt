@@ -3,6 +3,7 @@ package com.zh.android.chat.moment.http
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.PageModel
 import com.zh.android.chat.moment.model.LikeMomentModel
+import com.zh.android.chat.moment.model.MomentLikeRecordModel
 import com.zh.android.chat.moment.model.MomentModel
 import io.reactivex.Observable
 
@@ -26,6 +27,27 @@ class MomentPresenter {
         pageSize: Int
     ): Observable<HttpModel<PageModel<MomentModel>>> {
         return MomentRequester.getMomentList(TAG, userId, pageNum, pageSize)
+    }
+
+    /**
+     * 获取动态详情
+     * @param momentId 动态Id
+     * @param userId 用户Id
+     */
+    fun getMomentDetail(
+        momentId: String,
+        userId: String?
+    ): Observable<HttpModel<MomentModel>> {
+        return MomentRequester.getMomentDetail(TAG, momentId, userId)
+    }
+
+    /**
+     * 获取动态点赞列表
+     */
+    fun getMomentLikeList(
+        momentId: String
+    ): Observable<HttpModel<PageModel<MomentLikeRecordModel>>> {
+        return MomentRequester.getMomentLikeList(TAG, momentId)
     }
 
     /**

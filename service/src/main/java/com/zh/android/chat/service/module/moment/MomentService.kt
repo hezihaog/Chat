@@ -13,4 +13,10 @@ interface MomentService : IProvider {
      * 跳转到动态列表
      */
     fun goMomentList(activity: Activity)
+
+    /**
+     * 跳转到动态详情
+     * @param momentId 动态Id
+     */
+    fun goMomentDetail(activity: Activity, momentId: String);
 }

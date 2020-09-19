@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/base_dimen_15"
+        android:paddingTop="@dimen/base_dimen_10"
+        android:paddingEnd="@dimen/base_dimen_15"
+        android:paddingBottom="@dimen/base_dimen_10">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/base_dimen_40"
+            android:layout_height="@dimen/base_dimen_40"
+            tools:src="@drawable/base_avatar_round" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_16"
+                tools:text="首席CTO" />
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_5" />
+
+            <TextView
+                android:id="@+id/create_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_gray4"
+                android:textSize="@dimen/base_dimen_sp_13"
+                tools:text="1小时前" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:layout_marginBottom="@dimen/base_dimen_15"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/base_dimen_sp_15"
+        tools:text="上午才买的砂锅，准备煮砂锅饭，好了，米还没下去，锅底先下去了，淦……\n上午才买的砂锅，准备煮砂锅饭，好了，米还没下去，锅底先下去了，淦……" />
+
+    <com.lzy.ninegrid.NineGridView
+        android:id="@+id/nine_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:layout_marginBottom="@dimen/base_dimen_15"
+        android:visibility="gone"
+        app:ngv_gridSpacing="@dimen/base_dimen_3"
+        app:ngv_maxSize="6"
+        app:ngv_mode="grid"
+        app:ngv_singleImageRatio="1"
+        app:ngv_singleImageSize="@dimen/base_dimen_250"
+        tools:visibility="visible" />
+
+    <View
+        style="@style/base_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_10" />
+</LinearLayout>

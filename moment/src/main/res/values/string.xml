@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="moment_module_name">动态</string>
+    <string name="moment_detail">动态详情</string>
+    <string name="moment_comment">评论</string>
+    <string name="moment_like">赞</string>
     <string name="moment_publish">发布</string>
     <string name="moment_share">分享</string>
     <string name="moment_default_count">0</string>

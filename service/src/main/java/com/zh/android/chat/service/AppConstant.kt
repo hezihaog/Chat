@@ -25,6 +25,11 @@ class AppConstant private constructor() {
              * 聊天记录的Id
              */
             const val CHAT_RECORD_ID = "chat_record_id"
+
+            /**
+             * 动态Id
+             */
+            const val MOMENT_ID = "moment_id"
         }
     }
 

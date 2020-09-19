@@ -3,4 +3,5 @@
     <string name="moment_module_name">动态</string>
     <string name="moment_publish">发布</string>
     <string name="moment_share">分享</string>
+    <string name="moment_default_count">0</string>
 </resources>

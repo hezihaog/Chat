@@ -36,8 +36,10 @@ class MomentListFragment : BaseFragment() {
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
             register(MomentModel::class.java, MomentItemViewBinder(
-                { position, item ->
-                    toast("点赞操作")
+                { _, item ->
+                    //取反状态
+                    val isLike = !item.liked
+                    likeOrRemoveLikeMoment(isLike, item.id)
                 }, { position, item ->
                     toast("点击评论，跳转详情")
                 }, { position, item ->
@@ -90,6 +92,51 @@ class MomentListFragment : BaseFragment() {
     override fun setData() {
         super.setData()
         vRefreshLayout.autoRefresh()
+    }
+
+    private fun refresh() {
+        mCurrentPage = ApiUrl.FIRST_PAGE
+        getMomentList(mCurrentPage)
+    }
+
+    private fun loadMore() {
+        val nextPage = mCurrentPage + 1
+        getMomentList(nextPage)
+    }
+
+    /**
+     * 点赞或取消点赞，动态
+     */
+    private fun likeOrRemoveLikeMoment(isLike: Boolean, momentId: String) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        val observable = if (isLike) {
+            mMomentPresenter.likeMoment(momentId, userId)
+        } else {
+            mMomentPresenter.removeLikeMoment(momentId, userId)
+        }
+        observable.ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    httpModel?.data?.let { response ->
+                        //更新数据
+                        mListItems.forEach {
+                            if (it is MomentModel) {
+                                val model = it as MomentModel
+                                model.liked = response.liked
+                                model.likes = response.likes
+                            }
+                        }
+                        mListAdapter.notifyDataSetChanged()
+                    }
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
     }
 
     /**
@@ -159,15 +206,5 @@ class MomentListFragment : BaseFragment() {
                     vRefreshLayout.finishLoadMore(false)
                 }
             })
-    }
-
-    private fun refresh() {
-        mCurrentPage = ApiUrl.FIRST_PAGE
-        getMomentList(mCurrentPage)
-    }
-
-    private fun loadMore() {
-        val nextPage = mCurrentPage + 1
-        getMomentList(nextPage)
     }
 }

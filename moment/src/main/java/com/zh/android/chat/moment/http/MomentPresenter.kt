@@ -2,6 +2,7 @@ package com.zh.android.chat.moment.http
 
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.PageModel
+import com.zh.android.chat.moment.model.LikeMomentModel
 import com.zh.android.chat.moment.model.MomentModel
 import io.reactivex.Observable
 
@@ -25,5 +26,29 @@ class MomentPresenter {
         pageSize: Int
     ): Observable<HttpModel<PageModel<MomentModel>>> {
         return MomentRequester.getMomentList(TAG, userId, pageNum, pageSize)
+    }
+
+    /**
+     * 点赞动态
+     * @param momentId 动态Id
+     * @param userId 用户Id
+     */
+    fun likeMoment(
+        momentId: String,
+        userId: String
+    ): Observable<HttpModel<LikeMomentModel>> {
+        return MomentRequester.likeMoment(TAG, momentId, userId)
+    }
+
+    /**
+     * 取消点赞动态
+     * @param momentId 动态Id
+     * @param userId 用户Id
+     */
+    fun removeLikeMoment(
+        momentId: String,
+        userId: String
+    ): Observable<HttpModel<LikeMomentModel>> {
+        return MomentRequester.removeLikeMoment(TAG, momentId, userId)
     }
 }

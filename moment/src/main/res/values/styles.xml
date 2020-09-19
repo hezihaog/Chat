@@ -21,5 +21,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/base_dimen_10</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_10</item>
+        <item name="android:paddingStart">@dimen/base_dimen_15</item>
+        <item name="android:paddingEnd">@dimen/base_dimen_15</item>
     </style>
 </resources>

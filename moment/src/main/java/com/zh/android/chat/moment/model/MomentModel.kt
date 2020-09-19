@@ -28,7 +28,7 @@ class MomentModel(
     /**
      * 点赞数量
      */
-    val likes: Int,
+    var likes: Int,
     /**
      * 评论数量
      */
@@ -36,7 +36,7 @@ class MomentModel(
     /**
      * 是否点赞了
      */
-    val liked: Boolean,
+    var liked: Boolean,
     /**
      * 创建时间
      */

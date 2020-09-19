@@ -88,11 +88,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/base_dimen_15"
-        android:paddingTop="@dimen/base_dimen_10"
-        android:paddingEnd="@dimen/base_dimen_15"
-        android:paddingBottom="@dimen/base_dimen_10">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/like_layout"
@@ -107,7 +103,7 @@
             <TextView
                 android:id="@+id/like_text"
                 style="@style/moment_symbol_text"
-                android:text="0" />
+                android:text="@string/moment_default_count" />
         </LinearLayout>
 
         <LinearLayout
@@ -124,7 +120,7 @@
             <TextView
                 android:id="@+id/comment_text"
                 style="@style/moment_symbol_text"
-                android:text="0" />
+                android:text="@string/moment_default_count" />
         </LinearLayout>
 
         <LinearLayout

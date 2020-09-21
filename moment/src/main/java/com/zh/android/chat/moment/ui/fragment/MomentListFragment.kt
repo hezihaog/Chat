@@ -81,7 +81,7 @@ class MomentListFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.moment_module_name)
-            addRightTextButton(R.string.moment_publish, R.id.moment_publish).click {
+            addRightImageButton(R.drawable.moment_publish, R.id.moment_publish).click {
                 mMomentService?.goMomentPublish(fragmentActivity)
             }
         }

@@ -49,7 +49,7 @@ class MineRequester {
             val type = genericGsonType<HttpModel<*>>()
             val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.UPDATE_NICKNAME)
             return request.tag(tag)
-                .upJson(LinkedHashMap<String, String>().apply {
+                .upJson(LinkedHashMap<String, Any>().apply {
                     put("id", userId)
                     put("nickname", newNickName)
                 }.toJson())

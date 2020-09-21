@@ -20,4 +20,7 @@
     <string name="base_refresh">刷新</string>
 
     <string name="base_right_arrow"></string>
+
+    <string name="base_take_photo">拍照</string>
+    <string name="base_take_gallery">从相册中选择</string>
 </resources>

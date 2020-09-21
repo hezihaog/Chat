@@ -9,4 +9,6 @@
     <string name="moment_default_count">0</string>
     <string name="moment_comment_replay">%1$s:</string>
     <string name="moment_replay">回复</string>
+    <string name="moment_publish_input_empty_tip">请输入您要发布的内容</string>
+    <string name="moment_publish_success">发布成功</string>
 </resources>

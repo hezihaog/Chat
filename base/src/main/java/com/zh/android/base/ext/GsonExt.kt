@@ -25,6 +25,6 @@ inline fun <reified T> genericGsonType(): Type = genericGsonTypeToken<T>().type
 /**
  * Map转Json
  */
-fun HashMap<String, String>.toJson(): String {
+fun HashMap<String, Any>.toJson(): String {
     return JsonProxy.get().toJson(this)
 }

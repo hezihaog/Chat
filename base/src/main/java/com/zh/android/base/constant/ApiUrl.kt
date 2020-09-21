@@ -109,6 +109,11 @@ object ApiUrl {
      */
     val UPLOAD_FILE = "$BASE_URL/file/uploadFile"
 
+    /**
+     * 上传多个图片
+     */
+    val UPLOAD_FILES = "$BASE_URL/file/uploadFiles"
+
     //---------------------------- 登录 ----------------------------
 
     /**
@@ -226,4 +231,9 @@ object ApiUrl {
      * 取消点赞动态
      */
     val REMOVE_LIKE_MOMENT = "${BASE_URL}/moment/removeLikeMoment"
+
+    /**
+     * 发布动态
+     */
+    val ADD_MOMENT = "${BASE_URL}/moment/addMoment"
 }

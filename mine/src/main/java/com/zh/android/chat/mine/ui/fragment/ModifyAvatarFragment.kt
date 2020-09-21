@@ -76,8 +76,8 @@ class ModifyAvatarFragment : BaseFragment() {
         AlertDialog.Builder(fragmentActivity)
             .setItems(
                 arrayOf(
-                    getString(R.string.mine_take_photo),
-                    getString(R.string.mine_take_gallery)
+                    getString(R.string.base_take_photo),
+                    getString(R.string.base_take_gallery)
                 )
             ) { _, which ->
                 val rxTakePhoto = RxTakePhoto()

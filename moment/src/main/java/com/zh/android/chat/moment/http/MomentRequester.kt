@@ -120,7 +120,7 @@ class MomentRequester {
             val request: PostRequest<HttpModel<LikeMomentModel>> =
                 OkGo.post(ApiUrl.LIKE_MOMENT)
             return request.tag(tag)
-                .upJson(LinkedHashMap<String, String>().apply {
+                .upJson(LinkedHashMap<String, Any>().apply {
                     put("momentId", momentId)
                     put("userId", userId)
                 }.toJson())
@@ -142,9 +142,34 @@ class MomentRequester {
             val request: PostRequest<HttpModel<LikeMomentModel>> =
                 OkGo.post(ApiUrl.REMOVE_LIKE_MOMENT)
             return request.tag(tag)
-                .upJson(LinkedHashMap<String, String>().apply {
+                .upJson(LinkedHashMap<String, Any>().apply {
                     put("momentId", momentId)
                     put("userId", userId)
+                }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 发布动态
+         * @param userId 用户Id
+         * @param content 动态内容
+         * @param pictures 图片Url列表
+         */
+        fun publishMoment(
+            tag: String,
+            userId: String,
+            content: String,
+            pictures: List<String>
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.ADD_MOMENT)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, Any>().apply {
+                    put("userId", userId)
+                    put("content", content)
+                    put("pictures", pictures)
                 }.toJson())
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())

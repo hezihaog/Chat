@@ -40,7 +40,7 @@ class UploadRequester {
             files: List<File>
         ): Observable<HttpModel<List<String>>> {
             val type = genericGsonType<HttpModel<List<String>>>()
-            val request: PostRequest<HttpModel<List<String>>> = OkGo.post(ApiUrl.UPLOAD_FILE)
+            val request: PostRequest<HttpModel<List<String>>> = OkGo.post(ApiUrl.UPLOAD_FILES)
             return request.tag(tag)
                 .addFileParams("files", files)
                 .converter(ModelConvert(type))

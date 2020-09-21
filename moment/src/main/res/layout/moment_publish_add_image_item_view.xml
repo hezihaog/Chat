@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/base_dimen_5"
+    android:layout_marginTop="@dimen/base_dimen_5">
+
+    <ImageView
+        android:layout_width="@dimen/base_dimen_100"
+        android:layout_height="@dimen/base_dimen_100"
+        android:scaleType="centerCrop"
+        android:src="@drawable/moment_item_add_picture" />
+</FrameLayout>

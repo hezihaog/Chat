@@ -93,4 +93,18 @@ class MomentPresenter {
     ): Observable<HttpModel<LikeMomentModel>> {
         return MomentRequester.removeLikeMoment(TAG, momentId, userId)
     }
+
+    /**
+     * 发布动态
+     * @param userId 用户Id
+     * @param content 动态内容
+     * @param pictures 图片Url列表
+     */
+    fun publishMoment(
+        userId: String,
+        content: String = "",
+        pictures: List<String> = listOf()
+    ): Observable<HttpModel<*>> {
+        return MomentRequester.publishMoment(TAG, userId, content, pictures)
+    }
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.base.util.takephoto.RxTakePhoto
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
@@ -16,6 +17,7 @@ import com.zh.android.chat.moment.item.MomentAddPublishImageViewBinder
 import com.zh.android.chat.moment.item.MomentPublishImageViewBinder
 import com.zh.android.chat.moment.model.AddPublishImageModel
 import com.zh.android.chat.moment.model.MomentPublishImageModel
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.base.UploadPresenter
 import io.reactivex.Observable
@@ -229,6 +231,8 @@ class MomentPublishFragment : BaseFragment() {
                 .lifecycle(lifecycleOwner)
                 .subscribe({ httpModel ->
                     if (handlerErrorCode(httpModel)) {
+                        //发送广播，刷新动态列表
+                        AppBroadcastManager.sendBroadcast(AppConstant.Action.MOMENT_PUBLISH_SUCCESS)
                         toast(R.string.moment_publish_success)
                         fragmentActivity.finish()
                     }

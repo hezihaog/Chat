@@ -74,6 +74,9 @@ class MomentDetailFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.moment_detail)
+            addRightImageButton(R.drawable.base_more, R.id.topbar_item_more).click {
+                toast("更多")
+            }
         }
         vRefreshLayout.apply {
             setOnRefreshListener {

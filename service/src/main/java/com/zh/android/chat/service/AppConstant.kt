@@ -39,12 +39,26 @@ class AppConstant private constructor() {
              * 用户登录
              */
             const val LOGIN_USER_LOGIN = "action_user_login"
+
             /**
              * 用户退出登录
              */
             const val LOGIN_USER_LOGOUT = "action_user_logout"
+
+            /**
+             * 更新头像
+             */
             const val UPDATE_AVATAR = "action_update_avatar"
+
+            /**
+             * 更新昵称
+             */
             const val UPDATE_NICKNAME = "action_update_nickname"
+
+            /**
+             * 发布动态成功
+             */
+            const val MOMENT_PUBLISH_SUCCESS = "action_moment_publish_success"
         }
     }
 
@@ -54,10 +68,12 @@ class AppConstant private constructor() {
              * 平台
              */
             const val PLATFORM = "platform"
+
             /**
              * 令牌
              */
             const val TOKEN = "token"
+
             /**
              * 登录账号的用户Id
              */

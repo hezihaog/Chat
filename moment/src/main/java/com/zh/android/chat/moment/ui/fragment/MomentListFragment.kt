@@ -1,5 +1,8 @@
 package com.zh.android.chat.moment.ui.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,12 +13,14 @@ import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.ShareUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentItemViewBinder
 import com.zh.android.chat.moment.model.MomentModel
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
@@ -73,6 +78,16 @@ class MomentListFragment : BaseFragment() {
 
     override fun onInflaterViewId(): Int {
         return R.layout.base_refresh_layout_with_top_bar
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        BroadcastRegistry(lifecycleOwner)
+            .register(object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    refresh()
+                }
+            }, AppConstant.Action.MOMENT_PUBLISH_SUCCESS)
     }
 
     override fun onBindView(view: View?) {

@@ -81,12 +81,38 @@ class MomentListFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //发布成功
         BroadcastRegistry(lifecycleOwner)
             .register(object : BroadcastReceiver() {
                 override fun onReceive(context: Context?, intent: Intent?) {
                     refresh()
                 }
             }, AppConstant.Action.MOMENT_PUBLISH_SUCCESS)
+        BroadcastRegistry(lifecycleOwner)
+            .register(object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    intent?.run {
+                        val momentId = getStringExtra(AppConstant.Key.MOMENT_ID)
+                        if (momentId.isNullOrBlank()) {
+                            return@run
+                        }
+                        val models = mListItems.filterIsInstance<MomentModel>()
+                            .filter {
+                                it.id == momentId
+                            }
+                        if (models.isNotEmpty() && models.size == 1) {
+                            val momentModel = models[0]
+                            val index = mListItems.indexOf(momentModel)
+                            if (index != -1) {
+                                if (mListItems.remove(momentModel)) {
+                                    mListAdapter.fixNotifyItemRemoved(index)
+                                }
+                            }
+                        }
+                    }
+                }
+            }, AppConstant.Action.MOMENT_DELETE_SUCCESS)
+        //切换点赞
         BroadcastRegistry(fragment)
             .register(object : BroadcastReceiver() {
                 override fun onReceive(context: Context?, intent: Intent?) {

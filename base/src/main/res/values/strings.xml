@@ -7,6 +7,7 @@
     <string name="base_cancel">取消</string>
     <string name="base_refuse">拒绝</string>
     <string name="base_more">更多</string>
+    <string name="base_delete">删除</string>
     <string name="base_go_setting">去设置</string>
 
     <string name="base_request_error_tip_msg">获取数据失败，请稍候重试</string>

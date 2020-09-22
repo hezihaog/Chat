@@ -38,6 +38,10 @@ class MomentModel(
      */
     var liked: Boolean,
     /**
+     * 是否是我的动态
+     */
+    val me: Boolean,
+    /**
      * 创建时间
      */
     val createTime: String

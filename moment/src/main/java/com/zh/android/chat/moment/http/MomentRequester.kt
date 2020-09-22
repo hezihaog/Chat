@@ -238,5 +238,27 @@ class MomentRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 删除动态
+         * @param momentId 动态Id
+         * @param userId 用户Id
+         */
+        fun removeMoment(
+            tag: String,
+            momentId: String,
+            userId: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.REMOVE_MOMENT)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, Any>().apply {
+                    put("momentId", momentId)
+                    put("userId", userId)
+                }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

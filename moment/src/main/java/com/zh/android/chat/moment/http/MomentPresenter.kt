@@ -144,4 +144,16 @@ class MomentPresenter {
     ): Observable<HttpModel<*>> {
         return MomentRequester.addMomentComment(TAG, momentId, userId, content)
     }
+
+    /**
+     * 删除动态
+     * @param momentId 动态Id
+     * @param userId 用户Id
+     */
+    fun removeMoment(
+        momentId: String,
+        userId: String
+    ):Observable<HttpModel<*>> {
+        return MomentRequester.removeMoment(TAG, momentId, userId)
+    }
 }

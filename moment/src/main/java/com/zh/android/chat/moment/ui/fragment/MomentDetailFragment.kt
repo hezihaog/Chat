@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
+import com.apkfuns.logutils.LogUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.linghit.base.util.argument.bindArgument
@@ -39,6 +41,7 @@ class MomentDetailFragment : BaseFragment() {
     private val vTabBar: TabLayout by bindView(R.id.tab_bar)
     private val vPager: ViewPager2 by bindView(R.id.view_page)
     private val vMomentInputBar: MomentInputBar by bindView(R.id.moment_input_bar)
+    private val vDelete: TextView by bindView(R.id.delete)
 
     private val vAvatar by lazy {
         vHeaderView.findViewById<ImageView>(R.id.avatar)
@@ -89,6 +92,19 @@ class MomentDetailFragment : BaseFragment() {
                 refresh()
             }
             setEnableLoadMore(false)
+        }
+        vDelete.click {
+            AlertDialog.Builder(fragmentActivity)
+                .setMessage(R.string.moment_confirm_delete)
+                .setPositiveButton(R.string.base_confirm) { _, _ ->
+                    //删除动态
+                    deleteMoment()
+                }
+                .setNegativeButton(R.string.base_cancel) { _, _ ->
+                    LogUtils.d("取消删除动态")
+                }
+                .create()
+                .show()
         }
         setupTab()
     }
@@ -173,6 +189,14 @@ class MomentDetailFragment : BaseFragment() {
                 vNickname.text = userInfo.nickname
                 vCreateTime.text = createTime
                 vContent.text = content
+                //删除动态
+                vDelete.run {
+                    if (me) {
+                        setVisible()
+                    } else {
+                        setGone()
+                    }
+                }
                 if (pictures.isNotEmpty()) {
                     vNineGridView.setVisible()
                     //图片信息
@@ -291,6 +315,34 @@ class MomentDetailFragment : BaseFragment() {
                     vMomentInputBar.setInputText("")
                     //刷新评论列表
                     AppBroadcastManager.sendBroadcast(AppConstant.Action.MOMENT_ADD_COMMENT_SUCCESS)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
+    }
+
+    /**
+     * 删除动态
+     */
+    private fun deleteMoment() {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMomentPresenter.removeMoment(mMomentId, userId)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.moment_delete_success)
+                    AppBroadcastManager.sendBroadcast(
+                        AppConstant.Action.MOMENT_DELETE_SUCCESS,
+                        Intent().apply {
+                            putExtra(AppConstant.Key.MOMENT_ID, mMomentId)
+                        }
+                    )
+                    fragmentActivity.finish()
                 }
             }, {
                 it.printStackTrace()

@@ -79,6 +79,11 @@ class AppConstant private constructor() {
              * 动态评论切换
              */
             const val MOMENT_LIKE_CHANGE = "action_moment_like_change"
+
+            /**
+             * 删除动态成功
+             */
+            const val MOMENT_DELETE_SUCCESS = "action_moment_delete_success"
         }
     }
 

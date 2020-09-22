@@ -251,4 +251,9 @@ object ApiUrl {
      * 增加一条动态评论
      */
     val ADD_MOMENT_COMMENT = "${BASE_URL}/moment/addMomentComment"
+
+    /**
+     * 删除动态
+     */
+    val REMOVE_MOMENT = "${BASE_URL}/moment/removeMoment"
 }

@@ -90,7 +90,8 @@ class MomentDetailFragment : BaseFragment() {
     private fun setupTab() {
         val tabTitles = mutableListOf(
             getString(R.string.moment_comment),
-            getString(R.string.moment_like)
+            getString(R.string.moment_like),
+            getString(R.string.moment_forward)
         )
         val tabItems = mutableListOf<BaseFragmentStateAdapter.TabInfo>().apply {
             add(
@@ -102,6 +103,12 @@ class MomentDetailFragment : BaseFragment() {
             add(
                 BaseFragmentStateAdapter.TabInfo(
                     MomentLikeFragment::class.java.name,
+                    arguments ?: Bundle()
+                )
+            )
+            add(
+                BaseFragmentStateAdapter.TabInfo(
+                    MomentForwardFragment::class.java.name,
                     arguments ?: Bundle()
                 )
             )

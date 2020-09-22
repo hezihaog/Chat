@@ -63,7 +63,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/moment_like_this_moment"
+                android:text="@string/moment_forward_this_moment"
                 android:textColor="@color/base_black"
                 android:textSize="@dimen/base_dimen_sp_13" />
         </LinearLayout>

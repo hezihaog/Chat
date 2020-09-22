@@ -8,6 +8,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.apkfuns.logutils.LogUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
@@ -57,6 +58,8 @@ class MomentListFragment : BaseFragment() {
                     mMomentService?.goMomentDetail(fragmentActivity, item.id)
                 }, { _, item ->
                     ShareUtil.shareText(fragmentActivity, item.content)
+                    //增加一条转发记录
+                    forwardMoment(item.id)
                 }, { _, item ->
                     mMomentService?.goMomentDetail(fragmentActivity, item.id)
                 }
@@ -235,5 +238,26 @@ class MomentListFragment : BaseFragment() {
                     vRefreshLayout.finishLoadMore(false)
                 }
             })
+    }
+
+
+    /**
+     * 转发动态
+     * @param momentId 动态Id
+     */
+    private fun forwardMoment(momentId: String) {
+        getLoginService()?.run {
+            val userId = getUserId()
+            mMomentPresenter.forwardMoment(momentId, userId)
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({ httpModel ->
+                    if (handlerErrorCode(httpModel)) {
+                        LogUtils.d("转发动态成功，momentId：${momentId}, userId：$userId")
+                    }
+                }, {
+                    it.printStackTrace()
+                })
+        }
     }
 }

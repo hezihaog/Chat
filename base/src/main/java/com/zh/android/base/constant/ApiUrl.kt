@@ -52,8 +52,8 @@ object ApiUrl {
      * 主机地址
      */
     private val HOST: String
-        //get() = "192.168.1.102"
-        get() = "192.168.43.110"
+        get() = "192.168.1.102"
+    //get() = "192.168.43.110"
     //get() = "api.chat.com"
 
     /**
@@ -236,4 +236,14 @@ object ApiUrl {
      * 发布动态
      */
     val ADD_MOMENT = "${BASE_URL}/moment/addMoment"
+
+    /**
+     * 转发动态
+     */
+    val FORWARD_MOMENT = "${BASE_URL}/moment/forwardMoment"
+
+    /**
+     * 获取动态转发列表
+     */
+    val GET_MOMENT_FORWARD_LIST = "${BASE_URL}/moment/getMomentForwardList"
 }

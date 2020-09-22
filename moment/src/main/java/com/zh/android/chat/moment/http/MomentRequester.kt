@@ -10,10 +10,7 @@ import com.zh.android.base.ext.toJson
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.base.http.PageModel
-import com.zh.android.chat.moment.model.LikeMomentModel
-import com.zh.android.chat.moment.model.MomentCommentModel
-import com.zh.android.chat.moment.model.MomentLikeRecordModel
-import com.zh.android.chat.moment.model.MomentModel
+import com.zh.android.chat.moment.model.*
 import io.reactivex.Observable
 import java.util.*
 
@@ -171,6 +168,48 @@ class MomentRequester {
                     put("content", content)
                     put("pictures", pictures)
                 }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 转发动态
+         * @param momentId 动态Id
+         * @param userId 用户Id
+         */
+        fun forwardMoment(
+            tag: String,
+            momentId: String,
+            userId: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.FORWARD_MOMENT)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, Any>().apply {
+                    put("momentId", momentId)
+                    put("userId", userId)
+                }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 获取动态转发列表
+         */
+        fun getMomentForwardList(
+            tag: String,
+            momentId: String,
+            pageNum: Int,
+            pageSize: Int
+        ): Observable<HttpModel<PageModel<MomentForwardRecordModel>>> {
+            val type = genericGsonType<HttpModel<PageModel<MomentForwardRecordModel>>>()
+            val request: GetRequest<HttpModel<PageModel<MomentForwardRecordModel>>> =
+                OkGo.get(ApiUrl.GET_MOMENT_FORWARD_LIST)
+            return request.tag(tag)
+                .params("momentId", momentId)
+                .params("pageNum", pageNum)
+                .params("pageSize", pageSize)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

@@ -2,10 +2,7 @@ package com.zh.android.chat.moment.http
 
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.PageModel
-import com.zh.android.chat.moment.model.LikeMomentModel
-import com.zh.android.chat.moment.model.MomentCommentModel
-import com.zh.android.chat.moment.model.MomentLikeRecordModel
-import com.zh.android.chat.moment.model.MomentModel
+import com.zh.android.chat.moment.model.*
 import io.reactivex.Observable
 
 /**
@@ -106,5 +103,31 @@ class MomentPresenter {
         pictures: List<String> = listOf()
     ): Observable<HttpModel<*>> {
         return MomentRequester.publishMoment(TAG, userId, content, pictures)
+    }
+
+    /**
+     * 转发动态
+     * @param momentId 动态Id
+     * @param userId 用户Id
+     */
+    fun forwardMoment(
+        momentId: String,
+        userId: String
+    ): Observable<HttpModel<*>> {
+        return MomentRequester.forwardMoment(TAG, momentId, userId)
+    }
+
+    /**
+     * 获取动态转发列表
+     * @param momentId 动态Id
+     * @param pageNum 页码
+     * @param pageSize 每页多少条
+     */
+    fun getMomentForwardList(
+        momentId: String,
+        pageNum: Int,
+        pageSize: Int
+    ): Observable<HttpModel<PageModel<MomentForwardRecordModel>>> {
+        return MomentRequester.getMomentForwardList(TAG, momentId, pageNum, pageSize)
     }
 }

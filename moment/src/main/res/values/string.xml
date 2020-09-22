@@ -9,9 +9,12 @@
     <string name="moment_share">分享</string>
     <string name="moment_default_count">0</string>
     <string name="moment_comment_replay">%1$s:</string>
+    <string name="moment_send">发送</string>
     <string name="moment_replay">回复</string>
     <string name="moment_publish_input_empty_tip">请输入您要发布的内容</string>
     <string name="moment_publish_success">发布成功</string>
     <string name="moment_like_this_moment">赞了这条动态</string>
     <string name="moment_forward_this_moment">转发了这条动态</string>
+    <string name="moment_comment_input_hint">输入评论…</string>
+    <string name="moment_comment_success">评论成功</string>
 </resources>

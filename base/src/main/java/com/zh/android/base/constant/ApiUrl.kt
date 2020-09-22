@@ -246,4 +246,9 @@ object ApiUrl {
      * 获取动态转发列表
      */
     val GET_MOMENT_FORWARD_LIST = "${BASE_URL}/moment/getMomentForwardList"
+
+    /**
+     * 增加一条动态评论
+     */
+    val ADD_MOMENT_COMMENT = "${BASE_URL}/moment/addMomentComment"
 }

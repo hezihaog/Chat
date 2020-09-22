@@ -1,5 +1,6 @@
 package com.zh.android.chat.moment.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -15,10 +16,12 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.ui.fragment.BaseFragmentStateAdapter
+import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.model.MomentModel
+import com.zh.android.chat.moment.ui.widget.MomentInputBar
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import kotterknife.bindView
@@ -33,6 +36,7 @@ class MomentDetailFragment : BaseFragment() {
     private val vHeaderView: View by bindView(R.id.header_view)
     private val vTabBar: TabLayout by bindView(R.id.tab_bar)
     private val vPager: ViewPager2 by bindView(R.id.view_page)
+    private val vMomentInputBar: MomentInputBar by bindView(R.id.moment_input_bar)
 
     private val vAvatar by lazy {
         vHeaderView.findViewById<ImageView>(R.id.avatar)
@@ -143,7 +147,9 @@ class MomentDetailFragment : BaseFragment() {
             .subscribe({ httpModel ->
                 vRefreshLayout.finishRefresh()
                 if (handlerErrorCode(httpModel)) {
-                    renderHeaderView(httpModel.data)
+                    val model = httpModel.data
+                    renderHeaderView(model)
+                    renderInputBar(model)
                 }
             }, {
                 it.printStackTrace()
@@ -185,5 +191,105 @@ class MomentDetailFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    /**
+     * 渲染输入栏
+     */
+    private fun renderInputBar(data: MomentModel?) {
+        vMomentInputBar.run {
+            if (data == null) {
+                setLike(false, "0")
+                setCommentNum("0")
+            } else {
+                setLike(data.liked, data.likes.toString())
+                setCommentNum(data.comments.toString())
+                setOnActionCallback(object : MomentInputBar.OnActionCallback {
+                    override fun onClickSendBefore(input: String?): Boolean {
+                        return !input.isNullOrBlank()
+                    }
+
+                    override fun onClickSendAfter(inputText: String) {
+                        //发送评论
+                        addMomentComment(data.id, inputText)
+                    }
+
+                    override fun onClickLike(isLike: Boolean) {
+                        //切换点赞
+                        likeOrRemoveLikeMoment(isLike, data.id)
+                    }
+
+                    override fun onClickComment() {
+                        //滚动评论列表
+                    }
+                })
+            }
+        }
+    }
+
+    /**
+     * 点赞或取消点赞，动态
+     */
+    private fun likeOrRemoveLikeMoment(isLike: Boolean, momentId: String) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        val observable = if (isLike) {
+            mMomentPresenter.likeMoment(momentId, userId)
+        } else {
+            mMomentPresenter.removeLikeMoment(momentId, userId)
+        }
+        observable.ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    httpModel?.data?.let { response ->
+                        //更新点赞状态
+                        vMomentInputBar.setLike(
+                            response.liked,
+                            response.likes.toString()
+                        )
+                        AppBroadcastManager.sendBroadcast(
+                            AppConstant.Action.MOMENT_LIKE_CHANGE,
+                            Intent().apply {
+                                putExtra(AppConstant.Key.MOMENT_ID, momentId)
+                                putExtra(AppConstant.Key.MOMENT_IS_LIKE, response.liked)
+                                putExtra(AppConstant.Key.MOMENT_LIKE_NUM, response.likes)
+                            }
+                        )
+                    }
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
+    }
+
+    /**
+     * 评论动态
+     */
+    private fun addMomentComment(
+        momentId: String,
+        content: String
+    ) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMomentPresenter.addMomentComment(momentId, userId, content)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.moment_comment_success)
+                    vMomentInputBar.setInputText("")
+                    //刷新评论列表
+                    AppBroadcastManager.sendBroadcast(AppConstant.Action.MOMENT_ADD_COMMENT_SUCCESS)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
     }
 }

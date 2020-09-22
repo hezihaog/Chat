@@ -213,5 +213,30 @@ class MomentRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 评论动态
+         * @param momentId 动态Id
+         * @param userId 用户Id
+         * @param content 评论内容
+         */
+        fun addMomentComment(
+            tag: String,
+            momentId: String,
+            userId: String,
+            content: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.ADD_MOMENT_COMMENT)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, Any>().apply {
+                    put("momentId", momentId)
+                    put("userId", userId)
+                    put("content", content)
+                }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

@@ -130,4 +130,18 @@ class MomentPresenter {
     ): Observable<HttpModel<PageModel<MomentForwardRecordModel>>> {
         return MomentRequester.getMomentForwardList(TAG, momentId, pageNum, pageSize)
     }
+
+    /**
+     * 评论动态
+     * @param momentId 动态Id
+     * @param userId 用户Id
+     * @param content 评论内容
+     */
+    fun addMomentComment(
+        momentId: String,
+        userId: String,
+        content: String
+    ): Observable<HttpModel<*>> {
+        return MomentRequester.addMomentComment(TAG, momentId, userId, content)
+    }
 }

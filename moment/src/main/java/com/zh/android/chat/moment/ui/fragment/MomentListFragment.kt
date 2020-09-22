@@ -79,10 +79,6 @@ class MomentListFragment : BaseFragment() {
         }
     }
 
-    override fun onInflaterViewId(): Int {
-        return R.layout.base_refresh_layout_with_top_bar
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         BroadcastRegistry(lifecycleOwner)
@@ -91,6 +87,30 @@ class MomentListFragment : BaseFragment() {
                     refresh()
                 }
             }, AppConstant.Action.MOMENT_PUBLISH_SUCCESS)
+        BroadcastRegistry(fragment)
+            .register(object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    intent?.run {
+                        val momentId = intent.getStringExtra(AppConstant.Key.MOMENT_ID) ?: ""
+                        val isLike = intent.getBooleanExtra(AppConstant.Key.MOMENT_IS_LIKE, false)
+                        val likeNum = intent.getIntExtra(AppConstant.Key.MOMENT_LIKE_NUM, 0)
+                        //点赞切换
+                        mListItems.filterIsInstance<MomentModel>()
+                            .filter {
+                                it.id == momentId
+                            }
+                            .map {
+                                it.liked = isLike
+                                it.likes = likeNum
+                            }
+                        mListAdapter.notifyDataSetChanged()
+                    }
+                }
+            }, AppConstant.Action.MOMENT_LIKE_CHANGE)
+    }
+
+    override fun onInflaterViewId(): Int {
+        return R.layout.base_refresh_layout_with_top_bar
     }
 
     override fun onBindView(view: View?) {

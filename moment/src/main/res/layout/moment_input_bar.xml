@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        style="@style/base_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_white"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            android:layout_marginEnd="@dimen/base_dimen_10"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:layout_weight="1"
+            android:background="@drawable/moment_bg_comment_input"
+            android:hint="@string/moment_comment_input_hint"
+            android:paddingStart="@dimen/base_dimen_15"
+            android:paddingTop="@dimen/base_dimen_5"
+            android:paddingEnd="@dimen/base_dimen_15"
+            android:paddingBottom="@dimen/base_dimen_5"
+            android:textColor="@color/base_black"
+            android:textColorHint="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_15" />
+
+        <LinearLayout
+            android:id="@+id/send_layout"
+            style="@style/moment_symbol_layout"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/base_dimen_10"
+            android:paddingStart="@dimen/base_dimen_10"
+            android:paddingEnd="@dimen/base_dimen_10"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/send_symbol"
+                style="@style/moment_symbol_image"
+                android:src="@drawable/moment_send" />
+
+            <TextView
+                android:id="@+id/send_text"
+                style="@style/moment_symbol_text"
+                android:text="@string/moment_send" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/like_layout"
+            style="@style/moment_symbol_layout"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="@dimen/base_dimen_10"
+            android:paddingEnd="@dimen/base_dimen_10">
+
+            <ImageView
+                android:id="@+id/like_symbol"
+                style="@style/moment_symbol_image"
+                android:src="@drawable/moment_like" />
+
+            <TextView
+                android:id="@+id/like_text"
+                style="@style/moment_symbol_text"
+                android:text="@string/moment_default_count" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/comment_layout"
+            style="@style/moment_symbol_layout"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_marginEnd="@dimen/base_dimen_10"
+            android:gravity="center"
+            android:paddingStart="@dimen/base_dimen_10"
+            android:paddingEnd="@dimen/base_dimen_10">
+
+            <ImageView
+                android:id="@+id/comment_symbol"
+                style="@style/moment_symbol_image"
+                android:src="@drawable/moment_comment" />
+
+            <TextView
+                android:id="@+id/comment_text"
+                style="@style/moment_symbol_text"
+                android:text="@string/moment_default_count" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

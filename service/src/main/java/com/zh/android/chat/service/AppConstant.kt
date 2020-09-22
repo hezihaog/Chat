@@ -30,6 +30,16 @@ class AppConstant private constructor() {
              * 动态Id
              */
             const val MOMENT_ID = "moment_id"
+
+            /**
+             * 是否点赞
+             */
+            const val MOMENT_IS_LIKE = "moment_is_like"
+
+            /**
+             * 动态点赞数量
+             */
+            const val MOMENT_LIKE_NUM = "moment_like_num"
         }
     }
 
@@ -59,6 +69,16 @@ class AppConstant private constructor() {
              * 发布动态成功
              */
             const val MOMENT_PUBLISH_SUCCESS = "action_moment_publish_success"
+
+            /**
+             * 评论动态成功
+             */
+            const val MOMENT_ADD_COMMENT_SUCCESS = "action_moment_add_comment"
+
+            /**
+             * 动态评论切换
+             */
+            const val MOMENT_LIKE_CHANGE = "action_moment_like_change"
         }
     }
 

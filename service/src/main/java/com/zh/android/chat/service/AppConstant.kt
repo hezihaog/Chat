@@ -32,6 +32,11 @@ class AppConstant private constructor() {
             const val MOMENT_ID = "moment_id"
 
             /**
+             * 动态的评论Id
+             */
+            const val MOMENT_COMMENT_ID = "moment_comment_id"
+
+            /**
              * 是否点赞
              */
             const val MOMENT_IS_LIKE = "moment_is_like"

@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.handlerErrorCode
@@ -20,6 +22,7 @@ import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentCommentViewBinder
 import com.zh.android.chat.moment.model.MomentCommentModel
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -30,6 +33,10 @@ import me.drakeet.multitype.MultiTypeAdapter
  * 动态评论列表
  */
 class MomentCommentFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.MOMENT_SERVICE)
+    var mMomentService: MomentService? = null
+
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
 
@@ -42,7 +49,13 @@ class MomentCommentFragment : BaseFragment() {
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            register(MomentCommentModel::class.java, MomentCommentViewBinder())
+            register(MomentCommentModel::class.java, MomentCommentViewBinder {
+                mMomentService?.goMomentCommentDetail(
+                    fragmentActivity,
+                    it.momentId,
+                    it.id
+                )
+            })
         }
     }
 

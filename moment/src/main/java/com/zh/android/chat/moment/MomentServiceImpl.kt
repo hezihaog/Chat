@@ -36,4 +36,16 @@ class MomentServiceImpl : MomentService {
             .build(ARouterUrl.MOMENT_PUBLISH)
             .startNavigation(activity)
     }
+
+    override fun goMomentCommentDetail(
+        activity: Activity,
+        momentId: String,
+        momentCommentId: String
+    ) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MOMENT_COMMENT_DETAIL)
+            .withString(AppConstant.Key.MOMENT_ID, momentId)
+            .withString(AppConstant.Key.MOMENT_COMMENT_ID, momentCommentId)
+            .startNavigation(activity)
+    }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.constant.ApiUrl
+import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.base.ext.setGone
 import com.zh.android.base.ext.setVisible
@@ -24,7 +25,9 @@ import me.drakeet.multitype.MultiTypeAdapter
  * @date 2020/09/19
  * 动态的评论条目
  */
-class MomentCommentViewBinder :
+class MomentCommentViewBinder(
+    val clickItemCallback: (item: MomentCommentModel) -> Unit
+) :
     ItemViewBinder<MomentCommentModel, MomentCommentViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         return ViewHolder(inflater.inflate(R.layout.moment_comment_item_view, parent, false))
@@ -68,6 +71,9 @@ class MomentCommentViewBinder :
                             }
                     }
                 }
+            }
+            holder.itemView.click {
+                clickItemCallback(item)
             }
         }
     }

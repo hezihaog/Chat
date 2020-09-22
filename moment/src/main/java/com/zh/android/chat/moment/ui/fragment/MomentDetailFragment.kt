@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
@@ -15,6 +16,7 @@ import com.lzy.ninegrid.ImageInfo
 import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
@@ -27,6 +29,7 @@ import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.moment.ui.widget.MomentInputBar
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
+import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
 
 /**

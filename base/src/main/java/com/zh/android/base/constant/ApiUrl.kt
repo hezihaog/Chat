@@ -256,4 +256,9 @@ object ApiUrl {
      * 删除动态
      */
     val REMOVE_MOMENT = "${BASE_URL}/moment/removeMoment"
+
+    /**
+     * 获取动态评论的回复列表
+     */
+    val GET_MOMENT_COMMENT_REPLY_LIST = "${BASE_URL}/moment/getMomentCommentReplyList"
 }

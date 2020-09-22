@@ -24,4 +24,15 @@ interface MomentService : IProvider {
      * 跳转到发布动态
      */
     fun goMomentPublish(activity: Activity)
+
+    /**
+     * 跳转到动态评论详情
+     * @param momentId 动态Id
+     * @param momentCommentId 动态评论Id
+     */
+    fun goMomentCommentDetail(
+        activity: Activity,
+        momentId: String,
+        momentCommentId: String
+    )
 }

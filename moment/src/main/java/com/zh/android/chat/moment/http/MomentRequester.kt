@@ -260,5 +260,22 @@ class MomentRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 获取动态评论的回复列表
+         * @param momentCommentId 动态评论Id
+         */
+        fun getMomentCommentReplyList(
+            tag: String,
+            momentCommentId: String
+        ): Observable<HttpModel<MomentCommentModel>> {
+            val type = genericGsonType<HttpModel<MomentCommentModel>>()
+            val request: GetRequest<HttpModel<MomentCommentModel>> =
+                OkGo.get(ApiUrl.GET_MOMENT_COMMENT_REPLY_LIST)
+            return request.tag(tag)
+                .params("momentCommentId", momentCommentId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

@@ -153,7 +153,17 @@ class MomentPresenter {
     fun removeMoment(
         momentId: String,
         userId: String
-    ):Observable<HttpModel<*>> {
+    ): Observable<HttpModel<*>> {
         return MomentRequester.removeMoment(TAG, momentId, userId)
+    }
+
+    /**
+     * 获取动态评论的回复列表
+     * @param momentCommentId 动态评论Id
+     */
+    fun getMomentCommentReplyList(
+        momentCommentId: String
+    ): Observable<HttpModel<MomentCommentModel>> {
+        return MomentRequester.getMomentCommentReplyList(TAG, momentCommentId)
     }
 }

@@ -6,6 +6,8 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.draggable.library.extension.ImageViewerHelper
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.AppBroadcastManager
@@ -55,8 +57,15 @@ class MomentPublishFragment : BaseFragment() {
                 MomentPublishImageViewBinder({ _, item ->
                     //删除图片
                     deleteImage(item)
-                }, { position, item ->
-                    toast("跳转到图片预览")
+                }, { position, _ ->
+                    //图片预览
+                    val imageUrls = getAllImageItemModel().map {
+                        ApiUrl.getFullImageUrl(it.url)
+                    }
+                    ImageViewerHelper.showImages(
+                        fragmentActivity,
+                        imageUrls, index = position
+                    )
                 })
             )
         }

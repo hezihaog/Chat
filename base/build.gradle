@@ -77,6 +77,7 @@ dependencies {
 
     api rootProject.ext.deps.luban
     api rootProject.ext.deps.take_photo
+    api rootProject.ext.deps.image_viewer
 
     testImplementation rootProject.ext.deps.junit
     androidTestImplementation rootProject.ext.deps.runner

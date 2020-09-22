@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.linghit.base.util.argument.bindArgument
 import com.lzy.ninegrid.ImageInfo
@@ -32,6 +33,7 @@ import kotterknife.bindView
  */
 class MomentDetailFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
+    private val vAppBar: AppBarLayout by bindView(R.id.app_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vHeaderView: View by bindView(R.id.header_view)
     private val vTabBar: TabLayout by bindView(R.id.tab_bar)
@@ -221,6 +223,9 @@ class MomentDetailFragment : BaseFragment() {
 
                     override fun onClickComment() {
                         //滚动评论列表
+                        vAppBar.setExpanded(false, true)
+                        //选中评论
+                        vPager.setCurrentItem(0, false)
                     }
                 })
             }

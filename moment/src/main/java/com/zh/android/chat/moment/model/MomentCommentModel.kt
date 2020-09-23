@@ -32,7 +32,7 @@ class MomentCommentModel(
     /**
      * 评论的回复列表
      */
-    val replyList: List<MomentCommentReplyModel>
+    val replyList: MutableList<MomentCommentReplyModel>
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -8591987583696258173L

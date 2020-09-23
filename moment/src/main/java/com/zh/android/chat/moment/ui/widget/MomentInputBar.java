@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.zh.android.base.util.listener.DelayOnClickListener;
 import com.zh.android.chat.moment.R;
 
@@ -175,5 +174,19 @@ public class MomentInputBar extends FrameLayout {
      */
     public void setCommentNum(String commentNum) {
         vCommentText.setText(commentNum);
+    }
+
+    /**
+     * 隐藏点赞按钮
+     */
+    public void hideLikeView() {
+        vLikeLayout.setVisibility(View.GONE);
+    }
+
+    /**
+     * 隐藏评论按钮
+     */
+    public void hideCommentView() {
+        vCommentLayout.setVisibility(View.GONE);
     }
 }

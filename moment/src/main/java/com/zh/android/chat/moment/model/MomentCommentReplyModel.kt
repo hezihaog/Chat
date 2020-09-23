@@ -36,7 +36,11 @@ class MomentCommentReplyModel(
     /**
      * 1为评论的回复，2为回复的回复
      */
-    val type: Int
+    val type: Int,
+    /**
+     * 创建时间
+     */
+    val createTime: String
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -8591987583696258173L

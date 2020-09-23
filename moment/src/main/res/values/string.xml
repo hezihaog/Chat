@@ -19,4 +19,6 @@
     <string name="moment_comment_success">评论成功</string>
     <string name="moment_delete_success">删除成功</string>
     <string name="moment_confirm_delete">确认删除动态？</string>
+    <string name="moment_replay_to">回复:%1$s"</string>
+    <string name="moment_replay_replay_to">回复%1$s:%2$s"</string>
 </resources>

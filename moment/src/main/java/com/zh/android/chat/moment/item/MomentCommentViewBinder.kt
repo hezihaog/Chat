@@ -26,7 +26,11 @@ import me.drakeet.multitype.MultiTypeAdapter
  * 动态的评论条目
  */
 class MomentCommentViewBinder(
-    val clickItemCallback: (item: MomentCommentModel) -> Unit
+    /**
+     * 分割线高度
+     */
+    private val dividerHeight: Int,
+    private val clickItemCallback: ((item: MomentCommentModel) -> Unit)? = null
 ) :
     ItemViewBinder<MomentCommentModel, MomentCommentViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
@@ -55,25 +59,31 @@ class MomentCommentViewBinder(
                     adapter = MultiTypeAdapter(items).apply {
                         //2种类型
                         register(MomentCommentReplyModel::class.java)
-                            .to(CommentReplyViewBinder(), ReplyReplyViewBinder())
+                            .to(InnerCommentReplyViewBinder(), InnerReplyReplyViewBinder())
                             .withClassLinker { _, model ->
                                 when (model.type) {
                                     MomentReplyType.COMMENT_REPLY.code -> {
-                                        CommentReplyViewBinder::class.java
+                                        InnerCommentReplyViewBinder::class.java
                                     }
                                     MomentReplyType.REPLY_REPLY.code -> {
-                                        ReplyReplyViewBinder::class.java
+                                        InnerReplyReplyViewBinder::class.java
                                     }
                                     else -> {
-                                        CommentReplyViewBinder::class.java
+                                        InnerCommentReplyViewBinder::class.java
                                     }
                                 }
                             }
                     }
                 }
             }
+            holder.divider.run {
+                if (layoutParams.height != dividerHeight) {
+                    layoutParams.height = dividerHeight
+                    requestLayout()
+                }
+            }
             holder.itemView.click {
-                clickItemCallback(item)
+                clickItemCallback?.invoke(item)
             }
         }
     }
@@ -84,20 +94,21 @@ class MomentCommentViewBinder(
         val createTime: TextView = view.findViewById(R.id.create_time)
         val content: TextView = view.findViewById(R.id.content)
         val commentList: RecyclerView = view.findViewById(R.id.comment_list)
+        val divider: View = view.findViewById(R.id.divider)
     }
 
     /**
      * 评论的回复
      */
-    class CommentReplyViewBinder :
-        ItemViewBinder<MomentCommentReplyModel, CommentReplyViewBinder.CommentReplyViewHolder>() {
+    class InnerCommentReplyViewBinder :
+        ItemViewBinder<MomentCommentReplyModel, InnerCommentReplyViewBinder.CommentReplyViewHolder>() {
         override fun onCreateViewHolder(
             inflater: LayoutInflater,
             parent: ViewGroup
         ): CommentReplyViewHolder {
             return CommentReplyViewHolder(
                 inflater.inflate(
-                    R.layout.moment_comment_replay_item_view,
+                    R.layout.moment_inner_comment_replay_item_view,
                     parent,
                     false
                 )
@@ -125,15 +136,15 @@ class MomentCommentViewBinder(
     /**
      * 回复的回复
      */
-    class ReplyReplyViewBinder :
-        ItemViewBinder<MomentCommentReplyModel, ReplyReplyViewBinder.ReplyReplyViewHolder>() {
+    class InnerReplyReplyViewBinder :
+        ItemViewBinder<MomentCommentReplyModel, InnerReplyReplyViewBinder.ReplyReplyViewHolder>() {
         override fun onCreateViewHolder(
             inflater: LayoutInflater,
             parent: ViewGroup
         ): ReplyReplyViewHolder {
             return ReplyReplyViewHolder(
                 inflater.inflate(
-                    R.layout.moment_replay_replay_item_view,
+                    R.layout.moment_inner_replay_replay_item_view,
                     parent,
                     false
                 )

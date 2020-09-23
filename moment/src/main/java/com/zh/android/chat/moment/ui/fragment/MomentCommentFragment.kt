@@ -67,12 +67,17 @@ class MomentCommentFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //增加评论和刷新详情
         BroadcastRegistry(fragment)
-            .register(object : BroadcastReceiver() {
-                override fun onReceive(context: Context?, intent: Intent?) {
-                    refresh()
-                }
-            }, AppConstant.Action.MOMENT_ADD_COMMENT_SUCCESS)
+            .register(
+                object : BroadcastReceiver() {
+                    override fun onReceive(context: Context?, intent: Intent?) {
+                        refresh()
+                    }
+                },
+                AppConstant.Action.MOMENT_ADD_COMMENT_SUCCESS,
+                AppConstant.Action.MOMENT_DETAIL_REFRESH
+            )
     }
 
     override fun onInflaterViewId(): Int {

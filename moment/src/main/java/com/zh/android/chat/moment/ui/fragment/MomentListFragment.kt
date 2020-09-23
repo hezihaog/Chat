@@ -286,7 +286,6 @@ class MomentListFragment : BaseFragment() {
             })
     }
 
-
     /**
      * 转发动态
      * @param momentId 动态Id

@@ -170,6 +170,7 @@ public class MomentInputBar extends FrameLayout {
     public void setInputText(String inputText) {
         vInput.setText(inputText);
         vInput.setSelection(inputText.length());
+        vInput.requestFocus();
     }
 
     /**
@@ -177,6 +178,7 @@ public class MomentInputBar extends FrameLayout {
      */
     public void setInputHintText(String inputHintText) {
         vInput.setHint(inputHintText);
+        vInput.requestFocus();
     }
 
     /**

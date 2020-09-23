@@ -1,5 +1,9 @@
 package com.zh.android.chat.moment.ui.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +14,7 @@ import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.handlerErrorCode
 import com.zh.android.base.ext.ioToMain
 import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentForwardRecordViewBinder
@@ -43,6 +48,21 @@ class MomentForwardFragment : BaseFragment() {
 
     private val mMomentPresenter by lazy {
         MomentPresenter()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //动态转发、刷新详情
+        BroadcastRegistry(fragment)
+            .register(
+                object : BroadcastReceiver() {
+                    override fun onReceive(context: Context?, intent: Intent?) {
+                        refresh()
+                    }
+                },
+                AppConstant.Action.MOMENT_FORWARD_SUCCESS,
+                AppConstant.Action.MOMENT_DETAIL_REFRESH
+            )
     }
 
     override fun onInflaterViewId(): Int {

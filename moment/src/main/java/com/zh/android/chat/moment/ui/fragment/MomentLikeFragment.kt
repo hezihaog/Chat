@@ -52,12 +52,16 @@ class MomentLikeFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //切换点赞和刷新详情
         BroadcastRegistry(fragment)
-            .register(object : BroadcastReceiver() {
-                override fun onReceive(context: Context?, intent: Intent?) {
-                    refresh()
-                }
-            }, AppConstant.Action.MOMENT_LIKE_CHANGE)
+            .register(
+                object : BroadcastReceiver() {
+                    override fun onReceive(context: Context?, intent: Intent?) {
+                        refresh()
+                    }
+                }, AppConstant.Action.MOMENT_LIKE_CHANGE,
+                AppConstant.Action.MOMENT_DETAIL_REFRESH
+            )
     }
 
     override fun onInflaterViewId(): Int {

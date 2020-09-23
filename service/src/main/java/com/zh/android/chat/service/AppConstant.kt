@@ -81,14 +81,24 @@ class AppConstant private constructor() {
             const val MOMENT_ADD_COMMENT_SUCCESS = "action_moment_add_comment"
 
             /**
-             * 动态评论切换
+             * 动态点赞切换
              */
             const val MOMENT_LIKE_CHANGE = "action_moment_like_change"
+
+            /**
+             * 动态转发成功
+             */
+            const val MOMENT_FORWARD_SUCCESS = "action_moment_forward_success"
 
             /**
              * 删除动态成功
              */
             const val MOMENT_DELETE_SUCCESS = "action_moment_delete_success"
+
+            /**
+             * 刷新动态详情
+             */
+            const val MOMENT_DETAIL_REFRESH = "action_moment_detail_refresh"
         }
     }
 

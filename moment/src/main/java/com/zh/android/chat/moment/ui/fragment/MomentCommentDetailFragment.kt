@@ -8,6 +8,7 @@ import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.enums.MomentReplyType
@@ -232,6 +233,10 @@ class MomentCommentDetailFragment : BaseFragment() {
                     vMomentInputBar.setInputText("")
                     toast(R.string.moment_replay_success)
                     vRefreshLayout.autoRefresh()
+                    //刷新外层列表
+                    AppBroadcastManager.sendBroadcast(
+                        AppConstant.Action.MOMENT_DETAIL_REFRESH
+                    )
                 }
             }, {
                 it.printStackTrace()

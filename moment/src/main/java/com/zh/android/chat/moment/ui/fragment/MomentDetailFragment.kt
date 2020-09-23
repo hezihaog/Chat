@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
@@ -16,12 +15,12 @@ import com.lzy.ninegrid.ImageInfo
 import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.ui.fragment.BaseFragmentStateAdapter
 import com.zh.android.base.util.AppBroadcastManager
+import com.zh.android.base.util.ShareUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
@@ -29,7 +28,6 @@ import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.moment.ui.widget.MomentInputBar
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
-import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
 
 /**
@@ -64,6 +62,11 @@ class MomentDetailFragment : BaseFragment() {
 
     private val mMomentId by bindArgument(AppConstant.Key.MOMENT_ID, "")
 
+    /**
+     * 动态信息
+     */
+    private var mMomentModel: MomentModel? = null
+
     private val mMomentPresenter by lazy {
         MomentPresenter()
     }
@@ -86,13 +89,21 @@ class MomentDetailFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.moment_detail)
-            addRightImageButton(R.drawable.base_more, R.id.topbar_item_more).click {
-                toast("更多")
+            addRightTextButton(R.string.base_share, R.id.topbar_item_share).click {
+                mMomentModel?.let {
+                    ShareUtil.shareText(fragmentActivity, it.content)
+                    //转发动态
+                    forwardMoment(it.id)
+                }
             }
         }
         vRefreshLayout.apply {
             setOnRefreshListener {
                 refresh()
+                //通知下面的3个Tab的列表刷新
+                AppBroadcastManager.sendBroadcast(
+                    AppConstant.Action.MOMENT_DETAIL_REFRESH
+                )
             }
             setEnableLoadMore(false)
         }
@@ -169,6 +180,7 @@ class MomentDetailFragment : BaseFragment() {
                 vRefreshLayout.finishRefresh()
                 if (handlerErrorCode(httpModel)) {
                     val model = httpModel.data
+                    mMomentModel = model
                     renderHeaderView(model)
                     renderInputBar(model)
                 }
@@ -351,5 +363,26 @@ class MomentDetailFragment : BaseFragment() {
                 it.printStackTrace()
                 showRequestError()
             })
+    }
+
+    /**
+     * 转发动态
+     * @param momentId 动态Id
+     */
+    private fun forwardMoment(momentId: String) {
+        getLoginService()?.run {
+            val userId = getUserId()
+            mMomentPresenter.forwardMoment(momentId, userId)
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({ httpModel ->
+                    if (handlerErrorCode(httpModel)) {
+                        AppBroadcastManager.sendBroadcast(AppConstant.Action.MOMENT_FORWARD_SUCCESS)
+                        LogUtils.d("转发动态成功，momentId：${momentId}, userId：$userId")
+                    }
+                }, {
+                    it.printStackTrace()
+                })
+        }
     }
 }

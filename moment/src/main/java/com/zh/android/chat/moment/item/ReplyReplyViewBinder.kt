@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
+import com.zh.android.base.ext.setGone
+import com.zh.android.base.ext.setVisible
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.model.MomentCommentReplyModel
 import me.drakeet.multitype.ItemViewBinder
@@ -19,7 +21,14 @@ import me.drakeet.multitype.ItemViewBinder
  * 回复的回复条目
  */
 class ReplyReplyViewBinder(
-    private val clickCommentCallback: (item: MomentCommentReplyModel) -> Unit
+    /**
+     * 点击评论按钮
+     */
+    private val clickCommentCallback: (item: MomentCommentReplyModel) -> Unit,
+    /**
+     * 点击删除按钮回调
+     */
+    private val clickDeleteCallback: (item: MomentCommentReplyModel) -> Unit
 ) :
     ItemViewBinder<MomentCommentReplyModel, ReplyReplyViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
@@ -40,8 +49,20 @@ class ReplyReplyViewBinder(
             holder.createTime.text = createTime
             holder.content.text =
                 context.getString(R.string.moment_replay_replay_to, replyUserInfo.nickname, content)
+            //评论按钮
             holder.commentSymbol.click {
                 clickCommentCallback(item)
+            }
+            //删除按钮
+            holder.delete.run {
+                if (me) {
+                    setVisible()
+                } else {
+                    setGone()
+                }
+                click {
+                    clickDeleteCallback(item)
+                }
             }
         }
     }
@@ -52,5 +73,6 @@ class ReplyReplyViewBinder(
         val createTime: TextView = view.findViewById(R.id.create_time)
         val content: TextView = view.findViewById(R.id.content)
         val commentSymbol: View = view.findViewById(R.id.comment_symbol)
+        val delete: View = view.findViewById(R.id.delete)
     }
 }

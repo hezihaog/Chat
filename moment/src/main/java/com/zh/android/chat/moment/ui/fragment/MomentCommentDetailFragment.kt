@@ -71,12 +71,24 @@ class MomentCommentDetailFragment : BaseFragment() {
             //评论的回复或回复的回复条目
             register(MomentCommentReplyModel::class.java)
                 .to(
-                    CommentReplyViewBinder {
-                        changeInputBarTarget(it)
-                    },
-                    ReplyReplyViewBinder {
-                        changeInputBarTarget(it)
-                    }
+                    CommentReplyViewBinder(
+                        clickCommentCallback = {
+                            changeInputBarTarget(it)
+                        },
+                        clickDeleteCallback = {
+                            //删除评论的回复，或者回复的回复
+                            removeMomentCommentReply(it)
+                        }
+                    ),
+                    ReplyReplyViewBinder(
+                        clickCommentCallback = {
+                            changeInputBarTarget(it)
+                        },
+                        clickDeleteCallback = {
+                            //删除评论的回复，或者回复的回复
+                            removeMomentCommentReply(it)
+                        }
+                    )
                 )
                 .withClassLinker { _, model ->
                     when (model.type) {
@@ -289,5 +301,46 @@ class MomentCommentDetailFragment : BaseFragment() {
                 it.printStackTrace()
                 showRequestError()
             })
+    }
+
+    /**
+     * 删除一条动态的评论的回复，或者回复的回复
+     */
+    private fun removeMomentCommentReply(item: MomentCommentReplyModel) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrEmpty()) {
+            return
+        }
+        fun deleteAction() {
+            mMomentPresenter.removeMomentCommentReply(item.id, userId)
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({ httpModel ->
+                    if (handlerErrorCode(httpModel)) {
+                        val position = mListItems.indexOf(item)
+                        if (position != -1) {
+                            toast(R.string.moment_delete_success)
+                            mListItems.remove(item)
+                            mListAdapter.fixNotifyItemRemoved(position)
+                            AppBroadcastManager.sendBroadcast(
+                                AppConstant.Action.MOMENT_DETAIL_REFRESH
+                            )
+                        }
+                    }
+                }, {
+                    it.printStackTrace()
+                    showRequestError()
+                })
+        }
+        AlertDialog.Builder(fragmentActivity)
+            .setMessage(R.string.moment_confirm_delete)
+            .setPositiveButton(R.string.base_confirm) { _, _ ->
+                deleteAction()
+            }
+            .setNegativeButton(R.string.base_cancel) { _, _ ->
+                LogUtils.d("取消删除")
+            }
+            .create()
+            .show()
     }
 }

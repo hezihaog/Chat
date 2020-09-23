@@ -108,6 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_dimen_8"
         android:background="@color/base_gray3"
+        android:overScrollMode="never"
         android:paddingStart="@dimen/base_dimen_10"
         android:paddingTop="@dimen/base_dimen_5"
         android:paddingEnd="@dimen/base_dimen_10"

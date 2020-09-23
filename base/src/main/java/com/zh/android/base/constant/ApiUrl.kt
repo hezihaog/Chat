@@ -271,4 +271,9 @@ object ApiUrl {
      * 增加一条动态的评论的回复，或者回复的回复
      */
     val ADD_MOMENT_COMMENT_REPLY = "${BASE_URL}/moment/addMomentCommentReply"
+
+    /**
+     * 删除一条动态的评论的回复，或者回复的回复
+     */
+    val REMOVE_MOMENT_COMMENT_REPLY = "${BASE_URL}/moment/removeMomentCommentReply";
 }

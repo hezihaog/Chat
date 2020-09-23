@@ -211,4 +211,14 @@ class MomentPresenter {
             replyType
         )
     }
+
+    /**
+     * 删除一条动态的评论的回复，或者回复的回复
+     */
+    fun removeMomentCommentReply(
+        id: String,
+        userId: String
+    ): Observable<HttpModel<*>> {
+        return MomentRequester.removeMomentCommentReply(TAG, id, userId)
+    }
 }

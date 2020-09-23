@@ -74,7 +74,12 @@ class MomentCommentViewBinder(
                     adapter = MultiTypeAdapter(items).apply {
                         //2种类型
                         register(MomentCommentReplyModel::class.java)
-                            .to(InnerCommentReplyViewBinder(), InnerReplyReplyViewBinder())
+                            .to(InnerCommentReplyViewBinder {
+                                clickItemCallback?.invoke(item)
+                            },
+                                InnerReplyReplyViewBinder {
+                                    clickItemCallback?.invoke(item)
+                                })
                             .withClassLinker { _, model ->
                                 when (model.type) {
                                     MomentReplyType.COMMENT_REPLY.code -> {
@@ -140,7 +145,9 @@ class MomentCommentViewBinder(
     /**
      * 评论的回复
      */
-    class InnerCommentReplyViewBinder :
+    class InnerCommentReplyViewBinder(
+        private val clickItemCallback: () -> Unit
+    ) :
         ItemViewBinder<MomentCommentReplyModel, InnerCommentReplyViewBinder.CommentReplyViewHolder>() {
         override fun onCreateViewHolder(
             inflater: LayoutInflater,
@@ -164,6 +171,9 @@ class MomentCommentViewBinder(
                 holder.nickname.text =
                     context.resources.getString(R.string.moment_comment_replay, userInfo.nickname)
                 holder.content.text = content
+                holder.itemView.click {
+                    clickItemCallback()
+                }
             }
         }
 
@@ -176,7 +186,9 @@ class MomentCommentViewBinder(
     /**
      * 回复的回复
      */
-    class InnerReplyReplyViewBinder :
+    class InnerReplyReplyViewBinder(
+        private val clickItemCallback: () -> Unit
+    ) :
         ItemViewBinder<MomentCommentReplyModel, InnerReplyReplyViewBinder.ReplyReplyViewHolder>() {
         override fun onCreateViewHolder(
             inflater: LayoutInflater,
@@ -204,6 +216,9 @@ class MomentCommentViewBinder(
                         replyUserInfo.nickname
                     )
                 holder.content.text = content
+                holder.itemView.click {
+                    clickItemCallback()
+                }
             }
         }
 

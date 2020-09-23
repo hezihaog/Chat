@@ -316,7 +316,7 @@ class MomentRequester {
          * @param userId 要发表回复的用户Id
          * @param replyUserId 被回复的人的用户Id
          * @param content 回复内容
-         * @param type 1为评论的回复，2为回复的回复
+         * @param replyType 1为评论的回复，2为回复的回复
          */
         fun addMomentCommentReply(
             tag: String,
@@ -342,6 +342,26 @@ class MomentRequester {
                     put("replyUserId", replyUserId)
                     put("content", content)
                     put("type", replyType.code)
+                }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 删除一条动态的评论的回复，或者回复的回复
+         */
+        fun removeMomentCommentReply(
+            tag: String,
+            id: String,
+            userId: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.REMOVE_MOMENT_COMMENT_REPLY)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, Any>().apply {
+                    put("id", id)
+                    put("userId", userId)
                 }.toJson())
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())

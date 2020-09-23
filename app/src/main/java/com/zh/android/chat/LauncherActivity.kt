@@ -17,6 +17,7 @@ class LauncherActivity : BaseActivity() {
     @JvmField
     @Autowired(name = ARouterUrl.LOGIN_SERVICE)
     var mLoginService: LoginService? = null
+
     @JvmField
     @Autowired(name = ARouterUrl.HOME_SERVICE)
     var mHomeService: HomeService? = null

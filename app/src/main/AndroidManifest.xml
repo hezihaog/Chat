@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
 
-        <activity android:name=".LauncherActivity">
+        <activity
+            android:name=".LauncherActivity"
+            android:theme="@style/AppWelcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

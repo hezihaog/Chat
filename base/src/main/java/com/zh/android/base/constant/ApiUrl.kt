@@ -261,4 +261,9 @@ object ApiUrl {
      * 获取动态评论的回复列表
      */
     val GET_MOMENT_COMMENT_REPLY_LIST = "${BASE_URL}/moment/getMomentCommentReplyList"
+
+    /**
+     * 增加一条动态的评论的回复，或者回复的回复
+     */
+    val ADD_MOMENT_COMMENT_REPLY = "${BASE_URL}/moment/addMomentCommentReply"
 }

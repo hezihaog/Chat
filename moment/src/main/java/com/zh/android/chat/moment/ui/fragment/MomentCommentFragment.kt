@@ -50,7 +50,7 @@ class MomentCommentFragment : BaseFragment() {
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
             register(MomentCommentModel::class.java, MomentCommentViewBinder(
-                resources.getDimensionPixelSize(R.dimen.base_dimen_zero_point_five)
+                dividerHeight = resources.getDimensionPixelSize(R.dimen.base_dimen_zero_point_five)
             ) {
                 mMomentService?.goMomentCommentDetail(
                     fragmentActivity,

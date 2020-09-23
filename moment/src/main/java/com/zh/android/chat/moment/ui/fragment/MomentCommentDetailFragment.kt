@@ -19,6 +19,7 @@ import com.zh.android.chat.moment.model.MomentCommentModel
 import com.zh.android.chat.moment.model.MomentCommentReplyModel
 import com.zh.android.chat.moment.ui.widget.MomentInputBar
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.ext.getLoginService
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -44,14 +45,22 @@ class MomentCommentDetailFragment : BaseFragment() {
             //评论条目
             register(
                 MomentCommentModel::class.java, MomentCommentViewBinder(
+                    true,
+                    {
+                        changeInputBarTarget(it)
+                    },
                     resources.getDimensionPixelSize(R.dimen.base_dimen_10)
                 )
             )
             //评论的回复或回复的回复条目
             register(MomentCommentReplyModel::class.java)
                 .to(
-                    CommentReplyViewBinder(),
-                    ReplyReplyViewBinder()
+                    CommentReplyViewBinder {
+                        changeInputBarTarget(it)
+                    },
+                    ReplyReplyViewBinder {
+                        changeInputBarTarget(it)
+                    }
                 )
                 .withClassLinker { _, model ->
                     when (model.type) {
@@ -134,11 +143,98 @@ class MomentCommentDetailFragment : BaseFragment() {
                         //添加回复列表
                         mListItems.addAll(replyList)
                         mListAdapter.notifyDataSetChanged()
+                        //默认选择回复评论
+                        changeInputBarTarget(commentModel)
                     }
                 }
             }, {
                 it.printStackTrace()
                 vRefreshLayout.finishRefresh(false)
+                showRequestError()
+            })
+    }
+
+    /**
+     * 切换底部栏的回复目标，评论的回复
+     */
+    private fun changeInputBarTarget(model: MomentCommentModel) {
+        vMomentInputBar.setInputHintText(
+            resources.getString(R.string.moment_replay_to2, model.userInfo.nickname)
+        )
+        //设置回调
+        vMomentInputBar.setOnActionCallback(object : MomentInputBar.OnActionCallbackAdapter() {
+            override fun onClickSendBefore(input: String?): Boolean {
+                return !input.isNullOrBlank()
+            }
+
+            override fun onClickSendAfter(inputText: String) {
+                addMomentCommentReply(
+                    model.id,
+                    null,
+                    model.userInfo.id,
+                    inputText,
+                    MomentReplyType.COMMENT_REPLY.code
+                )
+            }
+        })
+    }
+
+    /**
+     * 切换底部栏的回复目标，回复的回复
+     */
+    private fun changeInputBarTarget(model: MomentCommentReplyModel) {
+        vMomentInputBar.setInputHintText(
+            resources.getString(R.string.moment_replay_to2, model.userInfo.nickname)
+        )
+        //设置回调
+        vMomentInputBar.setOnActionCallback(object : MomentInputBar.OnActionCallbackAdapter() {
+            override fun onClickSendBefore(input: String?): Boolean {
+                return !input.isNullOrBlank()
+            }
+
+            override fun onClickSendAfter(inputText: String) {
+                addMomentCommentReply(
+                    null,
+                    model.id,
+                    model.userInfo.id,
+                    inputText,
+                    MomentReplyType.REPLY_REPLY.code
+                )
+            }
+        })
+    }
+
+    /**
+     * 增加一条动态的评论的回复，或者回复的回复
+     */
+    private fun addMomentCommentReply(
+        commentId: String?,
+        parentId: String?,
+        replyUserId: String,
+        content: String,
+        typeCode: Int
+    ) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        val typeEnum = MomentReplyType.getByCode(typeCode) ?: return
+        mMomentPresenter.addMomentCommentReply(
+            commentId,
+            parentId,
+            userId,
+            replyUserId,
+            content,
+            typeEnum
+        ).ioToMain().lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    vMomentInputBar.setInputText("")
+                    toast(R.string.moment_replay_success)
+                    vRefreshLayout.autoRefresh()
+                }
+            }, {
+                it.printStackTrace()
                 showRequestError()
             })
     }

@@ -10,6 +10,7 @@ import com.zh.android.base.ext.toJson
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.base.http.PageModel
+import com.zh.android.chat.moment.enums.MomentReplyType
 import com.zh.android.chat.moment.model.*
 import io.reactivex.Observable
 import java.util.*
@@ -274,6 +275,44 @@ class MomentRequester {
                 OkGo.get(ApiUrl.GET_MOMENT_COMMENT_REPLY_LIST)
             return request.tag(tag)
                 .params("momentCommentId", momentCommentId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 增加一条动态的评论的回复，或者回复的回复
+         * @param commentId 回复的评论的Id，如果是回复的回复，该值设置为null，parentId设置为上一层回复的Id
+         * @param parentId 回复的回复的Id，如果是评论的回复，该值设置为null，commentId设置为评论的Id
+         * @param userId 要发表回复的用户Id
+         * @param replyUserId 被回复的人的用户Id
+         * @param content 回复内容
+         * @param type 1为评论的回复，2为回复的回复
+         */
+        fun addMomentCommentReply(
+            tag: String,
+            commentId: String?,
+            parentId: String?,
+            userId: String,
+            replyUserId: String,
+            content: String,
+            replyType: MomentReplyType
+        ):Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.ADD_MOMENT_COMMENT_REPLY)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, Any>().apply {
+                    if (!commentId.isNullOrBlank()) {
+                        put("commentId", commentId)
+                    }
+                    if (!parentId.isNullOrBlank()) {
+                        put("parentId", parentId)
+                    }
+                    put("userId", userId)
+                    put("replyUserId", replyUserId)
+                    put("content", content)
+                    put("type", replyType.code)
+                }.toJson())
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

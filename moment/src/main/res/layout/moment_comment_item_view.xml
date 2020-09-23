@@ -32,16 +32,32 @@
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar">
 
-        <TextView
-            android:id="@+id/nickname"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/base_black"
-            android:textSize="@dimen/base_dimen_sp_16"
-            tools:text="首席CTO" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_16"
+                tools:text="首席CTO" />
+
+            <ImageView
+                android:id="@+id/comment_symbol"
+                android:layout_width="@dimen/base_dimen_20"
+                android:layout_height="@dimen/base_dimen_20"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/moment_comment"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
 
         <androidx.legacy.widget.Space
             android:layout_width="match_parent"
@@ -76,8 +92,8 @@
         android:layout_marginTop="@dimen/base_dimen_8"
         android:background="@color/base_gray3"
         android:paddingStart="@dimen/base_dimen_10"
-        android:paddingEnd="@dimen/base_dimen_10"
         android:paddingTop="@dimen/base_dimen_5"
+        android:paddingEnd="@dimen/base_dimen_10"
         app:layout_constraintEnd_toEndOf="@id/user_info_layout"
         app:layout_constraintStart_toStartOf="@id/user_info_layout"
         app:layout_constraintTop_toBottomOf="@id/content" />

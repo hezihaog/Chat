@@ -27,9 +27,20 @@ import me.drakeet.multitype.MultiTypeAdapter
  */
 class MomentCommentViewBinder(
     /**
+     * 是否显示评论按钮
+     */
+    private val isShowCommentBtn: Boolean = false,
+    /**
+     * 点击评论按钮回调
+     */
+    private val clickCommentCallback: ((item: MomentCommentModel) -> Unit)? = null,
+    /**
      * 分割线高度
      */
     private val dividerHeight: Int,
+    /**
+     * 点击条目回调
+     */
     private val clickItemCallback: ((item: MomentCommentModel) -> Unit)? = null
 ) :
     ItemViewBinder<MomentCommentModel, MomentCommentViewBinder.ViewHolder>() {
@@ -76,6 +87,18 @@ class MomentCommentViewBinder(
                     }
                 }
             }
+            //评论按钮
+            holder.commentSymbol.run {
+                if (isShowCommentBtn) {
+                    setVisible()
+                } else {
+                    setGone()
+                }
+                click {
+                    clickCommentCallback?.invoke(item)
+                }
+            }
+            //分割线
             holder.divider.run {
                 if (layoutParams.height != dividerHeight) {
                     layoutParams.height = dividerHeight
@@ -95,6 +118,7 @@ class MomentCommentViewBinder(
         val content: TextView = view.findViewById(R.id.content)
         val commentList: RecyclerView = view.findViewById(R.id.comment_list)
         val divider: View = view.findViewById(R.id.divider)
+        val commentSymbol: View = view.findViewById(R.id.comment_symbol)
     }
 
     /**

@@ -141,6 +141,25 @@ public class MomentInputBar extends FrameLayout {
         void onClickComment();
     }
 
+    public static class OnActionCallbackAdapter implements OnActionCallback {
+        @Override
+        public boolean onClickSendBefore(String input) {
+            return false;
+        }
+
+        @Override
+        public void onClickSendAfter(String inputText) {
+        }
+
+        @Override
+        public void onClickLike(boolean isLike) {
+        }
+
+        @Override
+        public void onClickComment() {
+        }
+    }
+
     public void setOnActionCallback(OnActionCallback actionCallback) {
         this.actionCallback = actionCallback;
     }
@@ -151,6 +170,13 @@ public class MomentInputBar extends FrameLayout {
     public void setInputText(String inputText) {
         vInput.setText(inputText);
         vInput.setSelection(inputText.length());
+    }
+
+    /**
+     * 设置输入框的提示文字
+     */
+    public void setInputHintText(String inputHintText) {
+        vInput.setHint(inputHintText);
     }
 
     /**

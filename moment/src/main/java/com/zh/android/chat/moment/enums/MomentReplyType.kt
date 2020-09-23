@@ -16,5 +16,19 @@ enum class MomentReplyType(
     /**
      * 回复的回复
      */
-    REPLY_REPLY(2)
+    REPLY_REPLY(2);
+
+    companion object {
+        fun getByCode(code: Int): MomentReplyType? {
+            /**
+             * 根据code获取枚举实例
+             */
+            for (value in values()) {
+                if (value.code == code) {
+                    return value
+                }
+            }
+            return null
+        }
+    }
 }

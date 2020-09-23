@@ -2,6 +2,7 @@ package com.zh.android.chat.moment.http
 
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.PageModel
+import com.zh.android.chat.moment.enums.MomentReplyType
 import com.zh.android.chat.moment.model.*
 import io.reactivex.Observable
 
@@ -165,5 +166,33 @@ class MomentPresenter {
         momentCommentId: String
     ): Observable<HttpModel<MomentCommentModel>> {
         return MomentRequester.getMomentCommentReplyList(TAG, momentCommentId)
+    }
+
+    /**
+     * 增加一条动态的评论的回复，或者回复的回复
+     * @param commentId 回复的评论的Id，如果是回复的回复，该值设置为null，parentId设置为上一层回复的Id
+     * @param parentId 回复的回复的Id，如果是评论的回复，该值设置为null，commentId设置为评论的Id
+     * @param userId 要发表回复的用户Id
+     * @param replyUserId 被回复的人的用户Id
+     * @param content 回复内容
+     * @param replyType 1为评论的回复，2为回复的回复
+     */
+    fun addMomentCommentReply(
+        commentId: String?,
+        parentId: String?,
+        userId: String,
+        replyUserId: String,
+        content: String,
+        replyType: MomentReplyType
+    ): Observable<HttpModel<*>> {
+        return MomentRequester.addMomentCommentReply(
+            TAG,
+            commentId,
+            parentId,
+            userId,
+            replyUserId,
+            content,
+            replyType
+        )
     }
 }

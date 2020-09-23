@@ -33,6 +33,7 @@ import kotterknife.bindView
 /**
  * @author wally
  * @date 2020/09/19
+ * 动态详情
  */
 class MomentDetailFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)

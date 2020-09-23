@@ -5,23 +5,24 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.apkfuns.logutils.LogUtils
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.handlerErrorCode
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.*
 import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentCommentViewBinder
 import com.zh.android.chat.moment.model.MomentCommentModel
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
 import me.drakeet.multitype.Items
@@ -50,14 +51,29 @@ class MomentCommentFragment : BaseFragment() {
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
             register(MomentCommentModel::class.java, MomentCommentViewBinder(
-                dividerHeight = resources.getDimensionPixelSize(R.dimen.base_dimen_zero_point_five)
-            ) {
-                mMomentService?.goMomentCommentDetail(
-                    fragmentActivity,
-                    it.momentId,
-                    it.id
-                )
-            })
+                dividerHeight = resources.getDimensionPixelSize(R.dimen.base_dimen_zero_point_five),
+                clickDeleteCallback = { position, item ->
+                    //删除评论
+                    AlertDialog.Builder(fragmentActivity)
+                        .setMessage(R.string.moment_confirm_delete)
+                        .setPositiveButton(R.string.base_confirm) { _, _ ->
+                            deleteMomentComment(position, item)
+                        }
+                        .setNegativeButton(R.string.base_cancel) { _, _ ->
+                            LogUtils.d("取消删除")
+                        }
+                        .create()
+                        .show()
+                },
+                clickItemCallback = {
+                    //跳转评论详情
+                    mMomentService?.goMomentCommentDetail(
+                        fragmentActivity,
+                        it.momentId,
+                        it.id
+                    )
+                }
+            ))
         }
     }
 
@@ -119,9 +135,13 @@ class MomentCommentFragment : BaseFragment() {
         momentId: String,
         pageNum: Int
     ) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrEmpty()) {
+            return
+        }
         val isFirstPage = pageNum == ApiUrl.FIRST_PAGE
         val pageSize = ApiUrl.PAGE_SIZE
-        mMomentPresenter.getMomentCommentList(momentId, pageNum, pageSize)
+        mMomentPresenter.getMomentCommentList(momentId, userId, pageNum, pageSize)
             .ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
@@ -177,6 +197,31 @@ class MomentCommentFragment : BaseFragment() {
                 } else {
                     vRefreshLayout.finishLoadMore(false)
                 }
+            })
+    }
+
+    /**
+     * 删除一条动态评论
+     */
+    private fun deleteMomentComment(position: Int, model: MomentCommentModel) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrEmpty()) {
+            return
+        }
+        mMomentPresenter.deleteMomentComment(
+            model.id,
+            model.momentId,
+            userId
+        ).ioToMain().lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.moment_delete_success)
+                    mListItems.remove(model)
+                    mListAdapter.fixNotifyItemRemoved(position)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
             })
     }
 }

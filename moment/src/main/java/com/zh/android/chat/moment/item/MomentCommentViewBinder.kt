@@ -39,6 +39,10 @@ class MomentCommentViewBinder(
      */
     private val dividerHeight: Int,
     /**
+     * 删除回调
+     */
+    private val clickDeleteCallback: (position: Int, item: MomentCommentModel) -> Unit,
+    /**
      * 点击条目回调
      */
     private val clickItemCallback: ((item: MomentCommentModel) -> Unit)? = null
@@ -98,6 +102,17 @@ class MomentCommentViewBinder(
                     clickCommentCallback?.invoke(item)
                 }
             }
+            //删除评论
+            holder.delete.run {
+                if (me) {
+                    setVisible()
+                } else {
+                    setGone()
+                }
+                click {
+                    clickDeleteCallback(getPosition(holder), item)
+                }
+            }
             //分割线
             holder.divider.run {
                 if (layoutParams.height != dividerHeight) {
@@ -119,6 +134,7 @@ class MomentCommentViewBinder(
         val commentList: RecyclerView = view.findViewById(R.id.comment_list)
         val divider: View = view.findViewById(R.id.divider)
         val commentSymbol: View = view.findViewById(R.id.comment_symbol)
+        val delete: View = view.findViewById(R.id.delete)
     }
 
     /**

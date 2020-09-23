@@ -2,8 +2,10 @@ package com.zh.android.chat.moment.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.apkfuns.logutils.LogUtils
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.core.BaseFragment
@@ -47,10 +49,23 @@ class MomentCommentDetailFragment : BaseFragment() {
             register(
                 MomentCommentModel::class.java, MomentCommentViewBinder(
                     true,
-                    {
+                    clickCommentCallback = {
                         changeInputBarTarget(it)
                     },
-                    resources.getDimensionPixelSize(R.dimen.base_dimen_10)
+                    dividerHeight = resources.getDimensionPixelSize(R.dimen.base_dimen_10),
+                    clickDeleteCallback = { _, item ->
+                        //删除评论
+                        AlertDialog.Builder(fragmentActivity)
+                            .setMessage(R.string.moment_confirm_delete)
+                            .setPositiveButton(R.string.base_confirm) { _, _ ->
+                                deleteMomentComment(item)
+                            }
+                            .setNegativeButton(R.string.base_cancel) { _, _ ->
+                                LogUtils.d("取消删除")
+                            }
+                            .create()
+                            .show()
+                    }
                 )
             )
             //评论的回复或回复的回复条目
@@ -125,7 +140,11 @@ class MomentCommentDetailFragment : BaseFragment() {
     }
 
     private fun refresh() {
-        mMomentPresenter.getMomentCommentReplyList(mMomentCommentId)
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrEmpty()) {
+            return
+        }
+        mMomentPresenter.getMomentCommentReplyList(mMomentCommentId, userId)
             .ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
@@ -237,6 +256,34 @@ class MomentCommentDetailFragment : BaseFragment() {
                     AppBroadcastManager.sendBroadcast(
                         AppConstant.Action.MOMENT_DETAIL_REFRESH
                     )
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
+    }
+
+    /**
+     * 删除一条动态评论
+     */
+    private fun deleteMomentComment(model: MomentCommentModel) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrEmpty()) {
+            return
+        }
+        mMomentPresenter.deleteMomentComment(
+            model.id,
+            model.momentId,
+            userId
+        ).ioToMain().lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.moment_delete_success)
+                    //删除后，刷新外面的列表
+                    AppBroadcastManager.sendBroadcast(
+                        AppConstant.Action.MOMENT_DETAIL_REFRESH
+                    )
+                    fragmentActivity.finish()
                 }
             }, {
                 it.printStackTrace()

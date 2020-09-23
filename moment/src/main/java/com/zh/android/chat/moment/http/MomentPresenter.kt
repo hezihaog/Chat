@@ -48,10 +48,11 @@ class MomentPresenter {
      */
     fun getMomentCommentList(
         momentId: String,
+        userId: String,
         pageNum: Int,
         pageSize: Int
     ): Observable<HttpModel<PageModel<MomentCommentModel>>> {
-        return MomentRequester.getMomentCommentList(TAG, momentId, pageNum, pageSize)
+        return MomentRequester.getMomentCommentList(TAG, momentId, userId, pageNum, pageSize)
     }
 
     /**
@@ -147,6 +148,20 @@ class MomentPresenter {
     }
 
     /**
+     * 删除一条动态评论
+     * @param id 评论Id
+     * @param momentId 动态Id
+     * @param userId 用户Id
+     */
+    fun deleteMomentComment(
+        id: String,
+        momentId: String,
+        userId: String
+    ): Observable<HttpModel<*>> {
+        return MomentRequester.deleteMomentComment(TAG, id, momentId, userId)
+    }
+
+    /**
      * 删除动态
      * @param momentId 动态Id
      * @param userId 用户Id
@@ -163,9 +178,10 @@ class MomentPresenter {
      * @param momentCommentId 动态评论Id
      */
     fun getMomentCommentReplyList(
-        momentCommentId: String
+        momentCommentId: String,
+        userId: String
     ): Observable<HttpModel<MomentCommentModel>> {
-        return MomentRequester.getMomentCommentReplyList(TAG, momentCommentId)
+        return MomentRequester.getMomentCommentReplyList(TAG, momentCommentId, userId)
     }
 
     /**

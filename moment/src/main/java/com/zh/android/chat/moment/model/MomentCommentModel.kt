@@ -26,6 +26,10 @@ class MomentCommentModel(
      */
     val content: String,
     /**
+     * 是否是我发的动态评论
+     */
+    val me: Boolean,
+    /**
      * 创建时间
      */
     val createTime: String,

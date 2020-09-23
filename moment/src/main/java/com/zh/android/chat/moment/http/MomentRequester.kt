@@ -70,6 +70,7 @@ class MomentRequester {
         fun getMomentCommentList(
             tag: String,
             momentId: String,
+            userId: String,
             pageNum: Int,
             pageSize: Int
         ): Observable<HttpModel<PageModel<MomentCommentModel>>> {
@@ -78,6 +79,7 @@ class MomentRequester {
                 OkGo.get(ApiUrl.GET_MOMENT_COMMENT_LIST)
             return request.tag(tag)
                 .params("momentId", momentId)
+                .params("userId", userId)
                 .params("pageNum", pageNum)
                 .params("pageSize", pageSize)
                 .converter(ModelConvert(type))
@@ -241,6 +243,31 @@ class MomentRequester {
         }
 
         /**
+         * 删除一条动态评论
+         * @param id 评论Id
+         * @param momentId 动态Id
+         * @param userId 用户Id
+         */
+        fun deleteMomentComment(
+            tag: String,
+            id: String,
+            momentId: String,
+            userId: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.DELETE_MOMENT_COMMENT)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, Any>().apply {
+                    put("id", id)
+                    put("momentId", momentId)
+                    put("userId", userId)
+                }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
          * 删除动态
          * @param momentId 动态Id
          * @param userId 用户Id
@@ -265,16 +292,19 @@ class MomentRequester {
         /**
          * 获取动态评论的回复列表
          * @param momentCommentId 动态评论Id
+         * @param userId 用户Id
          */
         fun getMomentCommentReplyList(
             tag: String,
-            momentCommentId: String
+            momentCommentId: String,
+            userId: String
         ): Observable<HttpModel<MomentCommentModel>> {
             val type = genericGsonType<HttpModel<MomentCommentModel>>()
             val request: GetRequest<HttpModel<MomentCommentModel>> =
                 OkGo.get(ApiUrl.GET_MOMENT_COMMENT_REPLY_LIST)
             return request.tag(tag)
                 .params("momentCommentId", momentCommentId)
+                .params("userId", userId)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -296,7 +326,7 @@ class MomentRequester {
             replyUserId: String,
             content: String,
             replyType: MomentReplyType
-        ):Observable<HttpModel<*>> {
+        ): Observable<HttpModel<*>> {
             val type = genericGsonType<HttpModel<*>>()
             val request: PostRequest<HttpModel<*>> =
                 OkGo.post(ApiUrl.ADD_MOMENT_COMMENT_REPLY)

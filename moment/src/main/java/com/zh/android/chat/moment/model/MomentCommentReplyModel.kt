@@ -34,6 +34,10 @@ class MomentCommentReplyModel(
      */
     val content: String,
     /**
+     * 是否是我发的回复
+     */
+    val me: Boolean,
+    /**
      * 1为评论的回复，2为回复的回复
      */
     val type: Int,

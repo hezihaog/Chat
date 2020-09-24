@@ -25,6 +25,7 @@ class FormPostRequestHandler : RequestProcessHandler {
         if (body is FormBody) {
             return true
         } else if (body is ProgressRequestBody<*>) {
+            //这里是处理OkGo对FormBody的包装，如果你不是用OkGo框架，则不需要这句判断
             return try {
                 val newBody: RequestBody = Reflect.on(body).field("requestBody").get()
                 newBody is FormBody
@@ -36,17 +37,18 @@ class FormPostRequestHandler : RequestProcessHandler {
     }
 
     override fun process(originRequest: Request): Request {
+        //公共参数
         val loginService = getLoginService()
         val token = loginService?.getToken() ?: ""
         val userId = loginService?.getUserId() ?: ""
-        val builder = FormBody.Builder()
         //原始Header
         val originHeaders = originRequest.headers()
         //增加公共Header
         val newHeaders = Headers.Builder()
             //先添加原有Header
-            .addAll(originHeaders)
-            .add(AppConstant.HttpParameter.PLATFORM, ApiUrl.PLATFORM).apply {
+            .addAll(originHeaders).apply {
+                //平台标识
+                add(AppConstant.HttpParameter.PLATFORM, ApiUrl.PLATFORM)
                 //增加公共参数
                 if (token.isNotBlank()) {
                     val key = AppConstant.HttpParameter.TOKEN
@@ -64,35 +66,9 @@ class FormPostRequestHandler : RequestProcessHandler {
                 }
             }
             .build()
-        val body: FormBody = when (val originBody = originRequest.body()) {
-            is FormBody -> originBody
-            is ProgressRequestBody<*> -> Reflect.on(originBody).field("requestBody").get()
-            else -> throw IllegalArgumentException("body not is FormBody")
-        }
-        //将以前的参数添加
-        for (i in 0 until body.size()) {
-            builder.add(body.encodedName(i), body.encodedValue(i))
-        }
-//        run {
-//            //增加公共参数
-//            if (token.isNotBlank()) {
-//                builder.add(AppConstant.HttpParameter.TOKEN, token)
-//                Logger.d("FORM POST => 添加公共参数 -> ${AppConstant.HttpParameter.TOKEN} : $token")
-//            }
-//            if (username.isNotBlank()) {
-//                builder.add(AppConstant.HttpParameter.USERNAME, username)
-//                Logger.d("FORM POST => 添加公共参数 -> ${AppConstant.HttpParameter.USERNAME} : $username")
-//            }
-//            if (tenantId.isNotBlank()) {
-//                builder.add(AppConstant.HttpParameter.TENANT_ID, tenantId)
-//                Logger.d("FORM POST => 添加公共参数 -> ${AppConstant.HttpParameter.TENANT_ID} : $tenantId")
-//            }
-//        }
-        val newBuilder = originRequest.newBuilder()
-        //构造新的请求体
-        return newBuilder
+        return originRequest.newBuilder()
+            //设置Header
             .headers(newHeaders)
-            .post(builder.build())
             .build()
     }
 }

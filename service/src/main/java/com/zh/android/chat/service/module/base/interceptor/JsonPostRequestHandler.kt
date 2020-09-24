@@ -19,37 +19,36 @@ class JsonPostRequestHandler : RequestProcessHandler {
     }
 
     override fun process(originRequest: Request): Request {
+        //原始Header
         val originHeaders = originRequest.headers()
-        //增加公共Header
-        val newHeaders = originRequest.headers().newBuilder()
-            .add(AppConstant.HttpParameter.PLATFORM, ApiUrl.PLATFORM).apply {
-                val loginService = getLoginService()
-                val token = loginService?.getToken() ?: ""
-                val userId = loginService?.getUserId() ?: ""
-                //增加公共参数
-                if (token.isNotBlank()) {
-                    val key = AppConstant.HttpParameter.TOKEN
-                    if (originHeaders.get(key).isNullOrBlank()) {
-                        add(key, token)
-                        LogUtils.d("JSON POST => 添加公共参数 -> $key : $token")
-                    }
-                }
-                if (userId.isNotBlank()) {
-                    val key = AppConstant.HttpParameter.USER_ID
-                    if (originHeaders.get(key).isNullOrBlank()) {
-                        add(key, userId)
-                        LogUtils.d("JSON POST => 添加公共参数 -> $key : $userId")
-                    }
+        val newHeaders = originRequest.headers().newBuilder().apply {
+            //增加公共参数
+            val loginService = getLoginService()
+            val token = loginService?.getToken() ?: ""
+            val userId = loginService?.getUserId() ?: ""
+            //平台标识
+            add(AppConstant.HttpParameter.PLATFORM, ApiUrl.PLATFORM)
+            //Token令牌
+            if (token.isNotBlank()) {
+                val key = AppConstant.HttpParameter.TOKEN
+                if (originHeaders.get(key).isNullOrBlank()) {
+                    add(key, token)
+                    LogUtils.d("JSON POST => 添加公共参数 -> $key : $token")
                 }
             }
+            //用户Id
+            if (userId.isNotBlank()) {
+                val key = AppConstant.HttpParameter.USER_ID
+                if (originHeaders.get(key).isNullOrBlank()) {
+                    add(key, userId)
+                    LogUtils.d("JSON POST => 添加公共参数 -> $key : $userId")
+                }
+            }
+        }
             .build()
-        //将原始Body包裹返回
-        val body = originRequest.body()!!
-        val newBuilder = originRequest.newBuilder()
-        //构造新的请求体
-        return newBuilder
+        return originRequest.newBuilder()
+            //设置Header
             .headers(newHeaders)
-            .post(body)
             .build()
     }
 }

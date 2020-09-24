@@ -29,8 +29,9 @@ class GetRequestHandler : RequestProcessHandler {
         //增加公共Header
         val newHeaders = Headers.Builder()
             //先添加原有Header
-            .addAll(originHeaders)
-            .add(AppConstant.HttpParameter.PLATFORM, ApiUrl.PLATFORM).apply {
+            .addAll(originHeaders).apply {
+                //平台标识
+                add(AppConstant.HttpParameter.PLATFORM, ApiUrl.PLATFORM)
                 //增加公共参数
                 if (token.isNotBlank()) {
                     //调用方没有加相同的公共参数时，才添加，避免在切换的业务场景时覆盖
@@ -49,9 +50,8 @@ class GetRequestHandler : RequestProcessHandler {
                 }
             }
             .build()
-        val newBuilder = originRequest.newBuilder()
-        return newBuilder
-            //.url(newUrl)
+        return originRequest.newBuilder()
+            //设置Header
             .headers(newHeaders)
             .build()
     }

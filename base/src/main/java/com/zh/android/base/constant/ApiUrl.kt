@@ -26,7 +26,7 @@ object ApiUrl {
     /**
      * 心跳间隔时间
      */
-    const val WS_HE_INTERVAL_TIME = 15
+    const val WS_HE_INTERVAL_TIME = 4
 
     /**
      * 平台号
@@ -199,6 +199,11 @@ object ApiUrl {
      * 获取用户的所有会话
      */
     val GET_ALL_CONVERSATION = "${BASE_URL}/chatRecord/getAllConversation"
+
+    /**
+     * 删除一条聊天记录
+     */
+    val DELETE_CHAT_RECORD = "${BASE_URL}/chatRecord/deleteChatRecord"
 
     //---------------------------- 动态 ----------------------------
 

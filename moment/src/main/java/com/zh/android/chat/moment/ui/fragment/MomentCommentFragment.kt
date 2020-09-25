@@ -215,7 +215,7 @@ class MomentCommentFragment : BaseFragment() {
         ).ioToMain().lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
-                    toast(R.string.moment_delete_success)
+                    toast(R.string.base_delete_success)
                     mListItems.remove(model)
                     mListAdapter.fixNotifyItemRemoved(position)
                 }

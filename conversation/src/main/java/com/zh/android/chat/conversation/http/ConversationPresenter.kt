@@ -41,6 +41,16 @@ class ConversationPresenter {
     }
 
     /**
+     * 删除一条聊天记录
+     * @param recordId 聊天记录Id
+     */
+    fun deleteChatRecord(
+        recordId: String
+    ): Observable<HttpModel<Boolean>> {
+        return ConversationRequester.deleteChatRecord(TAG, recordId)
+    }
+
+    /**
      * 绑定连接
      * @param userId 用户Id
      */

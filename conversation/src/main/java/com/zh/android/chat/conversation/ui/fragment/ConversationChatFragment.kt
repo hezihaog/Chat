@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -15,6 +16,7 @@ import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.ClipboardUtil
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.util.takephoto.RxTakePhoto
 import com.zh.android.base.widget.TopBar
@@ -98,15 +100,33 @@ class ConversationChatFragment : BaseFragment() {
                     //低版本提示
                     VersionTooLowViewBinder(),
                     //文字
-                    TextMsgReceiverViewBinder(),
-                    TextMsgSenderViewBinder(),
-                    //图片
-                    ImageMsgReceiverViewBinder { _, item ->
-                        clickImageRecord(item)
+                    TextMsgReceiverViewBinder { position, item ->
+                        showTextLongClickDialog(position, item)
+                        true
                     },
-                    ImageMsgSenderViewBinder { _, item ->
-                        clickImageRecord(item)
-                    }
+                    TextMsgSenderViewBinder { position, item ->
+                        showTextLongClickDialog(position, item)
+                        true
+                    },
+                    //图片
+                    ImageMsgReceiverViewBinder(
+                        longClickCallback = { position, item ->
+                            showImageLongClickDialog(position, item)
+                            true
+                        },
+                        clickImageCallback = { _, item ->
+                            clickImageRecord(item)
+                        }
+                    ),
+                    ImageMsgSenderViewBinder(
+                        longClickCallback = { position, item ->
+                            showImageLongClickDialog(position, item)
+                            true
+                        },
+                        clickImageCallback = { _, item ->
+                            clickImageRecord(item)
+                        }
+                    )
                 ).withClassLinker { _, model ->
                     //我的用户Id
                     val loginUserId = mLoginService?.getUserId() ?: ""
@@ -522,6 +542,28 @@ class ConversationChatFragment : BaseFragment() {
     }
 
     /**
+     * 删除一条聊天记录
+     */
+    private fun deleteChatRecord(
+        position: Int,
+        recordId: String
+    ) {
+        mConversationPresenter.deleteChatRecord(recordId)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.base_delete_success)
+                    mListItems.remove(mListItems[position])
+                    mListAdapter.fixNotifyItemRemoved(position)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
+    }
+
+    /**
      * 插入一条消息
      */
     private fun insertMsg(chatRecord: ChatRecord) {
@@ -561,5 +603,52 @@ class ConversationChatFragment : BaseFragment() {
             fragmentActivity,
             imageUrls, index = index
         )
+    }
+
+    /**
+     * 显示文字长按提示弹窗
+     */
+    private fun showTextLongClickDialog(position: Int, item: ChatRecord) {
+        AlertDialog.Builder(fragmentActivity)
+            .setItems(
+                arrayOf(
+                    getString(R.string.base_copy),
+                    getString(R.string.base_delete)
+                )
+            ) { _, which ->
+                when (which) {
+                    0 -> {
+                        item.text?.content.let {
+                            ClipboardUtil.copyToClipboard(fragmentActivity, it)
+                            toast(R.string.base_copy_success)
+                        }
+                    }
+                    1 -> {
+                        deleteChatRecord(position, item.id)
+                    }
+                }
+            }
+            .create()
+            .show()
+    }
+
+    /**
+     * 显示图片长按提示弹窗
+     */
+    private fun showImageLongClickDialog(position: Int, item: ChatRecord) {
+        AlertDialog.Builder(fragmentActivity)
+            .setItems(
+                arrayOf(
+                    getString(R.string.base_delete)
+                )
+            ) { _, which ->
+                when (which) {
+                    0 -> {
+                        deleteChatRecord(position, item.id)
+                    }
+                }
+            }
+            .create()
+            .show()
     }
 }

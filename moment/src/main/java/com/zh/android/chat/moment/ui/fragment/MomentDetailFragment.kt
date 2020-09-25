@@ -351,7 +351,7 @@ class MomentDetailFragment : BaseFragment() {
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
-                    toast(R.string.moment_delete_success)
+                    toast(R.string.base_delete_success)
                     AppBroadcastManager.sendBroadcast(
                         AppConstant.Action.MOMENT_DELETE_SUCCESS,
                         Intent().apply {

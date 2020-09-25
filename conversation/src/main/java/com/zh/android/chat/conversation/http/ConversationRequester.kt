@@ -2,6 +2,7 @@ package com.zh.android.chat.conversation.http
 
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.request.GetRequest
+import com.lzy.okgo.request.PostRequest
 import com.lzy.okrx2.adapter.ObservableBody
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
@@ -55,6 +56,23 @@ class ConversationRequester {
                 OkGo.get(ApiUrl.GET_ALL_CONVERSATION)
             return request.tag(tag)
                 .params("userId", userId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 删除一条聊天记录
+         * @param recordId 聊天记录Id
+         */
+        fun deleteChatRecord(
+            tag: String,
+            recordId: String
+        ): Observable<HttpModel<Boolean>> {
+            val type = genericGsonType<HttpModel<Boolean>>()
+            val request: PostRequest<HttpModel<Boolean>> =
+                OkGo.post(ApiUrl.DELETE_CHAT_RECORD)
+            return request.tag(tag)
+                .params("recordId", recordId)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

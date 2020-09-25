@@ -9,7 +9,11 @@
     <string name="base_more">更多</string>
     <string name="base_share">分享</string>
     <string name="base_delete">删除</string>
+    <string name="base_copy">复制</string>
     <string name="base_go_setting">去设置</string>
+
+    <string name="base_delete_success">删除成功</string>
+    <string name="base_copy_success">复制成功</string>
 
     <string name="base_request_error_tip_msg">获取数据失败，请稍候重试</string>
     <string name="base_request_data_is_wrong">获取的数据有误，请稍候重试</string>

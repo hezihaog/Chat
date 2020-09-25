@@ -290,7 +290,7 @@ class MomentCommentDetailFragment : BaseFragment() {
         ).ioToMain().lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
-                    toast(R.string.moment_delete_success)
+                    toast(R.string.base_delete_success)
                     //删除后，刷新外面的列表
                     AppBroadcastManager.sendBroadcast(
                         AppConstant.Action.MOMENT_DETAIL_REFRESH
@@ -319,7 +319,7 @@ class MomentCommentDetailFragment : BaseFragment() {
                     if (handlerErrorCode(httpModel)) {
                         val position = mListItems.indexOf(item)
                         if (position != -1) {
-                            toast(R.string.moment_delete_success)
+                            toast(R.string.base_delete_success)
                             mListItems.remove(item)
                             mListAdapter.fixNotifyItemRemoved(position)
                             AppBroadcastManager.sendBroadcast(

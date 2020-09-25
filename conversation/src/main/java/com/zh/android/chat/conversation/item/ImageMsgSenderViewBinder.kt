@@ -9,6 +9,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.base.ext.loadUrlImageToRound
+import com.zh.android.base.ext.longClick
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import me.drakeet.multitype.ItemViewBinder
@@ -19,6 +20,7 @@ import me.drakeet.multitype.ItemViewBinder
  * 图片消息-发送方条目
  */
 class ImageMsgSenderViewBinder(
+    private val longClickCallback: (position: Int, item: ChatRecord) -> Boolean,
     /**
      * 点击图片回调
      */
@@ -47,6 +49,9 @@ class ImageMsgSenderViewBinder(
             )
             holder.vImage.click {
                 clickImageCallback(getPosition(holder), item)
+            }
+            holder.vImage.longClick {
+                longClickCallback(getPosition(holder), item)
             }
         }
     }

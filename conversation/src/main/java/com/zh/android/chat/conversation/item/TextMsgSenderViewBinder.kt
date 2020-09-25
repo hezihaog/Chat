@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.loadUrlImageToRound
+import com.zh.android.base.ext.longClick
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import me.drakeet.multitype.ItemViewBinder
@@ -17,7 +18,9 @@ import me.drakeet.multitype.ItemViewBinder
  * @date 2020/08/28
  * 文字消息-发送方条目
  */
-class TextMsgSenderViewBinder : ItemViewBinder<ChatRecord, TextMsgSenderViewBinder.ViewHolder>() {
+class TextMsgSenderViewBinder(
+    private val longClickCallback: (position: Int, item: ChatRecord) -> Boolean
+) : ItemViewBinder<ChatRecord, TextMsgSenderViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         return ViewHolder(
             inflater.inflate(
@@ -32,7 +35,9 @@ class TextMsgSenderViewBinder : ItemViewBinder<ChatRecord, TextMsgSenderViewBind
         item.run {
             holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(fromUser.picNormal))
             holder.vContent.text = text?.content
-            holder.vContent.setTextIsSelectable(true)
+            holder.vContent.longClick {
+                longClickCallback(getPosition(holder), item)
+            }
         }
     }
 

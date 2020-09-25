@@ -66,6 +66,8 @@ class ConversationChatFragment : BaseFragment() {
      */
     private val mChatRecordId: String by bindArgument(AppConstant.Key.CHAT_RECORD_ID, "")
 
+    private var mCurrentPage: Int = ApiUrl.FIRST_PAGE
+
     /**
      * 连接地址
      */
@@ -150,17 +152,19 @@ class ConversationChatFragment : BaseFragment() {
             setTitle(R.string.conversation_connection_ing)
         }
         vRefreshLayout.apply {
-            setEnableRefresh(false)
+            setOnRefreshListener {
+                loadMore()
+            }
             setEnableLoadMore(false)
         }
         vRefreshList.apply {
-            val manager = LinearLayoutManager(fragmentActivity)
-            layoutManager = manager
-            adapter = mListAdapter
-            manager.apply {
-                //翻转Rv布局
+            layoutManager = LinearLayoutManager(fragmentActivity).apply {
+                //布局反转
+                reverseLayout = true
+                //数据反转
                 stackFromEnd = true
             }
+            adapter = mListAdapter
         }
         vSend.click {
             val msgInput = vMsgInput.text.toString().trim()
@@ -261,7 +265,7 @@ class ConversationChatFragment : BaseFragment() {
     override fun setData() {
         super.setData()
         getUserInfo()
-        loadChatRecordList()
+        refresh()
         connectionChatServer()
     }
 
@@ -291,24 +295,83 @@ class ConversationChatFragment : BaseFragment() {
         }
     }
 
+    private fun refresh() {
+        mCurrentPage = ApiUrl.FIRST_PAGE
+        loadChatRecordList(mCurrentPage)
+    }
+
+    private fun loadMore() {
+        val nextPage = mCurrentPage + 1
+        loadChatRecordList(nextPage)
+    }
+
     /**
      * 拉取历史消息
      */
-    private fun loadChatRecordList() {
+    private fun loadChatRecordList(
+        pageNum: Int
+    ) {
         mLoginService?.run {
             val userId = getUserId()
             if (mFriendUserId.isNotBlank()) {
-                mConversationPresenter.getChatRecordList(userId, mFriendUserId)
+                val isFirstPage = pageNum == ApiUrl.FIRST_PAGE
+                val pageSize = 8
+                mConversationPresenter.getChatRecordList(userId, mFriendUserId, pageNum, pageSize)
                     .ioToMain()
                     .lifecycle(lifecycleOwner)
                     .subscribe({ httpModel ->
                         if (handlerErrorCode(httpModel)) {
-                            val list = httpModel.data ?: mutableListOf()
-                            mListItems.addAll(list)
-                            mListAdapter.notifyDataSetChanged()
+                            httpModel.data?.list?.let { resultList ->
+                                //数据为空
+                                if (resultList.isEmpty()) {
+                                    if (isFirstPage) {
+                                        mListItems.clear()
+                                        mListAdapter.notifyDataSetChanged()
+                                        vRefreshLayout.finishRefresh()
+                                    } else {
+                                        vRefreshLayout.finishRefresh()
+                                    }
+                                } else {
+                                    mListItems.apply {
+                                        if (isFirstPage) {
+                                            mListItems.clear()
+                                        }
+                                        addAll(resultList)
+                                        if (isFirstPage) {
+                                            scrollToBottom()
+                                        }
+                                    }
+                                    mListAdapter.notifyDataSetChanged()
+                                    //最后一页
+                                    if (resultList.size < pageSize) {
+                                        //没有更新了，不能继续拉取
+                                        vRefreshLayout.finishRefresh()
+                                        vRefreshLayout.setEnableRefresh(false)
+                                    } else {
+                                        if (isFirstPage) {
+                                            vRefreshLayout.finishRefresh()
+                                        } else {
+                                            mCurrentPage++
+                                            vRefreshLayout.finishRefresh()
+                                        }
+                                    }
+                                }
+                            }
+                            return@subscribe
+                        }
+                        //数据异常
+                        if (isFirstPage) {
+                            if (mListItems.isEmpty()) {
+                                vRefreshLayout.finishRefresh(false)
+                            } else {
+                                vRefreshLayout.finishRefresh(false)
+                            }
+                        } else {
+                            vRefreshLayout.finishRefresh(false)
                         }
                     }, { error ->
                         error.printStackTrace()
+                        vRefreshLayout.finishRefresh(false)
                     })
             }
         }
@@ -462,10 +525,18 @@ class ConversationChatFragment : BaseFragment() {
      * 插入一条消息
      */
     private fun insertMsg(chatRecord: ChatRecord) {
-        mListItems.add(chatRecord)
+        //插入到最前面
+        mListItems.add(0, chatRecord)
         mListAdapter.notifyDataSetChanged()
         //滚动到最底下
-        vRefreshList.scrollToPosition(mListItems.size - 1)
+        scrollToBottom()
+    }
+
+    /**
+     * 滚动列表到底部
+     */
+    private fun scrollToBottom() {
+        vRefreshList.scrollToPosition(0)
     }
 
     /**

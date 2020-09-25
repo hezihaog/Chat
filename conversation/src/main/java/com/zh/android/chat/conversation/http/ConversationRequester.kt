@@ -7,6 +7,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
+import com.zh.android.base.http.PageModel
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import com.zh.android.chat.service.module.conversation.model.Conversation
 import io.reactivex.Observable
@@ -26,14 +27,18 @@ class ConversationRequester {
         fun getChatRecordList(
             tag: String,
             userId: String,
-            friendUserId: String
-        ): Observable<HttpModel<List<ChatRecord>>> {
-            val type = genericGsonType<HttpModel<List<ChatRecord>>>()
-            val request: GetRequest<HttpModel<List<ChatRecord>>> =
+            friendUserId: String,
+            pageNum: Int,
+            pageSize: Int
+        ): Observable<HttpModel<PageModel<ChatRecord>>> {
+            val type = genericGsonType<HttpModel<PageModel<ChatRecord>>>()
+            val request: GetRequest<HttpModel<PageModel<ChatRecord>>> =
                 OkGo.get(ApiUrl.GET_CHAT_RECORD_LIST)
             return request.tag(tag)
                 .params("userId", userId)
                 .params("friendUserId", friendUserId)
+                .params("pageNum", pageNum)
+                .params("pageSize", pageSize)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

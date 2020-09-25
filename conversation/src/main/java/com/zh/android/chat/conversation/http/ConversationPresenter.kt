@@ -2,6 +2,7 @@ package com.zh.android.chat.conversation.http
 
 import com.hule.dashi.websocket.RxWebSocket
 import com.zh.android.base.http.HttpModel
+import com.zh.android.base.http.PageModel
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import com.zh.android.chat.service.module.conversation.model.Conversation
 import io.reactivex.Observable
@@ -23,9 +24,11 @@ class ConversationPresenter {
      */
     fun getChatRecordList(
         userId: String,
-        friendUserId: String
-    ): Observable<HttpModel<List<ChatRecord>>> {
-        return ConversationRequester.getChatRecordList(TAG, userId, friendUserId)
+        friendUserId: String,
+        pageNum: Int,
+        pageSize: Int
+    ): Observable<HttpModel<PageModel<ChatRecord>>> {
+        return ConversationRequester.getChatRecordList(TAG, userId, friendUserId, pageNum, pageSize)
     }
 
     /**

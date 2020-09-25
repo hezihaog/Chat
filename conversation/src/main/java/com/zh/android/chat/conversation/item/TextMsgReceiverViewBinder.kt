@@ -31,7 +31,7 @@ class TextMsgReceiverViewBinder :
 
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(toUser.picNormal))
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(fromUser.picNormal))
             holder.vContent.text = text?.content
             holder.vContent.setTextIsSelectable(true)
         }

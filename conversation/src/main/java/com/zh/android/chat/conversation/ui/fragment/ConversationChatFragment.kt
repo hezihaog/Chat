@@ -115,29 +115,15 @@ class ConversationChatFragment : BaseFragment() {
                     val type = model.type
                     //是否是我的发的
                     val isMe = model.fromUser.id == loginUserId
-                    if (isMe) {
-                        when (type) {
-                            ChatMsgType.TEXT.code -> {
-                                TextMsgSenderViewBinder::class.java
-                            }
-                            ChatMsgType.IMAGE.code -> {
-                                ImageMsgSenderViewBinder::class.java
-                            }
-                            else -> {
-                                VersionTooLowViewBinder::class.java
-                            }
+                    when (type) {
+                        ChatMsgType.TEXT.code -> {
+                            if (isMe) TextMsgSenderViewBinder::class.java else TextMsgReceiverViewBinder::class.java
                         }
-                    } else {
-                        when (type) {
-                            ChatMsgType.TEXT.code -> {
-                                TextMsgReceiverViewBinder::class.java
-                            }
-                            ChatMsgType.IMAGE.code -> {
-                                ImageMsgReceiverViewBinder::class.java
-                            }
-                            else -> {
-                                VersionTooLowViewBinder::class.java
-                            }
+                        ChatMsgType.IMAGE.code -> {
+                            if (isMe) ImageMsgSenderViewBinder::class.java else ImageMsgReceiverViewBinder::class.java
+                        }
+                        else -> {
+                            VersionTooLowViewBinder::class.java
                         }
                     }
                 }
@@ -233,16 +219,17 @@ class ConversationChatFragment : BaseFragment() {
             if (userId.isBlank()) {
                 return@click
             }
-            mRxTakePhoto.startByGallery(fragmentActivity, false)
+            val count = 6
+            mRxTakePhoto.startByGallery(fragmentActivity, count, false)
                 .filter {
                     !it.isTakeCancel
                 }
-                .map {
-                    it.imgPaths[0]
-                }
                 .flatMap {
                     //上传图片
-                    mUploadPresenter.uploadImage(fragmentActivity, it)
+                    mUploadPresenter.uploadMultipleImage(fragmentActivity, it.imgPaths)
+                }
+                .flatMap {
+                    Observable.fromIterable(it)
                 }
                 .flatMap { img ->
                     //发送图片消息

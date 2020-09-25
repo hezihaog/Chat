@@ -38,7 +38,7 @@ class ImageMsgReceiverViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         item.run {
             holder.vAvatar.loadUrlImageToRound(
-                ApiUrl.getFullImageUrl(toUser.picNormal)
+                ApiUrl.getFullImageUrl(fromUser.picNormal)
             )
             holder.vImage.loadUrlImage(
                 ApiUrl.getFullImageUrl(

@@ -37,8 +37,11 @@ class HomeActivity : BaseActivity() {
         mConversationService?.startMqttService()
         //获取唯一设备Id
         RxPermissions(this).apply {
-            request(Manifest.permission.READ_PHONE_STATE)
-                .lifecycle(lifecycleOwner)
+            request(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE
+            ).lifecycle(lifecycleOwner)
                 .subscribe {
                     val deviceUniqueId =
                         DeviceIdUtil.getDeviceUniqueId(fragmentActivity.application)

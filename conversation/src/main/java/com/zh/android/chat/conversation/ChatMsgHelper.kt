@@ -15,7 +15,7 @@ object ChatMsgHelper {
     }
 
     fun getChatText(context: Context, model: Conversation): String {
-        return getChatTextByType(context, model.type, model.text.content)
+        return getChatTextByType(context, model.type, model.text?.content ?: "")
     }
 
     /**

@@ -24,11 +24,11 @@ data class Conversation(
     /**
      * 类型
      */
-    val type:Int,
+    val type: Int,
     /**
      * 发送的消息
      */
-    val text: ChatRecord.TextVO,
+    val text: ChatRecord.TextVO?,
     /**
      * 是否是我发送的
      */

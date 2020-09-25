@@ -115,7 +115,8 @@ public class NotificationUtil {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(),
+                0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //兼容8.0通知栏
         NotificationCompat.Builder builder;
@@ -124,21 +125,26 @@ public class NotificationUtil {
             NotificationChannel channel = new NotificationChannel(
                     channelId,
                     channelName,
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_HIGH);
             //配置通知渠道
             notificationManager.createNotificationChannel(channel);
             builder = new NotificationCompat.Builder(context, channelId);
         } else {
             builder = new NotificationCompat.Builder(context);
-            builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            builder.setPriority(NotificationCompat.PRIORITY_MAX);
         }
         //设置点击跳转的意图
         builder.setContentIntent(pendingIntent);
         //设置标题等
-        builder.setContentTitle(contentTitle)
+        builder
+                .setTicker(contentTitle)
+                .setContentTitle(contentTitle)
                 .setContentText(contentText)
                 .setSmallIcon(smallIcon)
                 .setAutoCancel(true);
+
+        //通知时间
+        builder.setWhen(System.currentTimeMillis());
 
         int defaults = 0;
         //是否强驻通知栏

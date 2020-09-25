@@ -10,6 +10,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.ext.setTextWithDefault
+import com.zh.android.chat.conversation.ChatMsgHelper
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.service.module.conversation.model.Conversation
 import me.drakeet.multitype.ItemViewBinder
@@ -28,6 +29,7 @@ class ConversationMainViewBinder(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, item: Conversation) {
+        val context = holder.itemView.context
         item.run {
             val avatar = if (isMe) toUser.picNormal else fromUser.picNormal
             holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(avatar))
@@ -38,7 +40,9 @@ class ConversationMainViewBinder(
                     setTextWithDefault(fromUser.nickname)
                 }
             }
-            holder.vMsg.text = message
+            holder.vMsg.run {
+                text = ChatMsgHelper.getChatText(context, item)
+            }
             holder.itemView.click {
                 itemClickCallback(this)
             }

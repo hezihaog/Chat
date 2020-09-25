@@ -59,8 +59,21 @@ class ConversationPresenter {
         userId: String,
         friendId: String,
         text: String
-    ): Observable<ChatRecord> {
+    ): Observable<Boolean> {
         return WsRequester.sendTextMsg(webSocket, wsUrl, userId, friendId, text)
+    }
+
+    /**
+     * 发送图片消息
+     */
+    fun sendImageMsg(
+        webSocket: RxWebSocket,
+        wsUrl: String,
+        userId: String,
+        friendId: String,
+        image: String
+    ): Observable<Boolean> {
+        return WsRequester.sendImageMsg(webSocket, wsUrl, userId, friendId, image)
     }
 
     /**

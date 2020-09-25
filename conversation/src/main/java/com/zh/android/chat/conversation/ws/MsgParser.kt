@@ -4,9 +4,8 @@ import android.content.Context
 import com.hule.dashi.websocket.WebSocketInfo
 import com.zh.android.base.util.json.JsonProxy
 import com.zh.android.chat.conversation.WebSocketAgent
-import com.zh.android.chat.conversation.enums.MessageType
+import com.zh.android.chat.service.module.conversation.enums.ChatMsgType
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
-import com.zh.android.chat.service.module.conversation.model.Message
 import io.reactivex.Observable
 
 /**
@@ -36,6 +35,9 @@ class MsgParser(
             }.flatMap {
                 //解析文本消息
                 parserTextMsg(it)
+            }.flatMap {
+                //解析图片消息
+                parserImageMsg(it)
             }
     }
 
@@ -49,13 +51,38 @@ class MsgParser(
             .flatMap {
                 val json = it.stringMsg ?: ""
                 if (json.isNotBlank()) {
-                    //解析json，判断消息类型
-                    val message = JsonProxy.get().fromJson<Message>(json, Message::class.java)
-                    if (message != null
-                        && message.type == MessageType.SEND.code
-                        && message.chatRecord != null
+                    //解析Json
+                    val chatRecord =
+                        JsonProxy.get().fromJson<ChatRecord>(json, ChatRecord::class.java)
+                    if (chatRecord != null &&
+                        chatRecord.type == ChatMsgType.TEXT.code &&
+                        chatRecord.text != null
                     ) {
-                        callback.onReceiveTextMsg(message.chatRecord!!)
+                        callback.onReceiveTextMsg(chatRecord)
+                    }
+                }
+                Observable.just(it)
+            }
+    }
+
+    /**
+     * 解析图片消息
+     */
+    private fun parserImageMsg(
+        info: WebSocketInfo
+    ): Observable<WebSocketInfo> {
+        return Observable.just(info)
+            .flatMap {
+                val json = it.stringMsg ?: ""
+                if (json.isNotBlank()) {
+                    //解析Json
+                    val chatRecord =
+                        JsonProxy.get().fromJson<ChatRecord>(json, ChatRecord::class.java)
+                    if (chatRecord != null &&
+                        chatRecord.type == ChatMsgType.IMAGE.code &&
+                        chatRecord.image != null
+                    ) {
+                        callback.onReceiveImageMsg(chatRecord)
                     }
                 }
                 Observable.just(it)
@@ -66,6 +93,11 @@ class MsgParser(
         /**
          * 接收到文本消息
          */
-        fun onReceiveTextMsg(record: ChatRecord)
+        fun onReceiveTextMsg(chatRecord: ChatRecord)
+
+        /**
+         * 接收到图片消息
+         */
+        fun onReceiveImageMsg(chatRecord: ChatRecord);
     }
 }

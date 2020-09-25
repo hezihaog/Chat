@@ -13,7 +13,7 @@ import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getConversationService
 import com.zh.android.chat.service.ext.getLoginService
-import com.zh.android.chat.service.module.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import com.zh.android.chat.service.module.mqtt.*
 import com.zh.android.mqtt.MqttOption
 import com.zh.android.mqtt.MqttProxy
@@ -125,14 +125,12 @@ class ConversationMqttService : Service() {
                         .ioToMain()
                         .compose(ConversationMessageParser.parseMqttMessage(object :
                             MqttMessageReceiver {
-                            override fun onReceiveOfflineChatMsg(model: Message) {
+                            override fun onReceiveOfflineChatMsg(model: ChatRecord) {
                                 //接收到离线聊天消息
                                 LogUtils.d("接收到离线聊天消息：$model")
-                                model.chatRecord?.let {
-                                    getConversationService()?.sendOfflineChatMessageNotification(
-                                        model
-                                    )
-                                }
+                                getConversationService()?.sendOfflineChatMessageNotification(
+                                    model
+                                )
                             }
                         }))
                         .subscribe({ mqttMessage ->

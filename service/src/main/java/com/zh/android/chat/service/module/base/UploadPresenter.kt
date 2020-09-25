@@ -22,6 +22,16 @@ class UploadPresenter {
     }
 
     /**
+     * 上传单张图片
+     */
+    fun uploadImage(activity: Activity, filePath: String): Observable<String> {
+        return uploadMultipleImage(activity, listOf(filePath))
+            .map {
+                it[0]
+            }
+    }
+
+    /**
      * 上传多张图片
      */
     fun uploadMultipleImage(activity: Activity, filePaths: List<String>): Observable<List<String>> {

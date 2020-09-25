@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/conversation_chat_msg_item_layout_receiver">
+
+    <ImageView
+        android:id="@+id/avatar"
+        style="@style/conversation_chat_avatar"
+        tools:src="@drawable/base_avatar_round" />
+
+    <ImageView
+        android:id="@+id/image"
+        style="@style/conversation_msg_item_image_receiver"
+        tools:background="@drawable/base_def_img_rect" />
+</LinearLayout>

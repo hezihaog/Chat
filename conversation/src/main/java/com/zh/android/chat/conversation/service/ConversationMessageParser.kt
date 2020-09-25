@@ -3,8 +3,8 @@ package com.zh.android.chat.conversation.service
 import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.ext.genericGsonTypeToken
 import com.zh.android.base.util.json.JsonProxy
-import com.zh.android.chat.conversation.enums.MessageType
-import com.zh.android.chat.service.module.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.enums.ChatMsgType
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import com.zh.android.mqtt.MqttMessage
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
@@ -42,11 +42,11 @@ object ConversationMessageParser {
         try {
             LogUtils.d("解析Mqtt消息 - 开始: ${mqttMessage.message}")
             val model =
-                JsonProxy.get().fromJson<Message>(
+                JsonProxy.get().fromJson<ChatRecord>(
                     mqttMessage.message,
-                    genericGsonTypeToken<Message>().type
+                    genericGsonTypeToken<ChatRecord>().type
                 )
-            if (model != null && MessageType.SEND.code == model.type) {
+            if (model != null && ChatMsgType.isValid(model.type)) {
                 receiver.onReceiveOfflineChatMsg(model)
                 LogUtils.d("解析Mqtt消息 - 成功")
             }

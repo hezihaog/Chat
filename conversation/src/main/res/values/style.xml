@@ -89,4 +89,35 @@
         <item name="android:background">@drawable/conversation_chat_bg_msg_receiver</item>
         <item name="android:textColor">@color/base_txt_color_normal</item>
     </style>
+
+    <!-- 消息图片基类 -->
+    <style name="conversation_msg_item_image_base">
+        <item name="android:layout_width">@dimen/base_dimen_160</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_height">@dimen/base_dimen_160</item>
+    </style>
+
+    <!-- 消息图片-发送者 -->
+    <style name="conversation_msg_item_image_sender" parent="conversation_msg_item_image_base">
+        <item name="android:layout_marginEnd">@dimen/base_dimen_10</item>
+    </style>
+
+    <!-- 消息图片-接收者 -->
+    <style name="conversation_msg_item_image_receiver" parent="conversation_msg_item_image_base">
+        <item name="android:layout_marginStart">@dimen/base_dimen_10</item>
+    </style>
+
+    <!-- 聊天室系统提示 -->
+    <style name="conversation_chat_tip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/conversation_bg_chat_tip</item>
+        <item name="android:paddingStart">@dimen/base_dimen_8</item>
+        <item name="android:paddingTop">@dimen/base_dimen_3</item>
+        <item name="android:paddingEnd">@dimen/base_dimen_8</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_3</item>
+        <item name="android:textColor">@color/base_txt_color_hint</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_14</item>
+    </style>
 </resources>

@@ -14,7 +14,7 @@ import com.zh.android.chat.conversation.ui.fragment.ConversationMainFragment
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.conversation.ConversationService
-import com.zh.android.chat.service.module.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
 
 /**
  * @author wally
@@ -58,8 +58,8 @@ class ConversationServiceImpl : ConversationService {
         }
     }
 
-    override fun sendOfflineChatMessageNotification(message: Message) {
-        message.chatRecord?.let {
+    override fun sendOfflineChatMessageNotification(chatRecord: ChatRecord) {
+        chatRecord.let {
             NotificationUtil.create(
                 mContext,
                 10086,
@@ -67,11 +67,12 @@ class ConversationServiceImpl : ConversationService {
                 mContext.resources.getString(R.string.conversation_offline_chat_message_notification_channel_name),
                 //跳转到聊天页面
                 Intent(mContext, ConversationChatActivity::class.java).apply {
-                    putExtra(AppConstant.Key.USER_ID, it.fromUserId)
+                    putExtra(AppConstant.Key.USER_ID, it.fromUser.id)
                 },
                 R.drawable.base_notification_icon,
                 mContext.getString(R.string.conversation_receiver_new_chat_message),
-                it.message,
+                //提示文字
+                ChatMsgHelper.getChatText(mContext, chatRecord),
                 false,
                 true,
                 true,

@@ -1,6 +1,6 @@
 package com.zh.android.chat.conversation.service
 
-import com.zh.android.chat.service.module.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
 
 /**
  * @author wally
@@ -11,5 +11,5 @@ interface MqttMessageReceiver {
     /**
      * 接收到离线聊天消息
      */
-    fun onReceiveOfflineChatMsg(model: Message)
+    fun onReceiveOfflineChatMsg(model: ChatRecord)
 }

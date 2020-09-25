@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="conversation_chat_action_btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/conversation_bg_chat_action</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">@dimen/base_dimen_15</item>
+        <item name="android:paddingTop">@dimen/base_dimen_2</item>
+        <item name="android:paddingEnd">@dimen/base_dimen_15</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_2</item>
+        <item name="android:textColor">@color/base_blue</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_14</item>
+        <item name="android:layout_marginStart">@dimen/base_dimen_10</item>
+    </style>
+</resources>

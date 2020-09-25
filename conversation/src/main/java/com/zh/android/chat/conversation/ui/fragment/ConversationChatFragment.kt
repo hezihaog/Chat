@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
+import com.draggable.library.extension.ImageViewerHelper
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
@@ -15,14 +16,16 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.loading.WaitLoadingController
+import com.zh.android.base.util.takephoto.RxTakePhoto
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.WebSocketAgent
 import com.zh.android.chat.conversation.http.ConversationPresenter
-import com.zh.android.chat.conversation.item.TextMsgReceiverViewBinder
-import com.zh.android.chat.conversation.item.TextMsgSenderViewBinder
+import com.zh.android.chat.conversation.item.*
 import com.zh.android.chat.conversation.ws.MsgParser
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.module.base.UploadPresenter
+import com.zh.android.chat.service.module.conversation.enums.ChatMsgType
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.MineService
@@ -50,6 +53,8 @@ class ConversationChatFragment : BaseFragment() {
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
     private val vMsgInput: EditText by bindView(R.id.msg_input)
     private val vSend: TextView by bindView(R.id.send)
+    private val vTakePhoto: TextView by bindView(R.id.take_photo)
+    private val vTakeGallery: TextView by bindView(R.id.take_gallery)
 
     /**
      * 好友信息
@@ -66,6 +71,13 @@ class ConversationChatFragment : BaseFragment() {
      */
     private val mWsUrl = ApiUrl.WS_URL
 
+    private val mRxTakePhoto by lazy {
+        RxTakePhoto()
+    }
+    private val mUploadPresenter by lazy {
+        UploadPresenter()
+    }
+
     private val mWaitController by lazy {
         WaitLoadingController(fragmentActivity, lifecycleOwner)
     }
@@ -79,25 +91,56 @@ class ConversationChatFragment : BaseFragment() {
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            register(ChatRecord::class.java).to(
-                TextMsgReceiverViewBinder(),
-                TextMsgSenderViewBinder()
-            ).withClassLinker { _, model ->
-                //我的用户Id
-                val loginUserId = mLoginService?.getUserId() ?: ""
-                //一般不会出现这种情况，登录模块是必须有的
-                return@withClassLinker if (loginUserId.isBlank()) {
-                    TextMsgSenderViewBinder::class.java
-                } else {
+            register(ChatRecord::class.java)
+                .to(
+                    //低版本提示
+                    VersionTooLowViewBinder(),
+                    //文字
+                    TextMsgReceiverViewBinder(),
+                    TextMsgSenderViewBinder(),
+                    //图片
+                    ImageMsgReceiverViewBinder { _, item ->
+                        clickImageRecord(item)
+                    },
+                    ImageMsgSenderViewBinder { _, item ->
+                        clickImageRecord(item)
+                    }
+                ).withClassLinker { _, model ->
+                    //我的用户Id
+                    val loginUserId = mLoginService?.getUserId() ?: ""
+                    if (loginUserId.isBlank()) {
+                        VersionTooLowViewBinder::class.java
+                    }
+                    //消息类型
+                    val type = model.type
                     //是否是我的发的
-                    val isMe = model.fromUserId == loginUserId
+                    val isMe = model.fromUser.id == loginUserId
                     if (isMe) {
-                        TextMsgSenderViewBinder::class.java
+                        when (type) {
+                            ChatMsgType.TEXT.code -> {
+                                TextMsgSenderViewBinder::class.java
+                            }
+                            ChatMsgType.IMAGE.code -> {
+                                ImageMsgSenderViewBinder::class.java
+                            }
+                            else -> {
+                                VersionTooLowViewBinder::class.java
+                            }
+                        }
                     } else {
-                        TextMsgReceiverViewBinder()::class.java
+                        when (type) {
+                            ChatMsgType.TEXT.code -> {
+                                TextMsgReceiverViewBinder::class.java
+                            }
+                            ChatMsgType.IMAGE.code -> {
+                                ImageMsgReceiverViewBinder::class.java
+                            }
+                            else -> {
+                                VersionTooLowViewBinder::class.java
+                            }
+                        }
                     }
                 }
-            }
         }
     }
 
@@ -141,6 +184,90 @@ class ConversationChatFragment : BaseFragment() {
             }
             //发送消息
             sendTextMsg(msgInput)
+        }
+        vTakePhoto.click {
+            val userId = mLoginService?.getUserId() ?: ""
+            if (userId.isBlank()) {
+                return@click
+            }
+            //拍照
+            mRxTakePhoto.startByCamera(fragmentActivity, false)
+                .filter {
+                    !it.isTakeCancel
+                }
+                .map {
+                    it.imgPaths[0]
+                }
+                .flatMap {
+                    //上传图片
+                    mUploadPresenter.uploadImage(fragmentActivity, it)
+                }
+                .flatMap { img ->
+                    //发送图片消息
+                    WebSocketAgent.getRxWebSocket(fragmentActivity)
+                        .flatMap {
+                            mConversationPresenter.sendImageMsg(
+                                it,
+                                mWsUrl,
+                                userId,
+                                mFriendUserId,
+                                img
+                            )
+                        }
+                }
+                .lifecycle(lifecycleOwner)
+                .subscribe({
+                    if (it) {
+                        LogUtils.d("发送图片消息成功")
+                    } else {
+                        LogUtils.d("发送图片消息失败")
+                    }
+                }, {
+                    it.printStackTrace()
+                    showRequestError()
+                })
+        }
+        vTakeGallery.click {
+            //相册中选择
+            val userId = mLoginService?.getUserId() ?: ""
+            if (userId.isBlank()) {
+                return@click
+            }
+            mRxTakePhoto.startByGallery(fragmentActivity, false)
+                .filter {
+                    !it.isTakeCancel
+                }
+                .map {
+                    it.imgPaths[0]
+                }
+                .flatMap {
+                    //上传图片
+                    mUploadPresenter.uploadImage(fragmentActivity, it)
+                }
+                .flatMap { img ->
+                    //发送图片消息
+                    WebSocketAgent.getRxWebSocket(fragmentActivity)
+                        .flatMap {
+                            mConversationPresenter.sendImageMsg(
+                                it,
+                                mWsUrl,
+                                userId,
+                                mFriendUserId,
+                                img
+                            )
+                        }
+                }
+                .lifecycle(lifecycleOwner)
+                .subscribe({
+                    if (it) {
+                        LogUtils.d("发送图片消息成功")
+                    } else {
+                        LogUtils.d("发送图片消息失败")
+                    }
+                }, {
+                    it.printStackTrace()
+                    showRequestError()
+                })
         }
     }
 
@@ -206,8 +333,12 @@ class ConversationChatFragment : BaseFragment() {
     private fun connectionChatServer() {
         //开始解析消息
         MsgParser(fragmentActivity, mWsUrl, object : MsgParser.OnReceiveMsgCallback {
-            override fun onReceiveTextMsg(record: ChatRecord) {
-                insertMsg(record)
+            override fun onReceiveTextMsg(chatRecord: ChatRecord) {
+                insertMsg(chatRecord)
+            }
+
+            override fun onReceiveImageMsg(chatRecord: ChatRecord) {
+                insertMsg(chatRecord)
             }
         }).listener()
             .flatMap {
@@ -224,7 +355,9 @@ class ConversationChatFragment : BaseFragment() {
             }
             .lifecycle(lifecycleOwner)
             .subscribe({
-                LogUtils.json(it.stringMsg)
+                if (!it.stringMsg.isNullOrBlank()) {
+                    LogUtils.json(it.stringMsg)
+                }
             }, { error ->
                 error.printStackTrace()
             })
@@ -300,8 +433,6 @@ class ConversationChatFragment : BaseFragment() {
                 .ioToMain()
                 .lifecycle(lifecycleOwner)
                 .subscribe({
-                    //插入一条消息
-                    insertMsg(it)
                     //清空输入框
                     vMsgInput.setText("")
                     LogUtils.d("发送文本消息成功：$text")
@@ -343,10 +474,34 @@ class ConversationChatFragment : BaseFragment() {
     /**
      * 插入一条消息
      */
-    private fun insertMsg(record: ChatRecord) {
-        mListItems.add(record)
+    private fun insertMsg(chatRecord: ChatRecord) {
+        mListItems.add(chatRecord)
         mListAdapter.notifyDataSetChanged()
         //滚动到最底下
         vRefreshList.scrollToPosition(mListItems.size - 1)
+    }
+
+    /**
+     * 点击了图片记录
+     */
+    private fun clickImageRecord(item: ChatRecord) {
+        val currentImageUrl = ApiUrl.getFullImageUrl(item.image!!.image)
+        //收集所有图片Url
+        val imageUrls = mListItems.filterIsInstance<ChatRecord>()
+            .filter {
+                it.type == ChatMsgType.IMAGE.code && it.image != null
+            }.map {
+                ApiUrl.getFullImageUrl(it.image!!.image)
+            }.toList()
+        //找到当前条目在列表中的位置
+        val index = imageUrls.indexOf(currentImageUrl)
+        if (index == -1) {
+            return
+        }
+        //跳转到图片预览
+        ImageViewerHelper.showImages(
+            fragmentActivity,
+            imageUrls, index = index
+        )
     }
 }

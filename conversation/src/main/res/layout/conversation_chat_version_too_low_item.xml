@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/conversation_chat_msg_item_layout_receiver"
+    android:gravity="center"
+    android:paddingStart="@dimen/base_dimen_15"
+    android:paddingEnd="@dimen/base_dimen_15">
+
+    <TextView
+        android:id="@+id/content"
+        style="@style/conversation_chat_tip"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        tools:text="@string/conversation_chat_version_too_low_tip" />
+</LinearLayout>

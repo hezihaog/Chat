@@ -7,4 +7,7 @@
     <string name="conversation_receiver_new_chat_message">收到一条新消息</string>
     <string name="conversation_offline_chat_message_notification_channel_id">10086</string>
     <string name="conversation_offline_chat_message_notification_channel_name">离线聊天消息</string>
+    <string name="conversation_chat_version_too_low_tip">您当前的版本过低，无法显示该消息，请更新后查看</string>
+    <string name="conversation_image_omit">[图片]</string>
+    <string name="conversation_voice_omit">[语音]</string>
 </resources>

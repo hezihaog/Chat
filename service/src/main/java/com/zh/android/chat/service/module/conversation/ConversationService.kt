@@ -2,7 +2,7 @@ package com.zh.android.chat.service.module.conversation
 
 import android.app.Activity
 import com.alibaba.android.arouter.facade.template.IProvider
-import com.zh.android.chat.service.module.conversation.model.Message
+import com.zh.android.chat.service.module.conversation.model.ChatRecord
 
 /**
  * @author wally
@@ -32,7 +32,7 @@ interface ConversationService : IProvider {
 
     /**
      * 发送离线聊天消息通知栏通知
-     * @param message 消息实体
+     * @param chatRecord 聊天消息记录
      */
-    fun sendOfflineChatMessageNotification(message: Message)
+    fun sendOfflineChatMessageNotification(chatRecord: ChatRecord)
 }

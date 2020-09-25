@@ -1,5 +1,6 @@
 package com.zh.android.chat.service.module.conversation.model
 
+import com.zh.android.chat.service.module.mine.model.User
 import java.io.Serializable
 
 /**
@@ -13,13 +14,17 @@ data class ChatRecord(
      */
     val id: String,
     /**
-     * 发消息的用户的Id
+     * 发消息的用户信息
      */
-    val fromUserId: String,
+    val fromUser: User,
     /**
-     * 接收消息的用户的Id
+     * 接收消息的用户信息
      */
-    val toUserId: String,
+    val toUser: User,
+    /**
+     * 类型
+     */
+    val type: Int,
     /**
      * 是否已读
      */
@@ -29,11 +34,43 @@ data class ChatRecord(
      */
     val createTime: String,
     /**
-     * 消息内容
+     * 文字消息内容
      */
-    val message: String
+    val text: TextVO? = null,
+    /**
+     * 图片消息内容
+     */
+    val image: ImageVO? = null
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -8591987583696258173L
+    }
+
+    /**
+     * 文字信息
+     */
+    class TextVO(
+        /**
+         * 文字内容
+         */
+        val content: String
+    ) : Serializable {
+        companion object {
+            private const val serialVersionUID = -8591987583696258173L
+        }
+    }
+
+    /**
+     * 图片信息
+     */
+    class ImageVO(
+        /**
+         * 图片地址
+         */
+        var image: String
+    ) : Serializable {
+        companion object {
+            private const val serialVersionUID = -8591987583696258173L
+        }
     }
 }

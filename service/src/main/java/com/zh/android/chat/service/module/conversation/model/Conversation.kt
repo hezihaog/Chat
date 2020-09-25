@@ -22,9 +22,13 @@ data class Conversation(
      */
     val toUser: User,
     /**
+     * 类型
+     */
+    val type:Int,
+    /**
      * 发送的消息
      */
-    val message: String,
+    val text: ChatRecord.TextVO,
     /**
      * 是否是我发送的
      */

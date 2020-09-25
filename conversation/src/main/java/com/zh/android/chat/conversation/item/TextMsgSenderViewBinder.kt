@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
@@ -29,8 +30,8 @@ class TextMsgSenderViewBinder : ItemViewBinder<ChatRecord, TextMsgSenderViewBind
 
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         item.run {
-            holder.vAvatar.loadUrlImageToRound("")
-            holder.vContent.text = message
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(fromUser.picNormal))
+            holder.vContent.text = text?.content
             holder.vContent.setTextIsSelectable(true)
         }
     }

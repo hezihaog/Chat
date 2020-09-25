@@ -76,5 +76,23 @@ class ConversationRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 删除和指定好友的整个会话
+         */
+        fun deleteConversation(
+            tag: String,
+            userId: String,
+            friendUserId: String
+        ): Observable<HttpModel<Boolean>> {
+            val type = genericGsonType<HttpModel<Boolean>>()
+            val request: PostRequest<HttpModel<Boolean>> =
+                OkGo.post(ApiUrl.DELETE_CONVERSATION)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("friendUserId", friendUserId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

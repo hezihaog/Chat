@@ -1,22 +1,21 @@
 package com.zh.android.chat.conversation.ui.fragment
 
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.handlerErrorCode
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
-import com.zh.android.base.ext.showRequestError
+import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.http.ConversationPresenter
 import com.zh.android.chat.conversation.item.ConversationMainViewBinder
-import com.zh.android.chat.service.module.conversation.model.Conversation
+import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.conversation.ConversationService
+import com.zh.android.chat.service.module.conversation.model.Conversation
 import com.zh.android.chat.service.module.login.LoginService
 import kotterknife.bindView
 import me.drakeet.multitype.Items
@@ -49,14 +48,48 @@ class ConversationMainFragment : BaseFragment() {
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            register(Conversation::class.java, ConversationMainViewBinder {
-                //跳转到会话
-                mConversationService?.goConversationChat(
-                    fragmentActivity,
-                    if (isMeSend(it.fromUser.id)) it.toUser.id else it.fromUser.id,
-                    if (isMeSend(it.fromUser.id)) it.toUser.nickname else it.fromUser.nickname
-                )
-            })
+            register(Conversation::class.java, ConversationMainViewBinder(
+                itemClickCallback = {
+                    //跳转到会话
+                    mConversationService?.goConversationChat(
+                        fragmentActivity,
+                        if (isMeSend(it.fromUser.id)) it.toUser.id else it.fromUser.id,
+                        if (isMeSend(it.fromUser.id)) it.toUser.nickname else it.fromUser.nickname
+                    )
+                },
+                longClickCallback = { position, item ->
+                    AlertDialog.Builder(fragmentActivity)
+                        .setItems(
+                            arrayOf(
+                                getString(R.string.base_delete)
+                            )
+                        ) { _, which ->
+                            when (which) {
+                                //删除会话
+                                0 -> {
+                                    val myUserId = mLoginService?.getUserId()
+                                    val friendUserId = when {
+                                        item.fromUser.id == myUserId -> {
+                                            item.toUser.id
+                                        }
+                                        item.toUser.id == myUserId -> {
+                                            item.fromUser.id
+                                        }
+                                        else -> {
+                                            ""
+                                        }
+                                    }
+                                    if (friendUserId.isNotBlank()) {
+                                        deleteConversation(position, friendUserId)
+                                    }
+                                }
+                            }
+                        }
+                        .create()
+                        .show()
+                    true
+                }
+            ))
         }
     }
 
@@ -111,6 +144,32 @@ class ConversationMainFragment : BaseFragment() {
                     vRefreshLayout.finishRefresh(false)
                 })
         }
+    }
+
+    /**
+     * 删除和指定好友的整个会话
+     */
+    private fun deleteConversation(
+        position: Int,
+        friendUserId: String
+    ) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mConversationPresenter.deleteConversation(userId, friendUserId)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.base_delete_success)
+                    mListItems.removeAt(position)
+                    mListAdapter.fixNotifyItemRemoved(position)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
     }
 
     /**

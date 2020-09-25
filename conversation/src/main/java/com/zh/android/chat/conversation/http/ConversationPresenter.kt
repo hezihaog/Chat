@@ -51,6 +51,16 @@ class ConversationPresenter {
     }
 
     /**
+     * 删除和指定好友的整个会话
+     */
+    fun deleteConversation(
+        userId: String,
+        friendUserId: String
+    ): Observable<HttpModel<Boolean>> {
+        return ConversationRequester.deleteConversation(TAG, userId, friendUserId)
+    }
+
+    /**
      * 绑定连接
      * @param userId 用户Id
      */

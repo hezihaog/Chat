@@ -205,6 +205,11 @@ object ApiUrl {
      */
     val DELETE_CHAT_RECORD = "${BASE_URL}/chatRecord/deleteChatRecord"
 
+    /**
+     * 删除和指定好友的整个会话
+     */
+    val DELETE_CONVERSATION = "${BASE_URL}/chatRecord/deleteConversation"
+
     //---------------------------- 动态 ----------------------------
 
     /**

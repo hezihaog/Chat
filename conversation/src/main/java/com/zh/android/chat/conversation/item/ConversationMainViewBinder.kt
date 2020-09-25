@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
+import com.zh.android.base.ext.longClick
 import com.zh.android.base.ext.setTextWithDefault
 import com.zh.android.chat.conversation.ChatMsgHelper
 import com.zh.android.chat.conversation.R
@@ -21,6 +22,7 @@ import me.drakeet.multitype.ItemViewBinder
  * 会话首页条目
  */
 class ConversationMainViewBinder(
+    private val longClickCallback: (position: Int, item: Conversation) -> Boolean,
     private val itemClickCallback: (item: Conversation) -> Unit
 ) :
     ItemViewBinder<Conversation, ConversationMainViewBinder.ViewHolder>() {
@@ -41,10 +43,16 @@ class ConversationMainViewBinder(
                 }
             }
             holder.vMsg.run {
-                text = ChatMsgHelper.getChatText(context, item)
+                text = context.resources.getString(
+                    R.string.conversation_say_tip,
+                    fromUser.nickname, ChatMsgHelper.getChatText(context, item)
+                )
             }
             holder.itemView.click {
                 itemClickCallback(this)
+            }
+            holder.itemView.longClick {
+                longClickCallback(getPosition(holder), item)
             }
         }
     }

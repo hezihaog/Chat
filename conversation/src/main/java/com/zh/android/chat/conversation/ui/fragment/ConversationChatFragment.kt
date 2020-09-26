@@ -155,7 +155,14 @@ class ConversationChatFragment : BaseFragment() {
                         clickImageCallback = { _, item ->
                             clickImageRecord(item)
                         }
-                    )
+                    ),
+                    //语音
+                    VoiceMsgViewSenderBinder {
+
+                    },
+                    VoiceMsgViewReceiverBinder {
+                        
+                    }
                 ).withClassLinker { _, model ->
                     //我的用户Id
                     val loginUserId = mLoginService?.getUserId() ?: ""
@@ -172,6 +179,9 @@ class ConversationChatFragment : BaseFragment() {
                         }
                         ChatMsgType.IMAGE.code -> {
                             if (isMe) ImageMsgSenderViewBinder::class.java else ImageMsgReceiverViewBinder::class.java
+                        }
+                        ChatMsgType.VOICE.code -> {
+                            if (isMe) VoiceMsgViewSenderBinder::class.java else VoiceMsgViewReceiverBinder::class.java
                         }
                         else -> {
                             VersionTooLowViewBinder::class.java
@@ -587,6 +597,10 @@ class ConversationChatFragment : BaseFragment() {
             override fun onReceiveImageMsg(chatRecord: ChatRecord) {
                 insertMsg(chatRecord)
             }
+
+            override fun onReceiveVoiceMsg(chatRecord: ChatRecord) {
+                insertMsg(chatRecord)
+            }
         }).listener()
             .flatMap {
                 //连接成功
@@ -698,16 +712,16 @@ class ConversationChatFragment : BaseFragment() {
         if (userId.isNullOrBlank()) {
             return
         }
-        Observable.just(Pair(audioFilePath, audioDuration))
+        Observable.just(true)
             .doOnSubscribeUi {
                 mWaitController.showWait()
             }
             //上传音频
             .flatMap {
-                mUploadPresenter.uploadFile(it.first)
+                mUploadPresenter.uploadFile(audioFilePath)
             }
             //发送音频消息
-            .flatMap {
+            .flatMap { url ->
                 WebSocketAgent.getRxWebSocket(fragmentActivity)
                     .flatMap {
                         mConversationPresenter.sendVoiceMsg(
@@ -715,7 +729,7 @@ class ConversationChatFragment : BaseFragment() {
                             mWsUrl,
                             userId,
                             mFriendUserId,
-                            audioFilePath,
+                            url,
                             audioDuration
                         )
                     }

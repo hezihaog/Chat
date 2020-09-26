@@ -38,6 +38,9 @@ class MsgParser(
             }.flatMap {
                 //解析图片消息
                 parserImageMsg(it)
+            }.flatMap {
+                //解析语音消息
+                parserVoiceMsg(it)
             }
     }
 
@@ -89,6 +92,30 @@ class MsgParser(
             }
     }
 
+    /**
+     * 解析图片消息
+     */
+    private fun parserVoiceMsg(
+        info: WebSocketInfo
+    ): Observable<WebSocketInfo> {
+        return Observable.just(info)
+            .flatMap {
+                val json = it.stringMsg ?: ""
+                if (json.isNotBlank()) {
+                    //解析Json
+                    val chatRecord =
+                        JsonProxy.get().fromJson<ChatRecord>(json, ChatRecord::class.java)
+                    if (chatRecord != null &&
+                        chatRecord.type == ChatMsgType.VOICE.code &&
+                        chatRecord.voice != null
+                    ) {
+                        callback.onReceiveVoiceMsg(chatRecord)
+                    }
+                }
+                Observable.just(it)
+            }
+    }
+
     interface OnReceiveMsgCallback {
         /**
          * 接收到文本消息
@@ -98,6 +125,11 @@ class MsgParser(
         /**
          * 接收到图片消息
          */
-        fun onReceiveImageMsg(chatRecord: ChatRecord);
+        fun onReceiveImageMsg(chatRecord: ChatRecord)
+
+        /**
+         * 接收到语音消息
+         */
+        fun onReceiveVoiceMsg(chatRecord: ChatRecord)
     }
 }

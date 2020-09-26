@@ -53,7 +53,7 @@ public class VoiceRecordButton extends AppCompatTextView {
 
     private void init() {
         mCancelDistance = (int) (getScreenHeight(getContext()) / 3);
-        setText(R.string.answer_ask_voice_normal);
+        setText(R.string.conversation_voice_normal);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class VoiceRecordButton extends AppCompatTextView {
             mDownY = event.getY();
             mLastY = event.getY();
             mDownTime = System.currentTimeMillis();
-            setText(R.string.answer_ask_voice_normal);
+            setText(R.string.conversation_voice_normal);
             if (mCallback != null) {
                 if (mCallback.isIntercept()) {
                     return super.onTouchEvent(event);
@@ -77,13 +77,13 @@ public class VoiceRecordButton extends AppCompatTextView {
             float changeY = moveY - mLastY;
             if (moveY < 0 && Math.abs(changeY) >= mCancelDistance) {
                 //上滑到了取消区域
-                setText(R.string.answer_ask_voice_up_cancel);
+                setText(R.string.conversation_voice_up_cancel);
                 if (mCallback != null) {
                     mCallback.onTouchCancelArea();
                 }
             } else {
                 //不在取消区域范围内
-                setText(R.string.answer_ask_voice_up_finish);
+                setText(R.string.conversation_voice_up_finish);
                 if (mCallback != null) {
                     mCallback.onRestoreNormalTouchArea();
                 }
@@ -91,7 +91,7 @@ public class VoiceRecordButton extends AppCompatTextView {
         } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
             float upY = event.getY();
             float distanceY = Math.abs(upY - mDownY);
-            setText(R.string.answer_ask_voice_normal);
+            setText(R.string.conversation_voice_normal);
             long intervalTime = System.currentTimeMillis() - mDownTime;
             //不够最短时间
             if (intervalTime <= MIN_INTERVAL_TIME) {

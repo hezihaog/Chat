@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 咨询室语音触摸提示弹窗 -->
-    <style name="answer_ask_voice_dialog_style">
+    <style name="conversation_voice_dialog_style">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
@@ -129,5 +129,42 @@
         <item name="android:paddingBottom">@dimen/base_dimen_3</item>
         <item name="android:textColor">@color/base_txt_color_hint</item>
         <item name="android:textSize">@dimen/base_dimen_sp_14</item>
+    </style>
+
+    <!-- 聊天室语音标识基类 -->
+    <style name="conversation_msg_voice_symbol_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical|end</item>
+    </style>
+
+    <!-- 聊天室语音标识-发送者 -->
+    <style name="conversation_chat_msg_voice_symbol_sender" parent="conversation_msg_voice_symbol_base">
+        <item name="android:background">@drawable/conversation_audio_animation_sender_list</item>
+    </style>
+
+    <!-- 聊天室语音标识-接收者 -->
+    <style name="conversation_chat_msg_voice_symbol_receiver" parent="conversation_msg_voice_symbol_base">
+        <item name="android:background">@drawable/conversation_audio_animation_receiver_list</item>
+    </style>
+
+    <!-- 聊天室语音时间文字基类 -->
+    <style name="conversation_msg_voice_time_base">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- 聊天室语音时间文字-发送者 -->
+    <style name="conversation_chat_msg_voice_time_sender" parent="conversation_msg_voice_time_base">
+        <item name="android:textColor">@color/base_txt_color_normal</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <!-- 聊天室语音时间文字-接收者 -->
+    <style name="conversation_chat_msg_voice_time_receiver" parent="conversation_msg_voice_time_base">
+        <item name="android:textColor">@color/base_txt_color_normal</item>
+        <item name="android:gravity">end</item>
     </style>
 </resources>

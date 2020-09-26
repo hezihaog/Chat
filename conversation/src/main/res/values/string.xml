@@ -13,15 +13,17 @@
     <string name="conversation_say_tip">%1$s：%2$s</string>
 
     <!-- 语音录制按钮 -->
-    <string name="answer_ask_voice_normal">按住 说话</string>
-    <string name="answer_ask_voice_up_finish">松开 结束</string>
-    <string name="answer_ask_voice_up_cancel">松开手指，取消发送</string>
+    <string name="conversation_voice_normal">按住 说话</string>
+    <string name="conversation_voice_up_finish">松开 结束</string>
+    <string name="conversation_voice_up_cancel">松开手指，取消发送</string>
 
     <!-- 语音录制弹窗 -->
-    <string name="answer_ask_voice_dialog_up_cancel">手指上滑，取消发送</string>
-    <string name="answer_ask_voice_dialog_up_finish">松开手指，取消发送</string>
-    <string name="answer_ask_voice_dialog_interval_time_small">录音时间太短</string>
-    <string name="answer_ask_voice_dialog_error">录音失败，请重试</string>
+    <string name="conversation_voice_dialog_up_cancel">手指上滑，取消发送</string>
+    <string name="conversation_voice_dialog_up_finish">松开手指，取消发送</string>
+    <string name="conversation_voice_dialog_interval_time_small">录音时间太短</string>
+    <string name="conversation_voice_dialog_error">录音失败，请重试</string>
+
+    <string name="conversation_voice_time">%1$d＂</string>
 
     <string name="conversation_send_fail">发送失败</string>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/answer_ask_bg_chat_footer_bar"
+    android:background="@drawable/conversation_bg_chat_footer_bar"
     android:orientation="vertical">
 
     <View style="@style/base_divider" />
@@ -35,7 +35,7 @@
                 android:id="@+id/voice_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/answer_ask_toggle_voice" />
+                android:src="@drawable/conversation_toggle_voice" />
         </com.zh.android.base.widget.CustomRadioButton>
 
         <FrameLayout
@@ -46,13 +46,13 @@
                 android:id="@+id/voice_touch_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/answer_ask_bg_room_input"
+                android:background="@drawable/conversation_bg_room_input"
                 android:gravity="center"
                 android:paddingStart="@dimen/base_dimen_10"
                 android:paddingTop="@dimen/base_dimen_8"
                 android:paddingEnd="@dimen/base_dimen_10"
                 android:paddingBottom="@dimen/base_dimen_8"
-                android:text="@string/answer_ask_voice_normal"
+                android:text="@string/conversation_voice_normal"
                 android:textColor="@color/base_txt_color_hint"
                 android:textSize="@dimen/base_dimen_sp_14"
                 android:visibility="gone" />

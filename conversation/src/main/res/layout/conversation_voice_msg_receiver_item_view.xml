@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/conversation_chat_msg_item_layout_receiver">
+
+    <ImageView
+        android:id="@+id/avatar"
+        style="@style/conversation_chat_avatar"
+        tools:src="@drawable/base_avatar_round" />
+
+    <LinearLayout
+        style="@style/conversation_chat_msg_content_receiver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView style="@style/conversation_chat_bubble_arrow_receiver" />
+
+        <LinearLayout
+            android:id="@+id/voice"
+            style="@style/conversation_chat_bubble_receiver"
+            android:layout_width="@dimen/base_dimen_100">
+
+            <ImageView
+                android:id="@+id/voice_symbol"
+                style="@style/conversation_chat_msg_voice_symbol_receiver" />
+
+            <TextView
+                android:id="@+id/time"
+                style="@style/conversation_chat_msg_voice_time_receiver"
+                tools:text="26＂" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

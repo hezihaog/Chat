@@ -36,12 +36,12 @@ public class VoiceRecordDialog extends Dialog {
     private boolean isTouchInNormalArea = false;
 
     public VoiceRecordDialog(@NonNull Context context) {
-        super(context, R.style.answer_ask_voice_dialog_style);
+        super(context, R.style.conversation_voice_dialog_style);
         init();
     }
 
     private void init() {
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.answer_ask_voice_record_dialog_layout, null);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.conversation_voice_record_dialog_layout, null);
         findView(layout);
         bindView();
         setContentView(layout, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -58,16 +58,16 @@ public class VoiceRecordDialog extends Dialog {
     }
 
     private void bindView() {
-        vStateImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.answer_ask_voice_anim_decibel));
-        vStateText.setText(R.string.answer_ask_voice_dialog_up_cancel);
+        vStateImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.conversation_voice_anim_decibel));
+        vStateText.setText(R.string.conversation_voice_dialog_up_cancel);
     }
 
     /**
      * 通知-录制异常
      */
     public void notifyRecordError() {
-        updateStateTipText(R.string.answer_ask_voice_dialog_error, false);
-        updateStateImage(R.drawable.answer_ask_voice_wraning);
+        updateStateTipText(R.string.conversation_voice_dialog_error, false);
+        updateStateImage(R.drawable.conversation_voice_wraning);
         if (!isShowing()) {
             show();
         }
@@ -77,14 +77,14 @@ public class VoiceRecordDialog extends Dialog {
      * 通知开始录制
      */
     public void notifyStartRecord() {
-        updateStateTipText(R.string.answer_ask_voice_dialog_up_cancel, false);
+        updateStateTipText(R.string.conversation_voice_dialog_up_cancel, false);
         Drawable stateImageDrawable = vStateImage.getDrawable();
         if (stateImageDrawable instanceof AnimationDrawable) {
             //录制动画
             AnimationDrawable voiceAnimation = (AnimationDrawable) vStateImage.getDrawable();
             startRecordAnimation(voiceAnimation);
         } else {
-            AnimationDrawable drawable = (AnimationDrawable) getContext().getResources().getDrawable(R.drawable.answer_ask_voice_anim_decibel);
+            AnimationDrawable drawable = (AnimationDrawable) getContext().getResources().getDrawable(R.drawable.conversation_voice_anim_decibel);
             vStateImage.setImageDrawable(drawable);
             startRecordAnimation(drawable);
         }
@@ -116,8 +116,8 @@ public class VoiceRecordDialog extends Dialog {
      * 通知-录制时间太短
      */
     public void notifyTouchIntervalTimeSmall() {
-        updateStateTipText(R.string.answer_ask_voice_dialog_interval_time_small, false);
-        updateStateImage(R.drawable.answer_ask_voice_wraning);
+        updateStateTipText(R.string.conversation_voice_dialog_interval_time_small, false);
+        updateStateImage(R.drawable.conversation_voice_wraning);
         if (!isShowing()) {
             show();
         }
@@ -131,8 +131,8 @@ public class VoiceRecordDialog extends Dialog {
             return;
         }
         isTouchInNormalArea = false;
-        updateStateTipText(R.string.answer_ask_voice_dialog_up_finish, true);
-        updateStateImage(R.drawable.answer_ask_voice_cancel);
+        updateStateTipText(R.string.conversation_voice_dialog_up_finish, true);
+        updateStateImage(R.drawable.conversation_voice_cancel);
         if (!isShowing()) {
             show();
         }
@@ -185,7 +185,7 @@ public class VoiceRecordDialog extends Dialog {
     private void updateStateTipText(int tipTextResId, boolean isHighlightBg) {
         vStateText.setText(tipTextResId);
         if (isHighlightBg) {
-            vStateText.setBackgroundResource(R.drawable.answer_ask_bg_voice_cancel);
+            vStateText.setBackgroundResource(R.drawable.conversation_bg_voice_cancel);
         } else {
             vStateText.setBackground(null);
         }

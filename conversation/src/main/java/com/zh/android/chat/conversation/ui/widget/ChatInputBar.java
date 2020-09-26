@@ -123,13 +123,13 @@ public class ChatInputBar extends FrameLayout {
                     //隐藏软键盘
                     SoftKeyBoardUtil.hideKeyboard(vMsgInput);
                     //显示软键盘图标
-                    vVoiceToggle.setImageResource(R.drawable.answer_ask_toggle_keyboard);
+                    vVoiceToggle.setImageResource(R.drawable.conversation_toggle_keyboard);
                 } else {
                     //显示输入框，隐藏录音框
                     vVoiceTouchBtn.setVisibility(View.GONE);
                     vMsgInputLayout.setVisibility(View.VISIBLE);
                     //显示录音图标
-                    vVoiceToggle.setImageResource(R.drawable.answer_ask_toggle_voice);
+                    vVoiceToggle.setImageResource(R.drawable.conversation_toggle_voice);
                 }
             }
         });

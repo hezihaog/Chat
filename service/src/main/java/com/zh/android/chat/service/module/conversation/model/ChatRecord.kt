@@ -40,7 +40,15 @@ data class ChatRecord(
     /**
      * 图片消息内容
      */
-    val image: ImageVO? = null
+    val image: ImageVO? = null,
+    /**
+     * 语音消息内容
+     */
+    val voice: VoiceVO? = null,
+    /**
+     * 是否正在播放，UI属性
+     */
+    val isPlayingVoice: Boolean = false
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -8591987583696258173L
@@ -68,6 +76,24 @@ data class ChatRecord(
          * 图片地址
          */
         var image: String
+    ) : Serializable {
+        companion object {
+            private const val serialVersionUID = -8591987583696258173L
+        }
+    }
+
+    /**
+     * 语音信息
+     */
+    class VoiceVO(
+        /**
+         * 语音文件地址
+         */
+        val mediaSrc: String,
+        /**
+         * 语音时长
+         */
+        val mediaTime: Int
     ) : Serializable {
         companion object {
             private const val serialVersionUID = -8591987583696258173L

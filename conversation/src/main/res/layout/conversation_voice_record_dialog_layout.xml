@@ -9,7 +9,7 @@
         android:layout_width="@dimen/base_dimen_200"
         android:layout_height="@dimen/base_dimen_200"
         android:layout_gravity="center"
-        android:background="@drawable/answer_ask_bg_voice_dialog"
+        android:background="@drawable/conversation_bg_voice_dialog"
         android:gravity="center|bottom"
         android:orientation="vertical">
 
@@ -18,8 +18,8 @@
             android:layout_width="@dimen/base_dimen_100"
             android:layout_height="@dimen/base_dimen_100"
             android:layout_gravity="center"
-            android:src="@drawable/answer_ask_voice_anim_decibel"
-            tools:src="@drawable/answer_ask_voice_volume_5" />
+            android:src="@drawable/conversation_voice_anim_decibel"
+            tools:src="@drawable/conversation_voice_volume_5" />
 
         <TextView
             android:id="@+id/state_text"
@@ -35,7 +35,7 @@
             android:paddingBottom="@dimen/base_dimen_10"
             android:textColor="@android:color/white"
             android:textSize="@dimen/base_dimen_sp_16"
-            tools:background="@drawable/answer_ask_bg_voice_cancel"
-            tools:text="@string/answer_ask_voice_dialog_up_cancel" />
+            tools:background="@drawable/conversation_bg_voice_cancel"
+            tools:text="@string/conversation_voice_dialog_up_cancel" />
     </LinearLayout>
 </FrameLayout>

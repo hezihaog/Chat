@@ -27,7 +27,15 @@ data class ChatMsg(
     /**
      * 图片地址
      */
-    val image: String? = null
+    val image: String? = null,
+    /**
+     * 音频地址
+     */
+    val mediaSrc: String? = null,
+    /**
+     * 音频市场
+     */
+    val mediaTime: Int? = null
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -8591987583696258173L

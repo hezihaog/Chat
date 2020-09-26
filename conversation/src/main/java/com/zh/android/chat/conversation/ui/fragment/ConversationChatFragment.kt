@@ -1,6 +1,9 @@
 package com.zh.android.chat.conversation.ui.fragment
 
+import android.Manifest
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -9,21 +12,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
 import com.draggable.library.extension.ImageViewerHelper
+import com.hule.dashi.mediaplayer.MediaRecorderObserver
+import com.hule.dashi.mediaplayer.RecorderOption
+import com.hule.dashi.mediaplayer.RxMediaPlayer
+import com.hule.dashi.mediaplayer.RxMediaRecorder
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.ClipboardUtil
+import com.zh.android.base.util.VibratorHelper
 import com.zh.android.base.util.loading.WaitLoadingController
+import com.zh.android.base.util.rx.RxUtil
 import com.zh.android.base.util.takephoto.RxTakePhoto
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.WebSocketAgent
 import com.zh.android.chat.conversation.http.ConversationPresenter
 import com.zh.android.chat.conversation.item.*
+import com.zh.android.chat.conversation.ui.dialog.VoiceRecordDialog
 import com.zh.android.chat.conversation.ui.widget.ChatInputBar
+import com.zh.android.chat.conversation.ui.widget.VoiceRecordButton
 import com.zh.android.chat.conversation.ws.MsgParser
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.base.UploadPresenter
@@ -35,6 +47,7 @@ import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
+import java.util.concurrent.TimeUnit
 
 /**
  * @author wally
@@ -73,6 +86,23 @@ class ConversationChatFragment : BaseFragment() {
      * 连接地址
      */
     private val mWsUrl = ApiUrl.WS_URL
+
+    private val mVoiceRecordHandler by lazy {
+        Handler(Looper.getMainLooper())
+    }
+    private val mVoiceRecordDialog by lazy {
+        VoiceRecordDialog(fragmentActivity)
+    }
+    private val mRecorderManager by lazy {
+        RxMediaRecorder.getManager(context)
+    }
+    private val mPlayerManager by lazy {
+        RxMediaPlayer.getManager(context)
+    }
+
+    private val mRxPermissions by lazy {
+        RxPermissions(fragment)
+    }
 
     private val mRxTakePhoto by lazy {
         RxTakePhoto()
@@ -152,11 +182,21 @@ class ConversationChatFragment : BaseFragment() {
     }
 
     companion object {
+        /**
+         * 咨询室语音最大录制时间
+         */
+        const val MAX_VOICE_RECORD_DURATION = (60 * 1000).toLong()
+
         fun newInstance(args: Bundle? = Bundle()): ConversationChatFragment {
             val fragment = ConversationChatFragment()
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mVoiceRecordHandler.removeCallbacksAndMessages(null)
     }
 
     override fun onInflaterViewId(): Int {
@@ -194,6 +234,7 @@ class ConversationChatFragment : BaseFragment() {
             //发送消息
             sendTextMsg(msgInput)
         }
+        setVoiceTouchButton()
         vTakePhoto.click {
             val userId = mLoginService?.getUserId() ?: ""
             if (userId.isBlank()) {
@@ -279,6 +320,143 @@ class ConversationChatFragment : BaseFragment() {
                     showRequestError()
                 })
         }
+    }
+
+    /**
+     * 配置语音录制按钮
+     */
+    private fun setVoiceTouchButton() {
+        //录音按钮事件绑定
+        vChatInputBar.setVoiceButtonTouchCallback(object : VoiceRecordButton.ButtonTouchCallback {
+            override fun isIntercept(): Boolean {
+                val permission = Manifest.permission.RECORD_AUDIO
+                val isAcceptPermission = mRxPermissions.isGranted(permission)
+                if (!isAcceptPermission) {
+                    //申请权限
+                    mRxPermissions.request(permission)
+                        .lifecycle(lifecycleOwner)
+                        .subscribe {
+                            if (it) {
+                                LogUtils.d("获取录音权限成功")
+                            } else {
+                                toast("请允许录音权限，才能进行录制音频")
+                            }
+                        }
+                }
+                return !isAcceptPermission
+            }
+
+            override fun onStart() {
+                mVoiceRecordHandler.removeCallbacksAndMessages(null)
+                //如果正在播放音频，先停止
+                val observable = if (mPlayerManager.isPrepared || mPlayerManager.isPlaying) {
+                    mPlayerManager.stop()
+                } else {
+                    Observable.just(true)
+                }
+                observable.flatMap {
+                    mRecorderManager.startRecord()
+                        .doOnSubscribeUi {
+                            //开始录制时，震动一下
+                            VibratorHelper.startVibrator()
+                            LogUtils.d("TouchCallback 录制开始...")
+                            mVoiceRecordDialog.notifyStartRecord()
+                        }
+                }.ioToMain().lifecycle(lifecycleOwner)
+                    .subscribe(RxUtil.nothingObserver())
+            }
+
+            override fun onCancel() {
+                mRecorderManager.cancelRecord()
+                    .doOnSubscribeUi {
+                        LogUtils.d("TouchCallback 录制取消...")
+                        mVoiceRecordDialog.notifyCancelRecord()
+                    }.lifecycle(lifecycleOwner)
+                    .subscribe(RxUtil.nothingObserver())
+            }
+
+            override fun onFinish() {
+                mRecorderManager.finishRecord()
+                    //由于结束录制的速度过快，可能会出现录制不完整的情况，所以延时400毫秒再结束
+                    .delay(400, TimeUnit.MILLISECONDS)
+                    .doOnSubscribeUi {
+                        LogUtils.d("TouchCallback 录制结束...")
+                        mVoiceRecordDialog.notifyFinishRecord()
+                    }.lifecycle(lifecycleOwner)
+                    .subscribe(RxUtil.nothingObserver())
+            }
+
+            override fun onTerminate() {
+                mVoiceRecordHandler.postDelayed({
+                    mVoiceRecordDialog.dismissDialog()
+                }, 500L)
+            }
+
+            override fun onTouchIntervalTimeSmall() {
+                mRecorderManager.cancelRecord()
+                    .doOnSubscribeUi {
+                        LogUtils.d("TouchCallback 录制时间太短...")
+                        mVoiceRecordDialog.notifyTouchIntervalTimeSmall()
+                    }.lifecycle(lifecycleOwner)
+                    .subscribe(RxUtil.nothingObserver())
+            }
+
+            override fun onTouchCancelArea() {
+                LogUtils.d("TouchCallback 手指移动到取消区域...")
+                mVoiceRecordDialog.notifyTouchCancelArea()
+            }
+
+            override fun onRestoreNormalTouchArea() {
+                LogUtils.d("TouchCallback 手指移动到正常区域...")
+                mVoiceRecordDialog.notifyRestoreNormalTouchArea()
+            }
+        })
+        //配置录音管理器
+        mRecorderManager.applyMediaOption(
+            RecorderOption
+                .Builder()
+                .setMaxDuration(MAX_VOICE_RECORD_DURATION)
+                .setDebug(true)
+                .build()
+        )
+        mRecorderManager.subscribeMediaRecorder()
+            .lifecycle(lifecycleOwner)
+            .subscribe(object : MediaRecorderObserver() {
+                override fun onPrepared() {
+                    super.onPrepared()
+                    LogUtils.d("RxMediaRecorderManager 准备录制")
+                }
+
+                override fun onRecording() {
+                    super.onRecording()
+                    LogUtils.d("RxMediaRecorderManager 正在录制...")
+                }
+
+                override fun onFinish(
+                    voiceId: String?,
+                    audioFilePath: String?,
+                    audioDuration: Int,
+                    isCancel: Boolean
+                ) {
+                    super.onFinish(voiceId, audioFilePath, audioDuration, isCancel)
+                    LogUtils.d("RxMediaRecorderManager 结束录制 文件录制: $audioFilePath 时长: $audioDuration")
+                    //因为如果限制了最大时间，自动结束是，RecorderManager自动调用的，这里的就要Dialog强制关闭
+                    if (mVoiceRecordDialog.isShowing) {
+                        mVoiceRecordDialog.notifyFinishRecord()
+                    }
+                    if (isCancel || audioFilePath.isNullOrBlank()) {
+                        return
+                    }
+                    //结束录音，发送录音消息
+                    sendVoiceMsg(audioFilePath, audioDuration)
+                }
+
+                override fun onError(throwable: Throwable) {
+                    super.onError(throwable)
+                    //录音发生异常
+                    mVoiceRecordDialog.notifyRecordError()
+                }
+            })
     }
 
     override fun setData() {
@@ -510,6 +688,46 @@ class ConversationChatFragment : BaseFragment() {
                     LogUtils.d("发送文本消息失败：$text")
                 })
         }
+    }
+
+    /**
+     * 发送语音消息
+     */
+    private fun sendVoiceMsg(audioFilePath: String, audioDuration: Int) {
+        val userId = mLoginService?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        Observable.just(Pair(audioFilePath, audioDuration))
+            .doOnSubscribeUi {
+                mWaitController.showWait()
+            }
+            //上传音频
+            .flatMap {
+                mUploadPresenter.uploadFile(it.first)
+            }
+            //发送音频消息
+            .flatMap {
+                WebSocketAgent.getRxWebSocket(fragmentActivity)
+                    .flatMap {
+                        mConversationPresenter.sendVoiceMsg(
+                            it,
+                            mWsUrl,
+                            userId,
+                            mFriendUserId,
+                            audioFilePath,
+                            audioDuration
+                        )
+                    }
+            }
+            .lifecycle(lifecycleOwner)
+            .subscribe({
+                mWaitController.hideWait()
+            }, {
+                it.printStackTrace()
+                mWaitController.hideWait()
+                toast(R.string.conversation_send_fail)
+            })
     }
 
     /**

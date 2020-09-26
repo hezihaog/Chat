@@ -56,6 +56,8 @@ dependencies {
     api project(path: ':websocket')
     //离线推送
     api project(path: ':mqtt')
+    //录音、音乐播放
+    api project(path: ':mediaplayer')
 
     kapt rootProject.ext.deps.aroutercompiler
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler

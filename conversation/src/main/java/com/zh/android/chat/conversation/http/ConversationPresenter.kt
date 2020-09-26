@@ -100,6 +100,22 @@ class ConversationPresenter {
     }
 
     /**
+     * 发送语音消息
+     * @param mediaSrc 音频文件路径
+     * @param mediaTime 音频文件的时长
+     */
+    fun sendVoiceMsg(
+        webSocket: RxWebSocket,
+        wsUrl: String,
+        userId: String,
+        friendId: String,
+        mediaSrc: String,
+        mediaTime: Int
+    ): Observable<Boolean> {
+        return WsRequester.sendVoiceMsg(webSocket, wsUrl, userId, friendId, mediaSrc, mediaTime)
+    }
+
+    /**
      * 将消息已读
      * @param recordId 消息记录Id
      */

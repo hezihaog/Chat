@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 咨询室语音触摸提示弹窗 -->
+    <style name="answer_ask_voice_dialog_style">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
     <!-- 消息布局基类 -->
     <style name="conversation_chat_msg_item_layout">
         <item name="android:layout_width">match_parent</item>

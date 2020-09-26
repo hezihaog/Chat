@@ -101,6 +101,37 @@ class WsRequester {
         }
 
         /**
+         * 发送语音消息
+         * @param mediaSrc 音频文件路径
+         * @param mediaTime 音频文件的时长
+         */
+        fun sendVoiceMsg(
+            webSocket: RxWebSocket,
+            wsUrl: String,
+            userId: String,
+            friendId: String,
+            mediaSrc: String,
+            mediaTime: Int
+        ): Observable<Boolean> {
+            return Observable.create(ObservableOnSubscribe<String> {
+                val msg = Message(
+                    MessageType.SEND.code,
+                    chatMsg = ChatMsg(
+                        ChatMsgType.VOICE.code,
+                        userId,
+                        friendId,
+                        mediaSrc = mediaSrc,
+                        mediaTime = mediaTime
+                    )
+                )
+                val json = JsonProxy.get().toJson(msg)
+                it.onNext(json)
+            }).flatMap {
+                webSocket.send(wsUrl, it)
+            }
+        }
+
+        /**
          * 将消息已读
          * @param recordId 消息记录Id
          */

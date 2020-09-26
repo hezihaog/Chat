@@ -22,6 +22,20 @@ class UploadPresenter {
     }
 
     /**
+     * 上传文件
+     */
+    fun uploadFile(filePath: String): Observable<String> {
+        return Observable.just(filePath)
+            .map {
+                File(it)
+            }.flatMap {
+                UploadRequester.uploadFile(TAG, it)
+            }.map {
+                it.data
+            }
+    }
+
+    /**
      * 上传单张图片
      */
     fun uploadImage(activity: Activity, filePath: String): Observable<String> {

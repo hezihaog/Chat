@@ -1,56 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/answer_ask_bg_chat_footer_bar"
     android:orientation="vertical">
 
     <View style="@style/base_divider" />
 
-    <LinearLayout
+    <com.zh.android.base.widget.CustomRadioGroup
+        android:id="@+id/chat_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/base_dimen_8"
-        android:paddingEnd="@dimen/base_dimen_8">
+        android:paddingStart="@dimen/base_dimen_10"
+        android:paddingTop="@dimen/base_dimen_8"
+        android:paddingEnd="@dimen/base_dimen_10"
+        android:paddingBottom="@dimen/base_dimen_8"
+        app:crg_is_default_checked_one="false">
 
-        <EditText
-            android:id="@+id/msg_input"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/base_dimen_45"
-            android:layout_marginTop="@dimen/base_dimen_8"
-            android:layout_marginBottom="@dimen/base_dimen_8"
-            android:layout_weight="1"
-            android:background="@drawable/conversation_bg_input"
-            android:ellipsize="end"
-            android:hint="@string/conversation_chat_input_tip"
-            android:maxLines="1"
-            android:paddingStart="@dimen/base_dimen_15"
-            android:paddingTop="@dimen/base_dimen_8"
-            android:paddingEnd="@dimen/base_dimen_15"
-            android:paddingBottom="@dimen/base_dimen_8"
-            android:singleLine="true"
-            android:textColor="@color/base_black"
-            android:textColorHint="@android:color/darker_gray"
-            android:textSize="@dimen/base_dimen_sp_15" />
-
-        <TextView
-            android:id="@+id/send"
+        <com.zh.android.base.widget.CustomRadioButton
+            android:id="@+id/voice_radio_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/base_dimen_8"
-            android:background="@drawable/base_btn_green2"
-            android:paddingStart="@dimen/base_dimen_15"
-            android:paddingTop="@dimen/base_dimen_8"
-            android:paddingEnd="@dimen/base_dimen_15"
-            android:paddingBottom="@dimen/base_dimen_8"
-            android:text="@string/conversation_send"
-            android:textColor="@color/base_white"
-            android:textSize="@dimen/base_dimen_sp_12"
-            android:visibility="gone"
-            tools:visibility="visible" />
-    </LinearLayout>
+            android:layout_marginEnd="@dimen/base_dimen_12"
+            android:textSize="@dimen/base_dimen_sp_15"
+            android:visibility="visible"
+            app:crb_checked="false">
+
+            <ImageView
+                android:id="@+id/voice_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/answer_ask_toggle_voice" />
+        </com.zh.android.base.widget.CustomRadioButton>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zh.android.chat.conversation.ui.widget.VoiceRecordButton
+                android:id="@+id/voice_touch_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/answer_ask_bg_room_input"
+                android:gravity="center"
+                android:paddingStart="@dimen/base_dimen_10"
+                android:paddingTop="@dimen/base_dimen_8"
+                android:paddingEnd="@dimen/base_dimen_10"
+                android:paddingBottom="@dimen/base_dimen_8"
+                android:text="@string/answer_ask_voice_normal"
+                android:textColor="@color/base_txt_color_hint"
+                android:textSize="@dimen/base_dimen_sp_14"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/msg_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/msg_input"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/base_dimen_36"
+                    android:layout_weight="1"
+                    android:background="@drawable/conversation_bg_input"
+                    android:hint="@string/conversation_chat_input_tip"
+                    android:paddingStart="@dimen/base_dimen_10"
+                    android:paddingTop="@dimen/base_dimen_8"
+                    android:paddingEnd="@dimen/base_dimen_10"
+                    android:paddingBottom="@dimen/base_dimen_8"
+                    android:textColor="@color/base_txt_color_hint"
+                    android:textSize="@dimen/base_dimen_sp_14"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_dimen_8"
+                    android:background="@drawable/base_btn_green2"
+                    android:paddingStart="@dimen/base_dimen_12"
+                    android:paddingTop="@dimen/base_dimen_5"
+                    android:paddingEnd="@dimen/base_dimen_12"
+                    android:paddingBottom="@dimen/base_dimen_5"
+                    android:text="@string/conversation_send"
+                    android:textColor="@color/base_text_color_primary"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+            </LinearLayout>
+        </FrameLayout>
+    </com.zh.android.base.widget.CustomRadioGroup>
 
     <View style="@style/base_divider" />
 </LinearLayout>

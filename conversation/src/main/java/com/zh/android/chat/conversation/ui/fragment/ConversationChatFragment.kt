@@ -2,7 +2,6 @@ package com.zh.android.chat.conversation.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +23,7 @@ import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.WebSocketAgent
 import com.zh.android.chat.conversation.http.ConversationPresenter
 import com.zh.android.chat.conversation.item.*
+import com.zh.android.chat.conversation.ui.widget.ChatInputBar
 import com.zh.android.chat.conversation.ws.MsgParser
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.base.UploadPresenter
@@ -53,8 +53,7 @@ class ConversationChatFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
-    private val vMsgInput: EditText by bindView(R.id.msg_input)
-    private val vSend: TextView by bindView(R.id.send)
+    private val vChatInputBar: ChatInputBar by bindView(R.id.input_bar)
     private val vTakePhoto: TextView by bindView(R.id.take_photo)
     private val vTakeGallery: TextView by bindView(R.id.take_gallery)
 
@@ -186,11 +185,11 @@ class ConversationChatFragment : BaseFragment() {
             }
             adapter = mListAdapter
         }
-        vSend.click {
-            val msgInput = vMsgInput.text.toString().trim()
+        vChatInputBar.setCallback {
+            val msgInput = it.trim()
             if (msgInput.isBlank()) {
                 toast((R.string.conversation_chat_input_tip))
-                return@click
+                return@setCallback
             }
             //发送消息
             sendTextMsg(msgInput)
@@ -504,7 +503,7 @@ class ConversationChatFragment : BaseFragment() {
                 .lifecycle(lifecycleOwner)
                 .subscribe({
                     //清空输入框
-                    vMsgInput.setText("")
+                    vChatInputBar.setInputText("")
                     LogUtils.d("发送文本消息成功：$text")
                 }, { error ->
                     error.printStackTrace()

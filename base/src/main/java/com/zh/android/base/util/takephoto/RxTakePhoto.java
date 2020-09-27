@@ -23,8 +23,8 @@ public class RxTakePhoto {
     /**
      * 从相机中拍照选择，不裁剪
      */
-    public Observable<TakePhotoEvent> startByCamera(FragmentActivity activity) {
-        return startByCamera(activity, false);
+    public Observable<TakePhotoEvent> takeImageByCamera(FragmentActivity activity) {
+        return takeImageByCamera(activity, false);
     }
 
     /**
@@ -32,7 +32,7 @@ public class RxTakePhoto {
      *
      * @param isCrop 是否需要裁剪
      */
-    public Observable<TakePhotoEvent> startByCamera(FragmentActivity activity, boolean isCrop) {
+    public Observable<TakePhotoEvent> takeImageByCamera(FragmentActivity activity, boolean isCrop) {
         return getTakePhotoObservable(activity)
                 .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
                     @Override
@@ -40,7 +40,7 @@ public class RxTakePhoto {
                         return Observable.create(new ObservableOnSubscribe<TakePhotoEvent>() {
                             @Override
                             public void subscribe(ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
-                                fragment.startByCamera(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
+                                fragment.takeImageByCamera(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
                                     @Override
                                     public void onTakePhoto(ArrayList<String> imgPaths) {
                                         emitter.onNext(createTakePhotoSuccessEvent(imgPaths));
@@ -60,14 +60,14 @@ public class RxTakePhoto {
     /**
      * 从图库中选择图片，只选择1张图片
      */
-    public Observable<TakePhotoEvent> startByGallery(FragmentActivity activity, boolean isCrop) {
-        return startByGallery(activity, 1, isCrop);
+    public Observable<TakePhotoEvent> takeImageByGallery(FragmentActivity activity, boolean isCrop) {
+        return takeImageByGallery(activity, 1, isCrop);
     }
 
     /**
      * 从图库中选择图片，可以设定还剩余多少张
      */
-    public Observable<TakePhotoEvent> startByGallery(FragmentActivity activity, int residueSelectPicCount, boolean isCrop) {
+    public Observable<TakePhotoEvent> takeImageByGallery(FragmentActivity activity, int residueSelectPicCount, boolean isCrop) {
         return getTakePhotoObservable(activity)
                 .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
                     @Override
@@ -75,7 +75,7 @@ public class RxTakePhoto {
                         return Observable.create(new ObservableOnSubscribe<TakePhotoEvent>() {
                             @Override
                             public void subscribe(ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
-                                fragment.startByGallery(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
+                                fragment.takeImageByGallery(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
                                     @Override
                                     public void onTakePhoto(ArrayList<String> imgPaths) {
                                         emitter.onNext(createTakePhotoSuccessEvent(imgPaths));

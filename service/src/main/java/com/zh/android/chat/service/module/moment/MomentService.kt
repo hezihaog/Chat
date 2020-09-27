@@ -22,8 +22,9 @@ interface MomentService : IProvider {
 
     /**
      * 跳转到发布动态
+     * @param onlyText 是否只有文字
      */
-    fun goMomentPublish(activity: Activity)
+    fun goMomentPublish(activity: Activity, onlyText: Boolean = false)
 
     /**
      * 跳转到动态评论详情

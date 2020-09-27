@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.draggable.library.extension.ImageViewerHelper
+import com.linghit.base.util.argument.bindArgument
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
@@ -36,6 +37,11 @@ class MomentPublishFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vInput: EditText by bindView(R.id.input)
     private val vImageList: RecyclerView by bindView(R.id.image_list)
+
+    /**
+     * 是否只有文字
+     */
+    private val mOnlyText by bindArgument(AppConstant.Key.MOMENT_ONLY_TEXT, false)
 
     /**
      * 添加图标
@@ -109,6 +115,11 @@ class MomentPublishFragment : BaseFragment() {
             layoutManager = GridLayoutManager(fragmentActivity, 3)
             adapter = mListAdapter
         }
+        if (mOnlyText) {
+            vImageList.setGone()
+        } else {
+            vImageList.setVisible()
+        }
     }
 
     override fun setData() {
@@ -143,11 +154,11 @@ class MomentPublishFragment : BaseFragment() {
                 val observable = when (which) {
                     0 -> {
                         //拍照
-                        rxTakePhoto.startByCamera(fragmentActivity, false)
+                        rxTakePhoto.takeImageByCamera(fragmentActivity, false)
                     }
                     1 -> {
                         //选择图库
-                        rxTakePhoto.startByGallery(fragmentActivity, residueSelectPicCount, false)
+                        rxTakePhoto.takeImageByGallery(fragmentActivity, residueSelectPicCount, false)
                     }
                     else -> Observable.empty()
                 }

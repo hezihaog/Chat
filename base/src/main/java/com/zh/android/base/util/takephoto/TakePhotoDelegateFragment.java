@@ -7,7 +7,6 @@ import android.content.Intent;
 
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
@@ -67,13 +66,13 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
     }
 
     /**
-     * 跳转去拍照选择
+     * 选择图片-跳转去拍照选择
      */
-    public void startByCamera(OnTakePhotoCallback callback) {
-        startByCamera(callback, false);
+    public void takeImageByCamera(OnTakePhotoCallback callback) {
+        takeImageByCamera(callback, false);
     }
 
-    public void startByCamera(OnTakePhotoCallback callback, boolean isCrop) {
+    public void takeImageByCamera(OnTakePhotoCallback callback, boolean isCrop) {
         this.mCallback = callback;
         this.mIsCrop = isCrop;
         runTaskOnStart(new LifecycleTask() {
@@ -91,13 +90,13 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
     }
 
     /**
-     * 跳转到相册选择
+     * 选择图片-跳转到相册
      */
-    public void startByGallery(OnTakePhotoCallback callback, int residueSelectPicCount) {
-        startByGallery(callback, residueSelectPicCount, false);
+    public void takeImageByGallery(OnTakePhotoCallback callback, int residueSelectPicCount) {
+        takeImageByGallery(callback, residueSelectPicCount, false);
     }
 
-    public void startByGallery(OnTakePhotoCallback callback, int residueSelectPicCount, boolean isCrop) {
+    public void takeImageByGallery(OnTakePhotoCallback callback, int residueSelectPicCount, boolean isCrop) {
         this.mCallback = callback;
         this.mIsCrop = isCrop;
         runTaskOnStart(new LifecycleTask() {

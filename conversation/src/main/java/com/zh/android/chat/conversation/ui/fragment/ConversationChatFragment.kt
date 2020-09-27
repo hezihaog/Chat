@@ -256,7 +256,7 @@ class ConversationChatFragment : BaseFragment() {
                 return@click
             }
             //拍照
-            mRxTakePhoto.startByCamera(fragmentActivity, false)
+            mRxTakePhoto.takeImageByCamera(fragmentActivity, false)
                 .filter {
                     !it.isTakeCancel
                 }
@@ -299,7 +299,7 @@ class ConversationChatFragment : BaseFragment() {
                 return@click
             }
             val count = 6
-            mRxTakePhoto.startByGallery(fragmentActivity, count, false)
+            mRxTakePhoto.takeImageByGallery(fragmentActivity, count, false)
                 .filter {
                     !it.isTakeCancel
                 }

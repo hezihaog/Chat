@@ -84,11 +84,11 @@ class ModifyAvatarFragment : BaseFragment() {
                 val observable = when (which) {
                     0 -> {
                         //拍照
-                        rxTakePhoto.startByCamera(fragmentActivity, true)
+                        rxTakePhoto.takeImageByCamera(fragmentActivity, true)
                     }
                     1 -> {
                         //选择图库
-                        rxTakePhoto.startByGallery(fragmentActivity, true)
+                        rxTakePhoto.takeImageByGallery(fragmentActivity, true)
                     }
                     else -> Observable.empty()
                 }

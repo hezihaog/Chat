@@ -45,6 +45,11 @@ class AppConstant private constructor() {
              * 动态点赞数量
              */
             const val MOMENT_LIKE_NUM = "moment_like_num"
+
+            /**
+             * 只有动态文字
+             */
+            const val MOMENT_ONLY_TEXT = "moment_only_text"
         }
     }
 

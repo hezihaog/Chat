@@ -145,8 +145,13 @@ class MomentListFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.moment_module_name)
-            addRightImageButton(R.drawable.moment_publish, R.id.moment_publish).click {
+            val btn = addRightImageButton(R.drawable.moment_publish, R.id.moment_publish)
+            btn.click {
                 mMomentService?.goMomentPublish(fragmentActivity)
+            }
+            btn.longClick {
+                mMomentService?.goMomentPublish(fragmentActivity, true)
+                true
             }
         }
         vRefreshLayout.apply {

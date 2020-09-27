@@ -34,7 +34,7 @@ class ConversationMainViewBinder(
         val context = holder.itemView.context
         item.run {
             val avatar = if (isMe) toUser.picNormal else fromUser.picNormal
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(avatar))
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(avatar))
             holder.vName.apply {
                 if (isMe) {
                     setTextWithDefault(toUser.nickname)

@@ -4,6 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -12,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
 import com.draggable.library.extension.ImageViewerHelper
-import com.hule.dashi.mediaplayer.MediaRecorderObserver
-import com.hule.dashi.mediaplayer.RecorderOption
-import com.hule.dashi.mediaplayer.RxMediaPlayer
-import com.hule.dashi.mediaplayer.RxMediaRecorder
+import com.hule.dashi.mediaplayer.*
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -39,6 +37,7 @@ import com.zh.android.chat.conversation.ui.widget.VoiceRecordButton
 import com.zh.android.chat.conversation.ws.MsgParser
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.base.UploadPresenter
+import com.zh.android.chat.service.module.base.model.DataIndexModel
 import com.zh.android.chat.service.module.conversation.enums.ChatMsgType
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
 import com.zh.android.chat.service.module.login.LoginService
@@ -99,6 +98,9 @@ class ConversationChatFragment : BaseFragment() {
     private val mPlayerManager by lazy {
         RxMediaPlayer.getManager(context)
     }
+    private val mPlayHelper by lazy {
+        ItemVoicePlayHelper(mPlayerManager)
+    }
 
     private val mRxPermissions by lazy {
         RxPermissions(fragment)
@@ -158,10 +160,10 @@ class ConversationChatFragment : BaseFragment() {
                     ),
                     //语音
                     VoiceMsgViewSenderBinder {
-
+                        clickVoice(it)
                     },
                     VoiceMsgViewReceiverBinder {
-                        
+                        clickVoice(it)
                     }
                 ).withClassLinker { _, model ->
                     //我的用户Id
@@ -234,6 +236,7 @@ class ConversationChatFragment : BaseFragment() {
                 stackFromEnd = true
             }
             adapter = mListAdapter
+            itemAnimator = null
         }
         vChatInputBar.setCallback {
             val msgInput = it.trim()
@@ -244,7 +247,9 @@ class ConversationChatFragment : BaseFragment() {
             //发送消息
             sendTextMsg(msgInput)
         }
+        //配置语音相关
         setVoiceTouchButton()
+        setupVoicePlayer()
         vTakePhoto.click {
             val userId = mLoginService?.getUserId() ?: ""
             if (userId.isBlank()) {
@@ -465,6 +470,70 @@ class ConversationChatFragment : BaseFragment() {
                     super.onError(throwable)
                     //录音发生异常
                     mVoiceRecordDialog.notifyRecordError()
+                }
+            })
+    }
+
+    /**
+     * 设置语音相关
+     */
+    private fun setupVoicePlayer() {
+        mPlayerManager.subscribeMediaPlayer()
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe(object : MediaPlayObserver() {
+                /**
+                 * 更新语音条目
+                 */
+                private fun updatePlayItem(option: MediaOption, isPlay: Boolean) {
+                    val playingUrl = mPlayHelper.urlVoiceHandler.getPlayingDataSource(option)
+                    val model = findVoiceListModel(playingUrl)
+                    model?.let {
+                        //设置状态
+                        it.data.isPlayingVoice = isPlay
+                        mListAdapter.notifyItemChanged(it.index)
+                    }
+                }
+
+                /**
+                 * 根据url，查找它的item
+                 */
+                private fun findVoiceListModel(playUrl: String): DataIndexModel<ChatRecord>? {
+                    val list = mListItems.filterIsInstance<ChatRecord>()
+                        .filter {
+                            it.type == ChatMsgType.VOICE.code &&
+                                    it.voice != null && !TextUtils.isEmpty(it.voice?.mediaSrc)
+                        }.filter {
+                            playUrl == ApiUrl.getFullFileUrl(it.voice!!.mediaSrc)
+                        }.map {
+                            DataIndexModel<ChatRecord>(it, mListItems.indexOf(it))
+                        }
+                    return if (list.isEmpty()) null else list[0]
+                }
+
+                override fun onPrepared(applyMediaOption: MediaOption) {
+                    super.onPrepared(applyMediaOption)
+                    updatePlayItem(applyMediaOption, true)
+                }
+
+                override fun onPlaying(applyMediaOption: MediaOption) {
+                    super.onPlaying(applyMediaOption)
+                    updatePlayItem(applyMediaOption, true)
+                }
+
+                override fun onPause(applyMediaOption: MediaOption) {
+                    super.onPause(applyMediaOption)
+                    updatePlayItem(applyMediaOption, false)
+                }
+
+                override fun onStopped(applyMediaOption: MediaOption) {
+                    super.onStopped(applyMediaOption)
+                    updatePlayItem(applyMediaOption, false)
+                }
+
+                override fun onCompletion(applyMediaOption: MediaOption) {
+                    super.onCompletion(applyMediaOption)
+                    updatePlayItem(applyMediaOption, false)
                 }
             })
     }
@@ -816,13 +885,13 @@ class ConversationChatFragment : BaseFragment() {
      * 点击了图片记录
      */
     private fun clickImageRecord(item: ChatRecord) {
-        val currentImageUrl = ApiUrl.getFullImageUrl(item.image!!.image)
+        val currentImageUrl = ApiUrl.getFullFileUrl(item.image!!.image)
         //收集所有图片Url
         val imageUrls = mListItems.filterIsInstance<ChatRecord>()
             .filter {
                 it.type == ChatMsgType.IMAGE.code && it.image != null
             }.map {
-                ApiUrl.getFullImageUrl(it.image!!.image)
+                ApiUrl.getFullFileUrl(it.image!!.image)
             }.toList()
         //找到当前条目在列表中的位置
         val index = imageUrls.indexOf(currentImageUrl)
@@ -881,5 +950,24 @@ class ConversationChatFragment : BaseFragment() {
             }
             .create()
             .show()
+    }
+
+    /**
+     * 点击语音条目
+     */
+    private fun clickVoice(item: ChatRecord) {
+        //停止所有条目动画
+        mListItems.filterIsInstance<ChatRecord>()
+            .map {
+                it.isPlayingVoice = false
+            }
+        mListAdapter.notifyDataSetChanged()
+        //再执行播放操作，不然会出现多个播放动画同时出现的问题
+        item.voice?.mediaSrc?.let {
+            mPlayHelper.urlVoiceHandler.clickVoice(fragmentActivity, ApiUrl.getFullFileUrl(it))
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe(RxUtil.nothingObserver())
+        }
     }
 }

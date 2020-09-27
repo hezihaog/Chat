@@ -48,7 +48,7 @@ data class ChatRecord(
     /**
      * 是否正在播放，UI属性
      */
-    val isPlayingVoice: Boolean = false
+    var isPlayingVoice: Boolean = false
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -8591987583696258173L

@@ -80,18 +80,18 @@ object ApiUrl {
         }
 
     /**
-     * 拼接出完整的图片地址Url
+     * 拼接出完整的文件地址Url
      */
-    fun getFullImageUrl(imageUrl: String?): String {
-        if (imageUrl.isNullOrBlank()) {
+    fun getFullFileUrl(fileUrl: String?): String {
+        if (fileUrl.isNullOrBlank()) {
             return ""
         }
         //已经拼接过了，不需要再拼接
-        if (imageUrl.startsWith(IMAGE_URL)) {
-            return imageUrl
+        if (fileUrl.startsWith(IMAGE_URL)) {
+            return fileUrl
         }
         //没有拼接，再拼接返回
-        return IMAGE_URL + imageUrl
+        return IMAGE_URL + fileUrl
     }
 
     /**

@@ -27,7 +27,7 @@ class FriendViewBinder(
 
     override fun onBindViewHolder(holder: ViewHolder, item: User) {
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(picNormal))
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(picNormal))
             holder.vName.text = nickname
             holder.itemView.click {
                 itemClickCallback(this)

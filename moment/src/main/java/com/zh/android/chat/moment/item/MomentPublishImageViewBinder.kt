@@ -34,7 +34,7 @@ class MomentPublishImageViewBinder(
 
     override fun onBindViewHolder(holder: ViewHolder, item: MomentPublishImageModel) {
         item.run {
-            holder.vImage.loadUrlImage(ApiUrl.getFullImageUrl(url))
+            holder.vImage.loadUrlImage(ApiUrl.getFullFileUrl(url))
             holder.vDelete.click {
                 clickDeleteCallback(getPosition(holder), item)
             }

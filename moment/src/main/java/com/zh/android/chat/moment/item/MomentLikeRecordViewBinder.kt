@@ -26,7 +26,7 @@ class MomentLikeRecordViewBinder :
 
     override fun onBindViewHolder(holder: ViewHolder, item: MomentLikeRecordModel) {
         item.run {
-            holder.avatar.loadUrlImage(ApiUrl.getFullImageUrl(userInfo.picNormal))
+            holder.avatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.picNormal))
             holder.nickname.text = userInfo.nickname
             holder.createTime.text = createTime
         }

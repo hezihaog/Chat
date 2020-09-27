@@ -174,7 +174,7 @@ class MineFragment : BaseFragment() {
                             //保存用户信息
                             mUserInfo = it
                             render(
-                                ApiUrl.getFullImageUrl(it.picNormal),
+                                ApiUrl.getFullFileUrl(it.picNormal),
                                 it.nickname,
                                 it.username,
                                 it.qrCode ?: ""

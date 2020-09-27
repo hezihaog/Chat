@@ -40,7 +40,7 @@ class VoiceMsgViewSenderBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         val context = holder.itemView.context
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(fromUser.picNormal))
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(fromUser.picNormal))
             holder.vTime.text = context.resources.getString(
                 R.string.conversation_voice_time,
                 voice?.mediaTime ?: 0
@@ -60,7 +60,7 @@ class VoiceMsgViewSenderBinder(
             } else {
                 animationDrawable.stop()
                 background = null
-                setBackgroundResource(R.drawable.conversation_audio_animation_receiver_list)
+                setBackgroundResource(R.drawable.conversation_audio_animation_sender_list)
             }
         }
     }

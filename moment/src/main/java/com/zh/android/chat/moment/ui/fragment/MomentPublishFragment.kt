@@ -60,7 +60,7 @@ class MomentPublishFragment : BaseFragment() {
                 }, { position, _ ->
                     //图片预览
                     val imageUrls = getAllImageItemModel().map {
-                        ApiUrl.getFullImageUrl(it.url)
+                        ApiUrl.getFullFileUrl(it.url)
                     }
                     ImageViewerHelper.showImages(
                         fragmentActivity,

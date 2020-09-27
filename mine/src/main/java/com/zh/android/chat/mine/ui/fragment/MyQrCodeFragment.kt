@@ -97,9 +97,9 @@ class MyQrCodeFragment : BaseFragment() {
      */
     private fun render(user: User) {
         user.run {
-            vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(picNormal))
+            vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(picNormal))
             vNickName.text = nickname
-            vQrCode.loadUrlImage(ApiUrl.getFullImageUrl(qrCode))
+            vQrCode.loadUrlImage(ApiUrl.getFullFileUrl(qrCode))
         }
     }
 }

@@ -124,7 +124,7 @@ class UserProfileFragment : BaseFragment() {
     private fun render() {
         mUserInfo?.run {
             vContentLayout.visibility = View.VISIBLE
-            vAvatar.loadUrlImageToRound(ApiUrl.getFullImageUrl(picNormal))
+            vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(picNormal))
             vNickname.text = nickname
             vUsername.text = getString(R.string.friend_chat_no, username)
         }

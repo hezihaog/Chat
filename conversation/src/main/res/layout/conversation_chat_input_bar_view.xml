@@ -74,7 +74,8 @@
                     android:paddingTop="@dimen/base_dimen_8"
                     android:paddingEnd="@dimen/base_dimen_10"
                     android:paddingBottom="@dimen/base_dimen_8"
-                    android:textColor="@color/base_txt_color_hint"
+                    android:textColor="@color/base_black"
+                    android:textColorHint="@color/base_txt_color_hint"
                     android:textSize="@dimen/base_dimen_sp_14"
                     android:visibility="visible" />
 

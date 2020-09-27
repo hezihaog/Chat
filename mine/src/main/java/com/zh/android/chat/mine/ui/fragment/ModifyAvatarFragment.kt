@@ -66,7 +66,7 @@ class ModifyAvatarFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
-        vPhotoView.loadUrlImage(ApiUrl.getFullFileUrl(mAvatarUrl))
+        vPhotoView.loadUrlImage(ApiUrl.getFullFileUrl(mAvatarUrl), R.drawable.base_def_img_rect)
     }
 
     /**
@@ -120,7 +120,7 @@ class ModifyAvatarFragment : BaseFragment() {
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
                     val newAvatarUrl = ApiUrl.getFullFileUrl(httpModel.data?.picNormal)
-                    vPhotoView.loadUrlImage(newAvatarUrl)
+                    vPhotoView.loadUrlImage(newAvatarUrl, R.drawable.base_def_img_rect)
                     //通知更新头像
                     AppBroadcastManager.sendBroadcast(AppConstant.Action.UPDATE_AVATAR,
                         Intent().apply {

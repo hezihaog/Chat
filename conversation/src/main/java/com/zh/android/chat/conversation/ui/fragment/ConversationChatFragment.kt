@@ -606,6 +606,8 @@ class ConversationChatFragment : BaseFragment() {
                                         vRefreshLayout.finishRefresh()
                                     } else {
                                         vRefreshLayout.finishRefresh()
+                                        //没有更多了
+                                        vRefreshLayout.setEnableRefresh(false)
                                     }
                                 } else {
                                     mListItems.apply {

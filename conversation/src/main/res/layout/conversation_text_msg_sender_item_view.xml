@@ -13,7 +13,7 @@
         <ImageView style="@style/conversation_chat_bubble_arrow_sender" />
     </LinearLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar"
         style="@style/conversation_chat_avatar"
         tools:src="@drawable/base_avatar_round" />

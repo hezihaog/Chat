@@ -35,7 +35,7 @@
     </style>
 
     <!-- 聊天室-头像 -->
-    <style name="conversation_chat_avatar">
+    <style name="conversation_chat_avatar" parent="base_avatar">
         <item name="android:layout_width">@dimen/base_dimen_40</item>
         <item name="android:layout_height">@dimen/base_dimen_40</item>
     </style>

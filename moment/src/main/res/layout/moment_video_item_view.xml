@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/video_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:layout_marginBottom="@dimen/base_dimen_30"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/base_dimen_sp_15"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="上午才买的砂锅，准备煮砂锅饭，好了，米还没下去，锅底先下去了，淦……\n上午才买的砂锅，准备煮砂锅饭，好了，米还没下去，锅底先下去了，淦……" />
+
+    <TextView
+        android:id="@+id/nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:layout_marginBottom="@dimen/base_dimen_5"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/base_dimen_sp_16"
+        app:layout_constraintBottom_toTopOf="@id/content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="首席CTO" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base_dimen_60"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/nickname"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            style="@style/base_avatar"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            tools:src="@drawable/base_avatar_round" />
+
+        <LinearLayout
+            android:id="@+id/like_layout"
+            style="@style/moment_symbol_layout"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/like_symbol"
+                style="@style/moment_symbol_image2"
+                android:src="@drawable/moment_love_white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/comment_layout"
+            style="@style/moment_symbol_layout"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/comment_symbol"
+                style="@style/moment_symbol_image2"
+                android:src="@drawable/moment_comment2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/share_layout"
+            style="@style/moment_symbol_layout">
+
+            <ImageView
+                android:id="@+id/share_symbol"
+                style="@style/moment_symbol_image2"
+                android:src="@drawable/moment_share2" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

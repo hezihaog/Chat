@@ -15,10 +15,9 @@
         android:paddingEnd="@dimen/base_dimen_15"
         android:paddingBottom="@dimen/base_dimen_8">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar"
-            android:layout_width="@dimen/base_dimen_45"
-            android:layout_height="@dimen/base_dimen_45"
+            style="@style/base_avatar"
             tools:src="@drawable/base_avatar_round" />
 
         <LinearLayout

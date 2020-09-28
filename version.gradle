@@ -98,6 +98,9 @@ ext {
             //视频播放
             gsy_video_player             : "com.shuyu:GSYVideoPlayer:7.1.6",
 
+            qmui                         : "com.qmuiteam:qmui:1.2.0",
+            qmui_arch                    : "com.qmuiteam:arch:0.3.1",
+
             //mqtt
             mqtt                         : "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0",
             mqtt_service                 : "org.eclipse.paho:org.eclipse.paho.android.service:1.1.1"

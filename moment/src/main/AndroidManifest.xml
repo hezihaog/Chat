@@ -3,6 +3,7 @@
 
     <application>
         <activity android:name=".ui.activity.MomentListActivity" />
+        <activity android:name=".ui.activity.MomentVideoListActivity" />
         <activity android:name=".ui.activity.MomentDetailActivity" />
         <activity android:name=".ui.activity.MomentPublishActivity" />
         <activity android:name=".ui.activity.MomentCommentDetailActivity" />

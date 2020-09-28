@@ -8,7 +8,7 @@
         style="@style/conversation_msg_item_image_sender"
         tools:src="@drawable/base_def_img_rect" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar"
         style="@style/conversation_chat_avatar"
         tools:src="@drawable/base_avatar_round" />

@@ -41,6 +41,11 @@ dependencies {
     api rootProject.ext.deps.fragment_ktx
     api rootProject.ext.deps.viewpager2
 
+    api rootProject.ext.deps.circle_image_view
+
+    api rootProject.ext.deps.qmui
+//    api rootProject.ext.deps.qmui_arch
+
     api rootProject.ext.deps.multidex
     api rootProject.ext.deps.util_code
 

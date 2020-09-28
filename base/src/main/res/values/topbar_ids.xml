@@ -8,6 +8,8 @@
     <item name="topbar_item_more" type="id"/>
     <!--关注-->
     <item name="topbar_item_focus" type="id"/>
+    <!--搜索-->
+    <item name="topbar_item_search" type="id"/>
 
     <!--标题-->
     <item name="topbar_title_layout" type="id"/>

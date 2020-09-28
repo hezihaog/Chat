@@ -38,4 +38,11 @@
         <item name="android:gravity">center</item>
         <item name="android:text">@string/base_right_arrow</item>
     </style>
+
+    <style name="base_avatar">
+        <item name="android:layout_width">@dimen/base_dimen_45</item>
+        <item name="android:layout_height">@dimen/base_dimen_45</item>
+        <item name="civ_border_color">@color/base_white</item>
+        <item name="civ_border_width">@dimen/base_dimen_1</item>
+    </style>
 </resources>

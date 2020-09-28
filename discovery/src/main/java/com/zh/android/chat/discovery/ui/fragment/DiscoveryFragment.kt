@@ -33,7 +33,8 @@ class DiscoveryFragment : BaseFragment() {
     var mMomentService: MomentService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
-    private val vMomentLayout: View by bindView(R.id.friend_moment_layout)
+    private val vMomentLayout: View by bindView(R.id.moment_layout)
+    private val vMomentVideoLayout: View by bindView(R.id.moment_video_layout)
     private val vAddFriendLayout: View by bindView(R.id.add_friend_layout)
     private val vScanQrcodeLayout: View by bindView(R.id.scan_qrcode_layout)
 
@@ -47,6 +48,10 @@ class DiscoveryFragment : BaseFragment() {
         }
         vMomentLayout.click {
             mMomentService?.goMomentList(fragmentActivity)
+        }
+        vMomentVideoLayout.click {
+            //只有视频的动态
+            mMomentService?.goMomentVideoList(fragmentActivity)
         }
         vAddFriendLayout.click {
             mFriendService?.run {

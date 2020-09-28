@@ -45,6 +45,28 @@ class MomentRequester {
         }
 
         /**
+         * 获取动态视频列表
+         * @param pageNum 页码
+         * @param pageSize 每页多少条
+         */
+        fun getMomentVideoList(
+            tag: String,
+            userId: String?,
+            pageNum: Int,
+            pageSize: Int
+        ): Observable<HttpModel<PageModel<MomentModel>>> {
+            val type = genericGsonType<HttpModel<PageModel<MomentModel>>>()
+            val request: GetRequest<HttpModel<PageModel<MomentModel>>> =
+                OkGo.get(ApiUrl.GET_MOMENT_LIST_BY_VIDEO_TYPE)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("pageNum", pageNum)
+                .params("pageSize", pageSize)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
          * 获取动态详情
          * @param momentId 动态Id
          * @param userId 用户Id

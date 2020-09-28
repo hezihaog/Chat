@@ -29,6 +29,19 @@ class MomentPresenter {
     }
 
     /**
+     * 获取动态视频列表
+     * @param pageNum 页码
+     * @param pageSize 每页多少条
+     */
+    fun getMomentVideoList(
+        userId: String?,
+        pageNum: Int,
+        pageSize: Int
+    ): Observable<HttpModel<PageModel<MomentModel>>> {
+        return MomentRequester.getMomentVideoList(TAG, userId, pageNum, pageSize)
+    }
+
+    /**
      * 获取动态详情
      * @param momentId 动态Id
      * @param userId 用户Id

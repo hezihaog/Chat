@@ -25,7 +25,7 @@
                 <View style="@style/base_divider" />
 
                 <LinearLayout
-                    android:id="@+id/friend_moment_layout"
+                    android:id="@+id/moment_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -44,7 +44,33 @@
 
             <androidx.legacy.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/base_dimen_20" />
+                android:layout_height="@dimen/base_dimen_10" />
+
+            <LinearLayout style="@style/discovery_main_item_layout">
+
+                <View style="@style/base_divider" />
+
+                <LinearLayout
+                    android:id="@+id/moment_video_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/discovery_main_item_icon"
+                        android:src="@drawable/discovery_moment_video" />
+
+                    <TextView
+                        style="@style/discovery_main_item_text"
+                        android:text="@string/discovery_moment_video" />
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_10" />
 
             <LinearLayout style="@style/discovery_main_item_layout">
 

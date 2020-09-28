@@ -202,6 +202,14 @@ public class TopBar extends RelativeLayout {
         return titleView;
     }
 
+    /**
+     * 设置标题字体颜色
+     */
+    public void setTitleTextColor(int color) {
+        TextView titleView = getTitleView(false);
+        titleView.setTextColor(color);
+    }
+
     public void clearTitleText() {
         setTitle("");
     }

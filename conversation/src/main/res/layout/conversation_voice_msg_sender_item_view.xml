@@ -30,7 +30,7 @@
         <ImageView style="@style/conversation_chat_bubble_arrow_sender" />
     </LinearLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar"
         android:layout_width="@dimen/base_dimen_40"
         android:layout_height="@dimen/base_dimen_40"

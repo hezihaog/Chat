@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
@@ -30,7 +29,6 @@ import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
-import org.joor.Reflect
 
 /**
  * @author wally
@@ -185,7 +183,6 @@ class MomentVideoListFragment : BaseFragment() {
             setTitle(R.string.moment_module_name)
             addRightImageButton(R.drawable.base_search_white, R.id.topbar_item_search)
                 .click {
-                    toast("搜索")
                 }
         }
         vRefreshLayout.apply {
@@ -199,8 +196,9 @@ class MomentVideoListFragment : BaseFragment() {
             //上下滑动
             orientation = ViewPager2.ORIENTATION_VERTICAL
             //缓存数量，要求每次都调用bindView
-            val innerRecyclerView = Reflect.on(this).field("mRecyclerView").get<RecyclerView>()
-            innerRecyclerView.setItemViewCacheSize(-1)
+//            Reflect.on(this).field("mRecyclerView").get<RecyclerView>().apply {
+//                setItemViewCacheSize(1)
+//            }
             //滚动监听
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

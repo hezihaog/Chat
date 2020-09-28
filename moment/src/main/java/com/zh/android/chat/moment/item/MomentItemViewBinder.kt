@@ -64,7 +64,9 @@ class MomentItemViewBinder(
                 holder.videoPlayer.run {
                     setVisible()
                     //配置视频控件
-                    setUpLazy(ApiUrl.getFullFileUrl(videos[0]), true, null, null, content)
+                    val url = ApiUrl.getFullFileUrl(videos[0])
+                    setUpLazy(url, true, null, null, content)
+                    playTag = url
                     backButton.setGone()
                     fullscreenButton.click {
                         startWindowFullscreen(context, false, true)

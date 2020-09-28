@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
@@ -42,27 +41,24 @@ class MomentVideoItemViewBinder(
                 holder.videoPlayer.run {
                     setVisible()
                     //配置视频控件
-                    setUpLazy(ApiUrl.getFullFileUrl(videos[0]), true, null, null, content)
+                    val url = ApiUrl.getFullFileUrl(videos[0])
+                    setUpLazy(url, true, null, null, content)
+                    playTag = url
                     titleTextView.setGone()
                     backButton.setGone()
                     fullscreenButton.setGone()
                     //是否根据视频尺寸，自动选择竖屏全屏或者横屏全屏
                     isAutoFullWithSize = true
                     //音频焦点冲突时是否释放
-                    isReleaseWhenLossAudio = false
+                    isReleaseWhenLossAudio = true
                     //全屏动画
                     isShowFullAnimation = true
                     //小屏时不触摸滑动
                     setIsTouchWiget(false)
+                    //播放完毕后，重播
+                    isLooping = true
                     //开始播放
                     startPlayLogic()
-                    //播放完毕后，重播
-                    setVideoAllCallBack(object : GSYSampleCallBack() {
-                        override fun onAutoComplete(url: String?, vararg objects: Any?) {
-                            super.onAutoComplete(url, *objects)
-                            startPlayLogic()
-                        }
-                    })
                 }
             } else {
                 holder.videoPlayer.setGone()

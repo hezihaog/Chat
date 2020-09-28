@@ -5,9 +5,9 @@ import java.io.Serializable
 /**
  * @author wally
  * @date 2020/09/21
- * 动态发布，默认的添加图片模型
+ * 动态发布，默认的添加资源模型
  */
-data class AddPublishImageModel(
+data class AddPublishMediaModel(
     /**
      * 限制多少张图片
      */

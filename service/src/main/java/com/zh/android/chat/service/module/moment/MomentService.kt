@@ -2,6 +2,7 @@ package com.zh.android.chat.service.module.moment
 
 import android.app.Activity
 import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.module.moment.enums.MomentPublishType
 
 /**
  * @author wally
@@ -22,9 +23,9 @@ interface MomentService : IProvider {
 
     /**
      * 跳转到发布动态
-     * @param onlyText 是否只有文字
+     * @param type 发布类型
      */
-    fun goMomentPublish(activity: Activity, onlyText: Boolean = false)
+    fun goMomentPublish(activity: Activity, type: MomentPublishType)
 
     /**
      * 跳转到动态评论详情

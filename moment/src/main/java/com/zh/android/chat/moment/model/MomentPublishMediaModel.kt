@@ -5,11 +5,11 @@ import java.io.Serializable
 /**
  * @author wally
  * @date 2020/09/21
- * 动态发布，图片实体模型
+ * 动态发布，资源实体模型
  */
-class MomentPublishImageModel(
+class MomentPublishMediaModel(
     /**
-     * 图片的Url
+     * 媒体的Url
      */
     val url: String
 ) : Serializable {

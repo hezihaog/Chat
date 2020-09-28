@@ -36,6 +36,23 @@ class UploadPresenter {
     }
 
     /**
+     * 上传多个文件
+     */
+    fun uploadFiles(filePaths: List<String>): Observable<List<String>> {
+        return Observable.fromIterable(filePaths)
+            .map {
+                File(it)
+            }
+            .toList()
+            .toObservable()
+            .flatMap {
+                UploadRequester.uploadFiles(TAG, it)
+            }.map {
+                it.data
+            }
+    }
+
+    /**
      * 上传单张图片
      */
     fun uploadImage(activity: Activity, filePath: String): Observable<String> {

@@ -43,7 +43,9 @@ dependencies {
     api rootProject.ext.deps.v7
     api rootProject.ext.deps.rx_java
     api rootProject.ext.deps.rx_android
-    api rootProject.ext.deps.videocache
+    //因为业务模块的视频封装库已经引入了VideoCache，所以这里再应用就会类冲突，用compileOnly编译通过
+    //api rootProject.ext.deps.videocache
+    compileOnly rootProject.ext.deps.videocache
 
     api rootProject.ext.deps.jetpack_lifecycle
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler

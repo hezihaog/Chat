@@ -26,6 +26,10 @@ class MomentModel(
      */
     val pictures: List<String>,
     /**
+     * 视频列表
+     */
+    val videos: List<String>,
+    /**
      * 点赞数量
      */
     var likes: Int,

@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
@@ -24,9 +26,11 @@ import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.moment.MomentService
+import com.zh.android.chat.service.module.moment.enums.MomentPublishType
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
+
 
 /**
  * @author wally
@@ -135,6 +139,21 @@ class MomentListFragment : BaseFragment() {
             }, AppConstant.Action.MOMENT_LIKE_CHANGE)
     }
 
+    override fun onPause() {
+        super.onPause()
+        GSYVideoManager.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        GSYVideoManager.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        GSYVideoManager.releaseAllVideos()
+    }
+
     override fun onInflaterViewId(): Int {
         return R.layout.base_refresh_layout_with_top_bar
     }
@@ -147,10 +166,33 @@ class MomentListFragment : BaseFragment() {
             setTitle(R.string.moment_module_name)
             val btn = addRightImageButton(R.drawable.moment_publish, R.id.moment_publish)
             btn.click {
-                mMomentService?.goMomentPublish(fragmentActivity)
+                AlertDialog.Builder(fragmentActivity)
+                    .setItems(
+                        arrayOf(
+                            getString(R.string.moment_publish_image),
+                            getString(R.string.moment_publish_video)
+                        )
+                    ) { _, which ->
+                        when (which) {
+                            0 -> {
+                                mMomentService?.goMomentPublish(
+                                    fragmentActivity,
+                                    MomentPublishType.TEXT_IMAGE
+                                )
+                            }
+                            1 -> {
+                                mMomentService?.goMomentPublish(
+                                    fragmentActivity,
+                                    MomentPublishType.TEXT_VIDEO
+                                )
+                            }
+                        }
+                    }
+                    .create()
+                    .show()
             }
             btn.longClick {
-                mMomentService?.goMomentPublish(fragmentActivity, true)
+                mMomentService?.goMomentPublish(fragmentActivity, MomentPublishType.SINGLE_TEXT)
                 true
             }
         }
@@ -171,6 +213,13 @@ class MomentListFragment : BaseFragment() {
     override fun setData() {
         super.setData()
         refresh()
+    }
+
+    override fun onBackPressedSupport(): Boolean {
+        if (GSYVideoManager.backFromWindowFull(fragmentActivity)) {
+            return true
+        }
+        return super.onBackPressedSupport()
     }
 
     private fun refresh() {

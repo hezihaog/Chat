@@ -98,13 +98,15 @@ class MomentPresenter {
      * @param userId 用户Id
      * @param content 动态内容
      * @param pictures 图片Url列表
+     * @param videos 视频Url列表
      */
     fun publishMoment(
         userId: String,
         content: String = "",
-        pictures: List<String> = listOf()
+        pictures: List<String> = listOf(),
+        videos: List<String> = listOf()
     ): Observable<HttpModel<*>> {
-        return MomentRequester.publishMoment(TAG, userId, content, pictures)
+        return MomentRequester.publishMoment(TAG, userId, content, pictures, videos)
     }
 
     /**

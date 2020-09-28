@@ -15,6 +15,8 @@ import com.lzy.ninegrid.ImageInfo
 import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
@@ -60,6 +62,9 @@ class MomentDetailFragment : BaseFragment() {
     private val vNineGridView by lazy {
         vHeaderView.findViewById<NineGridView>(R.id.nine_grid_view)
     }
+    private val vVideoPlayer by lazy {
+        vHeaderView.findViewById<StandardGSYVideoPlayer>(R.id.video_player)
+    }
 
     private val mMomentId by bindArgument(AppConstant.Key.MOMENT_ID, "")
 
@@ -78,6 +83,21 @@ class MomentDetailFragment : BaseFragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        GSYVideoManager.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        GSYVideoManager.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        GSYVideoManager.releaseAllVideos()
     }
 
     override fun onInflaterViewId(): Int {
@@ -165,6 +185,13 @@ class MomentDetailFragment : BaseFragment() {
         refresh()
     }
 
+    override fun onBackPressedSupport(): Boolean {
+        if (GSYVideoManager.backFromWindowFull(fragmentActivity)) {
+            return true
+        }
+        return super.onBackPressedSupport()
+    }
+
     private fun refresh() {
         getMomentDetail()
     }
@@ -230,6 +257,28 @@ class MomentDetailFragment : BaseFragment() {
                     vNineGridView.setAdapter(NineGridViewClickAdapter(context, imageInfoList))
                 } else {
                     vNineGridView.setGone()
+                }
+                //视频
+                if (videos.isNotEmpty()) {
+                    vVideoPlayer.run {
+                        setVisible()
+                        //配置视频控件
+                        setUpLazy(ApiUrl.getFullFileUrl(videos[0]), true, null, null, content)
+                        backButton.setGone()
+                        fullscreenButton.click {
+                            startWindowFullscreen(context, false, true)
+                        }
+                        //是否根据视频尺寸，自动选择竖屏全屏或者横屏全屏
+                        isAutoFullWithSize = true
+                        //音频焦点冲突时是否释放
+                        isReleaseWhenLossAudio = false
+                        //全屏动画
+                        isShowFullAnimation = true
+                        //小屏时不触摸滑动
+                        setIsTouchWiget(false)
+                    }
+                } else {
+                    vVideoPlayer.setGone()
                 }
             }
         }

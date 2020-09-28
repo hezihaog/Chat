@@ -6,6 +6,8 @@
     <string name="moment_like">赞</string>
     <string name="moment_forward">转发</string>
     <string name="moment_publish">发布</string>
+    <string name="moment_publish_image">发布图片</string>
+    <string name="moment_publish_video">发布视频</string>
     <string name="moment_share">分享</string>
     <string name="moment_default_count">0</string>
     <string name="moment_comment_replay">%1$s:</string>

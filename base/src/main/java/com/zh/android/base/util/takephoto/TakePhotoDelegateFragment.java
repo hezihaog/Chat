@@ -113,6 +113,42 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
         });
     }
 
+    /**
+     * 选择视频-跳转去拍照选择
+     */
+    public void takeVideoByCamera(OnTakePhotoCallback callback) {
+        this.mCallback = callback;
+        runTaskOnStart(new LifecycleTask() {
+            @Override
+            public void execute(BaseDelegateFragment delegateFragment) {
+                requestPermission(() -> {
+                    configDefault(PictureSelector.create(TakePhotoDelegateFragment.this)
+                            .openCamera(PictureMimeType.ofVideo()), 1)
+                            .loadImageEngine(GlideEngine.createGlideEngine())
+                            .forResult(PictureConfig.CHOOSE_REQUEST);
+                });
+            }
+        });
+    }
+
+    /**
+     * 选择图片-跳转到相册
+     */
+    public void takeVideoByGallery(OnTakePhotoCallback callback, int residueSelectPicCount) {
+        this.mCallback = callback;
+        runTaskOnStart(new LifecycleTask() {
+            @Override
+            public void execute(BaseDelegateFragment delegateFragment) {
+                requestPermission(() -> {
+                    configDefault(PictureSelector.create(TakePhotoDelegateFragment.this)
+                            .openGallery(PictureMimeType.ofVideo()), residueSelectPicCount)
+                            .loadImageEngine(GlideEngine.createGlideEngine())
+                            .forResult(PictureConfig.CHOOSE_REQUEST);
+                });
+            }
+        });
+    }
+
     private PictureSelectionModel configDefault(PictureSelectionModel model, int residueSelectPicCount) {
         return model
                 //最少一张

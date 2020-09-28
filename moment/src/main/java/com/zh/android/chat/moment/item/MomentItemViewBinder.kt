@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lzy.ninegrid.ImageInfo
 import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
@@ -57,6 +58,28 @@ class MomentItemViewBinder(
                 holder.nineGridView.setAdapter(NineGridViewClickAdapter(context, imageInfoList))
             } else {
                 holder.nineGridView.setGone()
+            }
+            //视频
+            if (videos.isNotEmpty()) {
+                holder.videoPlayer.run {
+                    setVisible()
+                    //配置视频控件
+                    setUpLazy(ApiUrl.getFullFileUrl(videos[0]), true, null, null, content)
+                    backButton.setGone()
+                    fullscreenButton.click {
+                        startWindowFullscreen(context, false, true)
+                    }
+                    //是否根据视频尺寸，自动选择竖屏全屏或者横屏全屏
+                    isAutoFullWithSize = true
+                    //音频焦点冲突时是否释放
+                    isReleaseWhenLossAudio = false
+                    //全屏动画
+                    isShowFullAnimation = true
+                    //小屏时不触摸滑动
+                    setIsTouchWiget(false)
+                }
+            } else {
+                holder.videoPlayer.setGone()
             }
             //点赞数量
             holder.likeText.apply {
@@ -109,5 +132,6 @@ class MomentItemViewBinder(
         val commentLayout: View = view.findViewById(R.id.comment_layout)
         val commentText: TextView = view.findViewById(R.id.comment_text)
         val shareLayout: View = view.findViewById(R.id.share_layout)
+        val videoPlayer: StandardGSYVideoPlayer = view.findViewById(R.id.video_player)
     }
 }

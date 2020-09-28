@@ -301,7 +301,7 @@ fun EditText.hideKeyboard() {
  * 加载图片
  * @param defaultImgResId 默认图片的资源Id
  */
-fun ImageView.loadUrlImage(url: String?, defaultImgResId: Int = R.drawable.base_avatar_round) {
+fun ImageView.loadUrlImage(url: String?, defaultImgResId: Int = R.drawable.base_def_img_rect) {
     val activity = context as Activity
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(

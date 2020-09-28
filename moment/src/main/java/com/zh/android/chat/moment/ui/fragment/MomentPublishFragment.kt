@@ -12,17 +12,19 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.AppBroadcastManager
+import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.util.takephoto.RxTakePhoto
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
-import com.zh.android.chat.moment.item.MomentAddPublishImageViewBinder
-import com.zh.android.chat.moment.item.MomentPublishImageViewBinder
-import com.zh.android.chat.moment.model.AddPublishImageModel
-import com.zh.android.chat.moment.model.MomentPublishImageModel
+import com.zh.android.chat.moment.item.MomentAddPublishMediaViewBinder
+import com.zh.android.chat.moment.item.MomentPublishMediaViewBinder
+import com.zh.android.chat.moment.model.AddPublishMediaModel
+import com.zh.android.chat.moment.model.MomentPublishMediaModel
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.base.UploadPresenter
+import com.zh.android.chat.service.module.moment.enums.MomentPublishType
 import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
@@ -39,42 +41,49 @@ class MomentPublishFragment : BaseFragment() {
     private val vImageList: RecyclerView by bindView(R.id.image_list)
 
     /**
-     * 是否只有文字
+     * 动态发布类型
      */
-    private val mOnlyText by bindArgument(AppConstant.Key.MOMENT_ONLY_TEXT, false)
+    private val mPublishType by bindArgument(
+        AppConstant.Key.MOMENT_PUBLISH_TYPE,
+        MomentPublishType.TEXT_IMAGE
+    )
 
     /**
      * 添加图标
      */
-    private val mAddPublishImageModel = AddPublishImageModel(MAX_IMAGE_COUNT)
+    private val mAddPublishImageModel = AddPublishMediaModel(MAX_IMAGE_COUNT)
 
     private val mListItems by lazy {
         Items()
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            //增加图片
-            register(AddPublishImageModel::class.java, MomentAddPublishImageViewBinder { item ->
-                chooseImage(item.needCount)
+            //增加资源图标
+            register(AddPublishMediaModel::class.java, MomentAddPublishMediaViewBinder { item ->
+                chooseMedia(item.needCount)
             })
-            //图片条目
+            //资源条目
             register(
-                MomentPublishImageModel::class.java,
-                MomentPublishImageViewBinder({ _, item ->
-                    //删除图片
+                MomentPublishMediaModel::class.java,
+                MomentPublishMediaViewBinder({ _, item ->
+                    //删除资源
                     deleteImage(item)
                 }, { position, _ ->
-                    //图片预览
-                    val imageUrls = getAllImageItemModel().map {
+                    //预览资源
+                    val mediaUrls = getAllMediaItemModel().map {
                         ApiUrl.getFullFileUrl(it.url)
                     }
                     ImageViewerHelper.showImages(
                         fragmentActivity,
-                        imageUrls, index = position
+                        mediaUrls, index = position
                     )
                 })
             )
         }
+    }
+
+    private val mWaitController by lazy {
+        WaitLoadingController(fragmentActivity, lifecycleOwner)
     }
 
     private val mUploadPresenter by lazy {
@@ -115,7 +124,8 @@ class MomentPublishFragment : BaseFragment() {
             layoutManager = GridLayoutManager(fragmentActivity, 3)
             adapter = mListAdapter
         }
-        if (mOnlyText) {
+        //单文字，隐藏图片、视频选择按钮
+        if (mPublishType == MomentPublishType.SINGLE_TEXT) {
             vImageList.setGone()
         } else {
             vImageList.setVisible()
@@ -136,11 +146,11 @@ class MomentPublishFragment : BaseFragment() {
     }
 
     /**
-     * 选择了图片
+     * 选择图片或视频
      */
-    private fun chooseImage(needCount: Int) {
+    private fun chooseMedia(needCount: Int) {
         //当前图片数量
-        val currentCount = getAllImageItemModel().size
+        val currentCount = getAllMediaItemModel().size
         //计算剩余数量
         val residueSelectPicCount = needCount - currentCount
         AlertDialog.Builder(fragmentActivity)
@@ -154,11 +164,36 @@ class MomentPublishFragment : BaseFragment() {
                 val observable = when (which) {
                     0 -> {
                         //拍照
-                        rxTakePhoto.takeImageByCamera(fragmentActivity, false)
+                        when (mPublishType) {
+                            MomentPublishType.TEXT_IMAGE -> {
+                                rxTakePhoto.takeImageByCamera(fragmentActivity, false)
+                            }
+                            MomentPublishType.TEXT_VIDEO -> {
+                                rxTakePhoto.takeVideoByCamera(fragmentActivity)
+                            }
+                            else -> Observable.empty()
+                        }
                     }
                     1 -> {
                         //选择图库
-                        rxTakePhoto.takeImageByGallery(fragmentActivity, residueSelectPicCount, false)
+                        when (mPublishType) {
+                            MomentPublishType.TEXT_IMAGE -> {
+                                rxTakePhoto.takeImageByGallery(
+                                    fragmentActivity,
+                                    //图片可以多张
+                                    residueSelectPicCount,
+                                    false
+                                )
+                            }
+                            MomentPublishType.TEXT_VIDEO -> {
+                                rxTakePhoto.takeVideoByGallery(
+                                    fragmentActivity,
+                                    //视频只能每次发表一个
+                                    1
+                                )
+                            }
+                            else -> Observable.empty()
+                        }
                     }
                     else -> Observable.empty()
                 }
@@ -166,12 +201,27 @@ class MomentPublishFragment : BaseFragment() {
                     .filter {
                         !it.isTakeCancel
                     }
+                    .doOnSubscribeUi {
+                        mWaitController.showWait()
+                    }
                     .flatMap {
-                        //上传图片
-                        mUploadPresenter.uploadMultipleImage(fragmentActivity, it.imgPaths)
+                        when (mPublishType) {
+                            //上传图片
+                            MomentPublishType.TEXT_IMAGE -> {
+                                mUploadPresenter.uploadMultipleImage(fragmentActivity, it.imgPaths)
+                            }
+                            //上传视频
+                            MomentPublishType.TEXT_VIDEO -> {
+                                mUploadPresenter.uploadFiles(it.imgPaths)
+                            }
+                            else -> {
+                                Observable.empty()
+                            }
+                        }
                     }
                     .lifecycle(lifecycleOwner)
                     .subscribe({ urlList ->
+                        mWaitController.hideWait()
                         //添加图片到添加图标的后面
                         var index = mListItems.size - 1
                         //第一次添加时，会小于0
@@ -181,16 +231,18 @@ class MomentPublishFragment : BaseFragment() {
                         mListItems.addAll(
                             index,
                             urlList.map {
-                                MomentPublishImageModel(it)
+                                MomentPublishMediaModel(it)
                             }
                         )
                         //计算图片数量是否满了，没有满，则显示默认添加图片，满了则不显示
-                        if (getAllImageItemModel().size == MAX_IMAGE_COUNT) {
+                        if (getAllMediaItemModel().size == MAX_IMAGE_COUNT) {
                             mListItems.remove(mAddPublishImageModel)
                         }
                         mListAdapter.notifyDataSetChanged()
                     }, {
                         it.printStackTrace()
+                        mWaitController.hideWait()
+                        showRequestError()
                     })
             }
             .create()
@@ -200,20 +252,20 @@ class MomentPublishFragment : BaseFragment() {
     /**
      * 删除图片
      */
-    private fun deleteImage(item: MomentPublishImageModel) {
+    private fun deleteImage(item: MomentPublishMediaModel) {
         mListItems.remove(item)
         //删除后，如果没有默认图片，那么加上
-        if (mListItems.filterIsInstance<AddPublishImageModel>().isEmpty()) {
+        if (mListItems.filterIsInstance<AddPublishMediaModel>().isEmpty()) {
             mListItems.add(mAddPublishImageModel)
         }
         mListAdapter.notifyDataSetChanged()
     }
 
     /**
-     * 获取当前所有图片条目的模型
+     * 获取当前所有媒体资源条目的模型
      */
-    private fun getAllImageItemModel(): List<MomentPublishImageModel> {
-        return mListItems.filterIsInstance<MomentPublishImageModel>()
+    private fun getAllMediaItemModel(): List<MomentPublishMediaModel> {
+        return mListItems.filterIsInstance<MomentPublishMediaModel>()
             .toList()
     }
 
@@ -226,23 +278,43 @@ class MomentPublishFragment : BaseFragment() {
             return
         }
         val inputText = vInput.text.toString().trim()
-        val imageUrls = getAllImageItemModel().map {
+        val mediaUrls = getAllMediaItemModel().map {
             it.url
         }
         //只能单发文字，或者单发图片，不能2个都没有
-        if (inputText.isBlank() && imageUrls.isEmpty()) {
+        if (inputText.isBlank() && mediaUrls.isEmpty()) {
             toast(R.string.moment_publish_input_empty_tip)
             return
         }
-        val observable = if (inputText.isNotBlank() && imageUrls.isEmpty()) {
+        val observable = if (inputText.isNotBlank() && mediaUrls.isEmpty()) {
             //单发文字
             mMomentPresenter.publishMoment(userId, inputText)
-        } else if (inputText.isBlank() && imageUrls.isNotEmpty()) {
-            //单发图片
-            mMomentPresenter.publishMoment(userId, pictures = imageUrls)
-        } else if (inputText.isNotBlank() && imageUrls.isNotEmpty()) {
-            //既发文字，也发图片
-            mMomentPresenter.publishMoment(userId, inputText, imageUrls)
+        } else if (inputText.isBlank() && mediaUrls.isNotEmpty()) {
+            //单发资源
+            when (mPublishType) {
+                MomentPublishType.TEXT_IMAGE -> {
+                    mMomentPresenter.publishMoment(userId, pictures = mediaUrls)
+                }
+                MomentPublishType.TEXT_VIDEO -> {
+                    mMomentPresenter.publishMoment(userId, videos = mediaUrls)
+                }
+                else -> {
+                    null
+                }
+            }
+        } else if (inputText.isNotBlank() && mediaUrls.isNotEmpty()) {
+            //既发文字，也发资源
+            when (mPublishType) {
+                MomentPublishType.TEXT_IMAGE -> {
+                    mMomentPresenter.publishMoment(userId, inputText, pictures = mediaUrls)
+                }
+                MomentPublishType.TEXT_VIDEO -> {
+                    mMomentPresenter.publishMoment(userId, inputText, videos = mediaUrls)
+                }
+                else -> {
+                    null
+                }
+            }
         } else {
             null
         }

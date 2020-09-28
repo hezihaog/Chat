@@ -51,6 +51,7 @@ dependencies {
     api rootProject.ext.deps.kotlin
 
     api rootProject.ext.deps.nine_grid_view
+    api rootProject.ext.deps.gsy_video_player
 
     api project(path: ':base')
     api project(path: ':service')

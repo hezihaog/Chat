@@ -47,9 +47,9 @@ class AppConstant private constructor() {
             const val MOMENT_LIKE_NUM = "moment_like_num"
 
             /**
-             * 只有动态文字
+             * 动态发布类型
              */
-            const val MOMENT_ONLY_TEXT = "moment_only_text"
+            const val MOMENT_PUBLISH_TYPE = "moment_publish_type"
         }
     }
 

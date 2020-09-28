@@ -21,14 +21,14 @@ import io.reactivex.functions.Function;
  */
 public class RxTakePhoto {
     /**
-     * 从相机中拍照选择，不裁剪
+     * 从相机中拍照选择图片，不裁剪
      */
     public Observable<TakePhotoEvent> takeImageByCamera(FragmentActivity activity) {
         return takeImageByCamera(activity, false);
     }
 
     /**
-     * 从相机中拍照选择，可以设置是否剪裁
+     * 从相机中拍照选择图片，可以设置是否剪裁
      *
      * @param isCrop 是否需要裁剪
      */
@@ -86,6 +86,62 @@ public class RxTakePhoto {
                                         emitter.onNext(createTakePhotoCancelEvent());
                                     }
                                 }, residueSelectPicCount, isCrop);
+                            }
+                        });
+                    }
+                });
+    }
+
+    /**
+     * 从相机中拍照选择视频
+     */
+    public Observable<TakePhotoEvent> takeVideoByCamera(FragmentActivity activity) {
+        return getTakePhotoObservable(activity)
+                .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
+                    @Override
+                    public ObservableSource<TakePhotoEvent> apply(TakePhotoDelegateFragment fragment) throws Exception {
+                        return Observable.create(new ObservableOnSubscribe<TakePhotoEvent>() {
+                            @Override
+                            public void subscribe(ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
+                                fragment.takeVideoByCamera(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
+                                    @Override
+                                    public void onTakePhoto(ArrayList<String> imgPaths) {
+                                        emitter.onNext(createTakePhotoSuccessEvent(imgPaths));
+                                    }
+
+                                    @Override
+                                    public void onTakeCancel() {
+                                        emitter.onNext(createTakePhotoCancelEvent());
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+    }
+
+    /**
+     * 从图库中选择视频，可以设定还剩余多少张
+     */
+    public Observable<TakePhotoEvent> takeVideoByGallery(FragmentActivity activity, int residueSelectPicCount) {
+        return getTakePhotoObservable(activity)
+                .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
+                    @Override
+                    public ObservableSource<TakePhotoEvent> apply(TakePhotoDelegateFragment fragment) throws Exception {
+                        return Observable.create(new ObservableOnSubscribe<TakePhotoEvent>() {
+                            @Override
+                            public void subscribe(ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
+                                fragment.takeVideoByGallery(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
+                                    @Override
+                                    public void onTakePhoto(ArrayList<String> imgPaths) {
+                                        emitter.onNext(createTakePhotoSuccessEvent(imgPaths));
+                                    }
+
+                                    @Override
+                                    public void onTakeCancel() {
+                                        emitter.onNext(createTakePhotoCancelEvent());
+                                    }
+                                }, residueSelectPicCount);
                             }
                         });
                     }

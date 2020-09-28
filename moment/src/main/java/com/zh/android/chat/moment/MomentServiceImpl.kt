@@ -8,6 +8,7 @@ import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.moment.MomentService
+import com.zh.android.chat.service.module.moment.enums.MomentPublishType
 
 /**
  * @author wally
@@ -31,10 +32,10 @@ class MomentServiceImpl : MomentService {
             .startNavigation(activity)
     }
 
-    override fun goMomentPublish(activity: Activity, onlyText: Boolean) {
+    override fun goMomentPublish(activity: Activity, type: MomentPublishType) {
         ARouter.getInstance()
             .build(ARouterUrl.MOMENT_PUBLISH)
-            .withBoolean(AppConstant.Key.MOMENT_ONLY_TEXT, onlyText)
+            .withSerializable(AppConstant.Key.MOMENT_PUBLISH_TYPE, type)
             .startNavigation(activity)
     }
 

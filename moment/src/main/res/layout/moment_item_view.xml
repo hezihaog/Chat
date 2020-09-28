@@ -82,6 +82,16 @@
         app:ngv_singleImageSize="@dimen/base_dimen_250"
         tools:visibility="visible" />
 
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/video_player"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_180"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:layout_marginBottom="@dimen/base_dimen_15"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <View
         style="@style/base_divider"
         android:layout_width="match_parent" />

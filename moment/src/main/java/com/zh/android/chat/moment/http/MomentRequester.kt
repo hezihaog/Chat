@@ -155,12 +155,14 @@ class MomentRequester {
          * @param userId 用户Id
          * @param content 动态内容
          * @param pictures 图片Url列表
+         * @param videos 视频Url列表
          */
         fun publishMoment(
             tag: String,
             userId: String,
             content: String,
-            pictures: List<String>
+            pictures: List<String>,
+            videos: List<String>
         ): Observable<HttpModel<*>> {
             val type = genericGsonType<HttpModel<*>>()
             val request: PostRequest<HttpModel<*>> =
@@ -170,6 +172,7 @@ class MomentRequester {
                     put("userId", userId)
                     put("content", content)
                     put("pictures", pictures)
+                    put("videos", videos)
                 }.toJson())
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())

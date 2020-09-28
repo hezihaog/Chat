@@ -50,6 +50,11 @@ class AppConstant private constructor() {
              * 动态发布类型
              */
             const val MOMENT_PUBLISH_TYPE = "moment_publish_type"
+
+            /**
+             * 动态数据
+             */
+            const val MOMENT_INFO = "moment_info"
         }
     }
 

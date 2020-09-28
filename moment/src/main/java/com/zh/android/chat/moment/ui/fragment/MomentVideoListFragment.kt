@@ -1,34 +1,27 @@
 package com.zh.android.chat.moment.ui.fragment
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.apkfuns.logutils.LogUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shuyu.gsyvideoplayer.GSYVideoManager
-import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.*
-import com.zh.android.base.util.BroadcastRegistry
-import com.zh.android.base.util.ShareUtil
+import com.zh.android.base.ext.click
+import com.zh.android.base.ext.handlerErrorCode
+import com.zh.android.base.ext.ioToMain
+import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ui.fragment.BaseFragmentStateAdapter
 import com.zh.android.base.util.StatusBarUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
-import com.zh.android.chat.moment.item.MomentVideoItemViewBinder
-import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
-import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
-import me.drakeet.multitype.Items
-import me.drakeet.multitype.MultiTypeAdapter
+import org.joor.Reflect
 
 /**
  * @author wally
@@ -36,10 +29,6 @@ import me.drakeet.multitype.MultiTypeAdapter
  * 动态视频列表
  */
 class MomentVideoListFragment : BaseFragment() {
-    @JvmField
-    @Autowired(name = ARouterUrl.MOMENT_SERVICE)
-    var mMomentService: MomentService? = null
-
     private val vFakeStatusBar: View by bindView(R.id.fake_status_bar)
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
@@ -48,26 +37,15 @@ class MomentVideoListFragment : BaseFragment() {
     private var mCurrentPage: Int = ApiUrl.FIRST_PAGE
 
     private val mListItems by lazy {
-        Items()
+        mutableListOf<BaseFragmentStateAdapter.TabInfo>()
     }
     private val mListAdapter by lazy {
-        MultiTypeAdapter(mListItems).apply {
-            register(MomentModel::class.java, MomentVideoItemViewBinder(
-                { _, item ->
-                    //取反状态
-                    val isLike = !item.liked
-                    likeOrRemoveLikeMoment(isLike, item.id)
-                }, { _, item ->
-                    mMomentService?.goMomentDetail(fragmentActivity, item.id)
-                }, { _, item ->
-                    ShareUtil.shareText(fragmentActivity, item.content)
-                    //增加一条转发记录
-                    forwardMoment(item.id)
-                }, { _, item ->
-                    mMomentService?.goMomentDetail(fragmentActivity, item.id)
-                }
-            ))
-        }
+        BaseFragmentStateAdapter(
+            fragmentActivity,
+            childFragmentManager,
+            lifecycle,
+            mListItems
+        )
     }
 
     private val mMomentPresenter by lazy {
@@ -80,62 +58,6 @@ class MomentVideoListFragment : BaseFragment() {
             fragment.arguments = args
             return fragment
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //发布成功
-        BroadcastRegistry(lifecycleOwner)
-            .register(object : BroadcastReceiver() {
-                override fun onReceive(context: Context?, intent: Intent?) {
-                    refresh()
-                }
-            }, AppConstant.Action.MOMENT_PUBLISH_SUCCESS)
-        BroadcastRegistry(lifecycleOwner)
-            .register(object : BroadcastReceiver() {
-                override fun onReceive(context: Context?, intent: Intent?) {
-                    intent?.run {
-                        val momentId = getStringExtra(AppConstant.Key.MOMENT_ID)
-                        if (momentId.isNullOrBlank()) {
-                            return@run
-                        }
-                        val models = mListItems.filterIsInstance<MomentModel>()
-                            .filter {
-                                it.id == momentId
-                            }
-                        if (models.isNotEmpty() && models.size == 1) {
-                            val momentModel = models[0]
-                            val index = mListItems.indexOf(momentModel)
-                            if (index != -1) {
-                                if (mListItems.remove(momentModel)) {
-                                    mListAdapter.fixNotifyItemRemoved(index)
-                                }
-                            }
-                        }
-                    }
-                }
-            }, AppConstant.Action.MOMENT_DELETE_SUCCESS)
-        //切换点赞
-        BroadcastRegistry(fragment)
-            .register(object : BroadcastReceiver() {
-                override fun onReceive(context: Context?, intent: Intent?) {
-                    intent?.run {
-                        val momentId = intent.getStringExtra(AppConstant.Key.MOMENT_ID) ?: ""
-                        val isLike = intent.getBooleanExtra(AppConstant.Key.MOMENT_IS_LIKE, false)
-                        val likeNum = intent.getIntExtra(AppConstant.Key.MOMENT_LIKE_NUM, 0)
-                        //点赞切换
-                        mListItems.filterIsInstance<MomentModel>()
-                            .filter {
-                                it.id == momentId
-                            }
-                            .map {
-                                it.liked = isLike
-                                it.likes = likeNum
-                            }
-                        mListAdapter.notifyDataSetChanged()
-                    }
-                }
-            }, AppConstant.Action.MOMENT_LIKE_CHANGE)
     }
 
     override fun onPause() {
@@ -196,9 +118,9 @@ class MomentVideoListFragment : BaseFragment() {
             //上下滑动
             orientation = ViewPager2.ORIENTATION_VERTICAL
             //缓存数量，要求每次都调用bindView
-//            Reflect.on(this).field("mRecyclerView").get<RecyclerView>().apply {
-//                setItemViewCacheSize(1)
-//            }
+            Reflect.on(this).field("mRecyclerView").get<RecyclerView>().apply {
+                setItemViewCacheSize(-1)
+            }
             //滚动监听
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -235,45 +157,6 @@ class MomentVideoListFragment : BaseFragment() {
     }
 
     /**
-     * 点赞或取消点赞，动态
-     */
-    private fun likeOrRemoveLikeMoment(isLike: Boolean, momentId: String) {
-        val userId = getLoginService()?.getUserId()
-        if (userId.isNullOrBlank()) {
-            return
-        }
-        val observable = if (isLike) {
-            mMomentPresenter.likeMoment(momentId, userId)
-        } else {
-            mMomentPresenter.removeLikeMoment(momentId, userId)
-        }
-        observable.ioToMain()
-            .lifecycle(lifecycleOwner)
-            .subscribe({ httpModel ->
-                if (handlerErrorCode(httpModel)) {
-                    httpModel?.data?.let { response ->
-                        //更新数据
-                        mListItems
-                            //只取一个动态类型
-                            .filterIsInstance<MomentModel>()
-                            //只修改自己那一个动态
-                            .filter {
-                                it.id == response.momentId
-                            }
-                            .forEach {
-                                it.liked = response.liked
-                                it.likes = response.likes
-                            }
-                    }
-                    mListAdapter.notifyDataSetChanged()
-                }
-            }, {
-                it.printStackTrace()
-                showRequestError()
-            })
-    }
-
-    /**
      * 获取动态视频列表
      */
     private fun getMomentVideoList(
@@ -303,7 +186,15 @@ class MomentVideoListFragment : BaseFragment() {
                                 if (isFirstPage) {
                                     mListItems.clear()
                                 }
-                                addAll(resultList)
+                                //添加条目
+                                addAll(resultList.map {
+                                    BaseFragmentStateAdapter.TabInfo(
+                                        MomentVideoFragment::class.java.name,
+                                        Bundle().apply {
+                                            putSerializable(AppConstant.Key.MOMENT_INFO, it)
+                                        }
+                                    )
+                                })
                             }
                             mListAdapter.notifyDataSetChanged()
                             //最后一页
@@ -340,25 +231,5 @@ class MomentVideoListFragment : BaseFragment() {
                     vRefreshLayout.finishLoadMore(false)
                 }
             })
-    }
-
-    /**
-     * 转发动态
-     * @param momentId 动态Id
-     */
-    private fun forwardMoment(momentId: String) {
-        getLoginService()?.run {
-            val userId = getUserId()
-            mMomentPresenter.forwardMoment(momentId, userId)
-                .ioToMain()
-                .lifecycle(lifecycleOwner)
-                .subscribe({ httpModel ->
-                    if (handlerErrorCode(httpModel)) {
-                        LogUtils.d("转发动态成功，momentId：${momentId}, userId：$userId")
-                    }
-                }, {
-                    it.printStackTrace()
-                })
-        }
     }
 }

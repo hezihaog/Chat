@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="BaseDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowAnimationStyle">@style/BaseDialogAnimation</item>
+    </style>
+
+    <style name="BaseDialogAnimation" parent="android:Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/base_pop_win_content_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/base_pop_win_content_fade_out</item>
+    </style>
+
+    <!-- 底部弹窗 -->
+    <style name="base_bottom_sheet_dialog_style" parent="android:Theme.Dialog">
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <!-- dialog style-->
     <style name="base_dialog_style" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="android:windowFrame">@null</item>

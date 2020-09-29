@@ -1,8 +1,10 @@
 package com.zh.android.base.ext
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -216,6 +218,21 @@ fun androidx.fragment.app.Fragment.setStatusBarBlack() {
 }
 
 /**
+ * 获取View的Activity
+ */
+fun View.getActivity(): Activity? {
+    val context: Context = context
+    if (context is Activity) {
+        return context
+    } else if (context is ContextThemeWrapper) {
+        if (context.baseContext is Activity) {
+            return context.baseContext as Activity
+        }
+    }
+    return null
+}
+
+/**
  * 移除所有CompoundDrawables
  */
 fun TextView.removeAllCompoundDrawables() {
@@ -302,7 +319,7 @@ fun EditText.hideKeyboard() {
  * @param defaultImgResId 默认图片的资源Id
  */
 fun ImageView.loadUrlImage(url: String?, defaultImgResId: Int = R.drawable.base_def_img_rect) {
-    val activity = context as Activity
+    val activity = getActivity()
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(
             LoadOption.Builder()
@@ -316,7 +333,7 @@ fun ImageView.loadUrlImage(url: String?, defaultImgResId: Int = R.drawable.base_
  * 加载资源文件的图片
  */
 fun ImageView.loadResDrawable(resId: Int, defaultImgResId: Int = R.drawable.base_avatar_round) {
-    val activity = context as Activity
+    val activity = getActivity()
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(
             LoadOption.Builder()
@@ -340,7 +357,7 @@ fun ImageView.loadUrlImageToRound(
     url: String?,
     defaultImgResId: Int = R.drawable.base_avatar_round
 ) {
-    val activity = context as Activity
+    val activity = getActivity()
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(
             LoadOption.Builder()
@@ -358,7 +375,7 @@ fun ImageView.loadUrlImageToCorner(
     url: String?,
     defaultImgResId: Int = R.drawable.base_avatar_round
 ) {
-    val activity = context as Activity
+    val activity = getActivity()
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(
             LoadOption.Builder()
@@ -373,7 +390,7 @@ fun ImageView.loadUrlImageToCorner(
  * 加载默认图片
  */
 fun ImageView.loadDefaultImage(resId: Int = R.drawable.base_avatar_round) {
-    val activity = context as Activity
+    val activity = getActivity() ?: return
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(
             LoadOption.Builder()

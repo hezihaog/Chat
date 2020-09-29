@@ -16,6 +16,7 @@ import com.zh.android.base.util.ShareUtil
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.model.MomentModel
+import com.zh.android.chat.moment.ui.dialog.MomentCommentDialog
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.moment.MomentService
@@ -99,7 +100,13 @@ class MomentVideoFragment : BaseFragment() {
             }
             //评论
             vCommentLayout.click {
-                mMomentService?.goMomentDetail(fragmentActivity, id)
+                //显示评论弹窗
+                MomentCommentDialog(fragmentActivity, fragment).apply {
+                    setCancelable(true)
+                    setCanceledOnTouchOutside(true)
+                    loadData(mMomentInfo.id)
+                    show()
+                }
             }
             //分享
             vShareLayout.click {

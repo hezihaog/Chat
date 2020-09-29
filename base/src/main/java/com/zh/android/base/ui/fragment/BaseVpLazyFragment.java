@@ -2,6 +2,7 @@ package com.zh.android.base.ui.fragment;
 
 
 import com.zh.android.base.core.BaseFragment;
+import com.zh.android.base.core.LayoutCallback;
 
 /**
  * <b>Project:</b> ListRelated <br>

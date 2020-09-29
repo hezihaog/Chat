@@ -50,6 +50,7 @@ dependencies {
     api rootProject.ext.deps.util_code
 
     api rootProject.ext.deps.av_loading
+    api rootProject.ext.deps.rclayout
 
     //http
     api rootProject.ext.deps.gson

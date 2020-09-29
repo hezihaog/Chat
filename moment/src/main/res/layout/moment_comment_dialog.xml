@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <com.gcssloop.widget.RCRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_450"
+        android:layout_gravity="bottom"
+        app:round_corner_top_left="@dimen/base_dimen_5"
+        app:round_corner_top_right="@dimen/base_dimen_5">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@id/base_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/base_white">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/base_refresh_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.gcssloop.widget.RCRelativeLayout>
+</FrameLayout>

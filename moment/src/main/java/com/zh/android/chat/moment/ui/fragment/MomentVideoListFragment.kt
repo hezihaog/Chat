@@ -74,6 +74,8 @@ class MomentVideoListFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         GSYVideoManager.releaseAllVideos()
+        //一定要去掉粘性广播的存在
+        AppBroadcastManager.removeStickyBroadcast(AppConstant.Action.MOMENT_PLAY_VIDEO)
     }
 
     override fun onInflaterViewId(): Int {
@@ -118,10 +120,6 @@ class MomentVideoListFragment : BaseFragment() {
             adapter = mListAdapter
             //上下滑动
             orientation = ViewPager2.ORIENTATION_VERTICAL
-            //缓存数量，要求每次都调用bindView
-//            Reflect.on(this).field("mRecyclerView").get<RecyclerView>().apply {
-//                setItemViewCacheSize(-1)
-//            }
             //滚动监听
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -131,15 +129,7 @@ class MomentVideoListFragment : BaseFragment() {
                         loadMore()
                     }
                     //发送广播，播放视频
-                    val tabInfo = mListItems[position]
-                    val momentInfo: MomentModel =
-                        tabInfo.args.getSerializable(AppConstant.Key.MOMENT_INFO) as MomentModel
-                    AppBroadcastManager.sendBroadcast(
-                        AppConstant.Action.MOMENT_PLAY_VIDEO,
-                        Intent().apply {
-                            putExtra(AppConstant.Key.MOMENT_ID, momentInfo.id)
-                        }
-                    )
+                    notifyVideoPlay(position)
                 }
             })
         }
@@ -221,6 +211,8 @@ class MomentVideoListFragment : BaseFragment() {
                                 }
                             }
                         }
+                        //每次刷新，重新播放第一个
+                        notifyVideoPlay(0)
                     }
                     return@subscribe
                 }
@@ -242,5 +234,20 @@ class MomentVideoListFragment : BaseFragment() {
                     vRefreshLayout.finishLoadMore(false)
                 }
             })
+    }
+
+    /**
+     * 通知开始视频播放
+     */
+    private fun notifyVideoPlay(position: Int) {
+        val tabInfo = mListItems[position]
+        val momentInfo: MomentModel =
+            tabInfo.args.getSerializable(AppConstant.Key.MOMENT_INFO) as MomentModel
+        AppBroadcastManager.sendStickyBroadcast(
+            AppConstant.Action.MOMENT_PLAY_VIDEO,
+            Intent().apply {
+                putExtra(AppConstant.Key.MOMENT_ID, momentInfo.id)
+            }
+        )
     }
 }

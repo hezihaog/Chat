@@ -26,7 +26,7 @@ class MomentForwardRecordViewBinder :
 
     override fun onBindViewHolder(holder: ViewHolder, item: MomentForwardRecordModel) {
         item.run {
-            holder.avatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.picNormal))
+            holder.avatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.avatar))
             holder.nickname.text = userInfo.nickname
             holder.createTime.text = createTime
         }

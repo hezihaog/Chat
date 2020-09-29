@@ -34,7 +34,7 @@ class TextMsgReceiverViewBinder(
 
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(fromUser.picNormal))
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(fromUser.avatar))
             holder.vContent.text = text?.content
             holder.vContent.longClick {
                 longClickCallback(getPosition(holder), item)

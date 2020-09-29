@@ -17,13 +17,9 @@ data class User(
      */
     val username: String,
     /**
-     * 头像略缩图
-     */
-    val picSmall: String,
-    /**
      * 头像
      */
-    var picNormal: String,
+    var avatar: String,
     /**
      * 昵称
      */

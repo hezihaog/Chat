@@ -3,7 +3,6 @@ package com.zh.android.chat.mine.item
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.ext.click
@@ -12,6 +11,7 @@ import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.widget.iconfont.IconFontTextView
 import com.zh.android.chat.mine.R
 import com.zh.android.chat.mine.model.MineImageItemModel
+import de.hdodenhof.circleimageview.CircleImageView
 import me.drakeet.multitype.ItemViewBinder
 
 /**
@@ -28,12 +28,17 @@ class MineImageItemViewBinder(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, item: MineImageItemModel) {
+        val context = holder.itemView.context
         item.run {
             holder.vItemName.text = itemName
-            if (isCircleImage) {
-                holder.vImage.loadUrlImageToRound(imageUrl, defaultImageResId)
-            } else {
-                holder.vImage.loadUrlImage(imageUrl, defaultImageResId)
+            holder.vImage.apply {
+                //头像图片，才开启绘制圆角
+                isDisableCircularTransformation = !isCircleImage
+                if (isCircleImage) {
+                    loadUrlImageToRound(imageUrl, defaultImageResId)
+                } else {
+                    loadUrlImage(imageUrl, defaultImageResId)
+                }
             }
             holder.vArrow.run {
                 //是否显示箭头
@@ -54,7 +59,7 @@ class MineImageItemViewBinder(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val vItemName: TextView = view.findViewById(R.id.item_name)
-        val vImage: ImageView = view.findViewById(R.id.image)
+        val vImage: CircleImageView = view.findViewById(R.id.image)
         val vArrow: IconFontTextView = view.findViewById(R.id.arrow)
     }
 }

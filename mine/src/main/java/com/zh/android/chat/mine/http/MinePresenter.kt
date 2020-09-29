@@ -3,7 +3,6 @@ package com.zh.android.chat.mine.http
 import com.zh.android.base.http.HttpModel
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
-import java.io.File
 
 /**
  * @author wally
@@ -38,14 +37,14 @@ class MinePresenter {
     }
 
     /**
-     * 上传头像
+     * 更新头像
      * @param userId 用户Id
-     * @param avatarFile 新的头像File对象
+     * @param avatarUrl 新的头像的Url
      */
-    fun uploadAvatar(
+    fun updateAvatar(
         userId: String,
-        avatarFile: File
+        avatarUrl: String
     ): Observable<HttpModel<User>> {
-        return MineRequester.uploadAvatar(TAG, userId, avatarFile)
+        return MineRequester.updateAvatar(TAG, userId, avatarUrl)
     }
 }

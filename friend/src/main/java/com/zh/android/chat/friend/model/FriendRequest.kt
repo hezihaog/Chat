@@ -16,13 +16,9 @@ data class FriendRequest(
     //下面是申请人的信息
     val username: String,
     /**
-     * 头像略缩图
-     */
-    val picSmall: String,
-    /**
      * 头像
      */
-    val picNormal: String,
+    val avatar: String,
     /**
      * 昵称
      */

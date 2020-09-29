@@ -228,7 +228,7 @@ class MomentDetailFragment : BaseFragment() {
         } else {
             vHeaderView.setVisible()
             data.run {
-                vAvatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.picNormal))
+                vAvatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.avatar))
                 vNickname.text = userInfo.nickname
                 vCreateTime.text = createTime
                 vContent.text = content

@@ -39,7 +39,7 @@ class ImageMsgSenderViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         item.run {
             holder.vAvatar.loadUrlImageToRound(
-                ApiUrl.getFullFileUrl(fromUser.picNormal)
+                ApiUrl.getFullFileUrl(fromUser.avatar)
             )
             holder.vImage.loadUrlImage(
                 ApiUrl.getFullFileUrl(

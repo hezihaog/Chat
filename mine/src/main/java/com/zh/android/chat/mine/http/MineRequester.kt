@@ -11,7 +11,6 @@ import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
-import java.io.File
 
 /**
  * @author wally
@@ -58,19 +57,19 @@ class MineRequester {
         }
 
         /**
-         * 上传头像
+         * 更新头像
          * @param userId 用户Id
-         * @param avatarFile 新的头像File对象
+         * @param avatarUrl 新的头像的Url
          */
-        fun uploadAvatar(
+        fun updateAvatar(
             tag: String,
             userId: String,
-            avatarFile: File
+            avatarUrl: String
         ): Observable<HttpModel<User>> {
             val type = genericGsonType<HttpModel<User>>()
-            val request: PostRequest<HttpModel<User>> = OkGo.post(ApiUrl.UPLOAD_AVATAR)
+            val request: PostRequest<HttpModel<User>> = OkGo.post(ApiUrl.UPDATE_AVATAR)
             return request.tag(tag)
-                .params("file", avatarFile)
+                .params("avatarUrl", avatarUrl)
                 .params("userId", userId)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())

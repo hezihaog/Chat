@@ -33,7 +33,7 @@ class ConversationMainViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: Conversation) {
         val context = holder.itemView.context
         item.run {
-            val avatar = if (isMe) toUser.picNormal else fromUser.picNormal
+            val avatar = if (isMe) toUser.avatar else fromUser.avatar
             holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(avatar))
             holder.vName.apply {
                 if (isMe) {

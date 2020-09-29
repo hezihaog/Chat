@@ -82,7 +82,7 @@ class MineFragment : BaseFragment() {
                 when (item.itemId) {
                     R.id.mine_item_avatar -> {
                         val userId = mLoginService?.getUserId() ?: ""
-                        val avatarUrl = mUserInfo?.picNormal ?: ""
+                        val avatarUrl = mUserInfo?.avatar ?: ""
                         mMineService?.goModifyAvatar(fragmentActivity, userId, avatarUrl)
                     }
                     R.id.mine_item_qrcode -> {
@@ -104,7 +104,7 @@ class MineFragment : BaseFragment() {
                         it is MineImageItemModel && it.itemId == R.id.mine_item_avatar
                     }.cast(MineImageItemModel::class.java)
                     .map {
-                        mUserInfo?.picNormal = newAvatarUrl
+                        mUserInfo?.avatar = newAvatarUrl
                         it.imageUrl = newAvatarUrl
                     }
                     .lifecycle(lifecycleOwner)
@@ -174,7 +174,7 @@ class MineFragment : BaseFragment() {
                             //保存用户信息
                             mUserInfo = it
                             render(
-                                ApiUrl.getFullFileUrl(it.picNormal),
+                                ApiUrl.getFullFileUrl(it.avatar),
                                 it.nickname,
                                 it.username,
                                 it.qrCode ?: ""

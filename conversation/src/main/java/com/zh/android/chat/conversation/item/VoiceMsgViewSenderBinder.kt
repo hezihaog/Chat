@@ -40,7 +40,7 @@ class VoiceMsgViewSenderBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         val context = holder.itemView.context
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(fromUser.picNormal))
+            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(fromUser.avatar))
             holder.vTime.text = context.resources.getString(
                 R.string.conversation_voice_time,
                 voice?.mediaTime ?: 0

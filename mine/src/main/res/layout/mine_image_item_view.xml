@@ -24,8 +24,9 @@
             android:textSize="@dimen/base_dimen_sp_13"
             tools:text="账号" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image"
+            style="@style/base_avatar"
             android:layout_width="@dimen/base_dimen_40"
             android:layout_height="@dimen/base_dimen_40"
             android:layout_gravity="center"

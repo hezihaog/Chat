@@ -28,7 +28,7 @@ class FriendRequestViewBinder(
 
     override fun onBindViewHolder(holder: ViewHolder, item: FriendRequest) {
         item.run {
-            holder.vAvatar.loadUrlImageToRound(picNormal)
+            holder.vAvatar.loadUrlImageToRound(avatar)
             holder.vNickName.text = nickname
             //拒绝
             holder.vIgnore.click {

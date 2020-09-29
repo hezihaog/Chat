@@ -12,7 +12,7 @@ import com.lzy.ninegrid.preview.NineGridViewClickAdapter
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
-import com.zh.android.base.ext.loadUrlImage
+import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.ext.setGone
 import com.zh.android.base.ext.setVisible
 import com.zh.android.chat.moment.R
@@ -37,7 +37,7 @@ class MomentItemViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: MomentModel) {
         val context = holder.itemView.context
         item.run {
-            holder.avatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.picNormal))
+            holder.avatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(userInfo.avatar))
             holder.nickname.text = userInfo.nickname
             holder.createTime.text = createTime
             holder.content.text = content

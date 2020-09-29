@@ -1,5 +1,7 @@
 package com.zh.android.base.constant
 
+import java.net.URLEncoder
+
 
 /**
  * Package: com.linghit.base.constant <br></br>
@@ -53,15 +55,6 @@ object ApiUrl {
      */
     private val HOST: String
         get() = "192.168.1.102"
-    //get() = "192.168.100.26"
-    //get() = "api.chat.com"
-
-    /**
-     * 图片服务器地址
-     */
-    private val IMAGE_HOST: String
-        get() = "192.168.211.131"
-    //get() = "image.chat.com"
 
     /**
      * Url基础部分
@@ -72,14 +65,6 @@ object ApiUrl {
         }
 
     /**
-     * 图片服务器地址
-     */
-    private val IMAGE_URL: String
-        get() {
-            return "http://${IMAGE_HOST}/"
-        }
-
-    /**
      * 拼接出完整的文件地址Url
      */
     fun getFullFileUrl(fileUrl: String?): String {
@@ -87,11 +72,11 @@ object ApiUrl {
             return ""
         }
         //已经拼接过了，不需要再拼接
-        if (fileUrl.startsWith(IMAGE_URL)) {
+        if (fileUrl.startsWith(BASE_URL)) {
             return fileUrl
         }
         //没有拼接，再拼接返回
-        return IMAGE_URL + fileUrl
+        return "${DOWNLOAD_FILE}?fileId=${URLEncoder.encode(fileUrl)}"
     }
 
     /**
@@ -113,6 +98,11 @@ object ApiUrl {
      * 上传多个图片
      */
     val UPLOAD_FILES = "$BASE_URL/file/uploadFiles"
+
+    /**
+     * 下载文件
+     */
+    val DOWNLOAD_FILE = "${BASE_URL}/file/downloadFile"
 
     //---------------------------- 登录 ----------------------------
 
@@ -158,9 +148,9 @@ object ApiUrl {
     val UPDATE_NICKNAME = "${BASE_URL}/user/updateNickname"
 
     /**
-     * 上传头像
+     * 更新头像
      */
-    val UPLOAD_AVATAR = "${BASE_URL}/user/uploadAvatar"
+    val UPDATE_AVATAR = "${BASE_URL}/user/updateAvatar"
 
     //---------------------------- 好友 ----------------------------
 

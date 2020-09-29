@@ -15,10 +15,9 @@ import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.mine.R
 import com.zh.android.chat.mine.http.MinePresenter
 import com.zh.android.chat.service.AppConstant
-import com.zh.android.chat.service.module.base.CompressPresenter
+import com.zh.android.chat.service.module.base.UploadPresenter
 import io.reactivex.Observable
 import kotterknife.bindView
-import java.io.File
 
 /**
  * @author wally
@@ -37,7 +36,7 @@ class ModifyAvatarFragment : BaseFragment() {
     }
 
     private val mUploadPresenter by lazy {
-        CompressPresenter()
+        UploadPresenter()
     }
 
     companion object {
@@ -111,15 +110,15 @@ class ModifyAvatarFragment : BaseFragment() {
      * 修改头像
      */
     private fun modifyAvatar(filePath: String) {
-        mUploadPresenter.compressImage(fragmentActivity, filePath)
-            .flatMap { path ->
-                mMinePresenter.uploadAvatar(mUserId, File(path))
+        mUploadPresenter.uploadImage(fragmentActivity, filePath)
+            .flatMap {
+                mMinePresenter.updateAvatar(mUserId, it)
             }
             .ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
-                    val newAvatarUrl = ApiUrl.getFullFileUrl(httpModel.data?.picNormal)
+                    val newAvatarUrl = ApiUrl.getFullFileUrl(httpModel.data?.avatar)
                     vPhotoView.loadUrlImage(newAvatarUrl, R.drawable.base_def_img_rect)
                     //通知更新头像
                     AppBroadcastManager.sendBroadcast(AppConstant.Action.UPDATE_AVATAR,

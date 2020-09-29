@@ -44,7 +44,7 @@ class ReplyReplyViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: MomentCommentReplyModel) {
         val context = holder.itemView.context
         item.run {
-            holder.avatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.picNormal))
+            holder.avatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.avatar))
             holder.nickname.text = userInfo.nickname
             holder.createTime.text = createTime
             holder.content.text =

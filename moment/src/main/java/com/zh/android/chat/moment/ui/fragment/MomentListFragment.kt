@@ -212,7 +212,7 @@ class MomentListFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
-        refresh()
+        vRefreshLayout.autoRefresh()
     }
 
     override fun onBackPressedSupport(): Boolean {

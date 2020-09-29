@@ -65,7 +65,7 @@ class MomentItemViewBinder(
                     setVisible()
                     //配置视频控件
                     val url = ApiUrl.getFullFileUrl(videos[0])
-                    setUp(url, false, null, null, content)
+                    setUp(url, true, null, null, content)
                     playTag = url
                     backButton.setGone()
                     fullscreenButton.click {

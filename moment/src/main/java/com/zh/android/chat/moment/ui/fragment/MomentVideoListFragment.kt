@@ -1,9 +1,9 @@
 package com.zh.android.chat.moment.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shuyu.gsyvideoplayer.GSYVideoManager
@@ -14,14 +14,15 @@ import com.zh.android.base.ext.handlerErrorCode
 import com.zh.android.base.ext.ioToMain
 import com.zh.android.base.ext.lifecycle
 import com.zh.android.base.ui.fragment.BaseFragmentStateAdapter
+import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.base.util.StatusBarUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
+import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import kotterknife.bindView
-import org.joor.Reflect
 
 /**
  * @author wally
@@ -118,9 +119,9 @@ class MomentVideoListFragment : BaseFragment() {
             //上下滑动
             orientation = ViewPager2.ORIENTATION_VERTICAL
             //缓存数量，要求每次都调用bindView
-            Reflect.on(this).field("mRecyclerView").get<RecyclerView>().apply {
-                setItemViewCacheSize(-1)
-            }
+//            Reflect.on(this).field("mRecyclerView").get<RecyclerView>().apply {
+//                setItemViewCacheSize(-1)
+//            }
             //滚动监听
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -129,6 +130,16 @@ class MomentVideoListFragment : BaseFragment() {
                     if (position == (mListItems.size - 1)) {
                         loadMore()
                     }
+                    //发送广播，播放视频
+                    val tabInfo = mListItems[position]
+                    val momentInfo: MomentModel =
+                        tabInfo.args.getSerializable(AppConstant.Key.MOMENT_INFO) as MomentModel
+                    AppBroadcastManager.sendBroadcast(
+                        AppConstant.Action.MOMENT_PLAY_VIDEO,
+                        Intent().apply {
+                            putExtra(AppConstant.Key.MOMENT_ID, momentInfo.id)
+                        }
+                    )
                 }
             })
         }

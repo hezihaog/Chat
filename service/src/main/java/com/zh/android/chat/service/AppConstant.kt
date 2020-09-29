@@ -109,6 +109,11 @@ class AppConstant private constructor() {
              * 刷新动态详情
              */
             const val MOMENT_DETAIL_REFRESH = "action_moment_detail_refresh"
+
+            /**
+             * 播放动态视频
+             */
+            const val MOMENT_PLAY_VIDEO = "action_moment_play_video"
         }
     }
 

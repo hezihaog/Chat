@@ -1,6 +1,9 @@
 package com.zh.android.chat.moment.ui.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,6 +15,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.AppBroadcastManager
+import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.ShareUtil
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
@@ -50,6 +54,23 @@ class MomentVideoFragment : BaseFragment() {
         MomentPresenter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        BroadcastRegistry(lifecycleOwner)
+            .register(object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    val momentId = intent?.getStringExtra(AppConstant.Key.MOMENT_ID)
+                    if (momentId.isNullOrBlank()) {
+                        return
+                    }
+                    //开始播放视频
+                    if (mMomentInfo.id == momentId) {
+                        vVideoPlayer.startPlayLogic()
+                    }
+                }
+            }, AppConstant.Action.MOMENT_PLAY_VIDEO)
+    }
+
     override fun onLayoutBefore() {
         super.onLayoutBefore()
         mMomentInfo = arguments!!.getSerializable(AppConstant.Key.MOMENT_INFO) as MomentModel
@@ -85,8 +106,6 @@ class MomentVideoFragment : BaseFragment() {
                     setIsTouchWiget(false)
                     //播放完毕后，重播
                     isLooping = true
-                    //开始播放
-                    startPlayLogic()
                 }
             } else {
                 vVideoPlayer.setGone()

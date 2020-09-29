@@ -14,8 +14,8 @@ import android.view.LayoutInflater
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.contextprovider.ContextProvider
 import com.zh.android.base.util.toast.ToastUtil
+import com.zh.android.contextprovider.ContextProvider
 import java.io.FileDescriptor
 import java.io.InputStream
 
@@ -213,7 +213,7 @@ fun Context.rawToInputStream(rawResId: Int): InputStream {
  */
 fun Context.getAssertsFiles(): List<String> {
     return try {
-        assets.list("").toList<String>()
+        assets.list("")!!.toList<String>()
     } catch (e: Exception) {
         mutableListOf()
     }

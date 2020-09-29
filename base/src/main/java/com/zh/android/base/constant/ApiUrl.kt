@@ -76,7 +76,7 @@ object ApiUrl {
             return fileUrl
         }
         //没有拼接，再拼接返回
-        return "${DOWNLOAD_FILE}?fileId=${URLEncoder.encode(fileUrl)}"
+        return "${DOWNLOAD_FILE}?fileId=${URLEncoder.encode(fileUrl, "UTF-8")}"
     }
 
     /**

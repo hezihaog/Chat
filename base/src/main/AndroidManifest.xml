@@ -16,5 +16,7 @@
     <!-- 弹出通知必须有这个权限 -->
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
-    <application android:networkSecurityConfig="@xml/network_security_config" />
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true" />
 </manifest>

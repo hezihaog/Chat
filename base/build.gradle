@@ -49,6 +49,8 @@ dependencies {
     api rootProject.ext.deps.multidex
     api rootProject.ext.deps.util_code
 
+    api rootProject.ext.deps.av_loading
+
     //http
     api rootProject.ext.deps.gson
     api rootProject.ext.deps.okhttp

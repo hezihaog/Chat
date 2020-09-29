@@ -198,8 +198,13 @@ class MomentPublishFragment : BaseFragment() {
                     else -> Observable.empty()
                 }
                 observable
-                    .filter {
-                        !it.isTakeCancel
+                    .flatMap {
+                        if (it.isTakeCancel) {
+                            mWaitController.hideWait()
+                            Observable.empty()
+                        } else {
+                            Observable.just(it)
+                        }
                     }
                     .doOnSubscribeUi {
                         mWaitController.showWait()
@@ -243,6 +248,8 @@ class MomentPublishFragment : BaseFragment() {
                         it.printStackTrace()
                         mWaitController.hideWait()
                         showRequestError()
+                    }, {
+                        mWaitController.hideWait()
                     })
             }
             .create()

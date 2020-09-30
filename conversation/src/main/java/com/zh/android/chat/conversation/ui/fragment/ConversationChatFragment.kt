@@ -22,6 +22,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.ClipboardUtil
+import com.zh.android.base.util.RecyclerViewScrollHelper
 import com.zh.android.base.util.VibratorHelper
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.util.rx.RxUtil
@@ -121,6 +122,9 @@ class ConversationChatFragment : BaseFragment() {
         ConversationPresenter()
     }
 
+    private val mRecyclerViewScrollHelper by lazy {
+        RecyclerViewScrollHelper().attachRecyclerView(vRefreshList)
+    }
     private val mListItems by lazy {
         Items()
     }
@@ -873,7 +877,9 @@ class ConversationChatFragment : BaseFragment() {
         mListItems.add(0, chatRecord)
         mListAdapter.notifyDataSetChanged()
         //滚动到最底下
-        scrollToBottom()
+        if (!mRecyclerViewScrollHelper.isScrollToBottom) {
+            scrollToBottom()
+        }
     }
 
     /**

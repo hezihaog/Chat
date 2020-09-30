@@ -100,20 +100,26 @@
         <item name="android:textColor">@color/base_txt_color_normal</item>
     </style>
 
-    <!-- 消息图片基类 -->
-    <style name="conversation_msg_item_image_base">
+    <!-- 消息图片 -->
+    <style name="conversation_msg_item_image">
         <item name="android:layout_width">@dimen/base_dimen_160</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_height">@dimen/base_dimen_160</item>
     </style>
 
-    <!-- 消息图片-发送者 -->
-    <style name="conversation_msg_item_image_sender" parent="conversation_msg_item_image_base">
+    <style name="conversation_msg_item_image_layout_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="round_corner">@dimen/base_dimen_4</item>
+    </style>
+
+    <!-- 消息图片布局-发送者 -->
+    <style name="conversation_msg_item_image_layout_sender" parent="conversation_msg_item_image_layout_base">
         <item name="android:layout_marginEnd">@dimen/base_dimen_10</item>
     </style>
 
-    <!-- 消息图片-接收者 -->
-    <style name="conversation_msg_item_image_receiver" parent="conversation_msg_item_image_base">
+    <!-- 消息图片布局-接收者 -->
+    <style name="conversation_msg_item_image_layout_receiver" parent="conversation_msg_item_image_layout_base">
         <item name="android:layout_marginStart">@dimen/base_dimen_10</item>
     </style>
 

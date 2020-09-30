@@ -1,9 +1,11 @@
 package com.zh.android.chat.conversation.ui.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -100,16 +102,17 @@ public class ChatInputBar extends FrameLayout {
 
             @Override
             public void onDoubleCheckFinish(CustomRadioGroup group, CustomRadioButton button, boolean isChecked) {
-//                if (isChecked) {
-//                    //如果软键盘弹起，关掉软键盘
-//                    if (isOpenSoftKeyBoard) {
-//                        vMsgInput.clearFocus();
-//                        SoftKeyBoardUtil.hideKeyboard(vMsgInput);
-//                    }
-//                } else {
-//                    vMsgInput.requestFocus();
-//                    SoftKeyBoardUtil.showKeyboard(vMsgInput);
-//                }
+                boolean isOpenSoftKeyBoard = SoftKeyBoardUtil.isSoftKeyBoardShowing(getActivity());
+                if (isChecked) {
+                    //如果软键盘弹起，关掉软键盘
+                    if (isOpenSoftKeyBoard) {
+                        vMsgInput.clearFocus();
+                        SoftKeyBoardUtil.hideKeyboard(vMsgInput);
+                    }
+                } else {
+                    vMsgInput.requestFocus();
+                    SoftKeyBoardUtil.showKeyboard(vMsgInput);
+                }
             }
         });
         //语音按钮切换
@@ -133,6 +136,22 @@ public class ChatInputBar extends FrameLayout {
                 }
             }
         });
+    }
+
+    /**
+     * 获取View上的Actiity
+     */
+    public Activity getActivity() {
+        Context context = getContext();
+        if (context instanceof Activity) {
+            return (Activity) context;
+        } else if (context instanceof ContextThemeWrapper) {
+            ContextThemeWrapper wrapper = (ContextThemeWrapper) context;
+            if (wrapper.getBaseContext() instanceof Activity) {
+                return (Activity) wrapper.getBaseContext();
+            }
+        }
+        return null;
     }
 
     public interface Callback {

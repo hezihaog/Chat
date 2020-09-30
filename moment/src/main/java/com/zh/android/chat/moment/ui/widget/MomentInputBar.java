@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.zh.android.base.util.SoftKeyBoardUtil;
 import com.zh.android.base.util.listener.DelayOnClickListener;
 import com.zh.android.chat.moment.R;
 
@@ -184,6 +185,13 @@ public class MomentInputBar extends FrameLayout {
     }
 
     /**
+     * 弹出软键盘
+     */
+    public void showKeyboardByInput() {
+        SoftKeyBoardUtil.showKeyboard(vInput);
+    }
+
+    /**
      * 设置是否已点赞
      *
      * @param isLike  是否已点赞
@@ -193,8 +201,10 @@ public class MomentInputBar extends FrameLayout {
         this.isLike = isLike;
         if (isLike) {
             vLikeSymbol.setImageResource(R.drawable.moment_liked);
+            vLikeText.setTextColor(getContext().getResources().getColor(R.color.base_blue));
         } else {
             vLikeSymbol.setImageResource(R.drawable.moment_like);
+            vLikeText.setTextColor(getContext().getResources().getColor(R.color.base_gray4));
         }
         vLikeText.setText(likeNum);
     }

@@ -30,7 +30,7 @@ import me.drakeet.multitype.MultiTypeAdapter
 /**
  * @author wally
  * @date 2020/09/22
- * 动态详情
+ * 动态评论详情
  */
 class MomentCommentDetailFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
@@ -205,6 +205,8 @@ class MomentCommentDetailFragment : BaseFragment() {
                 )
             }
         })
+        //弹出软键盘
+        vMomentInputBar.showKeyboardByInput()
     }
 
     /**

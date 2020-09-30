@@ -5,6 +5,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.widget.ImageView
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.Utils
 import com.lzy.ninegrid.NineGridView
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheEntity
@@ -13,6 +15,12 @@ import com.lzy.okgo.cookie.CookieJarImpl
 import com.lzy.okgo.cookie.store.DBCookieStore
 import com.lzy.okgo.https.HttpsUtils
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor
+import com.rousetime.android_startup.AndroidStartup
+import com.rousetime.android_startup.StartupListener
+import com.rousetime.android_startup.StartupManager
+import com.rousetime.android_startup.model.CostTimesModel
+import com.rousetime.android_startup.model.LoggerLevel
+import com.rousetime.android_startup.model.StartupConfig
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -38,109 +46,200 @@ import java.util.concurrent.TimeUnit
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        initAppMonitor()
-        initHttp()
-        initRouter()
-        initRefresh()
-        initActivityProvider()
-        initImage()
-        initVideoPlayer()
-    }
-
-    /**
-     * 初始化前后台监听
-     */
-    private fun initAppMonitor() {
-        AppMonitor.get().initialize(this)
-    }
-
-    private fun initHttp() {
-        val loggingInterceptor = HttpLoggingInterceptor("[OkGo][Chat]").apply {
-            setPrintLevel(HttpLoggingInterceptor.Level.BODY)
-            setColorLevel(java.util.logging.Level.INFO)
-        }
-        val builder = OkHttpClient.Builder().apply {
-            if (BuildConfig.DEBUG_ENABLE) {
-                addInterceptor(loggingInterceptor)
-            }
-            readTimeout(15000L, TimeUnit.MILLISECONDS)
-            writeTimeout(15000L, TimeUnit.MILLISECONDS)
-            connectTimeout(15000L, TimeUnit.MILLISECONDS)
-            cookieJar(CookieJarImpl(DBCookieStore(this@App)))
-            //信任所有证书,不安全有风险
-            val sslParams = HttpsUtils.getSslSocketFactory()
-            sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
-            //添加自定义拦截器
-            RequestProcessor.getInstance().with(this)
-        }
-        //其他统一的配置
-        OkGo.getInstance().init(this)
-            .setOkHttpClient(builder.build())
-            .setCacheMode(CacheMode.NO_CACHE)
-            .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE).retryCount = 0
-    }
-
-    /**
-     * 初始化路由器
-     */
-    private fun initRouter() {
-        if (BuildConfig.DEBUG_ENABLE) {
-            ARouter.openLog()
-            ARouter.openDebug()
-        }
-        ARouter.init(this)
-    }
-
-    private fun initRefresh() {
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context: Context?, _: RefreshLayout? ->
-            MaterialHeader(
-                context
+        //初始化管理器
+        StartupManager.Builder()
+            //配置类
+            .setConfig(
+                StartupConfig.Builder()
+                    .setLoggerLevel(LoggerLevel.DEBUG)
+                    .setListener(object : StartupListener {
+                        override fun onCompleted(
+                            totalMainThreadCostTime: Long,
+                            costTimesModels: List<CostTimesModel>
+                        ) {
+                            LogUtils.d("StartupManager初始化完毕，耗时 => $totalMainThreadCostTime")
+                        }
+                    }).build()
             )
+            .addStartup(ToolBoxStartup())
+            .addStartup(HttpStartup())
+            .addStartup(RouterStartup())
+            .addStartup(RefreshStartup())
+            .addStartup(ImageLoaderStartup())
+            .addStartup(VideoPlayerStartup())
+            .build(this)
+            .start()
+            .await()
+    }
+
+    /**
+     * 工具初始化
+     */
+    private class ToolBoxStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
         }
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context: Context, _: RefreshLayout? ->
-            val footer = ClassicsFooter(context)
-            footer.setDrawableSize(20f)
-            footer.setBackgroundColor(context.resources.getColor(R.color.base_list_divider))
-            footer
+
+        override fun waitOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun create(context: Context): String? {
+            //前后台监听
+            AppMonitor.get().initialize(context)
+            //全局Activity管理
+            ActivityProvider.initialize()
+            //初始化通用工具类
+            Utils.init(context)
+            return this.javaClass.simpleName
         }
     }
 
     /**
-     * 初始化全局Activity管理
+     * 网络库初始化
      */
-    private fun initActivityProvider() {
-        ActivityProvider.initialize()
+    private class HttpStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun waitOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun create(context: Context): String? {
+            val loggingInterceptor = HttpLoggingInterceptor("[OkGo][Chat]").apply {
+                setPrintLevel(HttpLoggingInterceptor.Level.BODY)
+                setColorLevel(java.util.logging.Level.INFO)
+            }
+            val builder = OkHttpClient.Builder().apply {
+                if (BuildConfig.DEBUG_ENABLE) {
+                    addInterceptor(loggingInterceptor)
+                }
+                readTimeout(15000L, TimeUnit.MILLISECONDS)
+                writeTimeout(15000L, TimeUnit.MILLISECONDS)
+                connectTimeout(15000L, TimeUnit.MILLISECONDS)
+                cookieJar(CookieJarImpl(DBCookieStore(context)))
+                //信任所有证书,不安全有风险
+                val sslParams = HttpsUtils.getSslSocketFactory()
+                sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                //添加自定义拦截器
+                RequestProcessor.getInstance().with(this)
+            }
+            //其他统一的配置
+            OkGo.getInstance().init(context as Application?)
+                .setOkHttpClient(builder.build())
+                .setCacheMode(CacheMode.NO_CACHE)
+                .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE).retryCount = 0
+            return this.javaClass.simpleName
+        }
     }
 
     /**
-     * 初始化图片加载
+     * 路由初始化
      */
-    private fun initImage() {
-        //图片加载
-        ImageLoader.get(this).loader = GlideLoader()
-        //九宫格图片控件
-        NineGridView.setImageLoader(object : NineGridView.ImageLoader {
-            override fun onDisplayImage(context: Context?, imageView: ImageView?, url: String?) {
-                imageView?.loadUrlImage(url, R.drawable.base_def_img_rect)
-            }
+    private class RouterStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
 
-            override fun getCacheImage(url: String?): Bitmap? {
-                return null
+        override fun waitOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun create(context: Context): String? {
+            if (BuildConfig.DEBUG_ENABLE) {
+                ARouter.openLog()
+                ARouter.openDebug()
             }
-        })
+            ARouter.init(context.applicationContext as Application?)
+            return this.javaClass.simpleName
+        }
     }
 
     /**
-     * 初始化视频播放器
+     * 刷新库初始化
      */
-    private fun initVideoPlayer() {
-        //EXOPlayer内核，支持格式更多
-        PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
-        //exo缓存模式，支持m3u8，只支持exo
-        CacheFactory.setCacheManager(ExoPlayerCacheManager::class.java)
-        //视频比例
-        GSYVideoType.setShowType(GSYVideoType.SCREEN_MATCH_FULL)
-        //GLSurfaceView、支持滤镜
-        GSYVideoType.setRenderType(GSYVideoType.GLSURFACE)
+    private class RefreshStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun waitOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun create(context: Context): String? {
+            SmartRefreshLayout.setDefaultRefreshHeaderCreator { context: Context?, _: RefreshLayout? ->
+                MaterialHeader(
+                    context
+                )
+            }
+            SmartRefreshLayout.setDefaultRefreshFooterCreator { context: Context, _: RefreshLayout? ->
+                ClassicsFooter(context).apply {
+                    setDrawableSize(20f)
+                    setBackgroundColor(context.resources.getColor(R.color.base_list_divider))
+                }
+            }
+            return this.javaClass.simpleName
+        }
+    }
+
+    /**
+     * 图片库初始化
+     */
+    private class ImageLoaderStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun waitOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun create(context: Context): String? {
+            //图片加载
+            ImageLoader.get(context).loader = GlideLoader()
+            //九宫格图片控件
+            NineGridView.setImageLoader(object : NineGridView.ImageLoader {
+                override fun onDisplayImage(
+                    context: Context?,
+                    imageView: ImageView?,
+                    url: String?
+                ) {
+                    imageView?.loadUrlImage(url, R.drawable.base_def_img_rect)
+                }
+
+                override fun getCacheImage(url: String?): Bitmap? {
+                    return null
+                }
+            })
+            return this.javaClass.simpleName
+        }
+    }
+
+    /**
+     * 视频播放器初始化
+     */
+    private class VideoPlayerStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun waitOnMainThread(): Boolean {
+            return false
+        }
+
+        override fun create(context: Context): String? {
+            //EXOPlayer内核，支持格式更多
+            PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
+            //exo缓存模式，支持m3u8，只支持exo
+            CacheFactory.setCacheManager(ExoPlayerCacheManager::class.java)
+            //视频比例
+            GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_4_3)
+            //GLSurfaceView、支持滤镜
+            GSYVideoType.setRenderType(GSYVideoType.GLSURFACE)
+            return this.javaClass.simpleName
+        }
     }
 }

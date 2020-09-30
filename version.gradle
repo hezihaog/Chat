@@ -19,6 +19,8 @@ ext {
             fragment_ktx                 : "androidx.fragment:fragment-ktx:1.2.0-alpha02",
             viewpager2                   : "androidx.viewpager2:viewpager2:1.0.0-beta03",
 
+            android_startup              : "com.rousetime.android:android-startup:1.0.5",
+
             arouterapi                   : "com.alibaba:arouter-api:1.4.1@aar",
             arouterannotation            : "com.alibaba:arouter-annotation:1.0.6",
             aroutercompiler              : "com.alibaba:arouter-compiler:1.2.2",

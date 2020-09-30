@@ -121,7 +121,7 @@ class App : Application() {
         //九宫格图片控件
         NineGridView.setImageLoader(object : NineGridView.ImageLoader {
             override fun onDisplayImage(context: Context?, imageView: ImageView?, url: String?) {
-                imageView?.loadUrlImage(url, R.drawable.ic_default_image)
+                imageView?.loadUrlImage(url, R.drawable.base_def_img_rect)
             }
 
             override fun getCacheImage(url: String?): Bitmap? {

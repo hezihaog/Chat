@@ -2,6 +2,7 @@ package com.zh.android.chat.moment.ui.widget;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -144,7 +145,8 @@ public class MomentInputBar extends FrameLayout {
     public static class OnActionCallbackAdapter implements OnActionCallback {
         @Override
         public boolean onClickSendBefore(String input) {
-            return false;
+            //默认实现，只要文字不为空，就不拦截
+            return !TextUtils.isEmpty(input);
         }
 
         @Override

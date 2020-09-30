@@ -24,4 +24,6 @@
     <string name="moment_replay_to">回复:%1$s"</string>
     <string name="moment_replay_to2">回复%1$s:"</string>
     <string name="moment_replay_replay_to">回复%1$s:%2$s"</string>
+    <string name="moment_all_comment">全部评论</string>
+    <string name="moment_nick_name">\@%1$s</string>
 </resources>

@@ -11,14 +11,12 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.zh.android.base.R;
 import com.zh.android.base.ui.dialog.BaseDialog;
@@ -31,8 +29,7 @@ import com.zh.android.base.ui.dialog.BaseDialog;
  * <b>Description:</b> 通用底部弹出Dialog，只定义动画和位置，内容子类去定义 <br>
  */
 public abstract class BaseBottomSheetDialog extends BaseDialog {
-
-    private BottomSheetBehavior<View> mBottomSheetbehavior;
+    private BottomSheetBehavior<View> mBottomSheetBehavior;
 
     public BaseBottomSheetDialog(@NonNull Context context, LifecycleOwner lifecycleOwner) {
         super(context, lifecycleOwner, R.style.base_bottom_sheet_dialog_style);
@@ -77,13 +74,13 @@ public abstract class BaseBottomSheetDialog extends BaseDialog {
         CoordinatorLayout container = view.findViewById(R.id.content_container);
         View contentView = onCreateContentView(getLayoutInflater(), container);
         //下拉关闭
-        mBottomSheetbehavior = BottomSheetBehavior.from(contentView);
-        mBottomSheetbehavior.setHideable(true);
+        mBottomSheetBehavior = BottomSheetBehavior.from(contentView);
+        mBottomSheetBehavior.setHideable(true);
         //设置展开高度，设置为屏幕的四分之三，这样才不会分2段展开，而是一段
         int screenHeight = getScreenHeight(view.getContext());
-        mBottomSheetbehavior.setPeekHeight((screenHeight * 3) / 4);
+        mBottomSheetBehavior.setPeekHeight((screenHeight * 3) / 4);
         //设置状态回调
-        mBottomSheetbehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_HIDDEN) {
@@ -102,8 +99,8 @@ public abstract class BaseBottomSheetDialog extends BaseDialog {
     @Override
     public void setCancelable(boolean cancelable) {
         super.setCancelable(cancelable);
-        if (mBottomSheetbehavior != null) {
-            mBottomSheetbehavior.setHideable(cancelable);
+        if (mBottomSheetBehavior != null) {
+            mBottomSheetBehavior.setHideable(cancelable);
         }
     }
 
@@ -142,8 +139,8 @@ public abstract class BaseBottomSheetDialog extends BaseDialog {
             @Override
             public void onAnimationEnd(Animation animation) {
                 super.onAnimationEnd(animation);
-                if (mBottomSheetbehavior != null && mBottomSheetbehavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
-                    mBottomSheetbehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                if (mBottomSheetBehavior != null && mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }
         });

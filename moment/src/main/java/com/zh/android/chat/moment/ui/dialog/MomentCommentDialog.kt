@@ -1,6 +1,9 @@
 package com.zh.android.chat.moment.ui.dialog
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +16,15 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.*
 import com.zh.android.base.ui.dialog.bottomsheet.BaseBottomSheetDialog
+import com.zh.android.base.util.AppBroadcastManager
+import com.zh.android.base.util.BroadcastRegistry
+import com.zh.android.base.util.SoftKeyBoardUtil
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentCommentViewBinder
 import com.zh.android.chat.moment.model.MomentCommentModel
+import com.zh.android.chat.moment.ui.widget.MomentInputBar
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.ext.getMomentService
 import me.drakeet.multitype.Items
@@ -27,11 +35,14 @@ import me.drakeet.multitype.MultiTypeAdapter
  * @date 2020/09/29
  * 动态评论弹窗
  */
-class MomentCommentDialog(context: Context, owner: LifecycleOwner) :
+class MomentCommentDialog(context: Context, private val owner: LifecycleOwner) :
     BaseBottomSheetDialog(context, owner) {
 
+    private lateinit var vRoot: View
+    private lateinit var vClose: View
     private lateinit var vRefreshLayout: SmartRefreshLayout
     private lateinit var vRefreshList: RecyclerView
+    private lateinit var vMomentInputBar: MomentInputBar
 
     /**
      * 动态Id
@@ -47,6 +58,21 @@ class MomentCommentDialog(context: Context, owner: LifecycleOwner) :
         MomentPresenter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //增加评论和刷新详情
+        BroadcastRegistry(owner)
+            .register(
+                object : BroadcastReceiver() {
+                    override fun onReceive(context: Context?, intent: Intent?) {
+                        refresh()
+                    }
+                },
+                AppConstant.Action.MOMENT_ADD_COMMENT_SUCCESS,
+                AppConstant.Action.MOMENT_DETAIL_REFRESH
+            )
+    }
+
     override fun onCreateContentView(inflater: LayoutInflater?, parent: ViewGroup?): View {
         return inflater!!.inflate(R.layout.moment_comment_dialog, parent, false)
     }
@@ -60,11 +86,20 @@ class MomentCommentDialog(context: Context, owner: LifecycleOwner) :
     }
 
     private fun findView(view: View) {
+        vRoot = view.findViewById(R.id.root)
+        vClose = view.findViewById(R.id.close)
         vRefreshLayout = view.findViewById(R.id.base_refresh_layout)
         vRefreshList = view.findViewById(R.id.base_refresh_list)
+        vMomentInputBar = view.findViewById(R.id.input_bar)
     }
 
     private fun bindView() {
+        vRoot.click {
+            dismiss()
+        }
+        vClose.click {
+            dismiss()
+        }
         vRefreshLayout.apply {
             setEnableRefresh(false)
             setOnLoadMoreListener {
@@ -101,6 +136,18 @@ class MomentCommentDialog(context: Context, owner: LifecycleOwner) :
             }
             layoutManager = LinearLayoutManager(activity)
             adapter = mListAdapter
+        }
+        vMomentInputBar.apply {
+            //隐藏点赞、评论按钮
+            hideLikeView()
+            hideCommentView()
+            setOnActionCallback(object : MomentInputBar.OnActionCallbackAdapter() {
+                override fun onClickSendAfter(inputText: String) {
+                    super.onClickSendAfter(inputText)
+                    addMomentComment(mMomentId, inputText)
+                    SoftKeyBoardUtil.hideKeyboard(vMomentInputBar)
+                }
+            })
         }
     }
 
@@ -193,6 +240,33 @@ class MomentCommentDialog(context: Context, owner: LifecycleOwner) :
                 } else {
                     vRefreshLayout.finishLoadMore(false)
                 }
+            })
+    }
+
+    /**
+     * 评论动态
+     */
+    private fun addMomentComment(
+        momentId: String,
+        content: String
+    ) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMomentPresenter.addMomentComment(momentId, userId, content)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.moment_comment_success)
+                    vMomentInputBar.setInputText("")
+                    //刷新评论列表
+                    AppBroadcastManager.sendBroadcast(AppConstant.Action.MOMENT_ADD_COMMENT_SUCCESS)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
             })
     }
 

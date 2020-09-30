@@ -2,8 +2,17 @@
     package="com.zh.android.chat.friend">
 
     <application>
-        <activity android:name=".ui.activity.AddFriendActivity" />
-        <activity android:name=".ui.activity.UserProfileActivity" />
-        <activity android:name=".ui.activity.FriendRequestRecordActivity" />
+        <activity
+            android:name=".ui.activity.AddFriendActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.UserProfileActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.FriendRequestRecordActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

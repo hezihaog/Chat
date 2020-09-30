@@ -295,11 +295,7 @@ class MomentDetailFragment : BaseFragment() {
             } else {
                 setLike(data.liked, data.likes.toString())
                 setCommentNum(data.comments.toString())
-                setOnActionCallback(object : MomentInputBar.OnActionCallback {
-                    override fun onClickSendBefore(input: String?): Boolean {
-                        return !input.isNullOrBlank()
-                    }
-
+                setOnActionCallback(object : MomentInputBar.OnActionCallbackAdapter() {
                     override fun onClickSendAfter(inputText: String) {
                         //发送评论
                         addMomentComment(data.id, inputText)

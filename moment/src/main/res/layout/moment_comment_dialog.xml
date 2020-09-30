@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,20 +11,57 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_dimen_450"
         android:layout_gravity="bottom"
-        app:round_corner_top_left="@dimen/base_dimen_5"
-        app:round_corner_top_right="@dimen/base_dimen_5">
+        app:round_corner_top_left="@dimen/base_dimen_10"
+        app:round_corner_top_right="@dimen/base_dimen_10">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@id/base_refresh_layout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/base_white">
+            android:layout_alignParentBottom="true"
+            android:background="@color/base_white"
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/base_refresh_list"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom" />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/base_dimen_10"
+                    android:src="@drawable/base_close" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/moment_all_comment"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_16" />
+            </RelativeLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_10" />
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@id/base_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/base_refresh_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <com.zh.android.chat.moment.ui.widget.MomentInputBar
+                android:id="@+id/input_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </com.gcssloop.widget.RCRelativeLayout>
 </FrameLayout>

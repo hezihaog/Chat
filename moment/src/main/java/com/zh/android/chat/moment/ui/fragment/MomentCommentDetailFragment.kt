@@ -195,10 +195,6 @@ class MomentCommentDetailFragment : BaseFragment() {
         )
         //设置回调
         vMomentInputBar.setOnActionCallback(object : MomentInputBar.OnActionCallbackAdapter() {
-            override fun onClickSendBefore(input: String?): Boolean {
-                return !input.isNullOrBlank()
-            }
-
             override fun onClickSendAfter(inputText: String) {
                 addMomentCommentReply(
                     model.id,

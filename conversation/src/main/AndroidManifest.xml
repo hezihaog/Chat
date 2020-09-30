@@ -2,7 +2,10 @@
     package="com.zh.android.chat.conversation">
 
     <application>
-        <activity android:name=".ui.activity.ConversationChatActivity" />
+        <activity
+            android:name=".ui.activity.ConversationChatActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
 
         <!-- 开机启动 -->
         <receiver android:name=".receiver.SystemBootReceiver">

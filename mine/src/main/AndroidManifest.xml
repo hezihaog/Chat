@@ -2,8 +2,17 @@
     package="com.zh.android.chat.mine">
 
     <application>
-        <activity android:name=".ui.activity.ModifyNickNameActivity" />
-        <activity android:name=".ui.activity.ModifyAvatarActivity" />
-        <activity android:name=".ui.activity.MyQrCodeActivity" />
+        <activity
+            android:name=".ui.activity.ModifyNickNameActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ModifyAvatarActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MyQrCodeActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

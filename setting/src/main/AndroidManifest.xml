@@ -1,5 +1,2 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zh.android.chat.setting">
-
-    /
-</manifest>
+    package="com.zh.android.chat.setting" />

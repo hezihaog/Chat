@@ -140,5 +140,7 @@ class App : Application() {
         CacheFactory.setCacheManager(ExoPlayerCacheManager::class.java)
         //视频比例
         GSYVideoType.setShowType(GSYVideoType.SCREEN_MATCH_FULL)
+        //GLSurfaceView、支持滤镜
+        GSYVideoType.setRenderType(GSYVideoType.GLSURFACE)
     }
 }

@@ -15,13 +15,6 @@ class UploadPresenter {
     }
 
     /**
-     * 图片压缩
-     */
-    private val mCompressPresenter by lazy {
-        CompressPresenter()
-    }
-
-    /**
      * 上传文件
      */
     fun uploadFile(filePath: String): Observable<String> {
@@ -68,9 +61,6 @@ class UploadPresenter {
     fun uploadMultipleImage(activity: Activity, filePaths: List<String>): Observable<List<String>> {
         return Observable.just(filePaths)
             .concatMap {
-                //批量压缩图片
-                mCompressPresenter.compressImage(activity, filePaths)
-            }.concatMap {
                 Observable.fromIterable(it)
             }.map {
                 File(it)

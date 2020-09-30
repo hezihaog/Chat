@@ -13,6 +13,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.SdkVersionUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zh.android.base.R;
 import com.zh.android.base.lifecycle.AppDelegateFragment;
@@ -81,8 +82,7 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
                 requestPermission(() -> {
                     configDefault(PictureSelector.create(TakePhotoDelegateFragment.this)
                             .openCamera(PictureMimeType.ofImage()), 1)
-                            .loadImageEngine(GlideEngine.createGlideEngine())
-                            .enableCrop(isCrop)
+                            .isEnableCrop(isCrop)
                             .forResult(PictureConfig.CHOOSE_REQUEST);
                 });
             }
@@ -105,8 +105,7 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
                 requestPermission(() -> {
                     configDefault(PictureSelector.create(TakePhotoDelegateFragment.this)
                             .openGallery(PictureMimeType.ofImage()), residueSelectPicCount)
-                            .loadImageEngine(GlideEngine.createGlideEngine())
-                            .enableCrop(isCrop)
+                            .isEnableCrop(isCrop)
                             .forResult(PictureConfig.CHOOSE_REQUEST);
                 });
             }
@@ -124,7 +123,6 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
                 requestPermission(() -> {
                     configDefault(PictureSelector.create(TakePhotoDelegateFragment.this)
                             .openCamera(PictureMimeType.ofVideo()), 1)
-                            .loadImageEngine(GlideEngine.createGlideEngine())
                             .forResult(PictureConfig.CHOOSE_REQUEST);
                 });
             }
@@ -142,7 +140,6 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
                 requestPermission(() -> {
                     configDefault(PictureSelector.create(TakePhotoDelegateFragment.this)
                             .openGallery(PictureMimeType.ofVideo()), residueSelectPicCount)
-                            .loadImageEngine(GlideEngine.createGlideEngine())
                             .forResult(PictureConfig.CHOOSE_REQUEST);
                 });
             }
@@ -151,17 +148,28 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
 
     private PictureSelectionModel configDefault(PictureSelectionModel model, int residueSelectPicCount) {
         return model
+                //预览图片时是否增强左右滑动图片体验
+                .isPreviewEggs(true)
                 //最少一张
                 .minSelectNum(1)
                 //最多选择多少张，外部传入，一般会动态改变
                 .maxSelectNum(residueSelectPicCount)
                 //多选
                 .selectionMode(PictureConfig.MULTIPLE)
+                //开启原图选项
+                .isOriginalImageControl(true)
+                //裁剪比例
                 .withAspectRatio(1, 1)
                 //是否展示拍照图标
                 .isCamera(true)
-                //这里不压缩，我们用自己的压缩框架进行压缩
-                .compress(false);
+                //压缩
+                .isCompress(true)
+                //图片加载引擎
+                .imageEngine(GlideEngine.createGlideEngine())
+                //关于部分华为Android 10机型会出现转圈圈较长问题，2.5.1版本增加
+                //通过利用图片加载框架的缓存方式获得该图片所在沙盒内的位置，而不在使用File Copy的方式拷贝至应用沙盒内
+                //因为发现在华为10版本的系统上拷贝文件太频繁会导致io阻塞
+                .loadCacheResourcesCallback(GlideCacheEngine.createCacheEngine());
     }
 
     /**
@@ -204,7 +212,19 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
                         if (mIsCrop) {
                             path = localMedia.getCutPath();
                         } else {
-                            path = localMedia.getPath();
+                            //适配AndroidQ
+                            if (SdkVersionUtils.checkedAndroid_Q()) {
+                                path = localMedia.getAndroidQToPath();
+                                if (path == null) {
+                                    path = localMedia.getCompressPath();
+                                }
+                            } else {
+                                path = localMedia.getCompressPath();
+                            }
+                            //这里拿不到，是视频的情况
+                            if (path == null) {
+                                path = localMedia.getRealPath();
+                            }
                         }
                         imgPaths.add(path);
                     }

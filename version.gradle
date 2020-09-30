@@ -85,7 +85,7 @@ ext {
             //压缩库
             luban                        : "top.zibin:Luban:1.1.8",
             //图片选择
-            take_photo                   : "com.github.LuckSiege.PictureSelector:picture_library:v2.5.8",
+            take_photo                   : "com.github.LuckSiege.PictureSelector:picture_library:v2.5.9",
             //九宫格图片
             nine_grid_view               : "com.lzy.widget:ninegridview:0.2.0",
             //图片预览

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/conversation_chat_msg_item_layout_receiver">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar"
         style="@style/conversation_chat_avatar"
         tools:src="@drawable/base_avatar_round" />

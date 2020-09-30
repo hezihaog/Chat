@@ -895,6 +895,8 @@ class ConversationChatFragment : BaseFragment() {
             }.map {
                 ApiUrl.getFullFileUrl(it.image!!.image)
             }.toList()
+            //因为列表是倒着排的，所以这里需要倒序一下
+            .reversed()
         //找到当前条目在列表中的位置
         val index = imageUrls.indexOf(currentImageUrl)
         if (index == -1) {

@@ -38,6 +38,10 @@ class MomentModel(
      */
     val comments: Int,
     /**
+     * 转发数量
+     */
+    val forwards: Int,
+    /**
      * 是否点赞了
      */
     var liked: Boolean,

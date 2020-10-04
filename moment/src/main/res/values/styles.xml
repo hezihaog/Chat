@@ -21,6 +21,18 @@
         <item name="android:textSize">@dimen/base_dimen_sp_13</item>
     </style>
 
+    <style name="moment_symbol_text2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">5</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/base_white</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_14</item>
+        <item name="android:layout_marginTop">@dimen/base_dimen_5</item>
+    </style>
+
     <style name="moment_symbol_layout">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -30,5 +42,17 @@
         <item name="android:paddingBottom">@dimen/base_dimen_10</item>
         <item name="android:paddingStart">@dimen/base_dimen_15</item>
         <item name="android:paddingEnd">@dimen/base_dimen_15</item>
+    </style>
+
+    <style name="moment_symbol_layout2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/base_dimen_10</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_10</item>
+        <item name="android:paddingStart">@dimen/base_dimen_15</item>
+        <item name="android:paddingEnd">@dimen/base_dimen_15</item>
+        <item name="android:layout_marginBottom">@dimen/base_dimen_5</item>
     </style>
 </resources>

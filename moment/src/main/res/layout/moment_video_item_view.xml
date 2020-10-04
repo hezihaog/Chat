@@ -52,45 +52,67 @@
         app:layout_constraintBottom_toTopOf="@id/nickname"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatar"
-            style="@style/base_avatar"
-            android:layout_marginTop="@dimen/base_dimen_10"
-            android:layout_marginBottom="@dimen/base_dimen_10"
-            tools:src="@drawable/base_avatar_round" />
+        <LinearLayout
+            android:id="@+id/avatar_layout"
+            style="@style/moment_symbol_layout2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                style="@style/base_avatar"
+                android:layout_marginTop="@dimen/base_dimen_10"
+                tools:src="@drawable/base_avatar_round" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/like_layout"
-            style="@style/moment_symbol_layout"
-            android:layout_marginBottom="@dimen/base_dimen_10"
-            android:gravity="center">
+            style="@style/moment_symbol_layout2"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/like_symbol"
                 style="@style/moment_symbol_image2"
                 android:src="@drawable/moment_love_white" />
+
+            <TextView
+                android:id="@+id/like_text"
+                style="@style/moment_symbol_text2"
+                android:text="@string/moment_like" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/comment_layout"
-            style="@style/moment_symbol_layout"
-            android:layout_marginBottom="@dimen/base_dimen_10"
-            android:gravity="center">
+            style="@style/moment_symbol_layout2"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/comment_symbol"
                 style="@style/moment_symbol_image2"
                 android:src="@drawable/moment_comment2" />
+
+            <TextView
+                android:id="@+id/comment_text"
+                style="@style/moment_symbol_text2"
+                android:text="@string/moment_comment" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/share_layout"
-            style="@style/moment_symbol_layout">
+            style="@style/moment_symbol_layout2"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/share_symbol"
                 style="@style/moment_symbol_image2"
                 android:src="@drawable/moment_share2" />
+
+            <TextView
+                android:id="@+id/forward_text"
+                style="@style/moment_symbol_text2"
+                android:text="@string/moment_forward" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,9 +40,12 @@ class MomentVideoFragment : BaseFragment() {
     private val vNickname: TextView by bindView(R.id.nickname)
     private val vContent: TextView by bindView(R.id.content)
     private val vLikeSymbol: ImageView by bindView(R.id.like_symbol)
+    private val vLikeText: TextView by bindView(R.id.like_text)
     private val vLikeLayout: View by bindView(R.id.like_layout)
     private val vCommentLayout: View by bindView(R.id.comment_layout)
+    private val vCommentText: TextView by bindView(R.id.comment_text)
     private val vShareLayout: View by bindView(R.id.share_layout)
+    private val vForwardText: TextView by bindView(R.id.forward_text)
     private val vVideoPlayer: StandardGSYVideoPlayer by bindView(R.id.video_player)
 
     /**
@@ -111,7 +114,7 @@ class MomentVideoFragment : BaseFragment() {
             } else {
                 vVideoPlayer.setGone()
             }
-            renderLike(liked)
+            renderLike(liked, likes)
             //点赞操作
             vLikeLayout.click {
                 //取反状态
@@ -128,11 +131,21 @@ class MomentVideoFragment : BaseFragment() {
                     show()
                 }
             }
+            vCommentText.text = if (comments == 0) {
+                getString(R.string.moment_comment)
+            } else {
+                comments.toString()
+            }
             //分享
             vShareLayout.click {
                 ShareUtil.shareText(fragmentActivity, content)
                 //增加一条转发记录
                 forwardMoment(id)
+            }
+            vForwardText.text = if (forwards == 0) {
+                getString(R.string.moment_forward)
+            } else {
+                forwards.toString()
             }
         }
     }
@@ -156,7 +169,7 @@ class MomentVideoFragment : BaseFragment() {
                 if (handlerErrorCode(httpModel)) {
                     httpModel?.data?.let { response ->
                         //更新点赞状态
-                        renderLike(response.liked)
+                        renderLike(response.liked, response.likes)
                         AppBroadcastManager.sendBroadcast(
                             AppConstant.Action.MOMENT_LIKE_CHANGE,
                             Intent().apply {
@@ -176,13 +189,24 @@ class MomentVideoFragment : BaseFragment() {
     /**
      * 渲染点在
      */
-    private fun renderLike(isLike: Boolean) {
+    private fun renderLike(isLike: Boolean, likes: Int) {
         vLikeSymbol.apply {
             //切换点赞颜色
             if (isLike) {
                 setImageResource(R.drawable.moment_love_red)
             } else {
                 setImageResource(R.drawable.moment_love_white)
+            }
+        }
+        vLikeText.apply {
+            text = if (likes == 0) {
+                getString(R.string.moment_like)
+            } else {
+                if (isLike) {
+                    likes.toString()
+                } else {
+                    likes.toString()
+                }
             }
         }
     }

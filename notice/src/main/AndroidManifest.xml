@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zh.android.chat.notice">
+
+    <application>
+        <activity
+            android:name=".ui.activity.NoticeActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+    </application>
+</manifest>

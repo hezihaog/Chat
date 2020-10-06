@@ -27,6 +27,7 @@ import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.mine.model.User
+import com.zh.android.chat.service.module.notice.NoticeService
 import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
@@ -45,6 +46,10 @@ class MineFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.MINE_SERVICE)
     var mMineService: MineService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.NOTICE_SERVICE)
+    var mNoticeService: NoticeService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vLogout: TextView by bindView(R.id.logout)
@@ -167,7 +172,7 @@ class MineFragment : BaseFragment() {
             setTitle(R.string.mine_mine)
             addRightImageButton(R.drawable.mine_notice, R.id.mine_item_notice)
                 .click {
-                    toast("通知")
+                    mNoticeService?.goNotice(fragmentActivity)
                 }
         }
         vRefreshList.apply {

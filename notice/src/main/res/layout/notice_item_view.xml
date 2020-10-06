@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/base_dimen_15"
+    android:paddingEnd="@dimen/base_dimen_15">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_dimen_8"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/symbol"
+            android:layout_width="@dimen/base_dimen_45"
+            android:layout_height="@dimen/base_dimen_45"
+            tools:src="@drawable/notice_system_symbol" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/base_dimen_8"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_16"
+                    tools:text="号外号外，何罗联婚啦" />
+
+                <TextView
+                    android:id="@+id/create_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/base_gray4"
+                    android:textSize="@dimen/base_dimen_sp_12"
+                    tools:text="2020-12-28" />
+            </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_2" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/base_gray4"
+                android:textSize="@dimen/base_dimen_sp_14"
+                tools:text="百年好合，早生贵子，婚姻美满" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.legacy.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_8" />
+
+    <View style="@style/base_divider2" />
+</LinearLayout>

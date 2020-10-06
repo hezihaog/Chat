@@ -1,3 +1,4 @@
+include ':notice'
 include ':mediaplayer'
 include ':moment'
 include ':mqtt'

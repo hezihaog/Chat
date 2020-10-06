@@ -293,4 +293,16 @@ object ApiUrl {
      * 删除一条动态的评论的回复，或者回复的回复
      */
     val REMOVE_MOMENT_COMMENT_REPLY = "${BASE_URL}/moment/removeMomentCommentReply";
+
+    //---------------------------- 通知 ----------------------------
+
+    /**
+     * 获取通知列表
+     */
+    val GET_NOTICE_LIST = "${BASE_URL}/notice/getNoticeList"
+
+    /**
+     * 已读一条通知
+     */
+    val READ_NOTICE = "${BASE_URL}/notice/readNotice"
 }

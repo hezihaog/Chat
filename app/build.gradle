@@ -88,6 +88,7 @@ dependencies {
     api project(path: ':discovery')
     api project(path: ':moment')
     api project(path: ':mine')
+    api project(path: ':notice')
     api project(path: ':setting')
 
     testImplementation rootProject.ext.deps.junit

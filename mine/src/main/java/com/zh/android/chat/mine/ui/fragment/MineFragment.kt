@@ -14,6 +14,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.BroadcastRegistry
+import com.zh.android.base.util.location.RxLocation
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.mine.MineUIHelper
 import com.zh.android.chat.mine.R
@@ -22,7 +23,6 @@ import com.zh.android.chat.mine.item.MineImageItemViewBinder
 import com.zh.android.chat.mine.item.MineTextItemViewBinder
 import com.zh.android.chat.mine.model.MineImageItemModel
 import com.zh.android.chat.mine.model.MineTextItemModel
-import com.zh.android.chat.mine.util.RxLocation
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.MineService

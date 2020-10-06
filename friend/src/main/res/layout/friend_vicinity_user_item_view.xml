@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/base_dimen_15"
+        android:paddingTop="@dimen/base_dimen_8"
+        android:paddingEnd="@dimen/base_dimen_15"
+        android:paddingBottom="@dimen/base_dimen_8">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            style="@style/base_avatar"
+            android:layout_width="@dimen/base_dimen_45"
+            android:layout_height="@dimen/base_dimen_45"
+            android:src="@drawable/base_avatar_round" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:layout_marginEnd="@dimen/base_dimen_15"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15"
+                tools:text="root" />
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_2" />
+
+            <TextView
+                android:id="@+id/sign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/base_dimen_sp_13"
+                android:visibility="gone"
+                tools:text="Ta很懒，什么都没写"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/base_btn_green"
+            android:paddingStart="@dimen/base_dimen_15"
+            android:paddingTop="@dimen/base_dimen_8"
+            android:paddingEnd="@dimen/base_dimen_15"
+            android:paddingBottom="@dimen/base_dimen_8"
+            android:text="@string/friend_request2"
+            android:textColor="@color/base_white"
+            android:textSize="@dimen/base_dimen_sp_14" />
+
+        <TextView
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/friend_request2"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_14"
+            android:visibility="gone"
+            tools:text="已申请" />
+    </LinearLayout>
+
+    <View style="@style/base_divider" />
+</LinearLayout>

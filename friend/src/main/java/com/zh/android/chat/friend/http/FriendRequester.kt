@@ -10,6 +10,7 @@ import com.zh.android.base.ext.toJson
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.chat.friend.model.FriendRequest
+import com.zh.android.chat.friend.model.VicinityUserModel
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
 
@@ -118,6 +119,28 @@ class FriendRequester {
             val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.IGNORE_FRIEND_REQUEST)
             return request.tag(tag)
                 .params("reqId", requestId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 根据当前经纬度，获取附近的人
+         * @param lon 经度
+         * @param lat 纬度
+         */
+        fun getVicinityUserList(
+            tag: String,
+            userId: String,
+            lon: Double,
+            lat: Double
+        ): Observable<HttpModel<List<VicinityUserModel>>> {
+            val type = genericGsonType<HttpModel<List<VicinityUserModel>>>()
+            val request: GetRequest<HttpModel<List<VicinityUserModel>>> =
+                OkGo.get(ApiUrl.GET_VICINITY_USER_LIST)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("lon", lon)
+                .params("lat", lat)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

@@ -160,9 +160,9 @@ object ApiUrl {
     val UPDATE_POSITION = "${BASE_URL}/userPosition/updateUserPosition"
 
     /**
-     * 获取附近的人，并排序
+     * 获取附近的人列表
      */
-    val GET_VICINITY_SORT = "${BASE_URL}/userPosition/getVicinitySort"
+    val GET_VICINITY_USER_LIST = "${BASE_URL}/userPosition/getVicinityUserList"
 
     //---------------------------- 好友 ----------------------------
 

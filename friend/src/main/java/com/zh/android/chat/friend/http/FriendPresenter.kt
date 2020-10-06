@@ -2,6 +2,7 @@ package com.zh.android.chat.friend.http
 
 import com.zh.android.base.http.HttpModel
 import com.zh.android.chat.friend.model.FriendRequest
+import com.zh.android.chat.friend.model.VicinityUserModel
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
 
@@ -74,5 +75,18 @@ class FriendPresenter {
         requestId: String
     ): Observable<HttpModel<*>> {
         return FriendRequester.ignoreFriendRequest(TAG, requestId)
+    }
+
+    /**
+     * 根据当前经纬度，获取附近的人
+     * @param lon 经度
+     * @param lat 纬度
+     */
+    fun getVicinityUserList(
+        userId: String,
+        lon: Double,
+        lat: Double
+    ): Observable<HttpModel<List<VicinityUserModel>>> {
+        return FriendRequester.getVicinityUserList(TAG, userId, lon, lat)
     }
 }

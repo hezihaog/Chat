@@ -1,4 +1,4 @@
-package com.zh.android.chat.mine.util;
+package com.zh.android.base.util.location;
 
 import android.Manifest;
 import android.app.Activity;

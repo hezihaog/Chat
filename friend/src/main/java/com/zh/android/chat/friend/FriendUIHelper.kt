@@ -19,5 +19,14 @@ class FriendUIHelper private constructor() {
                 .build(ARouterUrl.FRIEND_REQUEST_RECORD)
                 .startNavigation(activity)
         }
+
+        /**
+         * 跳转到附近的人
+         */
+        fun goVicinityUser(activity: Activity) {
+            ARouter.getInstance()
+                .build(ARouterUrl.FRIEND_VICINITY_USER)
+                .startNavigation(activity)
+        }
     }
 }

@@ -89,6 +89,11 @@ class FriendMainFragment : BaseFragment() {
     override fun onBindView(view: View?) {
         vTopBar.apply {
             setTitle(getString(R.string.friend_module_name))
+            addRightTextButton(R.string.friend_vicinity_user, R.id.friend_vicinity_user)
+                .click {
+                    //附近的人
+                    FriendUIHelper.goVicinityUser(fragmentActivity)
+                }
         }
         vRefreshList.apply {
             layoutManager = LinearLayoutManager(fragmentActivity)

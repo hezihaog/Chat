@@ -20,4 +20,5 @@
     <string name="friend_vicinity_user">附近的人</string>
     <string name="friend_is_send_request">已申请</string>
     <string name="friend_reject_add">对方拒绝添加</string>
+    <string name="friend_distance">%1$skm</string>
 </resources>

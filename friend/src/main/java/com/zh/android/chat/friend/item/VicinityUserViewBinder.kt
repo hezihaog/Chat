@@ -45,6 +45,11 @@ class VicinityUserViewBinder(
                     text = sign
                 }
             }
+            holder.vDistance.text =
+                context.resources.getString(
+                    R.string.friend_distance,
+                    distance.toInt().toString()
+                )
             holder.vTip.apply {
                 if (isSendRequest) {
                     setVisible()
@@ -80,6 +85,7 @@ class VicinityUserViewBinder(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val vAvatar: ImageView = view.findViewById(R.id.avatar)
         val vNickName: TextView = view.findViewById(R.id.nickname)
+        val vDistance: TextView = view.findViewById(R.id.distance)
         val vSign: TextView = view.findViewById(R.id.sign)
         val vRequest: TextView = view.findViewById(R.id.request)
         val vTip: TextView = view.findViewById(R.id.tip)

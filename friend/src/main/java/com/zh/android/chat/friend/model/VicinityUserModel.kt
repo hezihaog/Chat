@@ -17,6 +17,10 @@ data class VicinityUserModel(
      */
     val latitude: Double,
     /**
+     * 距离，单位千米
+     */
+    val distance: Double,
+    /**
      * 用户Id
      */
     val userId: String,
@@ -39,7 +43,7 @@ data class VicinityUserModel(
     /**
      * 是否发送了好友申请
      */
-    var isSendRequest:Boolean,
+    var isSendRequest: Boolean,
     /**
      * 好友申请状态
      */

@@ -31,14 +31,30 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/nickname"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:textColor="@color/base_black"
-                android:textSize="@dimen/base_dimen_sp_15"
-                tools:text="root" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15"
+                    tools:text="root" />
+
+                <TextView
+                    android:id="@+id/distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textColor="@color/base_gray4"
+                    android:textSize="@dimen/base_dimen_sp_13"
+                    tools:text="100km" />
+            </LinearLayout>
 
             <androidx.legacy.widget.Space
                 android:layout_width="match_parent"

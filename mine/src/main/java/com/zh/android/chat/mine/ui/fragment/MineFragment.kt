@@ -12,10 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.handlerErrorCode
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.*
 import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.mine.MineUIHelper
@@ -25,6 +22,7 @@ import com.zh.android.chat.mine.item.MineImageItemViewBinder
 import com.zh.android.chat.mine.item.MineTextItemViewBinder
 import com.zh.android.chat.mine.model.MineImageItemModel
 import com.zh.android.chat.mine.model.MineTextItemModel
+import com.zh.android.chat.mine.util.RxLocation
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.MineService
@@ -59,6 +57,10 @@ class MineFragment : BaseFragment() {
 
     private val mMinePresenter by lazy {
         MinePresenter()
+    }
+
+    private val mRxLocation by lazy {
+        RxLocation()
     }
 
     private val mListItems by lazy {
@@ -131,6 +133,29 @@ class MineFragment : BaseFragment() {
                     }
             }
         }, AppConstant.Action.UPDATE_NICKNAME)
+        //注册位置信息
+        mRxLocation.getLocation(fragmentActivity)
+            .lifecycle(lifecycleOwner)
+            .subscribe({ event ->
+                val userId = mLoginService?.getUserId()
+                if (userId.isNullOrBlank()) {
+                    return@subscribe
+                }
+                mMinePresenter.updateUserPosition(userId, event.longitude, event.latitude)
+                    .ioToMain()
+                    .lifecycle(lifecycleOwner)
+                    .subscribe({
+                        if (handlerErrorCode(it)) {
+                            toast("上传位置信息成功")
+                        }
+                    }, {
+                        it.printStackTrace()
+                        toast("上传位置信息失败")
+                    })
+            }, {
+                it.printStackTrace()
+                toast("获取位置信息失败")
+            })
     }
 
     override fun onInflaterViewId(): Int {

@@ -74,5 +74,26 @@ class MineRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 更新位置信息
+         * @param lon 经度
+         * @param lat 纬度
+         */
+        fun updateUserPosition(
+            tag: String,
+            userId: String,
+            lon: Double,
+            lat: Double
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> = OkGo.post(ApiUrl.UPDATE_POSITION)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("lon", lon)
+                .params("lat", lat)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

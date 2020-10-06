@@ -54,7 +54,7 @@ object ApiUrl {
      * 主机地址
      */
     private val HOST: String
-        get() = "192.168.1.106"
+        get() = "192.168.43.110"
 
     /**
      * Url基础部分
@@ -151,6 +151,18 @@ object ApiUrl {
      * 更新头像
      */
     val UPDATE_AVATAR = "${BASE_URL}/user/updateAvatar"
+
+    //---------------------------- 位置 ----------------------------
+
+    /**
+     * 更新位置信息
+     */
+    val UPDATE_POSITION = "${BASE_URL}/userPosition/updateUserPosition"
+
+    /**
+     * 获取附近的人，并排序
+     */
+    val GET_VICINITY_SORT = "${BASE_URL}/userPosition/getVicinitySort"
 
     //---------------------------- 好友 ----------------------------
 

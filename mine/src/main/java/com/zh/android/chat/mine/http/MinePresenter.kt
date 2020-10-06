@@ -47,4 +47,18 @@ class MinePresenter {
     ): Observable<HttpModel<User>> {
         return MineRequester.updateAvatar(TAG, userId, avatarUrl)
     }
+
+    /**
+     * 更新位置信息
+     * @param userId 用户Id
+     * @param lon 经度
+     * @param lat 纬度
+     */
+    fun updateUserPosition(
+        userId: String,
+        lon: Double,
+        lat: Double
+    ): Observable<HttpModel<*>> {
+        return MineRequester.updateUserPosition(TAG, userId, lon, lat)
+    }
 }

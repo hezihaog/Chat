@@ -165,6 +165,10 @@ class MineFragment : BaseFragment() {
     override fun onBindView(view: View?) {
         vTopBar.apply {
             setTitle(R.string.mine_mine)
+            addRightImageButton(R.drawable.mine_notice, R.id.mine_item_notice)
+                .click {
+                    toast("通知")
+                }
         }
         vRefreshList.apply {
             layoutManager = LinearLayoutManager(fragmentActivity)

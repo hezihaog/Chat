@@ -42,12 +42,7 @@ class ConversationMainViewBinder(
                     setTextWithDefault(fromUser.nickname)
                 }
             }
-            holder.vMsg.run {
-                text = context.resources.getString(
-                    R.string.conversation_say_tip,
-                    fromUser.nickname, ChatMsgHelper.getChatText(context, item)
-                )
-            }
+            holder.vMsg.text = ChatMsgHelper.getChatText(context, item)
             holder.itemView.click {
                 itemClickCallback(this)
             }

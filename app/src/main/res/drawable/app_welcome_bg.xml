@@ -6,6 +6,6 @@
         </shape>
     </item>
     <item android:gravity="center">
-        <bitmap android:src="@mipmap/ic_launcher_round" />
+        <bitmap android:src="@mipmap/ic_launcher" />
     </item>
 </layer-list>

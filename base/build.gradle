@@ -89,6 +89,8 @@ dependencies {
     api rootProject.ext.deps.take_photo
     api rootProject.ext.deps.image_viewer
 
+    api rootProject.ext.deps.web_view
+
     testImplementation rootProject.ext.deps.junit
     androidTestImplementation rootProject.ext.deps.runner
     androidTestImplementation rootProject.ext.deps.espresso

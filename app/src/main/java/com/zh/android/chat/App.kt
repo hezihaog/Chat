@@ -28,6 +28,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.shuyu.gsyvideoplayer.cache.CacheFactory
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType
+import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
@@ -66,6 +67,7 @@ class App : Application() {
             .addStartup(RouterStartup())
             .addStartup(RefreshStartup())
             .addStartup(ImageLoaderStartup())
+            .addStartup(WebViewStartup())
             .addStartup(VideoPlayerStartup())
             .build(this)
             .start()
@@ -214,6 +216,24 @@ class App : Application() {
                     return null
                 }
             })
+            return this.javaClass.simpleName
+        }
+    }
+
+    /**
+     * WebView初始化
+     */
+    private class WebViewStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun waitOnMainThread(): Boolean {
+            return false
+        }
+
+        override fun create(context: Context): String? {
+            X5WebUtils.init(context)
             return this.javaClass.simpleName
         }
     }

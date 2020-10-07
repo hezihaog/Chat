@@ -9,6 +9,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.web.BrowseActivity
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.notice.R
 import com.zh.android.chat.notice.http.NoticePresenter
@@ -39,6 +40,10 @@ class NoticeFragment : BaseFragment() {
             register(NoticeModel::class.java, NoticeItemViewBinder { position, item ->
                 //已读
                 readNotice(position, item.id)
+                //跳转到Web页面
+                if (item.detail.isNotBlank()) {
+                    BrowseActivity.start(fragmentActivity, item.detail)
+                }
             })
         }
     }

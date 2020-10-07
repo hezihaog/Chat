@@ -109,7 +109,9 @@ ext {
 
             //mqtt
             mqtt                         : "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0",
-            mqtt_service                 : "org.eclipse.paho:org.eclipse.paho.android.service:1.1.1"
+            mqtt_service                 : "org.eclipse.paho:org.eclipse.paho.android.service:1.1.1",
+
+            web_view                     : "cn.yc:WebViewLib:1.4.0"
     ]
 
     android = [

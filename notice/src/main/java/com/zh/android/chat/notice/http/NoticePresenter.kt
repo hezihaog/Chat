@@ -34,4 +34,13 @@ class NoticePresenter {
     ): Observable<HttpModel<*>> {
         return NoticeRequester.readNotice(TAG, noticeId, userId)
     }
+
+    /**
+     * 已读所有通知
+     */
+    fun readAllNotice(
+        userId: String
+    ): Observable<HttpModel<*>> {
+        return NoticeRequester.readAllNotice(TAG, userId)
+    }
 }

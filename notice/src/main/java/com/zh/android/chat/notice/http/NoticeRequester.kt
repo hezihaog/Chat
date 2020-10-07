@@ -39,7 +39,7 @@ class NoticeRequester {
         }
 
         /**
-         * 获取通知列表
+         * 已读一条通知
          */
         fun readNotice(
             tag: String,
@@ -50,8 +50,24 @@ class NoticeRequester {
             val request: PostRequest<HttpModel<*>> =
                 OkGo.post(ApiUrl.READ_NOTICE)
             return request.tag(tag)
-                .params("userId", userId)
                 .params("noticeId", noticeId)
+                .params("userId", userId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 已读所有通知
+         */
+        fun readAllNotice(
+            tag: String,
+            userId: String
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.READ_ALL_NOTICE)
+            return request.tag(tag)
+                .params("userId", userId)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

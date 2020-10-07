@@ -2,4 +2,6 @@
 <resources>
     <string name="notice_module_name">通知</string>
     <string name="notice_read_all">全部已读</string>
+    <string name="notice_read_all_tip">是否全部已读？</string>
+    <string name="notice_read_all_success">全部已读成功</string>
 </resources>

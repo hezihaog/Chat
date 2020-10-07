@@ -305,4 +305,9 @@ object ApiUrl {
      * 已读一条通知
      */
     val READ_NOTICE = "${BASE_URL}/notice/readNotice"
+
+    /**
+     * 已读所有通知
+     */
+    val READ_ALL_NOTICE = "${BASE_URL}/notice/readAllNotice"
 }

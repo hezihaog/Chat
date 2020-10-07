@@ -2,6 +2,7 @@ package com.zh.android.chat.notice.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -65,7 +66,17 @@ class NoticeFragment : BaseFragment() {
             }
             setTitle(R.string.notice_module_name)
             addRightTextButton(R.string.notice_read_all, R.id.notice_read_all).click {
-                //全部已读
+                AlertDialog.Builder(fragmentActivity)
+                    .setMessage(R.string.notice_read_all_tip)
+                    .setPositiveButton(R.string.base_confirm) { _, _ ->
+                        //全部已读
+                        readAllNotice()
+                    }
+                    .setNegativeButton(R.string.base_cancel) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
             }
         }
         vRefreshLayout.apply {
@@ -98,7 +109,7 @@ class NoticeFragment : BaseFragment() {
     }
 
     /**
-     * 获取动态点赞列表
+     * 获取通知列表
      */
     private fun getNoticeList(
         pageNum: Int
@@ -187,6 +198,31 @@ class NoticeFragment : BaseFragment() {
                     }
                     mListAdapter.notifyDataSetChanged()
                     //跳转到详情页
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
+    }
+
+    /**
+     * 已读所有通知
+     */
+    private fun readAllNotice() {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mNoticePresenter.readAllNotice(userId)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    toast(R.string.notice_read_all_success)
+                    mListItems.filterIsInstance<NoticeModel>().map {
+                        it.read = true
+                    }
+                    mListAdapter.notifyDataSetChanged()
                 }
             }, {
                 it.printStackTrace()

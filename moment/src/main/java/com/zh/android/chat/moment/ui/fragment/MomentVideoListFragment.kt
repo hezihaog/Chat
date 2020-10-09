@@ -2,7 +2,6 @@ package com.zh.android.chat.moment.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -95,8 +94,6 @@ class MomentVideoListFragment : BaseFragment() {
             setTopBarBackgroundColor(resources.getColor(R.color.base_transparent))
             //隐藏分割线
             setBackgroundDividerEnabled(false)
-            //居中标题
-            setTitleGravity(Gravity.CENTER)
             //白色字体
             setTitleTextColor(resources.getColor(R.color.base_white))
             addLeftBackImageButton().apply {
@@ -105,7 +102,6 @@ class MomentVideoListFragment : BaseFragment() {
                     fragmentActivity.finish()
                 }
             }
-            setTitle(R.string.moment_module_name)
             addRightImageButton(R.drawable.base_search_white, R.id.topbar_item_search)
                 .click {
                 }

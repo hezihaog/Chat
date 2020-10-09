@@ -131,6 +131,7 @@ public class TopBar extends RelativeLayout {
     }
 
     void getCommonFieldFormTypedArray(Context context, TypedArray array) {
+        mTopBarHeight = array.getDimensionPixelSize(R.styleable.TopBar_topbar_height, dp2px(context, 48));
         //标题
         mTitleText = array.getString(R.styleable.TopBar_topbar_title_text);
         //子标题
@@ -711,7 +712,7 @@ public class TopBar extends RelativeLayout {
 
     private int getTopBarHeight() {
         if (mTopBarHeight == -1) {
-            mTopBarHeight = dp2px(getContext(), 56);
+            mTopBarHeight = dp2px(getContext(), 48);
         }
         return mTopBarHeight;
     }

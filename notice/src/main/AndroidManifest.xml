@@ -5,6 +5,7 @@
         <activity
             android:name=".ui.activity.NoticeActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <service android:name=".service.NoticeMqttService" />
     </application>

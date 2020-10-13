@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.PopupMenu
 import com.linghit.base.util.argument.bindArgument
 import com.ycbjie.webviewlib.inter.InterWebListener
 import com.ycbjie.webviewlib.utils.X5WebUtils
@@ -15,6 +17,8 @@ import com.zh.android.base.R
 import com.zh.android.base.core.BaseActivity
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.setGone
+import com.zh.android.base.ext.toast
+import com.zh.android.base.util.ClipboardUtil
 import com.zh.android.base.widget.TopBar
 import kotterknife.bindView
 
@@ -83,6 +87,30 @@ class BrowseActivity : BaseActivity() {
             }
             addRightImageButton(R.drawable.base_more, R.id.topbar_item_more).click {
                 //更多
+                PopupMenu(fragmentActivity, it).apply {
+                    menuInflater.inflate(R.menu.base_browse_menu, menu)
+                    setOnMenuItemClickListener { menu ->
+                        when (menu.itemId) {
+                            R.id.base_refresh -> {
+                                vWebView.reLoadView()
+                                true
+                            }
+                            R.id.copy_web_path -> {
+                                ClipboardUtil.copyToClipboard(fragmentActivity, vWebView.url)
+                                toast(R.string.base_copy_success)
+                                true
+                            }
+                            R.id.open_system_browse -> {
+                                openForSystemBrowse(vWebView.url)
+                                true
+                            }
+                            else -> {
+                                false
+                            }
+                        }
+                    }
+                    show()
+                }
             }
         }
         vProgress.apply {
@@ -125,6 +153,23 @@ class BrowseActivity : BaseActivity() {
                 }
             })
             loadUrl(mLoadUrl)
+        }
+    }
+
+    /**
+     * 系统浏览器打开
+     */
+    private fun openForSystemBrowse(url: String) {
+        val intent = Intent.createChooser(
+            Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(url)
+            },
+            getString(R.string.base_please_choose_browser)
+        )
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            toast(R.string.base_your_not_browser)
         }
     }
 }

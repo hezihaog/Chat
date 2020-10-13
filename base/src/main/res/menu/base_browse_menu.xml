@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/base_refresh"
+        android:title="@string/base_refresh" />
+
+    <item
+        android:id="@+id/copy_web_path"
+        android:title="@string/base_copy_web_path" />
+
+    <item
+        android:id="@+id/open_system_browse"
+        android:title="@string/open_system_browse" />
+</menu>

@@ -60,6 +60,11 @@ class AppConstant private constructor() {
              * 通知Id
              */
             const val NOTICE_ID = "notice_id"
+
+            /**
+             * 通知的Detail
+             */
+            const val NOTICE_DETAIL = "notice_detail"
         }
     }
 

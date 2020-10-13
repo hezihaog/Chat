@@ -15,6 +15,9 @@
     <string name="base_delete_success">删除成功</string>
     <string name="base_copy_success">复制成功</string>
 
+    <string name="base_please_choose_browser">请选择浏览器</string>
+    <string name="base_your_not_browser">您没有安装浏览器</string>
+
     <string name="base_request_error_tip_msg">获取数据失败，请稍候重试</string>
     <string name="base_request_data_is_wrong">获取的数据有误，请稍候重试</string>
     <string name="base_request_no_network">获取数据失败，当前未连接网络</string>
@@ -24,6 +27,8 @@
     <string name="base_setting">设置</string>
 
     <string name="base_refresh">刷新</string>
+    <string name="base_copy_web_path">复制网址</string>
+    <string name="open_system_browse">从系统浏览器打开</string>
 
     <string name="base_right_arrow"></string>
 

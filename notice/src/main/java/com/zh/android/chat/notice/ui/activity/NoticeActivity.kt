@@ -1,5 +1,6 @@
 package com.zh.android.chat.notice.ui.activity
 
+import android.content.Intent
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
@@ -26,5 +27,11 @@ class NoticeActivity : BaseActivity() {
                 )
             )
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val fragment = findFragment(NoticeFragment::class.java)
+        fragment?.onNewIntent(intent)
     }
 }

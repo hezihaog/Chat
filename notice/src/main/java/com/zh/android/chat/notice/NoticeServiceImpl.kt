@@ -59,6 +59,7 @@ class NoticeServiceImpl : NoticeService {
                 //跳转到通知页面
                 Intent(mContext, NoticeActivity::class.java).apply {
                     putExtra(AppConstant.Key.NOTICE_ID, it.id)
+                    putExtra(AppConstant.Key.NOTICE_DETAIL, it.detail)
                 },
                 R.drawable.base_notification_icon,
                 notice.title,

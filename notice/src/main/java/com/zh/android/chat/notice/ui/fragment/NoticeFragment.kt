@@ -1,11 +1,13 @@
 package com.zh.android.chat.notice.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.RegexUtils
+import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
@@ -15,6 +17,7 @@ import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.notice.R
 import com.zh.android.chat.notice.http.NoticePresenter
 import com.zh.android.chat.notice.item.NoticeItemViewBinder
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.notice.model.NoticeModel
 import kotterknife.bindView
@@ -31,6 +34,16 @@ class NoticeFragment : BaseFragment() {
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
 
+    /**
+     * 通知Id
+     */
+    private var mNoticeId: String by bindArgument(AppConstant.Key.NOTICE_ID, "")
+
+    /**
+     * 通知Detail
+     */
+    private var mNoticeDetail: String by bindArgument(AppConstant.Key.NOTICE_DETAIL, "")
+
     private var mCurrentPage: Int = ApiUrl.FIRST_PAGE
 
     private val mListItems by lazy {
@@ -43,9 +56,7 @@ class NoticeFragment : BaseFragment() {
                 readNotice(position, item.id)
                 //跳转到Web页面
                 item.detail?.let {
-                    if (it.isNotBlank() && RegexUtils.isURL(it)) {
-                        BrowseActivity.start(fragmentActivity, it)
-                    }
+                    goWebBrowse(it)
                 }
             })
         }
@@ -103,7 +114,23 @@ class NoticeFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
+        //如果前面传了通知Id，直接已读
+        if (mNoticeId.isNotBlank()) {
+            readNotice(-1, mNoticeId)
+        }
+        //如果前面传了通知Detail，直接跳转
+        if (mNoticeDetail.isNotBlank()) {
+            goWebBrowse(mNoticeDetail)
+        }
         vRefreshLayout.autoRefresh()
+    }
+
+    fun onNewIntent(intent: Intent?) {
+        intent?.run {
+            mNoticeId = getStringExtra(AppConstant.Key.NOTICE_ID) ?: ""
+            mNoticeDetail = getStringExtra(AppConstant.Key.NOTICE_DETAIL) ?: ""
+        }
+        setData()
     }
 
     private fun refresh() {
@@ -200,12 +227,13 @@ class NoticeFragment : BaseFragment() {
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
-                    val model = mListItems[position]
-                    if (model is NoticeModel) {
-                        model.read = true
+                    if (position != -1) {
+                        val model = mListItems[position]
+                        if (model is NoticeModel) {
+                            model.read = true
+                        }
+                        mListAdapter.notifyDataSetChanged()
                     }
-                    mListAdapter.notifyDataSetChanged()
-                    //跳转到详情页
                 }
             }, {
                 it.printStackTrace()
@@ -236,5 +264,14 @@ class NoticeFragment : BaseFragment() {
                 it.printStackTrace()
                 showRequestError()
             })
+    }
+
+    /**
+     * 跳转到Web页面
+     */
+    private fun goWebBrowse(url: String) {
+        if (url.isNotBlank() && RegexUtils.isURL(url)) {
+            BrowseActivity.start(fragmentActivity, url)
+        }
     }
 }

@@ -85,6 +85,9 @@ class BrowseActivity : BaseActivity() {
             addLeftBackImageButton().click {
                 finish()
             }
+            addLeftImageButton(R.drawable.base_close, R.id.topbar_item_close).click {
+                fragmentActivity.finish()
+            }
             addRightImageButton(R.drawable.base_more, R.id.topbar_item_more).click {
                 //更多
                 PopupMenu(fragmentActivity, it).apply {
@@ -154,6 +157,14 @@ class BrowseActivity : BaseActivity() {
             })
             loadUrl(mLoadUrl)
         }
+    }
+
+    override fun onBackPressedSupport() {
+        if (vWebView.canGoBack()) {
+            vWebView.goBack()
+            return
+        }
+        super.onBackPressedSupport()
     }
 
     /**

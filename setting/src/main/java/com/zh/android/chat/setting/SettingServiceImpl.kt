@@ -14,4 +14,8 @@ import com.zh.android.chat.service.module.setting.SettingService
 class SettingServiceImpl : SettingService {
     override fun init(context: Context?) {
     }
+
+    override fun getBaseUrl(): String {
+        return SettingStorage.getBaseUrl()
+    }
 }

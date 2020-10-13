@@ -54,7 +54,7 @@ object ApiUrl {
      * 主机地址
      */
     private val HOST: String
-        get() = "192.168.1.106"
+        get() = "192.168.1.101"
 
     /**
      * Url基础部分

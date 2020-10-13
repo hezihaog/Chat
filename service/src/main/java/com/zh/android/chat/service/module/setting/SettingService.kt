@@ -7,4 +7,8 @@ import com.alibaba.android.arouter.facade.template.IProvider
  * @date 2020/08/26
  */
 interface SettingService : IProvider {
+    /**
+     * 获取配置的BaseUrl
+     */
+    fun getBaseUrl(): String
 }

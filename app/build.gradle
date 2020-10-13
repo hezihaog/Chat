@@ -8,7 +8,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.zh.android.chat"
+        applicationId "com.zh.android.circle"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 100
@@ -43,13 +43,13 @@ android {
         //开发包
         developer {
             applicationIdSuffix ".internal"
-            manifestPlaceholders = [app_name: "Chat-测试"]
+            manifestPlaceholders = [app_name: "Circle圈子-测试"]
             buildConfigField("boolean", "DEBUG_ENABLE", "true")
         }
 
         //正式包
         production {
-            manifestPlaceholders = [app_name: "Chat"]
+            manifestPlaceholders = [app_name: "Circle圈子"]
             buildConfigField("boolean", "DEBUG_ENABLE", "false")
         }
     }

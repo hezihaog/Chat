@@ -4,4 +4,7 @@
     <string name="notice_read_all">全部已读</string>
     <string name="notice_read_all_tip">是否全部已读？</string>
     <string name="notice_read_all_success">全部已读成功</string>
+
+    <string name="notice_message_notification_channel_id">10010</string>
+    <string name="notice_message_notification_channel_name">通知消息</string>
 </resources>

@@ -9,6 +9,7 @@ import com.zh.android.chat.service.module.home.HomeService
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.moment.MomentService
+import com.zh.android.chat.service.module.notice.NoticeService
 import com.zh.android.chat.service.module.setting.SettingService
 
 /**
@@ -73,4 +74,12 @@ fun getMineService(): MineService? {
  */
 fun getSettingService(): SettingService? {
     return ARouter.getInstance().build(ARouterUrl.SETTING_SERVICE).navigation() as? SettingService
+}
+
+/**
+ * 获取通知模块服务
+ */
+fun getNoticeService(): NoticeService? {
+    return ARouter.getInstance().build(ARouterUrl.NOTICE_SERVICE)
+        .navigation() as? NoticeService
 }

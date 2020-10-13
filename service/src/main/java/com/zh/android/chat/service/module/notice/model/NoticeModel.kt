@@ -1,4 +1,4 @@
-package com.zh.android.chat.notice.model
+package com.zh.android.chat.service.module.notice.model
 
 import java.io.Serializable
 
@@ -23,7 +23,7 @@ data class NoticeModel(
     /**
      * 详情
      */
-    val detail: String,
+    val detail: String?,
     /**
      * 通知类型，1为系统通知
      */

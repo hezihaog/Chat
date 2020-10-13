@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.RegexUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
@@ -14,8 +15,8 @@ import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.notice.R
 import com.zh.android.chat.notice.http.NoticePresenter
 import com.zh.android.chat.notice.item.NoticeItemViewBinder
-import com.zh.android.chat.notice.model.NoticeModel
 import com.zh.android.chat.service.ext.getLoginService
+import com.zh.android.chat.service.module.notice.model.NoticeModel
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -41,8 +42,10 @@ class NoticeFragment : BaseFragment() {
                 //已读
                 readNotice(position, item.id)
                 //跳转到Web页面
-                if (item.detail.isNotBlank()) {
-                    BrowseActivity.start(fragmentActivity, item.detail)
+                item.detail?.let {
+                    if (it.isNotBlank() && RegexUtils.isURL(it)) {
+                        BrowseActivity.start(fragmentActivity, it)
+                    }
                 }
             })
         }

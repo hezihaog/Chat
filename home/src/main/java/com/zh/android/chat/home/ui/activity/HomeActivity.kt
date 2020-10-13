@@ -16,6 +16,7 @@ import com.zh.android.chat.home.R
 import com.zh.android.chat.home.ui.fragment.HomeMainFragment
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.conversation.ConversationService
+import com.zh.android.chat.service.module.notice.NoticeService
 
 /**
  * @author wally
@@ -26,6 +27,9 @@ class HomeActivity : BaseActivity() {
     @JvmField
     @Autowired(name = ARouterUrl.CONVERSATION_SERVICE)
     var mConversationService: ConversationService? = null
+    @JvmField
+    @Autowired(name = ARouterUrl.NOTICE_SERVICE)
+    var mNoticeService: NoticeService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,8 @@ class HomeActivity : BaseActivity() {
         }
         //开启会话模块的推送服务
         mConversationService?.startMqttService()
+        //开启通知模块的推送服务
+        mNoticeService?.startMqttService()
         //获取唯一设备Id
         RxPermissions(this).apply {
             request(

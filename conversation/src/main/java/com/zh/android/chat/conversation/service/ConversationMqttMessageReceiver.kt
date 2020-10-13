@@ -7,7 +7,7 @@ import com.zh.android.chat.service.module.conversation.model.ChatRecord
  * @date 2020/09/16
  * MQTT消息回调接口
  */
-interface MqttMessageReceiver {
+interface ConversationMqttMessageReceiver {
     /**
      * 接收到离线聊天消息
      */

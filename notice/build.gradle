@@ -52,6 +52,8 @@ dependencies {
 
     api project(path: ':base')
     api project(path: ':service')
+    //推送
+    api project(path: ':mqtt')
 
     kapt rootProject.ext.deps.aroutercompiler
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler

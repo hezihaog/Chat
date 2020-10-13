@@ -1,4 +1,4 @@
-package com.zh.android.chat.conversation.service
+package com.zh.android.chat.notice.service
 
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -11,22 +11,24 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.ioToMain
 import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.chat.service.AppConstant
-import com.zh.android.chat.service.ext.getConversationService
 import com.zh.android.chat.service.ext.getLoginService
-import com.zh.android.chat.service.module.conversation.model.ChatRecord
-import com.zh.android.chat.service.module.mqtt.*
+import com.zh.android.chat.service.ext.getNoticeService
+import com.zh.android.chat.service.module.mqtt.MQTT_ACCOUNT
+import com.zh.android.chat.service.module.mqtt.MQTT_PASSWORD
+import com.zh.android.chat.service.module.mqtt.MQTT_URL
+import com.zh.android.chat.service.module.mqtt.MqttStorage
+import com.zh.android.chat.service.module.notice.model.NoticeModel
 import com.zh.android.mqtt.MqttOption
 import com.zh.android.mqtt.MqttProxy
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 
 /**
- * <b>Package:</b> com.tongwei.smarttoilet.notice.service <br>
- * <b>Create Date:</b> 2019-09-05  13:39 <br>
- * <b>@author:</b> zihe <br>
- * <b>Description:</b> 通知模块的Mqtt服务 <br>
+ * @author wally
+ * @date 2020/10/13
+ * 通知模块的MQTT服务
  */
-class ConversationMqttService : Service() {
+class NoticeMqttService : Service() {
     private val mDisposables: CompositeDisposable = CompositeDisposable()
 
     /**
@@ -123,12 +125,12 @@ class ConversationMqttService : Service() {
                 add(
                     subscribeMessage()
                         .ioToMain()
-                        .compose(ConversationMessageParser.parseMqttMessage(object :
-                            ConversationMqttMessageReceiver {
-                            override fun onReceiveOfflineChatMsg(model: ChatRecord) {
+                        .compose(NoticeMessageParser.parseMqttMessage(object :
+                            NoticeMqttMessageReceiver {
+                            override fun onReceiveNoticeMsg(model: NoticeModel) {
                                 //接收到离线聊天消息
-                                LogUtils.d("接收到离线聊天消息：$model")
-                                getConversationService()?.sendOfflineChatMessageNotification(
+                                LogUtils.d("接收到通知消息：$model")
+                                getNoticeService()?.sendNoticeMessageNotification(
                                     model
                                 )
                             }
@@ -178,10 +180,7 @@ class ConversationMqttService : Service() {
 
     private fun getTopic(): Array<String> {
         return mutableListOf<String>().apply {
-            val userId = getLoginService()?.getUserId()
-            if (userId != null) {
-                add(userId.toUserMqttTopic())
-            }
+            add("/notice")
         }.toTypedArray()
     }
 }

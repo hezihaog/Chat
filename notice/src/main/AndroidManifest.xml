@@ -6,5 +6,6 @@
             android:name=".ui.activity.NoticeActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
+        <service android:name=".service.NoticeMqttService" />
     </application>
 </manifest>

@@ -55,6 +55,11 @@ class AppConstant private constructor() {
              * 动态数据
              */
             const val MOMENT_INFO = "moment_info"
+
+            /**
+             * 通知Id
+             */
+            const val NOTICE_ID = "notice_id"
         }
     }
 

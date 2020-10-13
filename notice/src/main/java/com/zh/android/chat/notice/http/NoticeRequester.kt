@@ -9,7 +9,7 @@ import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.base.http.PageModel
-import com.zh.android.chat.notice.model.NoticeModel
+import com.zh.android.chat.service.module.notice.model.NoticeModel
 import io.reactivex.Observable
 
 /**

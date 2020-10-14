@@ -225,6 +225,11 @@ object ApiUrl {
     val GET_MOMENT_LIST_BY_VIDEO_TYPE = "${BASE_URL}/moment/getMomentListByVideoType"
 
     /**
+     * 搜索动态
+     */
+    val SEARCH_MOMENT = "${BASE_URL}/moment/searchMoment"
+
+    /**
      * 获取动态详情
      */
     val GET_MOMENT_DETAIL = "${BASE_URL}/moment/getMomentDetail"

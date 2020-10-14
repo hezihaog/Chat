@@ -42,6 +42,21 @@ class MomentPresenter {
     }
 
     /**
+     * 搜索动态
+     * @param keyword 关键字
+     * @param pageNum 页码
+     * @param pageSize 每页多少条
+     */
+    fun searchMoment(
+        userId: String?,
+        keyword: String,
+        pageNum: Int,
+        pageSize: Int
+    ): Observable<HttpModel<PageModel<MomentModel>>> {
+        return MomentRequester.searchMoment(TAG, userId, keyword, pageNum, pageSize)
+    }
+
+    /**
      * 获取动态详情
      * @param momentId 动态Id
      * @param userId 用户Id

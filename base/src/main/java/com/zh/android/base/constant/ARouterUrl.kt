@@ -107,6 +107,11 @@ class ARouterUrl {
          */
         const val MOMENT_COMMENT_DETAIL = "${MOMENT_GROUP}/comment/detail"
 
+        /**
+         * 动态搜索
+         */
+        const val MOMENT_SEARCH = "${MOMENT_GROUP}/search"
+
         //============================== 我的 ==============================
         private const val MINE_GROUP = "/mine"
         const val MINE_SERVICE = "${MINE_GROUP}s/module"

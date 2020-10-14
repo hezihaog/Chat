@@ -34,4 +34,7 @@
 
     <string name="base_take_photo">拍照</string>
     <string name="base_take_gallery">从相册中选择</string>
+
+    <string name="base_search">搜索</string>
+    <string name="base_search_hint">请输入要搜索的内容</string>
 </resources>

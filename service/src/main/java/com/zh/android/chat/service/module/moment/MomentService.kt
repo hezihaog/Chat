@@ -21,6 +21,11 @@ interface MomentService : IProvider {
     fun goMomentVideoList(activity: Activity)
 
     /**
+     * 跳转到动态搜索
+     */
+    fun goMomentSearch(activity: Activity)
+
+    /**
      * 跳转到动态详情
      * @param momentId 动态Id
      */

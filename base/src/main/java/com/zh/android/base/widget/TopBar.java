@@ -168,7 +168,7 @@ public class TopBar extends RelativeLayout {
         mCenterView = view;
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mCenterView.getLayoutParams();
         if (params == null) {
-            params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         }
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         addView(view, params);

@@ -31,6 +31,12 @@ class MomentServiceImpl : MomentService {
             .startNavigation(activity)
     }
 
+    override fun goMomentSearch(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MOMENT_SEARCH)
+            .startNavigation(activity)
+    }
+
     override fun goMomentDetail(activity: Activity, momentId: String) {
         ARouter.getInstance()
             .build(ARouterUrl.MOMENT_DETAIL)

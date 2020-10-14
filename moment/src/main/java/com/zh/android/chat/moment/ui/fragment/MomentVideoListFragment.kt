@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
@@ -21,6 +23,7 @@ import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
+import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
 
 /**
@@ -29,6 +32,10 @@ import kotterknife.bindView
  * 动态视频列表
  */
 class MomentVideoListFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.MOMENT_SERVICE)
+    var mMomentService: MomentService? = null
+
     private val vFakeStatusBar: View by bindView(R.id.fake_status_bar)
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
@@ -104,6 +111,7 @@ class MomentVideoListFragment : BaseFragment() {
             }
             addRightImageButton(R.drawable.base_search_white, R.id.topbar_item_search)
                 .click {
+                    mMomentService?.goMomentSearch(fragmentActivity)
                 }
         }
         vRefreshLayout.apply {

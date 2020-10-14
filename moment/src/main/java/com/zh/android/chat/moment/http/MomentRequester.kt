@@ -67,6 +67,32 @@ class MomentRequester {
         }
 
         /**
+         * 搜索动态
+         *
+         * @param keyword 关键字
+         * @param pageNum 页码
+         * @param pageSize 每页多少条
+         */
+        fun searchMoment(
+            tag: String,
+            userId: String?,
+            keyword: String,
+            pageNum: Int,
+            pageSize: Int
+        ): Observable<HttpModel<PageModel<MomentModel>>> {
+            val type = genericGsonType<HttpModel<PageModel<MomentModel>>>()
+            val request: GetRequest<HttpModel<PageModel<MomentModel>>> =
+                OkGo.get(ApiUrl.SEARCH_MOMENT)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("keyword", keyword)
+                .params("pageNum", pageNum)
+                .params("pageSize", pageSize)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
          * 获取动态详情
          * @param momentId 动态Id
          * @param userId 用户Id

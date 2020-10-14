@@ -54,6 +54,8 @@ public class RxLocation {
                                 fragment.registerCallback(new LocationMonitorDelegateFragment.OnLocationChangeCallback() {
                                     @Override
                                     public void onLocationChange(double longitude, double latitude) {
+                                        //获取一次后，取消注册
+                                        fragment.unRegisterCallback(this);
                                         emitter.onNext(new LocationEvent(longitude, latitude));
                                     }
                                 });

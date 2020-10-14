@@ -16,7 +16,7 @@ import com.zh.android.base.R;
  */
 public class LoadingDialog extends Dialog {
     public LoadingDialog(Context context) {
-        super(context, R.style.base_dialog_style);
+        super(context, R.style.loading_dialog_style);
     }
 
     @Override

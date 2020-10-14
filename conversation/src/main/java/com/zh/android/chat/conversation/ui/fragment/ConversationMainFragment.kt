@@ -140,7 +140,6 @@ class ConversationMainFragment : BaseFragment() {
                     }
                 }, { error ->
                     error.printStackTrace()
-                    showRequestError()
                     vRefreshLayout.finishRefresh(false)
                 })
         }

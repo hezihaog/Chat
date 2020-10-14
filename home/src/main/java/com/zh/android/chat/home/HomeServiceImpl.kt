@@ -24,7 +24,9 @@ class HomeServiceImpl : HomeService {
     }
 
     override fun goHome(activity: Activity, callback: NavigationCallback?) {
-        ARouter.getInstance().build(ARouterUrl.HOME_HOME)
+        ARouter.getInstance()
+            .build(ARouterUrl.HOME_HOME)
+            .withTransition(0, 0)
             .startNavigation(activity, callback = callback)
     }
 }

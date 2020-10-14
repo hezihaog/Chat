@@ -94,6 +94,12 @@ public class LocationMonitorDelegateFragment extends AppDelegateFragment {
                 } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
                     //如果是Network
                     mLocationProvider = LocationManager.NETWORK_PROVIDER;
+                } else {
+                    //没有开启位置
+                    if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        ToastUtil.showMsg(activity, "请开启位置，查找附近的小伙伴");
+                    }
+                    return;
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     //获取权限（如果没有开启权限，会弹出对话框，询问是否开启权限）

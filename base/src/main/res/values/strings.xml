@@ -18,9 +18,9 @@
     <string name="base_please_choose_browser">请选择浏览器</string>
     <string name="base_your_not_browser">您没有安装浏览器</string>
 
-    <string name="base_request_error_tip_msg">获取数据失败，请稍候重试</string>
-    <string name="base_request_data_is_wrong">获取的数据有误，请稍候重试</string>
-    <string name="base_request_no_network">获取数据失败，当前未连接网络</string>
+    <string name="base_request_error_tip_msg">请求失败，请稍候重试</string>
+    <string name="base_request_data_is_wrong">数据异常，请稍候重试</string>
+    <string name="base_request_no_network">请求失败，当前未连接网络</string>
     <string name="base_operation_success">操作成功</string>
     <string name="base_operation_fail">操作失败，请重试</string>
 

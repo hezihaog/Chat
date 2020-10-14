@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
@@ -151,15 +152,15 @@ class MineFragment : BaseFragment() {
                     .lifecycle(lifecycleOwner)
                     .subscribe({
                         if (handlerErrorCode(it)) {
-                            toast("上传位置信息成功")
+                            LogUtils.d("上传位置信息成功")
                         }
                     }, {
                         it.printStackTrace()
-                        toast("上传位置信息失败")
+                        LogUtils.d("上传位置信息失败")
                     })
             }, {
                 it.printStackTrace()
-                toast("获取位置信息失败")
+                LogUtils.d("获取位置信息失败")
             })
     }
 

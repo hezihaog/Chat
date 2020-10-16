@@ -61,7 +61,23 @@ object ApiUrl {
      */
     private val BASE_URL: String
         get() {
-            return "http://${HOST}:9002"
+            return "http://${HOST}:9003"
+        }
+
+    /**
+     * 接口前缀
+     */
+    private val API_PREFIX: String
+        get() {
+            return "/api"
+        }
+
+    /**
+     * V1接口
+     */
+    private val API_V1: String
+        get() {
+            return "${BASE_URL}${API_PREFIX}/v1"
         }
 
     /**
@@ -72,7 +88,7 @@ object ApiUrl {
             return ""
         }
         //已经拼接过了，不需要再拼接
-        if (fileUrl.startsWith(BASE_URL)) {
+        if (fileUrl.startsWith(API_V1)) {
             return fileUrl
         }
         //没有拼接，再拼接返回
@@ -92,17 +108,17 @@ object ApiUrl {
     /**
      * 上传文件
      */
-    val UPLOAD_FILE = "$BASE_URL/file/uploadFile"
+    val UPLOAD_FILE = "$API_V1/file/uploadFile"
 
     /**
      * 上传多个图片
      */
-    val UPLOAD_FILES = "$BASE_URL/file/uploadFiles"
+    val UPLOAD_FILES = "$API_V1/file/uploadFiles"
 
     /**
      * 下载文件
      */
-    val DOWNLOAD_FILE = "${BASE_URL}/file/downloadFile"
+    val DOWNLOAD_FILE = "${API_V1}/file/downloadFile"
 
     //---------------------------- 登录 ----------------------------
 
@@ -110,209 +126,209 @@ object ApiUrl {
      * 登录
      */
     val LOGIN
-        get() = "$BASE_URL/user/login"
+        get() = "$API_V1/user/login"
 
     /**
      * 注册
      */
     val REGISTER
-        get() = "$BASE_URL/user/register"
+        get() = "$API_V1/user/register"
 
     /**
      * 获取验证码
      */
     val GET_AUTH_CODE
-        get() = "$BASE_URL/user/getAuthCode"
+        get() = "$API_V1/user/getAuthCode"
 
     /**
      * 验证码登录
      */
     val LOGIN_BY_AUTH_CODE
-        get() = "$BASE_URL/user/loginByAuthCode"
+        get() = "$API_V1/user/loginByAuthCode"
 
     //---------------------------- 用户 ----------------------------
 
     /**
      * 获取用户信息
      */
-    val GET_USER_INFO = "${BASE_URL}/user/getUserInfo"
+    val GET_USER_INFO = "${API_V1}/user/getUserInfo"
 
     /**
      * 根据用户名搜索用户信息
      */
-    val FIND_BY_USERNAME = "${BASE_URL}/user/findByUsername"
+    val FIND_BY_USERNAME = "${API_V1}/user/findByUsername"
 
     /**
      * 更新昵称
      */
-    val UPDATE_NICKNAME = "${BASE_URL}/user/updateNickname"
+    val UPDATE_NICKNAME = "${API_V1}/user/updateNickname"
 
     /**
      * 更新头像
      */
-    val UPDATE_AVATAR = "${BASE_URL}/user/updateAvatar"
+    val UPDATE_AVATAR = "${API_V1}/user/updateAvatar"
 
     //---------------------------- 位置 ----------------------------
 
     /**
      * 更新位置信息
      */
-    val UPDATE_POSITION = "${BASE_URL}/userPosition/updateUserPosition"
+    val UPDATE_POSITION = "${API_V1}/userPosition/updateUserPosition"
 
     /**
      * 获取附近的人列表
      */
-    val GET_VICINITY_USER_LIST = "${BASE_URL}/userPosition/getVicinityUserList"
+    val GET_VICINITY_USER_LIST = "${API_V1}/userPosition/getVicinityUserList"
 
     //---------------------------- 好友 ----------------------------
 
     /**
      * 获取用户的好友列表
      */
-    val GET_USER_FRIEND_LIST = "${BASE_URL}/friend/getUserFriendList"
+    val GET_USER_FRIEND_LIST = "${API_V1}/friend/getUserFriendList"
 
     /**
      * 发送好友请求
      */
-    val SEND_FRIEND_REQUEST = "${BASE_URL}/friend/sendRequest"
+    val SEND_FRIEND_REQUEST = "${API_V1}/friend/sendRequest"
 
     /**
      * 查找某个用户Id的所有好友请求
      */
-    val GET_USER_ALL_FRIEND_REQUEST = "${BASE_URL}/friend/getUserAllFriendRequest"
+    val GET_USER_ALL_FRIEND_REQUEST = "${API_V1}/friend/getUserAllFriendRequest"
 
     /**
      * 接受好友请求
      */
-    val ACCEPT_FRIEND_REQUEST = "${BASE_URL}/friend/acceptFriendReq"
+    val ACCEPT_FRIEND_REQUEST = "${API_V1}/friend/acceptFriendReq"
 
     /**
      * 忽略好友请求
      */
-    val IGNORE_FRIEND_REQUEST = "${BASE_URL}/friend/ignoreFriendReq"
+    val IGNORE_FRIEND_REQUEST = "${API_V1}/friend/ignoreFriendReq"
 
     //---------------------------- 聊天 ----------------------------
     /**
      * 获取聊天记录列表
      */
-    val GET_CHAT_RECORD_LIST = "${BASE_URL}/chatRecord/getChatRecordList"
+    val GET_CHAT_RECORD_LIST = "${API_V1}/chatRecord/getChatRecordList"
 
     /**
      * 获取用户的所有会话
      */
-    val GET_ALL_CONVERSATION = "${BASE_URL}/chatRecord/getAllConversation"
+    val GET_ALL_CONVERSATION = "${API_V1}/chatRecord/getAllConversation"
 
     /**
      * 删除一条聊天记录
      */
-    val DELETE_CHAT_RECORD = "${BASE_URL}/chatRecord/deleteChatRecord"
+    val DELETE_CHAT_RECORD = "${API_V1}/chatRecord/deleteChatRecord"
 
     /**
      * 删除和指定好友的整个会话
      */
-    val DELETE_CONVERSATION = "${BASE_URL}/chatRecord/deleteConversation"
+    val DELETE_CONVERSATION = "${API_V1}/chatRecord/deleteConversation"
 
     //---------------------------- 动态 ----------------------------
 
     /**
      * 获取动态列表
      */
-    val GET_MOMENT_LIST = "${BASE_URL}/moment/getMomentList"
+    val GET_MOMENT_LIST = "${API_V1}/moment/getMomentList"
 
     /**
      * 获取视频动态列表
      */
-    val GET_MOMENT_LIST_BY_VIDEO_TYPE = "${BASE_URL}/moment/getMomentListByVideoType"
+    val GET_MOMENT_LIST_BY_VIDEO_TYPE = "${API_V1}/moment/getMomentListByVideoType"
 
     /**
      * 搜索动态
      */
-    val SEARCH_MOMENT = "${BASE_URL}/moment/searchMoment"
+    val SEARCH_MOMENT = "${API_V1}/moment/searchMoment"
 
     /**
      * 获取动态详情
      */
-    val GET_MOMENT_DETAIL = "${BASE_URL}/moment/getMomentDetail"
+    val GET_MOMENT_DETAIL = "${API_V1}/moment/getMomentDetail"
 
     /**
      * 获取动态点赞列表
      */
-    val GET_MOMENT_LIKE_LIST = "${BASE_URL}/moment/getMomentLikeList"
+    val GET_MOMENT_LIKE_LIST = "${API_V1}/moment/getMomentLikeList"
 
     /**
      * 获取动态的评论列表
      */
-    val GET_MOMENT_COMMENT_LIST = "${BASE_URL}/moment/getMomentCommentList"
+    val GET_MOMENT_COMMENT_LIST = "${API_V1}/moment/getMomentCommentList"
 
     /**
      * 点赞动态
      */
-    val LIKE_MOMENT = "${BASE_URL}/moment/likeMoment"
+    val LIKE_MOMENT = "${API_V1}/moment/likeMoment"
 
     /**
      * 取消点赞动态
      */
-    val REMOVE_LIKE_MOMENT = "${BASE_URL}/moment/removeLikeMoment"
+    val REMOVE_LIKE_MOMENT = "${API_V1}/moment/removeLikeMoment"
 
     /**
      * 发布动态
      */
-    val ADD_MOMENT = "${BASE_URL}/moment/addMoment"
+    val ADD_MOMENT = "${API_V1}/moment/addMoment"
 
     /**
      * 转发动态
      */
-    val FORWARD_MOMENT = "${BASE_URL}/moment/forwardMoment"
+    val FORWARD_MOMENT = "${API_V1}/moment/forwardMoment"
 
     /**
      * 获取动态转发列表
      */
-    val GET_MOMENT_FORWARD_LIST = "${BASE_URL}/moment/getMomentForwardList"
+    val GET_MOMENT_FORWARD_LIST = "${API_V1}/moment/getMomentForwardList"
 
     /**
      * 增加一条动态评论
      */
-    val ADD_MOMENT_COMMENT = "${BASE_URL}/moment/addMomentComment"
+    val ADD_MOMENT_COMMENT = "${API_V1}/moment/addMomentComment"
 
     /**
      * 删除一条动态评论
      */
-    val DELETE_MOMENT_COMMENT = "${BASE_URL}/moment/deleteMomentComment"
+    val DELETE_MOMENT_COMMENT = "${API_V1}/moment/deleteMomentComment"
 
     /**
      * 删除动态
      */
-    val REMOVE_MOMENT = "${BASE_URL}/moment/removeMoment"
+    val REMOVE_MOMENT = "${API_V1}/moment/removeMoment"
 
     /**
      * 获取动态评论的回复列表
      */
-    val GET_MOMENT_COMMENT_REPLY_LIST = "${BASE_URL}/moment/getMomentCommentReplyList"
+    val GET_MOMENT_COMMENT_REPLY_LIST = "${API_V1}/moment/getMomentCommentReplyList"
 
     /**
      * 增加一条动态的评论的回复，或者回复的回复
      */
-    val ADD_MOMENT_COMMENT_REPLY = "${BASE_URL}/moment/addMomentCommentReply"
+    val ADD_MOMENT_COMMENT_REPLY = "${API_V1}/moment/addMomentCommentReply"
 
     /**
      * 删除一条动态的评论的回复，或者回复的回复
      */
-    val REMOVE_MOMENT_COMMENT_REPLY = "${BASE_URL}/moment/removeMomentCommentReply";
+    val REMOVE_MOMENT_COMMENT_REPLY = "${API_V1}/moment/removeMomentCommentReply";
 
     //---------------------------- 通知 ----------------------------
 
     /**
      * 获取通知列表
      */
-    val GET_NOTICE_LIST = "${BASE_URL}/notice/getNoticeList"
+    val GET_NOTICE_LIST = "${API_V1}/notice/getNoticeList"
 
     /**
      * 已读一条通知
      */
-    val READ_NOTICE = "${BASE_URL}/notice/readNotice"
+    val READ_NOTICE = "${API_V1}/notice/readNotice"
 
     /**
      * 已读所有通知
      */
-    val READ_ALL_NOTICE = "${BASE_URL}/notice/readAllNotice"
+    val READ_ALL_NOTICE = "${API_V1}/notice/readAllNotice"
 }

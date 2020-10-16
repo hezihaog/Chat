@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.callback.NavCallback
-import com.apkfuns.logutils.LogUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
@@ -98,7 +97,7 @@ class LoginByPhoneFragment : BaseFragment() {
                         return@subscribe
                     }
                     val authCode = httpModel.data
-                    LogUtils.d("获取到验证码：$authCode")
+                    toastLong("验证码：$authCode")
                 }
             }, {
                 it.printStackTrace()

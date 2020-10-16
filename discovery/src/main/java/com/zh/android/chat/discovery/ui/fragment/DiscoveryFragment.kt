@@ -7,6 +7,7 @@ import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.longClick
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.discovery.R
 import com.zh.android.chat.service.module.discovery.DiscoveryService
@@ -60,8 +61,13 @@ class DiscoveryFragment : BaseFragment() {
             mMomentService?.goMomentVideoList(fragmentActivity)
         }
         vMomentMallLayout.click {
-            //商城
+            //原生商城
             mMallService?.goMall(fragmentActivity)
+        }
+        vMomentMallLayout.longClick {
+            //网页商城
+            mMallService?.goMallWeb(fragmentActivity)
+            true
         }
         vAddFriendLayout.click {
             mFriendService?.run {

@@ -3,8 +3,10 @@ package com.zh.android.circle.mall
 import android.app.Activity
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.util.web.BrowserActivity
+import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.mall.MallService
 
 /**
@@ -17,6 +19,12 @@ class MallServiceImpl : MallService {
     }
 
     override fun goMall(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_MAIN)
+            .startNavigation(activity)
+    }
+
+    override fun goMallWeb(activity: Activity) {
         BrowserActivity.start(activity, "http://47.99.134.126:5000/#/home")
     }
 }

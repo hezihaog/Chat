@@ -152,5 +152,7 @@ class ARouterUrl {
         //============================== 商城 ==============================
         private const val MALL_GROUP = "/mall"
         const val MALL_SERVICE = "${MALL_GROUP}s/module"
+
+        const val MALL_MAIN = "${MALL_GROUP}/main"
     }
 }

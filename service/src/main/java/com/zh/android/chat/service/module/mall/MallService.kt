@@ -10,7 +10,12 @@ import com.alibaba.android.arouter.facade.template.IProvider
  */
 interface MallService : IProvider {
     /**
-     * 跳转到商城页面
+     * 跳转到原生的商城页面
      */
     fun goMall(activity: Activity)
+
+    /**
+     * 跳转到Web的商城页面
+     */
+    fun goMallWeb(activity: Activity)
 }

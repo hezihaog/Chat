@@ -24,7 +24,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true">
         <activity
-            android:name=".util.web.BrowseActivity"
+            android:name=".util.web.BrowserActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
     </application>

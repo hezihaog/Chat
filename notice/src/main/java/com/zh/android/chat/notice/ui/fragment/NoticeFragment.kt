@@ -12,7 +12,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
-import com.zh.android.base.util.web.BrowseActivity
+import com.zh.android.base.util.web.BrowserActivity
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.notice.R
 import com.zh.android.chat.notice.http.NoticePresenter
@@ -271,7 +271,7 @@ class NoticeFragment : BaseFragment() {
      */
     private fun goWebBrowse(url: String) {
         if (url.isNotBlank() && RegexUtils.isURL(url)) {
-            BrowseActivity.start(fragmentActivity, url)
+            BrowserActivity.start(fragmentActivity, url)
         }
     }
 }

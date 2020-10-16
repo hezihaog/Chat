@@ -1,7 +1,6 @@
 package com.zh.android.base.util.web
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -14,7 +13,7 @@ import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.ycbjie.webviewlib.view.X5WebView
 import com.ycbjie.webviewlib.widget.WebProgress
 import com.zh.android.base.R
-import com.zh.android.base.core.BaseActivity
+import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.setGone
 import com.zh.android.base.ext.toast
@@ -24,10 +23,10 @@ import kotterknife.bindView
 
 /**
  * @author wally
- * @date 2020/10/07
- * Web页面
+ * @date 2020/10/16
+ * 内置Web浏览器
  */
-class BrowseActivity : BaseActivity() {
+class BrowserFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vWebView: X5WebView by bindView(R.id.web_view)
     private val vProgress: WebProgress by bindView(R.id.progress)
@@ -35,25 +34,20 @@ class BrowseActivity : BaseActivity() {
     /**
      * 要加载的Url
      */
-    private val mLoadUrl by bindArgument(ARGS_URL, "")
+    private val mLoadUrl by bindArgument(BrowserActivity.ARGS_URL, "")
 
     companion object {
-        private const val ARGS_URL = "args_url"
-
-        /**
-         * 跳转
-         */
-        fun start(activity: Activity, url: String) {
-            activity.startActivity(Intent(activity, BrowseActivity::class.java).apply {
-                putExtra(ARGS_URL, url)
-            })
+        fun newInstance(args: Bundle? = Bundle()): BrowserFragment {
+            val fragment = BrowserFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (mLoadUrl.isBlank()) {
-            finish()
+            fragmentActivity.finish()
         }
     }
 
@@ -77,13 +71,13 @@ class BrowseActivity : BaseActivity() {
     }
 
     override fun onInflaterViewId(): Int {
-        return R.layout.base_browse_activity
+        return R.layout.base_browse_fragment
     }
 
     override fun onBindView(view: View?) {
         vTopBar.apply {
             addLeftBackImageButton().click {
-                finish()
+                fragmentActivity.finish()
             }
             addLeftImageButton(R.drawable.base_close, R.id.topbar_item_close).click {
                 fragmentActivity.finish()
@@ -159,12 +153,12 @@ class BrowseActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressedSupport() {
+    override fun onBackPressedSupport(): Boolean {
         if (vWebView.canGoBack()) {
             vWebView.goBack()
-            return
+            return true
         }
-        super.onBackPressedSupport()
+        return super.onBackPressedSupport()
     }
 
     /**
@@ -177,7 +171,7 @@ class BrowseActivity : BaseActivity() {
             },
             getString(R.string.base_please_choose_browser)
         )
-        if (intent.resolveActivity(packageManager) != null) {
+        if (intent.resolveActivity(fragmentActivity.packageManager) != null) {
             startActivity(intent)
         } else {
             toast(R.string.base_your_not_browser)

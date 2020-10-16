@@ -65,12 +65,10 @@
                         android:text="@string/discovery_moment_video" />
                 </LinearLayout>
 
-                <View style="@style/base_divider" />
+                <View style="@style/base_divider2" />
             </LinearLayout>
 
             <LinearLayout style="@style/discovery_main_item_layout">
-
-                <View style="@style/base_divider" />
 
                 <LinearLayout
                     android:id="@+id/moment_mall_layout"

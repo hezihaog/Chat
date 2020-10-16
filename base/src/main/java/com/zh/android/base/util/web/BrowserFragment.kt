@@ -78,7 +78,7 @@ class BrowserFragment : BaseFragment() {
     override fun onBindView(view: View?) {
         vTopBar.apply {
             addLeftBackImageButton().click {
-                fragmentActivity.finish()
+                fragmentActivity.onBackPressed()
             }
             addLeftImageButton(R.drawable.base_close, R.id.topbar_item_close).click {
                 fragmentActivity.finish()

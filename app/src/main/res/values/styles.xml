@@ -10,6 +10,6 @@
 
     <style name="AppWelcome" parent="AppTheme">
         <item name="android:windowBackground">@drawable/app_welcome_bg</item>
-        <item name="android:windowFullscreen">true</item>
+        <!--        <item name="android:windowFullscreen">true</item>-->
     </style>
 </resources>

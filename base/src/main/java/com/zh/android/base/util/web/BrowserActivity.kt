@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import com.zh.android.base.R
+import com.zh.android.base.constant.BaseConstant
 import com.zh.android.base.core.BaseActivity
 
 /**
@@ -13,14 +14,12 @@ import com.zh.android.base.core.BaseActivity
  */
 class BrowserActivity : BaseActivity() {
     companion object {
-        const val ARGS_URL = "args_url"
-
         /**
          * 跳转
          */
         fun start(activity: Activity, url: String) {
             activity.startActivity(Intent(activity, BrowserActivity::class.java).apply {
-                putExtra(ARGS_URL, url)
+                putExtra(BaseConstant.ARGS_URL, url)
             })
         }
     }

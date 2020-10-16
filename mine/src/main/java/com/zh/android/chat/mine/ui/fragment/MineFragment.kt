@@ -13,7 +13,10 @@ import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.*
+import com.zh.android.base.ext.click
+import com.zh.android.base.ext.handlerErrorCode
+import com.zh.android.base.ext.ioToMain
+import com.zh.android.base.ext.lifecycle
 import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.location.RxLocation
 import com.zh.android.base.widget.TopBar
@@ -29,6 +32,7 @@ import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.mine.model.User
 import com.zh.android.chat.service.module.notice.NoticeService
+import com.zh.android.chat.service.module.setting.SettingService
 import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
@@ -51,6 +55,10 @@ class MineFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.NOTICE_SERVICE)
     var mNoticeService: NoticeService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.SETTING_SERVICE)
+    var mSettingService: SettingService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vLogout: TextView by bindView(R.id.logout)
@@ -171,6 +179,10 @@ class MineFragment : BaseFragment() {
     override fun onBindView(view: View?) {
         vTopBar.apply {
             setTitle(R.string.mine_mine)
+            addRightImageButton(R.drawable.mine_setting, R.id.mine_item_setting)
+                .click {
+                    mSettingService?.goSetting(fragmentActivity)
+                }
             addRightImageButton(R.drawable.mine_notice, R.id.mine_item_notice)
                 .click {
                     mNoticeService?.goNotice(fragmentActivity)

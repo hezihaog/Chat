@@ -1,3 +1,4 @@
+include ':mall'
 include ':notice'
 include ':mediaplayer'
 include ':moment'

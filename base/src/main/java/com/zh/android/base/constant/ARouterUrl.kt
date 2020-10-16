@@ -138,7 +138,7 @@ class ARouterUrl {
         /**
          * 设置首页
          */
-        const val SETTING_APP = "$SETTING_GROUP/main"
+        const val SETTING_MAIN = "$SETTING_GROUP/main"
 
         //============================== 通知 ==============================
         private const val NOTICE_GROUP = "/notice"
@@ -148,5 +148,9 @@ class ARouterUrl {
          * 通知首页
          */
         const val NOTICE_MAIN = "$NOTICE_GROUP/main"
+
+        //============================== 商城 ==============================
+        private const val MALL_GROUP = "/mall"
+        const val MALL_SERVICE = "${MALL_GROUP}s/module"
     }
 }

@@ -11,6 +11,7 @@ import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.discovery.R
 import com.zh.android.chat.service.module.discovery.DiscoveryService
 import com.zh.android.chat.service.module.friend.FriendService
+import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.chat.service.module.moment.MomentService
 import kotterknife.bindView
 
@@ -32,9 +33,14 @@ class DiscoveryFragment : BaseFragment() {
     @Autowired(name = ARouterUrl.MOMENT_SERVICE)
     var mMomentService: MomentService? = null
 
+    @JvmField
+    @Autowired(name = ARouterUrl.MALL_SERVICE)
+    var mMallService: MallService? = null
+
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vMomentLayout: View by bindView(R.id.moment_layout)
     private val vMomentVideoLayout: View by bindView(R.id.moment_video_layout)
+    private val vMomentMallLayout: View by bindView(R.id.moment_mall_layout)
     private val vAddFriendLayout: View by bindView(R.id.add_friend_layout)
     private val vScanQrcodeLayout: View by bindView(R.id.scan_qrcode_layout)
 
@@ -52,6 +58,10 @@ class DiscoveryFragment : BaseFragment() {
         vMomentVideoLayout.click {
             //只有视频的动态
             mMomentService?.goMomentVideoList(fragmentActivity)
+        }
+        vMomentMallLayout.click {
+            //商城
+            mMallService?.goMall(fragmentActivity)
         }
         vAddFriendLayout.click {
             mFriendService?.run {

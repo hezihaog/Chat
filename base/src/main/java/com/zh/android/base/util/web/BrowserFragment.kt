@@ -13,6 +13,7 @@ import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.ycbjie.webviewlib.view.X5WebView
 import com.ycbjie.webviewlib.widget.WebProgress
 import com.zh.android.base.R
+import com.zh.android.base.constant.BaseConstant
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.setGone
@@ -34,7 +35,7 @@ class BrowserFragment : BaseFragment() {
     /**
      * 要加载的Url
      */
-    private val mLoadUrl by bindArgument(BrowserActivity.ARGS_URL, "")
+    private val mLoadUrl by bindArgument(BaseConstant.ARGS_URL, "")
 
     companion object {
         fun newInstance(args: Bundle? = Bundle()): BrowserFragment {

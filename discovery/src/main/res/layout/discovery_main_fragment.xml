@@ -68,6 +68,28 @@
                 <View style="@style/base_divider" />
             </LinearLayout>
 
+            <LinearLayout style="@style/discovery_main_item_layout">
+
+                <View style="@style/base_divider" />
+
+                <LinearLayout
+                    android:id="@+id/moment_mall_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/discovery_main_item_icon"
+                        android:src="@drawable/discovery_mall" />
+
+                    <TextView
+                        style="@style/discovery_main_item_text"
+                        android:text="@string/discovery_mall" />
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
+
             <androidx.legacy.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/base_dimen_10" />

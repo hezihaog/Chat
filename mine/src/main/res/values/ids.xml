@@ -10,4 +10,6 @@
     <item name="mine_item_qrcode" type="id" />
     <!-- 通知 -->
     <item name="mine_item_notice" type="id" />
+    <!-- 设置 -->
+    <item name="mine_item_setting" type="id" />
 </resources>

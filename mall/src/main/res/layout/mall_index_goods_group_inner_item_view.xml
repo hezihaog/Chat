@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/base_white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            tools:src="@drawable/base_def_img_rect" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:layout_marginTop="@dimen/base_dimen_15"
+            android:layout_marginEnd="@dimen/base_dimen_15"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
+            android:lines="2"
+            android:maxLines="2"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_15"
+            tools:text="华为 HUAWEI P40 冰霜银 全网通 5G 手机 华为 HUAWEI P40 冰霜银 全网通 5G 手机 华为 HUAWEI P40 冰霜银 全网通 5G 手机" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_dimen_5"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:gravity="center"
+            android:textColor="@color/base_green3"
+            android:textSize="@dimen/base_dimen_sp_13"
+            tools:text="￥4299" />
+
+        <View
+            style="@style/base_divider"
+            android:layout_gravity="bottom" />
+    </LinearLayout>
+
+    <View
+        style="@style/base_divider"
+        android:layout_width="@dimen/base_dimen_zero_point_five"
+        android:layout_height="match_parent" />
+</LinearLayout>

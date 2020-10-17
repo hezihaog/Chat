@@ -87,6 +87,10 @@ object ApiUrl {
         if (fileUrl.isNullOrBlank()) {
             return ""
         }
+        //不是服务器的图片资源，不需要拼接
+        if (!fileUrl.startsWith("group")) {
+            return fileUrl
+        }
         //已经拼接过了，不需要再拼接
         if (fileUrl.startsWith(API_V1)) {
             return fileUrl
@@ -331,4 +335,11 @@ object ApiUrl {
      * 已读所有通知
      */
     val READ_ALL_NOTICE = "${API_V1}/notice/readAllNotice"
+
+    //---------------------------- 商城 ----------------------------
+
+    /**
+     * 商城首页列表
+     */
+    val MALL_INDEX_INFOS = "${API_V1}/mall/index/infos"
 }

@@ -6,6 +6,8 @@
     <string name="mine_nickname">昵称</string>
     <string name="mine_account">账号</string>
     <string name="mine_qrcode">二维码</string>
+    <string name="mine_my_order">我的订单</string>
+    <string name="mine_my_address_manage">地址管理</string>
 
     <string name="mine_modify_nickname">修改昵称</string>
     <string name="mine_modify_avatar">修改头像</string>

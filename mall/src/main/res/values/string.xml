@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mall_module_name">商城</string>
+
+    <string name="mall_goods_group_hot">最热商品</string>
+    <string name="mall_goods_group_new">最新商品</string>
+    <string name="mall_goods_group_recommend">推荐商品</string>
+</resources>

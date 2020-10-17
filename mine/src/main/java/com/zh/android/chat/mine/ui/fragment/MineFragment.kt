@@ -13,10 +13,7 @@ import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.handlerErrorCode
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.*
 import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.location.RxLocation
 import com.zh.android.base.widget.TopBar
@@ -90,6 +87,12 @@ class MineFragment : BaseFragment() {
                         mUserInfo?.let {
                             MineUIHelper.goModifyNickname(fragmentActivity, it.id, it.nickname)
                         }
+                    }
+                    R.id.mine_item_my_order -> {
+                        toast("我的订单")
+                    }
+                    R.id.mine_item_my_address_manage -> {
+                        toast("地址管理")
                     }
                 }
             })
@@ -274,6 +277,24 @@ class MineFragment : BaseFragment() {
                 getString(R.string.mine_qrcode),
                 qrCode,
                 R.drawable.mine_qrcode,
+                true
+            )
+        )
+        //我的订单
+        mListItems.add(
+            MineTextItemModel(
+                R.id.mine_item_my_order,
+                getString(R.string.mine_my_order),
+                "",
+                true
+            )
+        )
+        //地址管理
+        mListItems.add(
+            MineTextItemModel(
+                R.id.mine_item_my_address_manage,
+                getString(R.string.mine_my_address_manage),
+                "",
                 true
             )
         )

@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.blankj.utilcode.util.RegexUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.web.BrowserActivity
 import com.zh.android.base.widget.TopBar
+import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.enums.GoodsGroupType
 import com.zh.android.circle.mall.http.MallPresenter
@@ -30,6 +33,10 @@ import me.drakeet.multitype.MultiTypeAdapter
  * 商城首页
  */
 class MallMainFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.MALL_SERVICE)
+    var mMallService: MallService? = null
+
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
@@ -60,7 +67,7 @@ class MallMainFragment : BaseFragment() {
                 MallIndexGoodsCategoryViewBinder { position, _ ->
                     //点击的是全部，跳转到商品分类
                     if (position == mGoodsCategory.lastIndex) {
-                        toast("跳转到商品分类")
+                        mMallService?.goGoodsCategory(fragmentActivity)
                     }
                 })
             //商品分组

@@ -342,4 +342,9 @@ object ApiUrl {
      * 商城首页列表
      */
     val MALL_INDEX_INFOS = "${API_V1}/mall/index/infos"
+
+    /**
+     * 获取商品分类列表
+     */
+    val MALL_GET_GOODS_CATEGORY = "${API_V1}/mall/goods/categories/getGoodsCategory"
 }

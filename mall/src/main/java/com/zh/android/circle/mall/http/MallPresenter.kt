@@ -1,6 +1,7 @@
 package com.zh.android.circle.mall.http
 
 import com.zh.android.base.http.HttpModel
+import com.zh.android.circle.mall.model.MallGoodsCategoryModel
 import com.zh.android.circle.mall.model.MallIndexInfoModel
 import io.reactivex.Observable
 
@@ -19,5 +20,12 @@ class MallPresenter {
      */
     fun indexInfos(): Observable<HttpModel<MallIndexInfoModel>> {
         return MallRequester.indexInfos(TAG)
+    }
+
+    /**
+     * 获取商品分类列表
+     */
+    fun getGoodsCategory(): Observable<HttpModel<List<MallGoodsCategoryModel>>> {
+        return MallRequester.getGoodsCategory(TAG)
     }
 }

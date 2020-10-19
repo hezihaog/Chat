@@ -18,4 +18,9 @@ interface MallService : IProvider {
      * 跳转到Web的商城页面
      */
     fun goMallWeb(activity: Activity)
+
+    /**
+     * 跳转到商品分类
+     */
+    fun goGoodsCategory(activity: Activity)
 }

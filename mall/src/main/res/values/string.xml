@@ -6,6 +6,8 @@
     <string name="mall_goods_group_new">最新商品</string>
     <string name="mall_goods_group_recommend">推荐商品</string>
 
+    <string name="mall_goods_category">分类</string>
+
     <string name="mall_super_market">新蜂超市</string>
     <string name="mall_clothes">新蜂服饰</string>
     <string name="mall_global">全球购</string>

@@ -153,6 +153,14 @@ class ARouterUrl {
         private const val MALL_GROUP = "/mall"
         const val MALL_SERVICE = "${MALL_GROUP}s/module"
 
+        /**
+         * 商城首页
+         */
         const val MALL_MAIN = "${MALL_GROUP}/main"
+
+        /**
+         * 商品分类
+         */
+        const val MALL_GOODS_CATEGORY = "${MALL_GROUP}/goods/category"
     }
 }

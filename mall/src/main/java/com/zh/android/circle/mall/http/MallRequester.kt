@@ -7,6 +7,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
+import com.zh.android.circle.mall.model.MallGoodsCategoryModel
 import com.zh.android.circle.mall.model.MallIndexInfoModel
 import io.reactivex.Observable
 
@@ -26,6 +27,20 @@ class MallRequester {
             val type = genericGsonType<HttpModel<MallIndexInfoModel>>();
             val request: GetRequest<HttpModel<MallIndexInfoModel>> =
                 OkGo.get(ApiUrl.MALL_INDEX_INFOS)
+            return request.tag(tag)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 获取商品分类列表
+         */
+        fun getGoodsCategory(
+            tag: String
+        ): Observable<HttpModel<List<MallGoodsCategoryModel>>> {
+            val type = genericGsonType<HttpModel<List<MallGoodsCategoryModel>>>();
+            val request: GetRequest<HttpModel<List<MallGoodsCategoryModel>>> =
+                OkGo.get(ApiUrl.MALL_GET_GOODS_CATEGORY)
             return request.tag(tag)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())

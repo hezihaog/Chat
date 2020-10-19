@@ -27,4 +27,10 @@ class MallServiceImpl : MallService {
     override fun goMallWeb(activity: Activity) {
         BrowserActivity.start(activity, "http://47.99.134.126:5000/#/home")
     }
+
+    override fun goGoodsCategory(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_GOODS_CATEGORY)
+            .startNavigation(activity)
+    }
 }

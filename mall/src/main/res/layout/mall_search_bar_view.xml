@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:paddingTop="@dimen/base_dimen_5"
+    android:paddingBottom="@dimen/base_dimen_5">
+
+    <FrameLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:background="@drawable/mall_bg_search_bar"
+        android:paddingTop="@dimen/base_dimen_8"
+        android:paddingBottom="@dimen/base_dimen_8">
+
+        <TextView
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/mall_search_icon"
+            android:drawablePadding="@dimen/base_dimen_4"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/base_gray6"
+            android:textSize="@dimen/base_dimen_sp_14"
+            tools:ignore="UseCompatTextViewDrawableXml"
+            tools:text="卫生间吹风机架" />
+    </FrameLayout>
+</FrameLayout>

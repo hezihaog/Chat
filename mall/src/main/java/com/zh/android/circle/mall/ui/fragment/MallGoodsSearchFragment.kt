@@ -92,9 +92,14 @@ class MallGoodsSearchFragment : BaseFragment() {
                 val inputText = vSearchBar.inputText
                 if (inputText.isBlank()) {
                     toast(R.string.base_search_hint)
+                    return@click
                 }
                 //关键字搜索
                 mCurrentKeyword = inputText
+                //必传一个参数，不能2个都不传
+                if (mCurrentKeyword.isBlank() && mGoodsCategoryId.isBlank()) {
+                    return@click
+                }
                 vRefreshLayout.autoRefresh()
             }
             centerView = vSearchBar
@@ -109,7 +114,8 @@ class MallGoodsSearchFragment : BaseFragment() {
             setCallback {
                 //切换排序规则，刷新
                 mCurrentOrderByType = it
-                if (mCurrentKeyword.isBlank()) {
+                //必传一个参数，不能2个都不传
+                if (mCurrentKeyword.isBlank() && mGoodsCategoryId.isBlank()) {
                     return@setCallback
                 }
                 vRefreshLayout.autoRefresh()
@@ -129,18 +135,20 @@ class MallGoodsSearchFragment : BaseFragment() {
         }
     }
 
-    private fun refresh() {
-        if (mCurrentKeyword.isBlank()) {
-            return
+    override fun setData() {
+        super.setData()
+        //如果前面传递过来了分组Id，则先查一次
+        if (mGoodsCategoryId.isNotBlank()) {
+            refresh()
         }
+    }
+
+    private fun refresh() {
         mCurrentPage = ApiUrl.FIRST_PAGE
         search(mCurrentKeyword, mGoodsCategoryId, mCurrentOrderByType, mCurrentPage)
     }
 
     private fun loadMore() {
-        if (mCurrentKeyword.isBlank()) {
-            return
-        }
         val nextPage = mCurrentPage + 1
         search(mCurrentKeyword, mGoodsCategoryId, mCurrentOrderByType, nextPage)
     }
@@ -179,6 +187,8 @@ class MallGoodsSearchFragment : BaseFragment() {
                                     mListItems.clear()
                                 }
                                 addAll(resultList)
+                                //每次刷新都滚动回顶部
+                                vRefreshList.scrollToPosition(0)
                             }
                             mListAdapter.notifyDataSetChanged()
                             //最后一页

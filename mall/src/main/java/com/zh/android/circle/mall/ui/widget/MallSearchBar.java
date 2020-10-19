@@ -58,7 +58,6 @@ public class MallSearchBar extends FrameLayout {
                 }
             }
         });
-        renderTip();
     }
 
     private void renderTip() {

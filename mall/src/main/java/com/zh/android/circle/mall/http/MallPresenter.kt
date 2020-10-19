@@ -1,7 +1,10 @@
 package com.zh.android.circle.mall.http
 
 import com.zh.android.base.http.HttpModel
+import com.zh.android.base.http.PageModel
+import com.zh.android.circle.mall.enums.OrderByType
 import com.zh.android.circle.mall.model.MallGoodsCategoryModel
+import com.zh.android.circle.mall.model.MallGoodsModel
 import com.zh.android.circle.mall.model.MallIndexInfoModel
 import io.reactivex.Observable
 
@@ -27,5 +30,21 @@ class MallPresenter {
      */
     fun getGoodsCategory(): Observable<HttpModel<List<MallGoodsCategoryModel>>> {
         return MallRequester.getGoodsCategory(TAG)
+    }
+
+    /**
+     * 搜索商品
+     * @param keyword 关键字
+     * @param goodsCategoryId 商品分类Id
+     * @param orderBy 排序方式
+     */
+    fun searchGoods(
+        keyword: String,
+        goodsCategoryId: String,
+        orderBy: OrderByType,
+        pageNum: Int,
+        pageSize: Int
+    ): Observable<HttpModel<PageModel<MallGoodsModel>>> {
+        return MallRequester.searchGoods(TAG, keyword, goodsCategoryId, orderBy, pageNum, pageSize)
     }
 }

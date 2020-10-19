@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.util.web.BrowserActivity
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.mall.MallService
 
@@ -31,6 +32,13 @@ class MallServiceImpl : MallService {
     override fun goGoodsCategory(activity: Activity) {
         ARouter.getInstance()
             .build(ARouterUrl.MALL_GOODS_CATEGORY)
+            .startNavigation(activity)
+    }
+
+    override fun goGoodsSearch(activity: Activity, goodsCategoryId: String) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_GOODS_SEARCH)
+            .withString(AppConstant.Key.MALL_GOODS_CATEGORY_ID, goodsCategoryId)
             .startNavigation(activity)
     }
 }

@@ -18,4 +18,10 @@
     <string name="mall_get_coupons">领劵</string>
     <string name="mall_save_money">省钱</string>
     <string name="mall_all">全部</string>
+
+    <string name="mall_rmb_price">￥%1$s</string>
+
+    <string name="mall_recommend">推荐</string>
+    <string name="mall_new">新品</string>
+    <string name="mall_price">价格</string>
 </resources>

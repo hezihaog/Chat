@@ -162,5 +162,10 @@ class ARouterUrl {
          * 商品分类
          */
         const val MALL_GOODS_CATEGORY = "${MALL_GROUP}/goods/category"
+
+        /**
+         * 商品搜索
+         */
+        const val MALL_GOODS_SEARCH = "${MALL_GROUP}/goods/search"
     }
 }

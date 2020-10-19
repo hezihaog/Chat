@@ -347,4 +347,9 @@ object ApiUrl {
      * 获取商品分类列表
      */
     val MALL_GET_GOODS_CATEGORY = "${API_V1}/mall/goods/categories/getGoodsCategory"
+
+    /**
+     * 商品搜索
+     */
+    val MALL_GOODS_SEARCH = "${API_V1}/mall/goods/search"
 }

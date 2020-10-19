@@ -23,4 +23,10 @@ interface MallService : IProvider {
      * 跳转到商品分类
      */
     fun goGoodsCategory(activity: Activity)
+
+    /**
+     * 跳转到商品搜索
+     * @param goodsCategoryId 商品分类Id，可不传
+     */
+    fun goGoodsSearch(activity: Activity, goodsCategoryId: String = "")
 }

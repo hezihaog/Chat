@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
+import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.http.MallPresenter
 import com.zh.android.circle.mall.item.GoodsCategoryFirstLevelViewBinder
@@ -23,6 +26,10 @@ import me.drakeet.multitype.MultiTypeAdapter
  * 商品分类
  */
 class MallGoodsCategoryFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.MALL_SERVICE)
+    var mMallService: MallService? = null
+
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vSearchBar: MallSearchBar by bindView(R.id.search_bar)
     private val vCategoryList: RecyclerView by bindView(R.id.category_list)
@@ -60,6 +67,7 @@ class MallGoodsCategoryFragment : BaseFragment() {
         MultiTypeAdapter(mChildItems).apply {
             register(MallGoodsCategoryModel::class.java, GoodsCategorySecondViewBinder {
                 //跳转到搜索列表，并传递分类id过去
+                mMallService?.goGoodsSearch(fragmentActivity, it.categoryId)
             })
         }
     }
@@ -99,6 +107,7 @@ class MallGoodsCategoryFragment : BaseFragment() {
             setTip("卫生间吹风机架")
             setCallback {
                 //跳转到商品搜索
+                mMallService?.goGoodsSearch(fragmentActivity)
             }
         }
     }

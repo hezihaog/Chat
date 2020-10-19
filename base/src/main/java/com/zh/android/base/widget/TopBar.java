@@ -170,7 +170,15 @@ public class TopBar extends RelativeLayout {
         if (params == null) {
             params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         }
+        //居中
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        //在左边按钮的右边
+        if (mLeftLastViewId != DEFAULT_VIEW_ID) {
+            params.addRule(RelativeLayout.RIGHT_OF, mLeftLastViewId);
+        }//在右边按钮的左边
+        if (mRightLastViewId != DEFAULT_VIEW_ID) {
+            params.addRule(RelativeLayout.LEFT_OF, mRightLastViewId);
+        }
         addView(view, params);
     }
 

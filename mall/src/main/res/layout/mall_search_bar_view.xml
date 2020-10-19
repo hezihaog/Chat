@@ -28,7 +28,9 @@
             android:singleLine="true"
             android:textColor="@color/base_gray6"
             android:textSize="@dimen/base_dimen_sp_14"
+            android:visibility="invisible"
             tools:ignore="UseCompatTextViewDrawableXml"
-            tools:text="卫生间吹风机架" />
+            tools:text="卫生间吹风机架"
+            tools:visibility="visible" />
     </FrameLayout>
 </FrameLayout>

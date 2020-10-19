@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            tools:src="@drawable/base_def_img_rect" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            android:layout_marginEnd="@dimen/base_dimen_10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_5"
+                android:ellipsize="end"
+                android:lineSpacingMultiplier="1.2"
+                android:maxLines="2"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_14"
+                tools:text="迪奥（Dior）烈艳蓝金唇膏滋润999# 3.5g 经典..." />
+
+            <TextView
+                android:id="@+id/intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_5"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/base_gray4"
+                android:textSize="@dimen/base_dimen_sp_13"
+                tools:text="(口红 保湿滋润 气质显白 不挑皮) （新老包装随机）" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_5"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/base_green3"
+                android:textSize="@dimen/base_dimen_sp_13"
+                tools:text="￥315" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/base_divider" />
+</LinearLayout>

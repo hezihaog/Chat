@@ -97,6 +97,10 @@ class MallMainFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.mall_module_name)
+            addRightTextButton(R.string.base_search, R.id.topbar_item_search).click {
+                //搜索
+                mMallService?.goGoodsSearch(fragmentActivity)
+            }
         }
         vRefreshLayout.apply {
             setOnRefreshListener {

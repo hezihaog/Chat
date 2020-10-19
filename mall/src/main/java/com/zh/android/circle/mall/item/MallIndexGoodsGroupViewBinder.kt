@@ -66,10 +66,14 @@ class MallIndexGoodsGroupViewBinder :
         }
 
         override fun onBindViewHolder(holder: InnerViewHolder, item: MallGoodsModel) {
+            val context = holder.itemView.context
             item.run {
                 holder.vImage.loadUrlImage(goodsCoverImg)
                 holder.vName.text = goodsName
-                holder.vPrice.text = sellingPrice.toString()
+                holder.vPrice.text = context.resources.getString(
+                    R.string.mall_rmb_price,
+                    sellingPrice.toString()
+                )
             }
         }
 

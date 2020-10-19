@@ -7,7 +7,10 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
+import com.zh.android.base.http.PageModel
+import com.zh.android.circle.mall.enums.OrderByType
 import com.zh.android.circle.mall.model.MallGoodsCategoryModel
+import com.zh.android.circle.mall.model.MallGoodsModel
 import com.zh.android.circle.mall.model.MallIndexInfoModel
 import io.reactivex.Observable
 
@@ -42,6 +45,39 @@ class MallRequester {
             val request: GetRequest<HttpModel<List<MallGoodsCategoryModel>>> =
                 OkGo.get(ApiUrl.MALL_GET_GOODS_CATEGORY)
             return request.tag(tag)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 搜索商品
+         * @param keyword 关键字
+         * @param goodsCategoryId 商品分类Id
+         * @param orderBy 排序方式
+         */
+        fun searchGoods(
+            tag: String,
+            keyword: String,
+            goodsCategoryId: String,
+            orderBy: OrderByType,
+            pageNum: Int,
+            pageSize: Int
+        ): Observable<HttpModel<PageModel<MallGoodsModel>>> {
+            val type = genericGsonType<HttpModel<PageModel<MallGoodsModel>>>();
+            val request: GetRequest<HttpModel<PageModel<MallGoodsModel>>> =
+                OkGo.get(ApiUrl.MALL_GOODS_SEARCH)
+            return request.tag(tag)
+                .apply {
+                    if (keyword.isNotBlank()) {
+                        params("keyword", keyword)
+                    }
+                    if (goodsCategoryId.isNotBlank()) {
+                        params("goodsCategoryId", goodsCategoryId)
+                    }
+                    params("orderBy", orderBy.type)
+                    params("pageNum", pageNum)
+                    params("pageSize", pageSize)
+                }
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

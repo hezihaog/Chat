@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="mall_goods_sort_segment_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/base_dimen_6</item>
+        <item name="android:paddingBottom">@dimen/base_dimen_6</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_14</item>
+    </style>
+</resources>

@@ -65,6 +65,11 @@ class AppConstant private constructor() {
              * 通知的Detail
              */
             const val NOTICE_DETAIL = "notice_detail"
+
+            /**
+             * 商品分类Id
+             */
+            const val MALL_GOODS_CATEGORY_ID = "goods_category_id"
         }
     }
 

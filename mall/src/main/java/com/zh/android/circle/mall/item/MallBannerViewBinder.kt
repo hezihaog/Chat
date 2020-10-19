@@ -2,7 +2,6 @@ package com.zh.android.circle.mall.item
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,9 +13,10 @@ import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.model.MallBannerModel
+import com.zhpan.bannerview.BannerViewPager
+import com.zhpan.bannerview.BaseBannerAdapter
+import com.zhpan.bannerview.BaseViewHolder
 import me.drakeet.multitype.ItemViewBinder
-import me.drakeet.multitype.Items
-import me.drakeet.multitype.MultiTypeAdapter
 
 /**
  * @author wally
@@ -36,15 +36,11 @@ class MallBannerViewBinder(
             //指示器
             holder.vIndicator.count = list.size
             holder.vPager.apply {
-                val items = Items(list)
-                adapter = MultiTypeAdapter(items).apply {
-                    register(
-                        MallBannerModel.CarouselModel::class.java,
-                        InnerViewBinder()
-                    )
-                }
-                //横向滚动
-                orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                adapter = BannerAdapter()
+                //隐藏自带的指示器
+                setIndicatorVisibility(View.GONE)
+                //自动播放
+                setAutoPlay(true)
                 //滚动监听
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
@@ -53,80 +49,64 @@ class MallBannerViewBinder(
                         holder.vIndicator.setSelected(position)
                     }
                 })
-                fun goNext() {
-                    //到了最后一个条目，滚动回第一个
-                    if (holder.vPager.currentItem == items.size - 1) {
-                        setCurrentItem(0, false)
-                    } else {
-                        holder.vPager.currentItem += 1
-                    }
-                    holder.itemView.postDelayed(
-                        {
-                            goNext()
-                        },
-                        1500
-                    )
-                }
-
-                val nextAction = Runnable {
-                    goNext()
-                }
-                setOnTouchListener { _, event ->
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            holder.itemView.removeCallbacks(null)
-                        }
-                        MotionEvent.ACTION_UP -> {
-                            holder.itemView.postDelayed(
-                                nextAction,
-                                1500
-                            )
-                        }
-                    }
-                    false
-                }
-                holder.itemView.postDelayed(
-                    nextAction,
-                    1500
-                )
+                //最终，必须调用创建方法
+                create()
+                //设置数据
+                refreshData(list)
             }
         }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val vPager: ViewPager2 = view.findViewById(R.id.pager)
+        val vPager: BannerViewPager<MallBannerModel.CarouselModel, BannerViewHolder> =
+            view.findViewById(R.id.pager)
         val vIndicator: PageIndicatorView = view.findViewById(R.id.indicator)
     }
 
-    inner class InnerViewBinder :
-        ItemViewBinder<MallBannerModel.CarouselModel, InnerViewBinder.InnerViewHolder>() {
-        override fun onCreateViewHolder(
-            inflater: LayoutInflater,
-            parent: ViewGroup
-        ): InnerViewHolder {
-            return InnerViewHolder(
-                inflater.inflate(
-                    R.layout.mall_index_banner_inner_item_view,
-                    parent,
-                    false
-                )
-            )
+    /**
+     * 轮播图适配器
+     */
+    inner class BannerAdapter :
+        BaseBannerAdapter<MallBannerModel.CarouselModel, BannerViewHolder>() {
+        override fun createViewHolder(
+            parent: ViewGroup,
+            itemView: View?,
+            viewType: Int
+        ): BannerViewHolder {
+            return BannerViewHolder(itemView!!)
         }
 
-        override fun onBindViewHolder(
-            holder: InnerViewHolder,
-            item: MallBannerModel.CarouselModel
+        override fun onBind(
+            holder: BannerViewHolder?,
+            data: MallBannerModel.CarouselModel?,
+            position: Int,
+            pageSize: Int
         ) {
-            holder.vImage.loadUrlImage(
-                ApiUrl.getFullFileUrl(item.carouselUrl)
-            )
-            holder.itemView.click {
-                onClickItemCallback(item)
+            holder?.run {
+                bindData(data, position, pageSize)
             }
         }
 
-        inner class InnerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val vImage: ImageView = view.findViewById(R.id.image)
+        override fun getLayoutId(viewType: Int): Int {
+            return R.layout.mall_index_banner_inner_item_view
+        }
+    }
+
+    /**
+     * 轮播图的ViewHolder
+     */
+    inner class BannerViewHolder(view: View) : BaseViewHolder<MallBannerModel.CarouselModel>(view) {
+        private val vImage: ImageView = view.findViewById(R.id.image)
+
+        override fun bindData(data: MallBannerModel.CarouselModel?, position: Int, pageSize: Int) {
+            data?.run {
+                vImage.loadUrlImage(
+                    ApiUrl.getFullFileUrl(data.carouselUrl)
+                )
+                itemView.click {
+                    onClickItemCallback(data)
+                }
+            }
         }
     }
 }

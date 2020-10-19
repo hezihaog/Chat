@@ -90,6 +90,7 @@ dependencies {
     api rootProject.ext.deps.image_viewer
 
     api rootProject.ext.deps.web_view
+    api rootProject.ext.deps.banner_view_pager
     api rootProject.ext.deps.page_indicator_view
 
     testImplementation rootProject.ext.deps.junit

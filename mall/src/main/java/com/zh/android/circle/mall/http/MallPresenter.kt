@@ -47,4 +47,13 @@ class MallPresenter {
     ): Observable<HttpModel<PageModel<MallGoodsModel>>> {
         return MallRequester.searchGoods(TAG, keyword, goodsCategoryId, orderBy, pageNum, pageSize)
     }
+
+    /**
+     * 获取商品详情
+     */
+    fun getGoodsDetail(
+        goodsId: String
+    ): Observable<HttpModel<MallGoodsModel>> {
+        return MallRequester.getGoodsDetail(TAG, goodsId)
+    }
 }

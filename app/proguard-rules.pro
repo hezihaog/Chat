@@ -52,3 +52,7 @@
     public <init>(android.content.Context, android.util.AttributeSet);
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
+
+# BannerViewPager
+-keep class androidx.recyclerview.widget.**{*;}
+-keep class androidx.viewpager2.widget.**{*;}

@@ -352,4 +352,9 @@ object ApiUrl {
      * 商品搜索
      */
     val MALL_GOODS_SEARCH = "${API_V1}/mall/goods/search"
+
+    /**
+     * 获取商品详情
+     */
+    val MALL_GET_GOODS_DETAIL = "${API_V1}/mall/goods/getGoodsDetail"
 }

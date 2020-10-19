@@ -81,5 +81,21 @@ class MallRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 获取商品详情
+         */
+        fun getGoodsDetail(
+            tag: String,
+            goodsId: String
+        ): Observable<HttpModel<MallGoodsModel>> {
+            val type = genericGsonType<HttpModel<MallGoodsModel>>();
+            val request: GetRequest<HttpModel<MallGoodsModel>> =
+                OkGo.get(ApiUrl.MALL_GET_GOODS_DETAIL)
+            return request.tag(tag)
+                .params("goodsId", goodsId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

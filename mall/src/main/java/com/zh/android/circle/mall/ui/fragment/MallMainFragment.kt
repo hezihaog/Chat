@@ -71,7 +71,9 @@ class MallMainFragment : BaseFragment() {
                     }
                 })
             //商品分组
-            register(MallIndexGoodsGroupModel::class.java, MallIndexGoodsGroupViewBinder())
+            register(MallIndexGoodsGroupModel::class.java, MallIndexGoodsGroupViewBinder {
+                mMallService?.goGoodsDetail(fragmentActivity, it.goodsId)
+            })
         }
     }
 

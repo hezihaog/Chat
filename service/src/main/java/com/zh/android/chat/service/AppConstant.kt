@@ -69,7 +69,12 @@ class AppConstant private constructor() {
             /**
              * 商品分类Id
              */
-            const val MALL_GOODS_CATEGORY_ID = "goods_category_id"
+            const val MALL_GOODS_CATEGORY_ID = "mall_goods_category_id"
+
+            /**
+             * 商品Id
+             */
+            const val MALL_GOODS_ID = "mall_goods_id"
         }
     }
 

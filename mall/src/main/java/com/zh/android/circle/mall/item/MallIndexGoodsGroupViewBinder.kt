@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.model.MallGoodsModel
@@ -20,7 +21,9 @@ import me.drakeet.multitype.MultiTypeAdapter
  * @date 2020/10/17
  * 商城首页-商品分组
  */
-class MallIndexGoodsGroupViewBinder :
+class MallIndexGoodsGroupViewBinder(
+    private val clickItemCallback: (model: MallGoodsModel) -> Unit
+) :
     ItemViewBinder<MallIndexGoodsGroupModel, MallIndexGoodsGroupViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         return ViewHolder(
@@ -74,6 +77,9 @@ class MallIndexGoodsGroupViewBinder :
                     R.string.mall_rmb_price,
                     sellingPrice.toString()
                 )
+                holder.itemView.click {
+                    clickItemCallback(item)
+                }
             }
         }
 

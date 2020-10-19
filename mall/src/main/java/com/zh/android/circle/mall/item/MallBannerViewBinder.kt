@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.rd.PageIndicatorView
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
@@ -32,6 +33,8 @@ class MallBannerViewBinder(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, item: MallBannerModel) {
         item.run {
+            //指示器
+            holder.vIndicator.count = list.size
             holder.vPager.apply {
                 val items = Items(list)
                 adapter = MultiTypeAdapter(items).apply {
@@ -46,14 +49,27 @@ class MallBannerViewBinder(
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
-                        //到了最后一个条目，滚动回第一个
-                        if (position == items.size - 1) {
-                            setCurrentItem(0, false)
-                        }
+                        //切换指示器
+                        holder.vIndicator.setSelected(position)
                     }
                 })
-                val nextAction = {
-                    holder.vPager.currentItem += 1
+                fun goNext() {
+                    //到了最后一个条目，滚动回第一个
+                    if (holder.vPager.currentItem == items.size - 1) {
+                        setCurrentItem(0, false)
+                    } else {
+                        holder.vPager.currentItem += 1
+                    }
+                    holder.itemView.postDelayed(
+                        {
+                            goNext()
+                        },
+                        1500
+                    )
+                }
+
+                val nextAction = Runnable {
+                    goNext()
                 }
                 setOnTouchListener { _, event ->
                     when (event.action) {
@@ -79,6 +95,7 @@ class MallBannerViewBinder(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val vPager: ViewPager2 = view.findViewById(R.id.pager)
+        val vIndicator: PageIndicatorView = view.findViewById(R.id.indicator)
     }
 
     inner class InnerViewBinder :

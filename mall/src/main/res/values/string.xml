@@ -5,4 +5,15 @@
     <string name="mall_goods_group_hot">最热商品</string>
     <string name="mall_goods_group_new">最新商品</string>
     <string name="mall_goods_group_recommend">推荐商品</string>
+
+    <string name="mall_super_market">新蜂超市</string>
+    <string name="mall_clothes">新蜂服饰</string>
+    <string name="mall_global">全球购</string>
+    <string name="mall_fresh">新蜂生鲜</string>
+    <string name="mall_distribution_home">新蜂到家</string>
+    <string name="mall_pay_cost">充值缴费</string>
+    <string name="mall_spell_pay">9.9元拼</string>
+    <string name="mall_get_coupons">领劵</string>
+    <string name="mall_save_money">省钱</string>
+    <string name="mall_all">全部</string>
 </resources>

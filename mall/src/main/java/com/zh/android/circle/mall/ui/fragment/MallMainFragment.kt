@@ -33,6 +33,14 @@ class MallMainFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
+    private val vShoppingCar: View by bindView(R.id.shopping_car)
+
+    /**
+     * 商品分类数据
+     */
+    private val mGoodsCategory by lazy {
+        generateGoodsCategory()
+    }
 
     private val mListItems by lazy {
         Items()
@@ -47,7 +55,14 @@ class MallMainFragment : BaseFragment() {
                 }
             })
             //商品分类
-            register(MallIndexGoodsCategoryModel::class.java, MallIndexGoodsCategoryViewBinder())
+            register(
+                MallIndexGoodsCategoryModel::class.java,
+                MallIndexGoodsCategoryViewBinder { position, _ ->
+                    //点击的是全部，跳转到商品分类
+                    if (position == mGoodsCategory.lastIndex) {
+                        toast("跳转到商品分类")
+                    }
+                })
             //商品分组
             register(MallIndexGoodsGroupModel::class.java, MallIndexGoodsGroupViewBinder())
         }
@@ -66,7 +81,7 @@ class MallMainFragment : BaseFragment() {
     }
 
     override fun onInflaterViewId(): Int {
-        return R.layout.base_refresh_layout_with_top_bar
+        return R.layout.mall_index_main_fragment
     }
 
     override fun onBindView(view: View?) {
@@ -85,6 +100,9 @@ class MallMainFragment : BaseFragment() {
         vRefreshList.apply {
             layoutManager = LinearLayoutManager(fragmentActivity)
             adapter = mListAdapter
+        }
+        vShoppingCar.click {
+            //跳转到购物车
         }
     }
 
@@ -133,7 +151,7 @@ class MallMainFragment : BaseFragment() {
             //分类列表
             add(
                 MallIndexGoodsCategoryModel(
-                    generateGoodsCategory()
+                    mGoodsCategory
                 )
             )
             //最热商品
@@ -175,43 +193,43 @@ class MallMainFragment : BaseFragment() {
     private fun generateGoodsCategory(): List<MallIndexGoodsCategoryModel.CategoryModel> {
         return listOf(
             MallIndexGoodsCategoryModel.CategoryModel(
-                "新蜂超市",
+                getString(R.string.mall_super_market),
                 "http://s.weituibao.com/1583585285461/cs.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "新蜂服饰",
+                getString(R.string.mall_clothes),
                 "http://s.weituibao.com/1583585285468/fs.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "全球购",
+                getString(R.string.mall_global),
                 "http://s.weituibao.com/1583585285470/qq.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "新蜂生鲜",
+                getString(R.string.mall_fresh),
                 "http://s.weituibao.com/1583585285472/sx.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "新蜂到家",
+                getString(R.string.mall_distribution_home),
                 "http://s.weituibao.com/1583585285467/dj.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "充值缴费",
+                getString(R.string.mall_pay_cost),
                 "http://s.weituibao.com/1583585285465/cz.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "9.9元拼",
+                getString(R.string.mall_spell_pay),
                 "http://s.weituibao.com/1583585285469/pt.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "领劵",
+                getString(R.string.mall_get_coupons),
                 "http://s.weituibao.com/1583585285468/juan.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "省钱",
+                getString(R.string.mall_save_money),
                 "http://s.weituibao.com/1583585285471/sq.png"
             ),
             MallIndexGoodsCategoryModel.CategoryModel(
-                "全部",
+                getString(R.string.mall_all),
                 "http://s.weituibao.com/1583585285470/qb.png"
             )
         )

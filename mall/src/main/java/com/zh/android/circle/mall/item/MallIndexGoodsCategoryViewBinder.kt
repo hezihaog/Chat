@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.constant.ApiUrl
+import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.model.MallIndexGoodsCategoryModel
@@ -20,7 +21,9 @@ import me.drakeet.multitype.MultiTypeAdapter
  * @date 2020/10/17
  * 商城首页-商品分类条目
  */
-class MallIndexGoodsCategoryViewBinder :
+class MallIndexGoodsCategoryViewBinder(
+    private val onClickItemCallback: (position: Int, model: MallIndexGoodsCategoryModel.CategoryModel) -> Unit
+) :
     ItemViewBinder<MallIndexGoodsCategoryModel, MallIndexGoodsCategoryViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         return ViewHolder(
@@ -51,7 +54,7 @@ class MallIndexGoodsCategoryViewBinder :
         val vList: RecyclerView = view.findViewById(R.id.list)
     }
 
-    class InnerViewBinder :
+    inner class InnerViewBinder :
         ItemViewBinder<MallIndexGoodsCategoryModel.CategoryModel, InnerViewBinder.InnerViewHolder>() {
         override fun onCreateViewHolder(
             inflater: LayoutInflater,
@@ -73,10 +76,13 @@ class MallIndexGoodsCategoryViewBinder :
             item.run {
                 holder.vImage.loadUrlImage(ApiUrl.getFullFileUrl(imgUrl))
                 holder.vName.text = name
+                holder.itemView.click {
+                    onClickItemCallback(getPosition(holder), item)
+                }
             }
         }
 
-        class InnerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        inner class InnerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val vImage: ImageView = view.findViewById(R.id.image)
             val vName: TextView = view.findViewById(R.id.name)
         }

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/base_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/base_refresh_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <View style="@style/base_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/customer_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mall_customer_service_symbol" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_2"
+                android:text="@string/mall_service"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shopping_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mall_shopping_car_symbol" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_2"
+                android:text="@string/mall_shopping_car"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_marginEnd="@dimen/base_dimen_10"
+            android:background="@drawable/mall_bg_goods_detail_btn"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_to_shopping_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="@dimen/base_dimen_8"
+                android:paddingBottom="@dimen/base_dimen_8"
+                android:text="@string/mall_add_to_shopping_car"
+                android:textColor="@color/base_white"
+                android:textSize="@dimen/base_dimen_sp_13" />
+
+            <View
+                style="@style/base_divider"
+                android:layout_width="@dimen/base_dimen_zero_point_five"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/pay_now"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="@dimen/base_dimen_8"
+                android:paddingBottom="@dimen/base_dimen_8"
+                android:text="@string/mall_pay_now"
+                android:textColor="@color/base_white"
+                android:textSize="@dimen/base_dimen_sp_13" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

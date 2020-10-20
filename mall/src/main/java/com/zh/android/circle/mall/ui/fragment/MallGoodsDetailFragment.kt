@@ -8,10 +8,7 @@ import com.draggable.library.extension.ImageViewerHelper
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.handlerErrorCode
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.circle.mall.R
@@ -33,6 +30,10 @@ class MallGoodsDetailFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
+    private val vCustomerService: View by bindView(R.id.customer_service)
+    private val vShoppingCar: View by bindView(R.id.shopping_car)
+    private val vAddToShoppingCard: View by bindView(R.id.add_to_shopping_card)
+    private val vPayNow: View by bindView(R.id.pay_now)
 
     /**
      * 商品Id
@@ -68,7 +69,7 @@ class MallGoodsDetailFragment : BaseFragment() {
     }
 
     override fun onInflaterViewId(): Int {
-        return R.layout.base_refresh_layout_with_top_bar
+        return R.layout.mall_goods_detail_fragment
     }
 
     override fun onBindView(view: View?) {
@@ -88,6 +89,19 @@ class MallGoodsDetailFragment : BaseFragment() {
         vRefreshList.apply {
             layoutManager = LinearLayoutManager(fragmentActivity)
             adapter = mListAdapter
+        }
+        //客服
+        vCustomerService.click {
+
+        }
+        vShoppingCar.click {
+            //跳转到购物车
+        }
+        vAddToShoppingCard.click {
+            //将当前商品，添加到购物车
+        }
+        vPayNow.click {
+            //马上购买
         }
     }
 
@@ -118,6 +132,7 @@ class MallGoodsDetailFragment : BaseFragment() {
                 }
             }, { error ->
                 error.printStackTrace()
+                showRequestError()
                 vRefreshLayout.finishRefresh(false)
             })
     }

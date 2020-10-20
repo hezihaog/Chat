@@ -27,4 +27,10 @@
 
     <string name="mall_goods_detail">商品详情</string>
     <string name="mall_mail_info">免邮费 顺丰快递</string>
+
+    <string name="mall_service">客服</string>
+    <string name="mall_shopping_car">购物车</string>
+
+    <string name="mall_add_to_shopping_car">加入购物车</string>
+    <string name="mall_pay_now">立即购买</string>
 </resources>

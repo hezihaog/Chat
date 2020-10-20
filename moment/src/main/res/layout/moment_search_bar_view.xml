@@ -1,46 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/input"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/base_white"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_dimen_10"
-            android:layout_marginTop="@dimen/base_dimen_8"
-            android:layout_marginBottom="@dimen/base_dimen_8"
-            android:layout_weight="1"
-            android:background="@drawable/moment_bg_search"
-            android:hint="@string/base_search_hint"
-            android:maxLines="1"
-            android:paddingStart="@dimen/base_dimen_15"
-            android:paddingTop="@dimen/base_dimen_8"
-            android:paddingEnd="@dimen/base_dimen_15"
-            android:paddingBottom="@dimen/base_dimen_8"
-            android:singleLine="true"
-            android:textColor="@color/base_black"
-            android:textColorHint="@color/base_gray4"
-            android:textSize="@dimen/base_dimen_sp_16" />
-
-        <TextView
-            android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingStart="@dimen/base_dimen_15"
-            android:paddingEnd="@dimen/base_dimen_15"
-            android:text="@string/base_search"
-            android:textColor="@color/base_black"
-            android:textSize="@dimen/base_dimen_sp_15" />
-    </LinearLayout>
-
-    <View style="@style/base_divider" />
-</LinearLayout>
+    android:layout_marginStart="@dimen/base_dimen_10"
+    android:layout_marginTop="@dimen/base_dimen_8"
+    android:layout_marginEnd="@dimen/base_dimen_10"
+    android:layout_marginBottom="@dimen/base_dimen_8"
+    android:background="@drawable/moment_bg_search"
+    android:hint="@string/base_search_hint"
+    android:maxLines="1"
+    android:paddingStart="@dimen/base_dimen_10"
+    android:paddingTop="@dimen/base_dimen_5"
+    android:paddingEnd="@dimen/base_dimen_10"
+    android:paddingBottom="@dimen/base_dimen_5"
+    android:singleLine="true"
+    android:textColor="@color/base_black"
+    android:textColorHint="@color/base_gray4"
+    android:textSize="@dimen/base_dimen_sp_14" />

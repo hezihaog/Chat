@@ -164,36 +164,43 @@ class MomentListFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.moment_module_name)
-            val btn = addRightImageButton(R.drawable.moment_publish, R.id.moment_publish)
-            btn.click {
-                AlertDialog.Builder(fragmentActivity)
-                    .setItems(
-                        arrayOf(
-                            getString(R.string.moment_publish_image),
-                            getString(R.string.moment_publish_video)
-                        )
-                    ) { _, which ->
-                        when (which) {
-                            0 -> {
-                                mMomentService?.goMomentPublish(
-                                    fragmentActivity,
-                                    MomentPublishType.TEXT_IMAGE
-                                )
-                            }
-                            1 -> {
-                                mMomentService?.goMomentPublish(
-                                    fragmentActivity,
-                                    MomentPublishType.TEXT_VIDEO
-                                )
+            //搜索
+            addRightImageButton(R.drawable.base_search_black, R.id.topbar_item_search)
+                .click {
+                    mMomentService?.goMomentSearch(fragmentActivity)
+                }
+            //发布
+            addRightImageButton(R.drawable.moment_publish, R.id.moment_publish).apply {
+                click {
+                    AlertDialog.Builder(fragmentActivity)
+                        .setItems(
+                            arrayOf(
+                                getString(R.string.moment_publish_image),
+                                getString(R.string.moment_publish_video)
+                            )
+                        ) { _, which ->
+                            when (which) {
+                                0 -> {
+                                    mMomentService?.goMomentPublish(
+                                        fragmentActivity,
+                                        MomentPublishType.TEXT_IMAGE
+                                    )
+                                }
+                                1 -> {
+                                    mMomentService?.goMomentPublish(
+                                        fragmentActivity,
+                                        MomentPublishType.TEXT_VIDEO
+                                    )
+                                }
                             }
                         }
-                    }
-                    .create()
-                    .show()
-            }
-            btn.longClick {
-                mMomentService?.goMomentPublish(fragmentActivity, MomentPublishType.SINGLE_TEXT)
-                true
+                        .create()
+                        .show()
+                }
+                longClick {
+                    mMomentService?.goMomentPublish(fragmentActivity, MomentPublishType.SINGLE_TEXT)
+                    true
+                }
             }
         }
         vRefreshLayout.apply {

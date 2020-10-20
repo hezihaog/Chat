@@ -25,9 +25,8 @@ import io.reactivex.functions.Consumer;
  */
 public class MomentSearchBar extends FrameLayout {
     private EditText vInput;
-    private View vSearch;
-    private Callback callback;
 
+    private Callback callback;
     private Disposable disposable;
 
     public MomentSearchBar(@NonNull Context context) {
@@ -59,7 +58,6 @@ public class MomentSearchBar extends FrameLayout {
 
     private void findView(View view) {
         vInput = view.findViewById(R.id.input);
-        vSearch = view.findViewById(R.id.search);
     }
 
     private void bindView() {
@@ -78,19 +76,6 @@ public class MomentSearchBar extends FrameLayout {
                         }
                     }
                 });
-        //搜索
-        vSearch.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String keyword = vInput.getText().toString().trim();
-                if (TextUtils.isEmpty(keyword)) {
-                    return;
-                }
-                if (callback != null) {
-                    callback.onSearch(keyword);
-                }
-            }
-        });
     }
 
     public interface Callback {

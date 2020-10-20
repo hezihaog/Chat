@@ -5,10 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.zh.android.chat.moment.ui.widget.MomentSearchBar
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/base_top_bar" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/base_refresh_layout"

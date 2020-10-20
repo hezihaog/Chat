@@ -17,6 +17,7 @@ import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.ShareUtil
+import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentItemViewBinder
@@ -39,7 +40,10 @@ class MomentSearchFragment : BaseFragment() {
     @Autowired(name = ARouterUrl.MOMENT_SERVICE)
     var mMomentService: MomentService? = null
 
-    private val vSearchBar: MomentSearchBar by bindView(R.id.search_bar)
+    private val vTopBar: TopBar by bindView(R.id.top_bar)
+    private val vSearchBar by lazy {
+        vTopBar.centerView as MomentSearchBar
+    }
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
 
@@ -134,11 +138,6 @@ class MomentSearchFragment : BaseFragment() {
         GSYVideoManager.onPause()
     }
 
-    override fun onResume() {
-        super.onResume()
-        GSYVideoManager.onResume()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         GSYVideoManager.releaseAllVideos()
@@ -149,6 +148,21 @@ class MomentSearchFragment : BaseFragment() {
     }
 
     override fun onBindView(view: View?) {
+        vTopBar.apply {
+            addLeftBackImageButton().click {
+                fragmentActivity.finish()
+            }
+            addRightTextButton(R.string.base_search, R.id.topbar_item_search).click {
+                //搜索
+                val inputText = vSearchBar.inputText
+                if (inputText.isBlank()) {
+                    toast(R.string.base_search_hint)
+                    return@click
+                }
+                search(inputText)
+            }
+            centerView = MomentSearchBar(fragmentActivity)
+        }
         vSearchBar.apply {
             setCallback {
                 //搜索

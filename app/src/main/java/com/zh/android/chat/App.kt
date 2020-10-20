@@ -26,7 +26,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.shuyu.gsyvideoplayer.cache.CacheFactory
+import com.shuyu.gsyvideoplayer.cache.ProxyCacheManager
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
+import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.zh.android.base.ext.loadUrlImage
@@ -36,8 +38,6 @@ import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
 import com.zh.android.imageloader.ImageLoader
 import com.zh.android.imageloader.strategy.impl.GlideLoader
 import okhttp3.OkHttpClient
-import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
-import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager
 import java.util.concurrent.TimeUnit
 
 /**
@@ -251,12 +251,10 @@ class App : Application() {
         }
 
         override fun create(context: Context): String? {
-            //EXOPlayer内核，支持格式更多
-            PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
-            //exo缓存模式，支持m3u8，只支持exo
-            CacheFactory.setCacheManager(ExoPlayerCacheManager::class.java)
-            //视频比例
-            GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_4_3)
+            //切换播放器内核
+            PlayerFactory.setPlayManager(SystemPlayerManager::class.java)
+            //设置缓存管理器
+            CacheFactory.setCacheManager(ProxyCacheManager::class.java)
             //GLSurfaceView、支持滤镜
             GSYVideoType.setRenderType(GSYVideoType.GLSURFACE)
             return this.javaClass.simpleName

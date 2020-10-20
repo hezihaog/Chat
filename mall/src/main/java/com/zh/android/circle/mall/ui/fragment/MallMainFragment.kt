@@ -116,6 +116,7 @@ class MallMainFragment : BaseFragment() {
         }
         vShoppingCar.click {
             //跳转到购物车
+            mMallService?.goShoppingCar(fragmentActivity)
         }
     }
 

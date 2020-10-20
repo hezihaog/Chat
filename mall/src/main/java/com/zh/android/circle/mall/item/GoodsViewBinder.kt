@@ -46,6 +46,6 @@ class GoodsViewBinder(
         val vImage: ImageView = view.findViewById(R.id.image)
         val vName: TextView = view.findViewById(R.id.name)
         val vIntro: TextView = view.findViewById(R.id.intro)
-        val vPrice: TextView = view.findViewById(R.id.price)
+        val vPrice: TextView = view.findViewById(R.id.total_price)
     }
 }

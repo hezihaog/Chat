@@ -172,5 +172,10 @@ class ARouterUrl {
          * 商品详情
          */
         const val MALL_GOODS_DETAIL = "${MALL_GROUP}/goods/detail"
+
+        /**
+         * 购物车
+         */
+        const val MALL_SHOPPING_CAR = "${MALL_GROUP}/shoppingCar"
     }
 }

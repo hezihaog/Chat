@@ -19,7 +19,9 @@
     <string name="mall_save_money">省钱</string>
     <string name="mall_all">全部</string>
 
+    <string name="mall_rmb">￥</string>
     <string name="mall_rmb_price">￥%1$s</string>
+    <string name="mall_goods_count">x%1$s</string>
 
     <string name="mall_recommend">推荐</string>
     <string name="mall_new">新品</string>
@@ -32,5 +34,9 @@
     <string name="mall_shopping_car">购物车</string>
 
     <string name="mall_add_to_shopping_car">加入购物车</string>
+    <string name="mall_add_to_shopping_car_success">添加成功</string>
     <string name="mall_pay_now">立即购买</string>
+
+    <string name="mall_total">合计：</string>
+    <string name="mall_settlement">结算</string>
 </resources>

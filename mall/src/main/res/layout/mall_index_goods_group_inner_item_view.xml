@@ -37,7 +37,7 @@
             tools:text="华为 HUAWEI P40 冰霜银 全网通 5G 手机 华为 HUAWEI P40 冰霜银 全网通 5G 手机 华为 HUAWEI P40 冰霜银 全网通 5G 手机" />
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/total_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/base_dimen_5"

@@ -53,7 +53,7 @@
                 tools:text="(口红 保湿滋润 气质显白 不挑皮) （新老包装随机）" />
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/total_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/base_dimen_5"

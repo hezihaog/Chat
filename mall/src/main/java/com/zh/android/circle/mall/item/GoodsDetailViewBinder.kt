@@ -53,7 +53,7 @@ class GoodsDetailViewBinder(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val vPager: BannerViewPager<String, BannerViewHolder> = view.findViewById(R.id.pager)
         val vName: TextView = view.findViewById(R.id.name)
-        val vPrice: TextView = view.findViewById(R.id.price)
+        val vPrice: TextView = view.findViewById(R.id.total_price)
     }
 
     /**

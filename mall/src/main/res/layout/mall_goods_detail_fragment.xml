@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,6 +32,7 @@
             android:id="@+id/customer_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/base_dimen_10"
             android:layout_marginTop="@dimen/base_dimen_10"
             android:layout_marginBottom="@dimen/base_dimen_10"
@@ -51,29 +53,51 @@
                 android:textSize="@dimen/base_dimen_sp_12" />
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/shopping_car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/base_dimen_10"
             android:layout_marginTop="@dimen/base_dimen_10"
             android:layout_marginBottom="@dimen/base_dimen_10"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/base_dimen_10">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/mall_shopping_car_symbol" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mall_shopping_car_symbol" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_dimen_2"
+                    android:text="@string/mall_shopping_car"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_12" />
+            </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/base_dimen_2"
-                android:text="@string/mall_shopping_car"
-                android:textColor="@color/base_black"
-                android:textSize="@dimen/base_dimen_sp_12" />
-        </LinearLayout>
+                android:id="@+id/shopping_car_dot"
+                android:layout_width="@dimen/base_dimen_15"
+                android:layout_height="@dimen/base_dimen_15"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/base_dimen_minus_8"
+                android:layout_marginEnd="@dimen/base_dimen_5"
+                android:background="@drawable/base_red_dot"
+                android:gravity="center"
+                android:textColor="@color/base_white"
+                android:textSize="@dimen/base_dimen_sp_10"
+                android:visibility="gone"
+                tools:text="10"
+                tools:visibility="visible" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,7 +105,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/base_dimen_10"
             android:layout_marginEnd="@dimen/base_dimen_10"
-            android:background="@drawable/mall_bg_goods_detail_btn"
+            android:background="@drawable/mall_bg_circular_angle_btn"
             android:orientation="horizontal">
 
             <TextView

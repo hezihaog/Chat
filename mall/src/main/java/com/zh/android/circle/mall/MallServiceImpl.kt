@@ -48,4 +48,10 @@ class MallServiceImpl : MallService {
             .withString(AppConstant.Key.MALL_GOODS_ID, goodsId)
             .startNavigation(activity)
     }
+
+    override fun goShoppingCar(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_SHOPPING_CAR)
+            .startNavigation(activity)
+    }
 }

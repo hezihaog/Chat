@@ -35,4 +35,9 @@ interface MallService : IProvider {
      * @param goodsId 商品Id
      */
     fun goGoodsDetail(activity: Activity, goodsId: String)
+
+    /**
+     * 跳转到购物车
+     */
+    fun goShoppingCar(activity: Activity)
 }

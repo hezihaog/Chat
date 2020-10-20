@@ -86,7 +86,7 @@ class MallIndexGoodsGroupViewBinder(
         inner class InnerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val vImage: ImageView = view.findViewById(R.id.image)
             val vName: TextView = view.findViewById(R.id.name)
-            val vPrice: TextView = view.findViewById(R.id.price)
+            val vPrice: TextView = view.findViewById(R.id.total_price)
         }
     }
 }

@@ -14,6 +14,7 @@
     <dimen name="base_dimen_6">6dp</dimen>
     <dimen name="base_dimen_7">7dp</dimen>
     <dimen name="base_dimen_8">8dp</dimen>
+    <dimen name="base_dimen_minus_8">-8dp</dimen>
     <dimen name="base_dimen_9">9dp</dimen>
     <dimen name="base_dimen_10">10dp</dimen>
     <dimen name="base_dimen_minus_10">-10dp</dimen>

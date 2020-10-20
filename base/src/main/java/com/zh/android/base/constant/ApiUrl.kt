@@ -357,4 +357,29 @@ object ApiUrl {
      * 获取商品详情
      */
     val MALL_GET_GOODS_DETAIL = "${API_V1}/mall/goods/getGoodsDetail"
+
+    /**
+     * 获取我的购物车列表
+     */
+    val MALL_CART_ITEM_LIST = "${API_V1}/mall/shoppingCart/cartItemList"
+
+    /**
+     * 保存商品到购物车
+     */
+    val MALL_SAVE_SHOPPING_CART_ITEM = "${API_V1}/mall/shoppingCart/saveShoppingCartItem"
+
+    /**
+     * 更新一项购物车商品信息
+     */
+    val MALL_UPDATE_CART_ITEM = "${API_V1}/mall/shoppingCart/updateCartItem"
+
+    /**
+     * 删除一项购物车商品信息
+     */
+    val MALL_DELETE_CART_ITEM = "${API_V1}/mall/shoppingCart/deleteCartItem"
+
+    /**
+     * 获取购物车列表的数量
+     */
+    val MALL_CART_ITEM_LIST_COUNT = "${API_V1}/mall/shoppingCart/cartItemListCount"
 }

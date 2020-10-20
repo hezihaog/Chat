@@ -6,6 +6,7 @@ import com.zh.android.circle.mall.enums.OrderByType
 import com.zh.android.circle.mall.model.MallGoodsCategoryModel
 import com.zh.android.circle.mall.model.MallGoodsModel
 import com.zh.android.circle.mall.model.MallIndexInfoModel
+import com.zh.android.circle.mall.model.ShoppingCartItemModel
 import io.reactivex.Observable
 
 /**
@@ -55,5 +56,60 @@ class MallPresenter {
         goodsId: String
     ): Observable<HttpModel<MallGoodsModel>> {
         return MallRequester.getGoodsDetail(TAG, goodsId)
+    }
+
+    /**
+     * 获取购物车列表
+     */
+    fun cartItemList(
+        userId: String
+    ): Observable<HttpModel<List<ShoppingCartItemModel>>> {
+        return MallRequester.cartItemList(TAG, userId)
+    }
+
+    /**
+     * 保存商品到购物车
+     * @param goodsId 商品Id
+     * @param goodsCount 数量
+     */
+    fun saveShoppingCartItem(
+        userId: String,
+        goodsId: String,
+        goodsCount: Int
+    ): Observable<HttpModel<*>> {
+        return MallRequester.saveShoppingCartItem(TAG, userId, goodsId, goodsCount)
+    }
+
+    /**
+     * 更新一项购物车商品信息
+     * @param cartItemId 购物车项Id
+     * @param goodsCount 数量
+     */
+    fun updateCartItem(
+        userId: String,
+        cartItemId: String,
+        goodsCount: Int
+    ): Observable<HttpModel<*>> {
+        return MallRequester.updateCartItem(TAG, userId, cartItemId, goodsCount)
+    }
+
+    /**
+     * 删除一项购物车商品信息
+     * @param cartItemId 购物车项Id
+     */
+    fun deleteCartItem(
+        userId: String,
+        cartItemId: String
+    ): Observable<HttpModel<*>> {
+        return MallRequester.deleteCartItem(TAG, userId, cartItemId)
+    }
+
+    /**
+     * 获取购物车列表的数量
+     */
+    fun cartItemListCount(
+        userId: String
+    ): Observable<HttpModel<Int>> {
+        return MallRequester.cartItemListCount(TAG, userId)
     }
 }

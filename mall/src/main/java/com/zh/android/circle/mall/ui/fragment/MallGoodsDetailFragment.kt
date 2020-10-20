@@ -2,15 +2,21 @@ package com.zh.android.circle.mall.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.apkfuns.logutils.LogUtils
 import com.draggable.library.extension.ImageViewerHelper
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.ext.getLoginService
+import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.http.MallPresenter
 import com.zh.android.circle.mall.item.GoodsDetailViewBinder
@@ -27,11 +33,16 @@ import me.drakeet.multitype.MultiTypeAdapter
  * 商品详情
  */
 class MallGoodsDetailFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.MALL_SERVICE)
+    var mMallService: MallService? = null
+
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
     private val vCustomerService: View by bindView(R.id.customer_service)
     private val vShoppingCar: View by bindView(R.id.shopping_car)
+    private val vShoppingCarDot: TextView by bindView(R.id.shopping_car_dot)
     private val vAddToShoppingCard: View by bindView(R.id.add_to_shopping_card)
     private val vPayNow: View by bindView(R.id.pay_now)
 
@@ -92,16 +103,19 @@ class MallGoodsDetailFragment : BaseFragment() {
         }
         //客服
         vCustomerService.click {
-
+            toast("客服中心")
         }
         vShoppingCar.click {
             //跳转到购物车
+            mMallService?.goShoppingCar(fragmentActivity)
         }
         vAddToShoppingCard.click {
             //将当前商品，添加到购物车
+            saveShoppingCartItem(mGoodsId, 1, false)
         }
         vPayNow.click {
             //马上购买
+            saveShoppingCartItem(mGoodsId, 1, true)
         }
     }
 
@@ -112,8 +126,12 @@ class MallGoodsDetailFragment : BaseFragment() {
 
     private fun refresh() {
         getGoodsDetail()
+        cartItemListCount()
     }
 
+    /**
+     * 获取商品详情
+     */
     private fun getGoodsDetail() {
         mMallPresenter.getGoodsDetail(mGoodsId)
             .ioToMain()
@@ -134,6 +152,67 @@ class MallGoodsDetailFragment : BaseFragment() {
                 error.printStackTrace()
                 showRequestError()
                 vRefreshLayout.finishRefresh(false)
+            })
+    }
+
+    /**
+     * 获取购物车列表的数量
+     */
+    private fun cartItemListCount() {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMallPresenter.cartItemListCount(userId)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({
+                if (checkHttpResponse(it)) {
+                    val count = it.data ?: 0
+                    vShoppingCarDot.apply {
+                        if (count > 0) {
+                            setVisible()
+                            text = count.toString()
+                        } else {
+                            setGone()
+                        }
+                    }
+                }
+            }, {
+                it.printStackTrace()
+                LogUtils.d("获取购物车列表数量失败")
+            })
+    }
+
+    /**
+     * 保存商品到购物车
+     * @param isGoShoppingCar 是否添加成功后，跳转去购物车
+     */
+    private fun saveShoppingCartItem(
+        goodsId: String,
+        goodsCount: Int,
+        isGoShoppingCar: Boolean
+    ) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMallPresenter.saveShoppingCartItem(userId, goodsId, goodsCount)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    //跳转去购物车
+                    if (isGoShoppingCar) {
+                        mMallService?.goShoppingCar(fragmentActivity)
+                        fragmentActivity.finish()
+                    } else {
+                        toast(R.string.mall_add_to_shopping_car_success)
+                    }
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
             })
     }
 }

@@ -119,6 +119,11 @@ class MallGoodsDetailFragment : BaseFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        cartItemListCount()
+    }
+
     override fun setData() {
         super.setData()
         refresh()
@@ -126,7 +131,6 @@ class MallGoodsDetailFragment : BaseFragment() {
 
     private fun refresh() {
         getGoodsDetail()
-        cartItemListCount()
     }
 
     /**
@@ -207,6 +211,8 @@ class MallGoodsDetailFragment : BaseFragment() {
                         mMallService?.goShoppingCar(fragmentActivity)
                         fragmentActivity.finish()
                     } else {
+                        //添加成功，刷新一下购物车数量
+                        cartItemListCount()
                         toast(R.string.mall_add_to_shopping_car_success)
                     }
                 }

@@ -50,6 +50,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.deps.kotlin
 
+    //地址选择器
+    api rootProject.ext.deps.picker_view
+
     api project(path: ':base')
     api project(path: ':service')
 

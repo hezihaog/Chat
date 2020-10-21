@@ -53,4 +53,23 @@
     <string name="mall_order_create_time">订单时间：%1$s</string>
 
     <string name="mall_add_user_address">新增地址</string>
+    <string name="mall_update_user_address">更新地址</string>
+    <string name="mall_name">姓名</string>
+    <string name="mall_name_hint">收货人姓名</string>
+    <string name="mall_name_tip">请输入收货人姓名</string>
+    <string name="mall_phone">电话</string>
+    <string name="mall_phone_hint">收货人手机号</string>
+    <string name="mall_phone_tip">请输入收货人手机号</string>
+    <string name="mall_phone_format_no_match">收货人手机号格式不正确</string>
+    <string name="mall_region">地区</string>
+    <string name="mall_region_choose">地区选择</string>
+    <string name="mall_region_hint">选择省/市/区</string>
+    <string name="mall_region_tip">请选择省/市/区</string>
+    <string name="mall_region_text">%1$s/%2$s/%3$s</string>
+    <string name="mall_detail_address">详细地址</string>
+    <string name="mall_detail_address_hint">街道门牌、楼层、房间号等信息</string>
+    <string name="mall_detail_address_tip">请输入详细地址</string>
+    <string name="mall_set_default_address">设为默认收货地址</string>
+
+    <string name="mall_delete_user_address_confirm">是否删除该地址，删除后，不可恢复！</string>
 </resources>

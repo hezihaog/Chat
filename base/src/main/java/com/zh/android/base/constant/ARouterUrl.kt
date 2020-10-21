@@ -186,6 +186,11 @@ class ARouterUrl {
         /**
          * 用户收货地址管理
          */
-        const val MALL_USER_ADDRESS_MANAGE = "${MALL_GROUP}/user/addressManage"
+        const val MALL_USER_ADDRESS_MANAGE = "${MALL_GROUP}/user/address/manage"
+
+        /**
+         * 用户收货地址编辑
+         */
+        const val MALL_USER_ADDRESS_EDIT = "${MALL_GROUP}/user/address/edit"
     }
 }

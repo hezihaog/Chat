@@ -39,4 +39,10 @@
     <string name="base_search_hint">请输入要搜索的内容</string>
 
     <string name="base_select_all">全选</string>
+
+    <string name="base_save">保存</string>
+    <string name="base_save_success">保存成功</string>
+
+    <string name="base_update">更新</string>
+    <string name="base_update_success">更新成功</string>
 </resources>

@@ -2,6 +2,7 @@ package com.zh.android.circle.mall.http
 
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.PageModel
+import com.zh.android.circle.mall.enums.DefaultAddressFlag
 import com.zh.android.circle.mall.enums.OrderByType
 import com.zh.android.circle.mall.enums.OrderStatus
 import com.zh.android.circle.mall.model.*
@@ -131,5 +132,95 @@ class MallPresenter {
         userId: String
     ): Observable<HttpModel<List<UserAddressModel>>> {
         return MallRequester.getMyAddressList(TAG, userId)
+    }
+
+    /**
+     * 根据Id，获收货地址
+     * @param addressId 收货地址Id
+     */
+    fun getUserAddress(
+        addressId: String
+    ): Observable<HttpModel<UserAddressModel>> {
+        return MallRequester.getUserAddress(TAG, addressId)
+    }
+
+    /**
+     * 保存一个收货地址
+     * @param userName 收件人名称
+     * @param userPhone 收件人联系方式
+     * @param defaultFlag 是否默认地址 0-不是 1-是
+     * @param provinceName 省
+     * @param cityName 市
+     * @param regionName 区/县
+     * @param detailAddress 详细地址
+     */
+    fun saveUserAddress(
+        userId: String,
+        userName: String,
+        userPhone: String,
+        defaultFlag: DefaultAddressFlag,
+        provinceName: String,
+        cityName: String,
+        regionName: String,
+        detailAddress: String
+    ): Observable<HttpModel<*>> {
+        return MallRequester.saveUserAddress(
+            TAG,
+            userId,
+            userName,
+            userPhone,
+            defaultFlag,
+            provinceName,
+            cityName,
+            regionName,
+            detailAddress
+        )
+    }
+
+    /**
+     * 保存一个收货地址
+     * @param addressId 地址Id
+     * @param userName 收件人名称
+     * @param userPhone 收件人联系方式
+     * @param defaultFlag 是否默认地址 0-不是 1-是
+     * @param provinceName 省
+     * @param cityName 市
+     * @param regionName 区/县
+     * @param detailAddress 详细地址
+     */
+    fun updateUserAddress(
+        addressId: String,
+        userId: String,
+        userName: String,
+        userPhone: String,
+        defaultFlag: DefaultAddressFlag,
+        provinceName: String,
+        cityName: String,
+        regionName: String,
+        detailAddress: String
+    ): Observable<HttpModel<*>> {
+        return MallRequester.updateUserAddress(
+            TAG,
+            addressId,
+            userId,
+            userName,
+            userPhone,
+            defaultFlag,
+            provinceName,
+            cityName,
+            regionName,
+            detailAddress
+        )
+    }
+
+    /**
+     * 删除一个收货地址
+     * @param addressId 收货地址Id
+     */
+    fun deleteAddress(
+        userId: String,
+        addressId: String
+    ): Observable<HttpModel<*>> {
+        return MallRequester.deleteAddress(TAG, userId, addressId)
     }
 }

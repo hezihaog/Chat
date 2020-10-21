@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SwitchButton">
+        <!--  关闭时的背景颜色  -->
+        <attr name="sb_unchecked_bg" format="color" />
+        <!--  打开时的背景颜色  -->
+        <attr name="sb_checked_bg" format="color" />
+        <!--  开关小圆距离开关背景的距离  -->
+        <attr name="sb_circle_bg_margin" format="dimension" />
+        <!--  是否默认打开  -->
+        <attr name="sb_checked" format="boolean" />
+    </declare-styleable>
+</resources>

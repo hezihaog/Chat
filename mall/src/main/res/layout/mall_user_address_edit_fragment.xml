@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/mall_user_address_edit_input_layout"
+                android:layout_marginTop="@dimen/base_dimen_20">
+
+                <TextView
+                    style="@style/mall_user_address_edit_label"
+                    android:text="@string/mall_add_user_address" />
+
+                <EditText
+                    android:id="@+id/name_input"
+                    style="@style/mall_user_address_edit_input"
+                    android:hint="@string/mall_name_hint" />
+            </LinearLayout>
+
+            <View style="@style/base_divider2" />
+
+            <LinearLayout style="@style/mall_user_address_edit_input_layout">
+
+                <TextView
+                    style="@style/mall_user_address_edit_label"
+                    android:text="@string/mall_phone" />
+
+                <EditText
+                    android:id="@+id/phone_input"
+                    style="@style/mall_user_address_edit_input"
+                    android:hint="@string/mall_phone_hint" />
+            </LinearLayout>
+
+            <View style="@style/base_divider2" />
+
+            <LinearLayout
+                android:id="@+id/region_layout"
+                style="@style/mall_user_address_edit_input_layout">
+
+                <TextView
+                    style="@style/mall_user_address_edit_label"
+                    android:text="@string/mall_region" />
+
+                <TextView
+                    android:id="@+id/region_content"
+                    style="@style/mall_user_address_edit_input"
+                    android:hint="@string/mall_region_hint" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/base_right_arrow" />
+            </LinearLayout>
+
+            <View style="@style/base_divider2" />
+
+            <LinearLayout style="@style/mall_user_address_edit_input_layout">
+
+                <TextView
+                    style="@style/mall_user_address_edit_label"
+                    android:text="@string/mall_detail_address" />
+
+                <EditText
+                    android:id="@+id/detail_address_input"
+                    style="@style/mall_user_address_edit_input"
+                    android:hint="@string/mall_detail_address_hint" />
+            </LinearLayout>
+
+            <View style="@style/base_divider2" />
+
+            <LinearLayout style="@style/mall_user_address_edit_input_layout">
+
+                <TextView
+                    style="@style/mall_user_address_edit_label"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/mall_set_default_address" />
+
+                <com.zh.android.base.widget.SwitchButton
+                    android:id="@+id/set_default_address_switch"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    app:sb_checked="false"
+                    app:sb_checked_bg="@color/base_green3"
+                    app:sb_circle_bg_margin="2.5dp"
+                    app:sb_unchecked_bg="@color/base_gray5" />
+            </LinearLayout>
+
+            <View style="@style/base_divider2" />
+
+            <TextView
+                android:id="@+id/save"
+                style="@style/mall_green_circular_angle_btn"
+                android:layout_marginTop="@dimen/base_dimen_25"
+                android:text="@string/base_save" />
+
+            <TextView
+                android:id="@+id/delete"
+                style="@style/mall_gray_hollow_circular_angle_btn"
+                android:layout_marginTop="@dimen/base_dimen_5"
+                android:text="@string/base_delete"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

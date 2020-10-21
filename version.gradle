@@ -113,8 +113,13 @@ ext {
 
             web_view                     : "cn.yc:WebViewLib:1.4.0",
 
+            //轮播图
             banner_view_pager            : "com.github.zhpanvip:BannerViewPager:3.2.0",
-            page_indicator_view          : "com.romandanylyk:pageindicatorview:1.0.3"
+            //轮播图指示器
+            page_indicator_view          : "com.romandanylyk:pageindicatorview:1.0.3",
+
+            //地址选择器
+            picker_view                  : "com.contrarywind:Android-PickerView:4.1.9"
     ]
 
     android = [

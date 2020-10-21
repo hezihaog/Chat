@@ -80,6 +80,16 @@ class AppConstant private constructor() {
              * 订单状态
              */
             const val MALL_ORDER_STATUS = "mall_order_status"
+
+            /**
+             * 用户收货地址编辑类型
+             */
+            const val MALL_USER_ADDRESS_EDIT_TYPE = "mall_user_address_edit_type"
+
+            /**
+             * 收货地址Id
+             */
+            const val MALL_USER_ADDRESS_ID = "mall_user_address_id"
         }
     }
 
@@ -139,6 +149,11 @@ class AppConstant private constructor() {
              * 播放动态视频
              */
             const val MOMENT_PLAY_VIDEO = "action_moment_play_video"
+
+            /**
+             * 刷新用户收货地址
+             */
+            const val MALL_USER_ADDRESS_REFRESH = "action_mall_user_address_refresh"
         }
     }
 

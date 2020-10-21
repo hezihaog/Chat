@@ -21,16 +21,6 @@
 
     <TextView
         android:id="@+id/add_user_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/base_dimen_15"
-        android:layout_marginTop="@dimen/base_dimen_10"
-        android:layout_marginEnd="@dimen/base_dimen_15"
-        android:layout_marginBottom="@dimen/base_dimen_10"
-        android:background="@drawable/mall_bg_circular_angle_btn"
-        android:gravity="center"
-        android:paddingTop="@dimen/base_dimen_10"
-        android:paddingBottom="@dimen/base_dimen_10"
         android:text="@string/mall_add_user_address"
-        android:textColor="@color/base_white" />
+        style="@style/mall_green_circular_angle_btn" />
 </LinearLayout>

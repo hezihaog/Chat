@@ -9,6 +9,7 @@ import com.zh.android.base.util.web.BrowserActivity
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.mall.MallService
+import com.zh.android.chat.service.module.mall.enums.UserAddressEditType
 
 /**
  * @author wally
@@ -64,6 +65,18 @@ class MallServiceImpl : MallService {
     override fun goUserAddressManage(activity: Activity) {
         ARouter.getInstance()
             .build(ARouterUrl.MALL_USER_ADDRESS_MANAGE)
+            .startNavigation(activity)
+    }
+
+    override fun goUserAddressEdit(
+        activity: Activity,
+        type: UserAddressEditType,
+        addressId: String
+    ) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_USER_ADDRESS_EDIT)
+            .withSerializable(AppConstant.Key.MALL_USER_ADDRESS_EDIT_TYPE, type)
+            .withString(AppConstant.Key.MALL_USER_ADDRESS_ID, addressId)
             .startNavigation(activity)
     }
 }

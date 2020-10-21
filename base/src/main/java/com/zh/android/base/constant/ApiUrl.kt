@@ -392,4 +392,24 @@ object ApiUrl {
      * 获取我的收货地址列表
      */
     val MALL_GET_MY_ADDRESS_LIST = "${API_V1}/mall/user/address/getMyAddressList"
+
+    /**
+     * 根据Id，获收货地址
+     */
+    val MALL_GET_USER_ADDRESS = "${API_V1}/mall/user/address/getUserAddress"
+
+    /**
+     * 保存用户收货地址
+     */
+    val MALL_SAVE_USER_ADDRESS = "${API_V1}/mall/user/address/saveUserAddress"
+
+    /**
+     * 更新用户收货地址
+     */
+    val MALL_UPDATE_USER_ADDRESS = "${API_V1}/mall/user/address/updateUserAddress"
+
+    /**
+     * 删除一个收货地址
+     */
+    val MALL_DELETE_ADDRESS = "${API_V1}/mall/user/address/deleteAddress"
 }

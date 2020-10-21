@@ -2,6 +2,7 @@ package com.zh.android.chat.service.module.mall
 
 import android.app.Activity
 import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.module.mall.enums.UserAddressEditType
 
 /**
  * @author wally
@@ -50,4 +51,11 @@ interface MallService : IProvider {
      * 跳转到用户收货地址管理
      */
     fun goUserAddressManage(activity: Activity)
+
+    /**
+     * 跳转到用户收货地址编辑
+     * @param type 编辑类型，新增或更新
+     * @param addressId 地址Id，只在更新时有值
+     */
+    fun goUserAddressEdit(activity: Activity, type: UserAddressEditType, addressId: String = "")
 }

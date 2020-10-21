@@ -123,4 +123,13 @@ class MallPresenter {
     ): Observable<HttpModel<PageModel<OrderListModel>>> {
         return MallRequester.orderList(TAG, userId, orderStatus, pageNum, pageSize)
     }
+
+    /**
+     * 获取我的收货地址列表
+     */
+    fun getMyAddressList(
+        userId: String
+    ): Observable<HttpModel<List<UserAddressModel>>> {
+        return MallRequester.getMyAddressList(TAG, userId)
+    }
 }

@@ -219,5 +219,21 @@ class MallRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 获取我的收货地址列表
+         */
+        fun getMyAddressList(
+            tag: String,
+            userId: String
+        ): Observable<HttpModel<List<UserAddressModel>>> {
+            val type = genericGsonType<HttpModel<List<UserAddressModel>>>();
+            val request: GetRequest<HttpModel<List<UserAddressModel>>> =
+                OkGo.get(ApiUrl.MALL_GET_MY_ADDRESS_LIST)
+            return request.tag(tag)
+                .params("userId", userId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

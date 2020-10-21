@@ -387,4 +387,9 @@ object ApiUrl {
      * 获取我的订单列表
      */
     val MALL_ORDER_LIST = "${API_V1}/mall/order/orderList"
+
+    /**
+     * 获取我的收货地址列表
+     */
+    val MALL_GET_MY_ADDRESS_LIST = "${API_V1}/mall/user/address/getMyAddressList"
 }

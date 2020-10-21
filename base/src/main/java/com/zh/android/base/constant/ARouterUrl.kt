@@ -182,5 +182,10 @@ class ARouterUrl {
          * 我的订单
          */
         const val MALL_MY_ORDER = "${MALL_GROUP}/user/myOrder"
+
+        /**
+         * 用户收货地址管理
+         */
+        const val MALL_USER_ADDRESS_MANAGE = "${MALL_GROUP}/user/addressManage"
     }
 }

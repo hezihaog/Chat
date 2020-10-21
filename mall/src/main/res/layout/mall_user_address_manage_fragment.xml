@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/base_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/base_refresh_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <TextView
+        android:id="@+id/add_user_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:layout_marginBottom="@dimen/base_dimen_10"
+        android:background="@drawable/mall_bg_circular_angle_btn"
+        android:gravity="center"
+        android:paddingTop="@dimen/base_dimen_10"
+        android:paddingBottom="@dimen/base_dimen_10"
+        android:text="@string/mall_add_user_address"
+        android:textColor="@color/base_white" />
+</LinearLayout>

@@ -113,6 +113,7 @@ class MallMainFragment : BaseFragment() {
                             }
                             R.id.mall_my_address -> {
                                 //我的收货地址
+                                mMallService?.goUserAddressManage(fragmentActivity)
                                 true
                             }
                             else -> {

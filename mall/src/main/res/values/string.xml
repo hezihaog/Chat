@@ -51,4 +51,6 @@
     <string name="mall_order_success">交易成功</string>
 
     <string name="mall_order_create_time">订单时间：%1$s</string>
+
+    <string name="mall_add_user_address">新增地址</string>
 </resources>

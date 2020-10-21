@@ -45,4 +45,9 @@ interface MallService : IProvider {
      * 跳转到我的订单
      */
     fun goMyOrder(activity: Activity)
+
+    /**
+     * 跳转到用户收货地址管理
+     */
+    fun goUserAddressManage(activity: Activity)
 }

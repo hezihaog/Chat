@@ -13,7 +13,10 @@ import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.*
+import com.zh.android.base.ext.click
+import com.zh.android.base.ext.handlerErrorCode
+import com.zh.android.base.ext.ioToMain
+import com.zh.android.base.ext.lifecycle
 import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.location.RxLocation
 import com.zh.android.base.widget.TopBar
@@ -97,7 +100,7 @@ class MineFragment : BaseFragment() {
                         mMallService?.goMyOrder(fragmentActivity)
                     }
                     R.id.mine_item_my_address_manage -> {
-                        toast("地址管理")
+                        mMallService?.goUserAddressManage(fragmentActivity)
                     }
                 }
             })

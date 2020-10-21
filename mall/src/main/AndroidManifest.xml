@@ -27,5 +27,9 @@
             android:name=".ui.activity.MallMyOrderActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MallUserAddressManageActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

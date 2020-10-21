@@ -60,4 +60,10 @@ class MallServiceImpl : MallService {
             .build(ARouterUrl.MALL_MY_ORDER)
             .startNavigation(activity)
     }
+
+    override fun goUserAddressManage(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_USER_ADDRESS_MANAGE)
+            .startNavigation(activity)
+    }
 }

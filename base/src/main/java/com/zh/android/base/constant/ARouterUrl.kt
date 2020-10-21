@@ -177,5 +177,10 @@ class ARouterUrl {
          * 购物车
          */
         const val MALL_SHOPPING_CAR = "${MALL_GROUP}/shoppingCar"
+
+        /**
+         * 我的订单
+         */
+        const val MALL_MY_ORDER = "${MALL_GROUP}/user/myOrder"
     }
 }

@@ -26,6 +26,7 @@ import com.zh.android.chat.mine.model.MineImageItemModel
 import com.zh.android.chat.mine.model.MineTextItemModel
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.login.LoginService
+import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.mine.model.User
 import com.zh.android.chat.service.module.notice.NoticeService
@@ -56,6 +57,10 @@ class MineFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.SETTING_SERVICE)
     var mSettingService: SettingService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.MALL_SERVICE)
+    var mMallService: MallService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vLogout: TextView by bindView(R.id.logout)
@@ -89,7 +94,7 @@ class MineFragment : BaseFragment() {
                         }
                     }
                     R.id.mine_item_my_order -> {
-                        toast("我的订单")
+                        mMallService?.goMyOrder(fragmentActivity)
                     }
                     R.id.mine_item_my_address_manage -> {
                         toast("地址管理")

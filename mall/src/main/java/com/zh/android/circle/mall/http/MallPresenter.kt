@@ -3,10 +3,8 @@ package com.zh.android.circle.mall.http
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.PageModel
 import com.zh.android.circle.mall.enums.OrderByType
-import com.zh.android.circle.mall.model.MallGoodsCategoryModel
-import com.zh.android.circle.mall.model.MallGoodsModel
-import com.zh.android.circle.mall.model.MallIndexInfoModel
-import com.zh.android.circle.mall.model.ShoppingCartItemModel
+import com.zh.android.circle.mall.enums.OrderStatus
+import com.zh.android.circle.mall.model.*
 import io.reactivex.Observable
 
 /**
@@ -111,5 +109,18 @@ class MallPresenter {
         userId: String
     ): Observable<HttpModel<Int>> {
         return MallRequester.cartItemListCount(TAG, userId)
+    }
+
+    /**
+     * 获取订单列表
+     * @param orderStatus 订单状态:0.待支付 1.待确认 2.待发货 3:已发货 4.交易成功
+     */
+    fun orderList(
+        userId: String,
+        orderStatus: OrderStatus,
+        pageNum: Int,
+        pageSize: Int
+    ): Observable<HttpModel<PageModel<OrderListModel>>> {
+        return MallRequester.orderList(TAG, userId, orderStatus, pageNum, pageSize)
     }
 }

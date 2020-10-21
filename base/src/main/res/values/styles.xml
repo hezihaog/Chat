@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BaseDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -56,6 +57,10 @@
 
     <style name="base_divider2" parent="base_divider">
         <item name="android:layout_marginStart">@dimen/base_dimen_15</item>
+    </style>
+
+    <style name="base_divider3" parent="base_divider">
+        <item name="android:layout_height">@dimen/base_dimen_10</item>
     </style>
 
     <style name="base_arrow_icon">

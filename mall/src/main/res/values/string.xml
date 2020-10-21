@@ -39,4 +39,16 @@
 
     <string name="mall_total">合计：</string>
     <string name="mall_settlement">结算</string>
+
+    <string name="mall_my_order">我的订单</string>
+    <string name="mall_my_address">我的收货地址</string>
+
+    <string name="mall_order_all">全部</string>
+    <string name="mall_order_pre_pay">待付款</string>
+    <string name="mall_order_paid">待确认</string>
+    <string name="mall_order_order_packaged">待发货</string>
+    <string name="mall_order_express">已发货</string>
+    <string name="mall_order_success">交易成功</string>
+
+    <string name="mall_order_create_time">订单时间：%1$s</string>
 </resources>

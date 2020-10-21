@@ -382,4 +382,9 @@ object ApiUrl {
      * 获取购物车列表的数量
      */
     val MALL_CART_ITEM_LIST_COUNT = "${API_V1}/mall/shoppingCart/cartItemListCount"
+
+    /**
+     * 获取我的订单列表
+     */
+    val MALL_ORDER_LIST = "${API_V1}/mall/order/orderList"
 }

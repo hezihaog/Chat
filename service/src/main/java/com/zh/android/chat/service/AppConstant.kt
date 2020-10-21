@@ -75,6 +75,11 @@ class AppConstant private constructor() {
              * 商品Id
              */
             const val MALL_GOODS_ID = "mall_goods_id"
+
+            /**
+             * 订单状态
+             */
+            const val MALL_ORDER_STATUS = "mall_order_status"
         }
     }
 

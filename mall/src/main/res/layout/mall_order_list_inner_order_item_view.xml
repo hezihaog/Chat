@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/base_dimen_10">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/base_def_img_rect" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_10"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginBottom="@dimen/base_dimen_10"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="2"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_14"
+            tools:text="HUAWEI Mate 30 4000万超感光徕卡影像" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_dimen_5"
+            android:text="@string/mall_mail_info"
+            android:textColor="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_13" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_dimen_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mall_rmb"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_12" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15"
+                android:textStyle="bold"
+                tools:text="3999" />
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_gray4"
+                android:textSize="@dimen/base_dimen_sp_12"
+                tools:text="x3" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

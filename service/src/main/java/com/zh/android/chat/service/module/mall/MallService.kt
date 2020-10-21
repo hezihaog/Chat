@@ -40,4 +40,9 @@ interface MallService : IProvider {
      * 跳转到购物车
      */
     fun goShoppingCar(activity: Activity)
+
+    /**
+     * 跳转到我的订单
+     */
+    fun goMyOrder(activity: Activity)
 }

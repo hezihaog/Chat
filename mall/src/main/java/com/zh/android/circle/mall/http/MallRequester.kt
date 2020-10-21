@@ -10,10 +10,8 @@ import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.base.http.PageModel
 import com.zh.android.circle.mall.enums.OrderByType
-import com.zh.android.circle.mall.model.MallGoodsCategoryModel
-import com.zh.android.circle.mall.model.MallGoodsModel
-import com.zh.android.circle.mall.model.MallIndexInfoModel
-import com.zh.android.circle.mall.model.ShoppingCartItemModel
+import com.zh.android.circle.mall.enums.OrderStatus
+import com.zh.android.circle.mall.model.*
 import io.reactivex.Observable
 
 /**
@@ -191,6 +189,33 @@ class MallRequester {
                 OkGo.get(ApiUrl.MALL_CART_ITEM_LIST_COUNT)
             return request.tag(tag)
                 .params("userId", userId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 获取订单列表
+         * @param orderStatus 订单状态:0.待支付 1.待确认 2.待发货 3:已发货 4.交易成功
+         */
+        fun orderList(
+            tag: String,
+            userId: String,
+            orderStatus: OrderStatus,
+            pageNum: Int,
+            pageSize: Int
+        ): Observable<HttpModel<PageModel<OrderListModel>>> {
+            val type = genericGsonType<HttpModel<PageModel<OrderListModel>>>();
+            val request: GetRequest<HttpModel<PageModel<OrderListModel>>> =
+                OkGo.get(ApiUrl.MALL_ORDER_LIST)
+            return request.tag(tag)
+                .params("userId", userId).apply {
+                    //除了默认的，其他状态都带上code
+                    if (orderStatus != OrderStatus.DEFAULT) {
+                        params("orderStatus", orderStatus.code)
+                    }
+                }
+                .params("pageNum", pageNum)
+                .params("pageSize", pageSize)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

@@ -54,4 +54,10 @@ class MallServiceImpl : MallService {
             .build(ARouterUrl.MALL_SHOPPING_CAR)
             .startNavigation(activity)
     }
+
+    override fun goMyOrder(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_MY_ORDER)
+            .startNavigation(activity)
+    }
 }

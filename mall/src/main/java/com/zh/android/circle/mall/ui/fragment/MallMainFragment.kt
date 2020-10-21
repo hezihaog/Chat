@@ -2,6 +2,7 @@ package com.zh.android.circle.mall.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -99,7 +100,30 @@ class MallMainFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.mall_module_name)
-            addRightTextButton(R.string.base_search, R.id.topbar_item_search).click {
+            addRightImageButton(R.drawable.base_more, R.id.topbar_item_more).click {
+                //更多
+                PopupMenu(fragmentActivity, it).apply {
+                    menuInflater.inflate(R.menu.mall_main_menu, menu)
+                    setOnMenuItemClickListener { menu ->
+                        when (menu.itemId) {
+                            R.id.mall_my_order -> {
+                                //我的订单
+                                mMallService?.goMyOrder(fragmentActivity)
+                                true
+                            }
+                            R.id.mall_my_address -> {
+                                //我的收货地址
+                                true
+                            }
+                            else -> {
+                                false
+                            }
+                        }
+                    }
+                    show()
+                }
+            }
+            addRightImageButton(R.drawable.base_search_black, R.id.topbar_item_search).click {
                 //搜索
                 mMallService?.goGoodsSearch(fragmentActivity)
             }

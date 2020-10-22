@@ -17,7 +17,6 @@ import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shuyu.gsyvideoplayer.GSYVideoManager
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
@@ -30,6 +29,7 @@ import com.zh.android.chat.moment.enums.PublicFlag
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.moment.ui.widget.MomentInputBar
+import com.zh.android.chat.moment.ui.widget.SampleCoverVideo
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import kotterknife.bindView
@@ -65,7 +65,7 @@ class MomentDetailFragment : BaseFragment() {
         vHeaderView.findViewById<NineGridView>(R.id.nine_grid_view)
     }
     private val vVideoPlayer by lazy {
-        vHeaderView.findViewById<StandardGSYVideoPlayer>(R.id.video_player)
+        vHeaderView.findViewById<SampleCoverVideo>(R.id.video_player)
     }
 
     private val mMomentId by bindArgument(AppConstant.Key.MOMENT_ID, "")

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lzy.ninegrid.ImageInfo
 import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
@@ -17,6 +16,7 @@ import com.zh.android.base.ext.setGone
 import com.zh.android.base.ext.setVisible
 import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.model.MomentModel
+import com.zh.android.chat.moment.ui.widget.SampleCoverVideo
 import me.drakeet.multitype.ItemViewBinder
 
 /**
@@ -65,6 +65,7 @@ class MomentItemViewBinder(
                     setVisible()
                     //配置视频控件
                     val url = ApiUrl.getFullFileUrl(videos[0])
+                    loadCoverImage(url, 0)
                     setUp(url, true, null, null, content)
                     playTag = url
                     backButton.setGone()
@@ -134,6 +135,6 @@ class MomentItemViewBinder(
         val commentLayout: View = view.findViewById(R.id.comment_layout)
         val commentText: TextView = view.findViewById(R.id.comment_text)
         val shareLayout: View = view.findViewById(R.id.share_layout)
-        val videoPlayer: StandardGSYVideoPlayer = view.findViewById(R.id.video_player)
+        val videoPlayer: SampleCoverVideo = view.findViewById(R.id.video_player)
     }
 }

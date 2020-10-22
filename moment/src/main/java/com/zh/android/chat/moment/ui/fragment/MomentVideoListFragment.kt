@@ -124,6 +124,8 @@ class MomentVideoListFragment : BaseFragment() {
             adapter = mListAdapter
             //上下滑动
             orientation = ViewPager2.ORIENTATION_VERTICAL
+            //预加载2个页面，默认为不预加载
+            offscreenPageLimit = 2
             //滚动监听
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

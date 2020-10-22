@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
@@ -21,6 +20,7 @@ import com.zh.android.chat.moment.R
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.moment.ui.dialog.MomentCommentDialog
+import com.zh.android.chat.moment.ui.widget.SampleCoverVideo
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.moment.MomentService
@@ -46,7 +46,7 @@ class MomentVideoFragment : BaseFragment() {
     private val vCommentText: TextView by bindView(R.id.comment_text)
     private val vShareLayout: View by bindView(R.id.share_layout)
     private val vForwardText: TextView by bindView(R.id.forward_text)
-    private val vVideoPlayer: StandardGSYVideoPlayer by bindView(R.id.video_player)
+    private val vVideoPlayer: SampleCoverVideo by bindView(R.id.video_player)
 
     /**
      * 动态信息
@@ -95,6 +95,7 @@ class MomentVideoFragment : BaseFragment() {
                     setVisible()
                     //配置视频控件
                     val url = ApiUrl.getFullFileUrl(videos[0])
+                    loadCoverImage(url, 0)
                     setUp(url, true, null, null, content)
                     playTag = url
                     titleTextView.setGone()

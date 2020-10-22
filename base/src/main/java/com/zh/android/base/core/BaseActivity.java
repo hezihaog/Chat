@@ -1,5 +1,7 @@
 package com.zh.android.base.core;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -53,6 +55,20 @@ public abstract class BaseActivity extends BaseSupportActivity
                 fragment.onActivityResult(requestCode, resultCode, data);
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new ContextWrapper(newBase) {
+            @Override
+            public Object getSystemService(String name) {
+                //解决VideoView中AudioManager造成的内存泄漏
+                if (Context.AUDIO_SERVICE.equals(name)) {
+                    return getApplicationContext().getSystemService(name);
+                }
+                return super.getSystemService(name);
+            }
+        });
     }
 
     @Override

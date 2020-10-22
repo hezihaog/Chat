@@ -100,7 +100,7 @@
         app:ngv_singleImageSize="@dimen/base_dimen_250"
         tools:visibility="visible" />
 
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+    <com.zh.android.chat.moment.ui.widget.SampleCoverVideo
         android:id="@+id/video_player"
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_dimen_180"

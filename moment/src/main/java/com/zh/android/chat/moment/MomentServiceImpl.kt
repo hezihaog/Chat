@@ -25,6 +25,13 @@ class MomentServiceImpl : MomentService {
             .startNavigation(activity)
     }
 
+    override fun goMyMomentList(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MOMENT_MY_LIST)
+            .withBoolean(AppConstant.Key.IS_MY_MOMENT, true)
+            .startNavigation(activity)
+    }
+
     override fun goMomentVideoList(activity: Activity) {
         ARouter.getInstance()
             .build(ARouterUrl.MOMENT_VIDEO_LIST)

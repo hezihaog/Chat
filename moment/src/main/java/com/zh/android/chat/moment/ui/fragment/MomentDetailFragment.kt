@@ -1,5 +1,6 @@
 package com.zh.android.chat.moment.ui.fragment
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -25,6 +26,7 @@ import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.base.util.ShareUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
+import com.zh.android.chat.moment.enums.PublicFlag
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.model.MomentModel
 import com.zh.android.chat.moment.ui.widget.MomentInputBar
@@ -110,12 +112,9 @@ class MomentDetailFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.moment_detail)
-            addRightTextButton(R.string.base_share, R.id.topbar_item_share).click {
-                mMomentModel?.let {
-                    ShareUtil.shareText(fragmentActivity, it.content)
-                    //转发动态
-                    forwardMoment(it.id)
-                }
+            addRightImageButton(R.drawable.base_more, R.id.topbar_item_more).click {
+                //更多
+                showMoreDialog()
             }
         }
         vRefreshLayout.apply {
@@ -142,6 +141,61 @@ class MomentDetailFragment : BaseFragment() {
                 .show()
         }
         setupTab()
+    }
+
+    /**
+     * 显示更多弹窗
+     */
+    private fun showMoreDialog() {
+        mMomentModel?.run {
+            val callback: DialogInterface.OnClickListener =
+                DialogInterface.OnClickListener { _, which ->
+                    when (which) {
+                        0 -> {
+                            //公开，设为私密
+                            val flag = if (publicFlag == PublicFlag.PUBLIC.code) {
+                                PublicFlag.PRIVACY
+                            } else {
+                                //私密，设为公开
+                                PublicFlag.PUBLIC
+                            }
+                            setMomentPublicFlag(id, flag)
+                        }
+                        1 -> {
+                            //分享
+                            ShareUtil.shareText(fragmentActivity, content)
+                            //转发动态
+                            forwardMoment(id)
+                        }
+                    }
+                }
+            //是我的动态，显示设为公开或设为私密，以及分享
+            if (me) {
+                //公开，显示私密
+                if (publicFlag == PublicFlag.PUBLIC.code) {
+                    AlertDialog.Builder(fragmentActivity)
+                        .setItems(
+                            arrayOf(
+                                getString(R.string.moment_set_privacy),
+                                getString(R.string.base_share)
+                            ), callback
+                        )
+                } else {
+                    //私密，显示公开
+                    AlertDialog.Builder(fragmentActivity)
+                        .setItems(
+                            arrayOf(
+                                getString(R.string.moment_set_public),
+                                getString(R.string.base_share)
+                            ), callback
+                        )
+                }
+            } else {
+                //不是我的动态，只有分享
+                AlertDialog.Builder(fragmentActivity)
+                    .setItems(arrayOf(getString(R.string.base_share)), callback)
+            }.create().show()
+        }
     }
 
     private fun setupTab() {
@@ -430,5 +484,31 @@ class MomentDetailFragment : BaseFragment() {
                     it.printStackTrace()
                 })
         }
+    }
+
+    /**
+     * 设置动态的公开和私密
+     */
+    private fun setMomentPublicFlag(
+        momentId: String,
+        flag: PublicFlag
+    ) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMomentPresenter.setMomentPublicFlag(userId, momentId, flag)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({ httpModel ->
+                if (handlerErrorCode(httpModel)) {
+                    //刷新状态
+                    mMomentModel?.publicFlag = flag.code
+                    toast(R.string.base_operation_success)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+            })
     }
 }

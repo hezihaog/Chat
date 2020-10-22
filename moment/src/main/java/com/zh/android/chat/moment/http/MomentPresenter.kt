@@ -3,6 +3,7 @@ package com.zh.android.chat.moment.http
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.PageModel
 import com.zh.android.chat.moment.enums.MomentReplyType
+import com.zh.android.chat.moment.enums.PublicFlag
 import com.zh.android.chat.moment.model.*
 import io.reactivex.Observable
 
@@ -66,6 +67,18 @@ class MomentPresenter {
         userId: String?
     ): Observable<HttpModel<MomentModel>> {
         return MomentRequester.getMomentDetail(TAG, momentId, userId)
+    }
+
+    /**
+     * 获取我的动态列表
+     * @param userId 用户Id
+     */
+    fun getMyMomentList(
+        userId: String,
+        pageNum: Int,
+        pageSize: Int
+    ): Observable<HttpModel<PageModel<MomentModel>>> {
+        return MomentRequester.getMyMomentList(TAG, userId, pageNum, pageSize)
     }
 
     /**
@@ -250,5 +263,19 @@ class MomentPresenter {
         userId: String
     ): Observable<HttpModel<*>> {
         return MomentRequester.removeMomentCommentReply(TAG, id, userId)
+    }
+
+    /**
+     * 设置动态为公开或私密
+     * @param userId 用户Id
+     * @param momentId 动态Id
+     * @param publicFlag 公开标记
+     */
+    fun setMomentPublicFlag(
+        userId: String,
+        momentId: String,
+        publicFlag: PublicFlag
+    ): Observable<HttpModel<*>> {
+        return MomentRequester.setMomentPublicFlag(TAG, userId, momentId, publicFlag)
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="moment_module_name">动态</string>
+    <string name="moment_my_moment">我的动态</string>
     <string name="moment_detail">动态详情</string>
     <string name="moment_comment">评论</string>
     <string name="moment_like">赞</string>
@@ -26,4 +27,7 @@
     <string name="moment_replay_replay_to">回复%1$s:%2$s"</string>
     <string name="moment_all_comment">全部评论</string>
     <string name="moment_nick_name">\@%1$s</string>
+
+    <string name="moment_set_public">设为公开</string>
+    <string name="moment_set_privacy">设为私有</string>
 </resources>

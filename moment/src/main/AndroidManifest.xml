@@ -7,6 +7,10 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.MyMomentListActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activity.MomentVideoListActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />

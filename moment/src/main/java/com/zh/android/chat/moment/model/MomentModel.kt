@@ -50,6 +50,10 @@ class MomentModel(
      */
     val me: Boolean,
     /**
+     * 公开标记，0为公开，1为私密
+     */
+    var publicFlag: Int,
+    /**
      * 创建时间
      */
     val createTime: String

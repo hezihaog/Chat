@@ -8,6 +8,8 @@
     <item name="mine_item_account" type="id" />
     <!-- 二维码 -->
     <item name="mine_item_qrcode" type="id" />
+    <!-- 我的动态 -->
+    <item name="mine_item_my_moment" type="id" />
     <!-- 我的订单 -->
     <item name="mine_item_my_order" type="id" />
     <!-- 地址管理 -->

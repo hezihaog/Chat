@@ -32,6 +32,7 @@ import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.mine.model.User
+import com.zh.android.chat.service.module.moment.MomentService
 import com.zh.android.chat.service.module.notice.NoticeService
 import com.zh.android.chat.service.module.setting.SettingService
 import io.reactivex.Observable
@@ -60,6 +61,10 @@ class MineFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.SETTING_SERVICE)
     var mSettingService: SettingService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.MOMENT_SERVICE)
+    var mMomentService: MomentService? = null
 
     @JvmField
     @Autowired(name = ARouterUrl.MALL_SERVICE)
@@ -95,6 +100,9 @@ class MineFragment : BaseFragment() {
                         mUserInfo?.let {
                             MineUIHelper.goModifyNickname(fragmentActivity, it.id, it.nickname)
                         }
+                    }
+                    R.id.mine_item_my_moment -> {
+                        mMomentService?.goMyMomentList(fragmentActivity)
                     }
                     R.id.mine_item_my_order -> {
                         mMallService?.goMyOrder(fragmentActivity)
@@ -285,6 +293,15 @@ class MineFragment : BaseFragment() {
                 getString(R.string.mine_qrcode),
                 qrCode,
                 R.drawable.mine_qrcode,
+                true
+            )
+        )
+        //我的动态
+        mListItems.add(
+            MineTextItemModel(
+                R.id.mine_item_my_moment,
+                getString(R.string.mine_my_moment),
+                "",
                 true
             )
         )

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
+import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.zh.android.base.constant.ARouterUrl
@@ -45,6 +46,11 @@ class MomentListFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
+
+    /**
+     * 是否查看我的动态
+     */
+    private val mIsMyMoment by bindArgument(AppConstant.Key.IS_MY_MOMENT, false)
 
     private var mCurrentPage: Int = ApiUrl.FIRST_PAGE
 
@@ -163,7 +169,13 @@ class MomentListFragment : BaseFragment() {
             addLeftBackImageButton().click {
                 fragmentActivity.finish()
             }
-            setTitle(R.string.moment_module_name)
+            //我的动态
+            if (mIsMyMoment) {
+                setTitle(R.string.moment_my_moment)
+            } else {
+                //公开的动态
+                setTitle(R.string.moment_module_name)
+            }
             //搜索
             addRightImageButton(R.drawable.base_search_black, R.id.topbar_item_search)
                 .click {
@@ -284,12 +296,20 @@ class MomentListFragment : BaseFragment() {
     private fun getMomentList(
         pageNum: Int
     ) {
-        val userId = getLoginService()?.getUserId()
+        val userId = getLoginService()?.getUserId() ?: ""
         val isFirstPage = pageNum == ApiUrl.FIRST_PAGE
         val pageSize = ApiUrl.PAGE_SIZE
-        mMomentPresenter.getMomentList(
-            userId, pageNum, ApiUrl.PAGE_SIZE
-        ).ioToMain()
+        //我的动态列表
+        if (mIsMyMoment && userId.isNotBlank()) {
+            mMomentPresenter.getMyMomentList(
+                userId, pageNum, ApiUrl.PAGE_SIZE
+            )
+        } else {
+            //所有公开的动态列表
+            mMomentPresenter.getMomentList(
+                userId, pageNum, ApiUrl.PAGE_SIZE
+            )
+        }.ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {

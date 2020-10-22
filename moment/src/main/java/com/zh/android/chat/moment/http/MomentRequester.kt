@@ -11,6 +11,7 @@ import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.base.http.PageModel
 import com.zh.android.chat.moment.enums.MomentReplyType
+import com.zh.android.chat.moment.enums.PublicFlag
 import com.zh.android.chat.moment.model.*
 import io.reactivex.Observable
 import java.util.*
@@ -108,6 +109,27 @@ class MomentRequester {
             return request.tag(tag)
                 .params("momentId", momentId)
                 .params("userId", userId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 获取我的动态列表
+         * @param userId 用户Id
+         */
+        fun getMyMomentList(
+            tag: String,
+            userId: String,
+            pageNum: Int,
+            pageSize: Int
+        ): Observable<HttpModel<PageModel<MomentModel>>> {
+            val type = genericGsonType<HttpModel<PageModel<MomentModel>>>()
+            val request: GetRequest<HttpModel<PageModel<MomentModel>>> =
+                OkGo.get(ApiUrl.GET_MY_MOMENT_LIST)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("pageNum", pageNum)
+                .params("pageSize", pageSize)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -414,6 +436,29 @@ class MomentRequester {
                     put("id", id)
                     put("userId", userId)
                 }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 设置动态为公开或私密
+         * @param userId 用户Id
+         * @param momentId 动态Id
+         * @param publicFlag 公开标记
+         */
+        fun setMomentPublicFlag(
+            tag: String,
+            userId: String,
+            momentId: String,
+            publicFlag: PublicFlag
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post(ApiUrl.SET_MOMENT_PUBLIC_FLAG)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("momentId", momentId)
+                .params("publicFlag", publicFlag.code)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

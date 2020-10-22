@@ -255,6 +255,11 @@ object ApiUrl {
     val GET_MOMENT_DETAIL = "${API_V1}/moment/getMomentDetail"
 
     /**
+     * 获取我的动态列表
+     */
+    val GET_MY_MOMENT_LIST = "${API_V1}/moment/getMyMomentList"
+
+    /**
      * 获取动态点赞列表
      */
     val GET_MOMENT_LIKE_LIST = "${API_V1}/moment/getMomentLikeList"
@@ -318,6 +323,11 @@ object ApiUrl {
      * 删除一条动态的评论的回复，或者回复的回复
      */
     val REMOVE_MOMENT_COMMENT_REPLY = "${API_V1}/moment/removeMomentCommentReply";
+
+    /**
+     * 设置动态为公开或私密
+     */
+    val SET_MOMENT_PUBLIC_FLAG = "${API_V1}/moment/setMomentPublicFlag";
 
     //---------------------------- 通知 ----------------------------
 

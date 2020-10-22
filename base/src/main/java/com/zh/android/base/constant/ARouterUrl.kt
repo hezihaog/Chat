@@ -88,6 +88,11 @@ class ARouterUrl {
         const val MOMENT_LIST = "${MOMENT_GROUP}/list"
 
         /**
+         * 动态列表
+         */
+        const val MOMENT_MY_LIST = "${MOMENT_GROUP}/user/list"
+
+        /**
          * 只有视频动态的列表
          */
         const val MOMENT_VIDEO_LIST = "${MOMENT_GROUP}/video/list"

@@ -3,6 +3,7 @@ package com.zh.android.chat.moment.ui.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.util.takephoto.RxTakePhoto
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
+import com.zh.android.chat.moment.enums.PublicFlag
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentAddPublishMediaViewBinder
 import com.zh.android.chat.moment.item.MomentPublishMediaViewBinder
@@ -39,6 +41,13 @@ class MomentPublishFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vInput: EditText by bindView(R.id.input)
     private val vImageList: RecyclerView by bindView(R.id.image_list)
+    private val vPrivacyLayout: View by bindView(R.id.privacy_layout)
+    private val vSelectPrivacySymbol: ImageView by bindView(R.id.select_privacy_symbol)
+
+    /**
+     * 是否选中了私密，默认不选中
+     */
+    private var mIsSelectPrivacy: Boolean = false
 
     /**
      * 动态发布类型
@@ -129,6 +138,35 @@ class MomentPublishFragment : BaseFragment() {
             vImageList.setGone()
         } else {
             vImageList.setVisible()
+        }
+        //是否私密
+        vPrivacyLayout.click {
+            toggleSelectPrivacy()
+        }
+        renderSelectPrivacy(mIsSelectPrivacy)
+    }
+
+    /**
+     * 切换选中私密
+     */
+    private fun toggleSelectPrivacy() {
+        val newState = !mIsSelectPrivacy
+        mIsSelectPrivacy = newState
+        renderSelectPrivacy(mIsSelectPrivacy)
+    }
+
+    /**
+     * 渲染私密选中状态
+     */
+    private fun renderSelectPrivacy(isPrivacy: Boolean) {
+        vSelectPrivacySymbol.apply {
+            setImageResource(
+                if (isPrivacy) {
+                    R.drawable.base_select
+                } else {
+                    R.drawable.base_un_select
+                }
+            )
         }
     }
 
@@ -293,17 +331,31 @@ class MomentPublishFragment : BaseFragment() {
             toast(R.string.moment_publish_input_empty_tip)
             return
         }
+        //是否私密
+        val publicFlag = if (mIsSelectPrivacy) {
+            PublicFlag.PRIVACY
+        } else {
+            PublicFlag.PUBLIC
+        }
         val observable = if (inputText.isNotBlank() && mediaUrls.isEmpty()) {
             //单发文字
-            mMomentPresenter.publishMoment(userId, inputText)
+            mMomentPresenter.publishMoment(userId, inputText, publicFlag = publicFlag)
         } else if (inputText.isBlank() && mediaUrls.isNotEmpty()) {
             //单发资源
             when (mPublishType) {
                 MomentPublishType.TEXT_IMAGE -> {
-                    mMomentPresenter.publishMoment(userId, pictures = mediaUrls)
+                    mMomentPresenter.publishMoment(
+                        userId,
+                        pictures = mediaUrls,
+                        publicFlag = publicFlag
+                    )
                 }
                 MomentPublishType.TEXT_VIDEO -> {
-                    mMomentPresenter.publishMoment(userId, videos = mediaUrls)
+                    mMomentPresenter.publishMoment(
+                        userId,
+                        videos = mediaUrls,
+                        publicFlag = publicFlag
+                    )
                 }
                 else -> {
                     null
@@ -313,10 +365,20 @@ class MomentPublishFragment : BaseFragment() {
             //既发文字，也发资源
             when (mPublishType) {
                 MomentPublishType.TEXT_IMAGE -> {
-                    mMomentPresenter.publishMoment(userId, inputText, pictures = mediaUrls)
+                    mMomentPresenter.publishMoment(
+                        userId,
+                        inputText,
+                        pictures = mediaUrls,
+                        publicFlag = publicFlag
+                    )
                 }
                 MomentPublishType.TEXT_VIDEO -> {
-                    mMomentPresenter.publishMoment(userId, inputText, videos = mediaUrls)
+                    mMomentPresenter.publishMoment(
+                        userId,
+                        inputText,
+                        videos = mediaUrls,
+                        publicFlag = publicFlag
+                    )
                 }
                 else -> {
                     null

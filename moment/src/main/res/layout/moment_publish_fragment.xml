@@ -40,6 +40,31 @@
                 android:id="@+id/image_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/privacy_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_dimen_5"
+                android:layout_marginTop="@dimen/base_dimen_10"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/select_privacy_symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/base_un_select" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_dimen_5"
+                    android:layout_marginEnd="@dimen/base_dimen_5"
+                    android:text="@string/moment_is_privacy"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_14" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

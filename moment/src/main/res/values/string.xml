@@ -28,6 +28,7 @@
     <string name="moment_all_comment">全部评论</string>
     <string name="moment_nick_name">\@%1$s</string>
 
+    <string name="moment_is_privacy">是否私密</string>
     <string name="moment_set_public">设为公开</string>
-    <string name="moment_set_privacy">设为私有</string>
+    <string name="moment_set_privacy">设为私密</string>
 </resources>

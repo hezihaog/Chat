@@ -71,5 +71,7 @@
     <string name="mall_detail_address_tip">请输入详细地址</string>
     <string name="mall_set_default_address">设为默认收货地址</string>
 
+    <string name="mall_default">默认</string>
+
     <string name="mall_delete_user_address_confirm">是否删除该地址，删除后，不可恢复！</string>
 </resources>

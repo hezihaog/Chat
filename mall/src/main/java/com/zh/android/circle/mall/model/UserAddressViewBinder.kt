@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.ext.click
+import com.zh.android.base.ext.setGone
+import com.zh.android.base.ext.setVisible
 import com.zh.android.circle.mall.R
+import com.zh.android.circle.mall.enums.DefaultAddressFlag
 import me.drakeet.multitype.ItemViewBinder
 
 /**
@@ -30,11 +33,19 @@ class UserAddressViewBinder(
             holder.itemView.click {
                 onItemClickCallback(item)
             }
+            holder.vDefaultSymbol.apply {
+                if (defaultFlag == DefaultAddressFlag.IS_DEFAULT.code) {
+                    setVisible()
+                } else {
+                    setGone()
+                }
+            }
         }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val vName: TextView = view.findViewById(R.id.name)
         val vAddress: TextView = view.findViewById(R.id.address)
+        val vDefaultSymbol: View = view.findViewById(R.id.default_symbol)
     }
 }

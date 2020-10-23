@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.callback.NavCallback
@@ -12,6 +13,7 @@ import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.ClipboardUtil
 import com.zh.android.base.util.rx.RxUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.login.R
@@ -97,7 +99,17 @@ class LoginByPhoneFragment : BaseFragment() {
                         return@subscribe
                     }
                     val authCode = httpModel.data
-                    toastLong("验证码：$authCode")
+                    AlertDialog.Builder(fragmentActivity)
+                        .setMessage("验证码：$authCode")
+                        .setPositiveButton(R.string.base_copy) { _, _ ->
+                            ClipboardUtil.copyToClipboard(fragmentActivity, authCode)
+                            toast(R.string.base_copy_success)
+                        }
+                        .setNegativeButton(R.string.base_cancel) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .create()
+                        .show()
                 }
             }, {
                 it.printStackTrace()

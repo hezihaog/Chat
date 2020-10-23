@@ -8,9 +8,7 @@
         android:id="@+id/surface_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
-
-    </FrameLayout>
+        android:gravity="center" />
 
     <RelativeLayout
         android:id="@+id/thumb"
@@ -30,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
-
     </RelativeLayout>
 
     <LinearLayout
@@ -47,7 +44,7 @@
             android:id="@+id/current"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:text="00:00"
             android:textColor="#ffffff" />
 
@@ -70,7 +67,7 @@
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:text="00:00"
             android:textColor="#ffffff" />
 
@@ -78,7 +75,7 @@
             android:id="@+id/fullscreen"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
             android:scaleType="center"
             android:src="@drawable/video_enlarge" />
     </LinearLayout>
@@ -96,7 +93,7 @@
         android:id="@+id/back_tiny"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="6dp"
         android:visibility="gone" />
 
@@ -111,7 +108,7 @@
             android:id="@+id/back"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
             android:scaleType="centerInside"
             android:src="@drawable/video_back" />
 
@@ -119,7 +116,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </LinearLayout>
@@ -145,7 +142,7 @@
         android:id="@+id/small_close"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:paddingTop="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/video_small_close"
@@ -155,9 +152,9 @@
         android:id="@+id/lock_screen"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp"
         android:scaleType="centerInside"
         android:src="@drawable/unlock"
         android:visibility="gone" />

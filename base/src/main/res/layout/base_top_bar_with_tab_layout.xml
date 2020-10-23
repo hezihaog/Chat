@@ -13,9 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/base_white"
+        app:tabGravity="fill"
         app:tabIndicatorColor="@color/base_color_primary"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="@dimen/base_dimen_2"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/base_color_primary"
         app:tabTextColor="@color/base_gray4" />
 

@@ -77,7 +77,7 @@
         android:layout_marginBottom="@dimen/base_dimen_15"
         android:visibility="gone"
         app:ngv_gridSpacing="@dimen/base_dimen_3"
-        app:ngv_maxSize="10000"
+        app:ngv_maxSize="6"
         app:ngv_mode="grid"
         app:ngv_singleImageRatio="1"
         app:ngv_singleImageSize="@dimen/base_dimen_250"

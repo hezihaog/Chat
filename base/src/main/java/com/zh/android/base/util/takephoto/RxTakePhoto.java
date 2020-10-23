@@ -1,9 +1,13 @@
 package com.zh.android.base.util.takephoto;
 
 
+import android.app.Activity;
+
 import androidx.fragment.app.FragmentActivity;
 
 import com.zh.android.base.lifecycle.DelegateFragmentFinder;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,28 @@ import io.reactivex.functions.Function;
  */
 public class RxTakePhoto {
     /**
+     * 移动图片位置
+     *
+     * @param fromPosition 从哪里
+     * @param toPosition   到哪里
+     */
+    public Observable<Boolean> movePhotoPosition(FragmentActivity activity, int fromPosition, int toPosition) {
+        return getTakePhotoObservable(activity)
+                .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<Boolean>>() {
+                    @Override
+                    public ObservableSource<Boolean> apply(@NotNull TakePhotoDelegateFragment fragment) throws Exception {
+                        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+                            @Override
+                            public void subscribe(@NotNull ObservableEmitter<Boolean> emitter) throws Exception {
+                                fragment.movePhotoPosition(fromPosition, toPosition);
+                                emitter.onNext(true);
+                            }
+                        });
+                    }
+                });
+    }
+
+    /**
      * 从相机中拍照选择图片，不裁剪
      */
     public Observable<TakePhotoEvent> takeImageByCamera(FragmentActivity activity) {
@@ -36,10 +62,10 @@ public class RxTakePhoto {
         return getTakePhotoObservable(activity)
                 .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
                     @Override
-                    public ObservableSource<TakePhotoEvent> apply(TakePhotoDelegateFragment fragment) throws Exception {
+                    public ObservableSource<TakePhotoEvent> apply(@NotNull TakePhotoDelegateFragment fragment) throws Exception {
                         return Observable.create(new ObservableOnSubscribe<TakePhotoEvent>() {
                             @Override
-                            public void subscribe(ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
+                            public void subscribe(@NotNull ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
                                 fragment.takeImageByCamera(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
                                     @Override
                                     public void onTakePhoto(ArrayList<String> imgPaths) {
@@ -71,10 +97,10 @@ public class RxTakePhoto {
         return getTakePhotoObservable(activity)
                 .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
                     @Override
-                    public ObservableSource<TakePhotoEvent> apply(TakePhotoDelegateFragment fragment) throws Exception {
+                    public ObservableSource<TakePhotoEvent> apply(@NotNull TakePhotoDelegateFragment fragment) throws Exception {
                         return Observable.create(new ObservableOnSubscribe<TakePhotoEvent>() {
                             @Override
-                            public void subscribe(ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
+                            public void subscribe(@NotNull ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
                                 fragment.takeImageByGallery(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
                                     @Override
                                     public void onTakePhoto(ArrayList<String> imgPaths) {
@@ -99,10 +125,10 @@ public class RxTakePhoto {
         return getTakePhotoObservable(activity)
                 .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
                     @Override
-                    public ObservableSource<TakePhotoEvent> apply(TakePhotoDelegateFragment fragment) throws Exception {
+                    public ObservableSource<TakePhotoEvent> apply(@NotNull TakePhotoDelegateFragment fragment) throws Exception {
                         return Observable.create(new ObservableOnSubscribe<TakePhotoEvent>() {
                             @Override
-                            public void subscribe(ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
+                            public void subscribe(@NotNull ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
                                 fragment.takeVideoByCamera(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
                                     @Override
                                     public void onTakePhoto(ArrayList<String> imgPaths) {
@@ -127,10 +153,10 @@ public class RxTakePhoto {
         return getTakePhotoObservable(activity)
                 .flatMap(new Function<TakePhotoDelegateFragment, ObservableSource<TakePhotoEvent>>() {
                     @Override
-                    public ObservableSource<TakePhotoEvent> apply(TakePhotoDelegateFragment fragment) throws Exception {
+                    public ObservableSource<TakePhotoEvent> apply(@NotNull TakePhotoDelegateFragment fragment) throws Exception {
                         return Observable.create(new ObservableOnSubscribe<TakePhotoEvent>() {
                             @Override
-                            public void subscribe(ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
+                            public void subscribe(@NotNull ObservableEmitter<TakePhotoEvent> emitter) throws Exception {
                                 fragment.takeVideoByGallery(new TakePhotoDelegateFragment.OnTakePhotoCallback() {
                                     @Override
                                     public void onTakePhoto(ArrayList<String> imgPaths) {
@@ -194,7 +220,7 @@ public class RxTakePhoto {
     private Observable<TakePhotoDelegateFragment> getTakePhotoObservable(FragmentActivity activity) {
         return Observable.create(new ObservableOnSubscribe<FragmentActivity>() {
             @Override
-            public void subscribe(ObservableEmitter<FragmentActivity> emitter) throws Exception {
+            public void subscribe(@NotNull ObservableEmitter<FragmentActivity> emitter) throws Exception {
                 if (activity == null || activity.isFinishing()) {
                     emitter.onError(new NullPointerException());
                 } else {
@@ -203,7 +229,7 @@ public class RxTakePhoto {
             }
         }).map(new Function<FragmentActivity, TakePhotoDelegateFragment>() {
             @Override
-            public TakePhotoDelegateFragment apply(FragmentActivity activity) throws Exception {
+            public TakePhotoDelegateFragment apply(@NotNull FragmentActivity activity) throws Exception {
                 return DelegateFragmentFinder
                         .getInstance().find(activity, TakePhotoDelegateFragment.class);
             }

@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.draggable.library.extension.ImageViewerHelper
 import com.linghit.base.util.argument.bindArgument
@@ -13,6 +14,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.AppBroadcastManager
+import com.zh.android.base.util.RecyclerViewItemTouchCallback
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.util.takephoto.RxTakePhoto
 import com.zh.android.base.widget.TopBar
@@ -31,6 +33,7 @@ import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
+import java.util.*
 
 /**
  * @author wally
@@ -104,6 +107,10 @@ class MomentPublishFragment : BaseFragment() {
         MomentPresenter()
     }
 
+    private val mRxTakePhoto by lazy {
+        RxTakePhoto()
+    }
+
     companion object {
         fun newInstance(args: Bundle? = Bundle()): MomentPublishFragment {
             val fragment = MomentPublishFragment()
@@ -129,6 +136,34 @@ class MomentPublishFragment : BaseFragment() {
         vImageList.apply {
             layoutManager = GridLayoutManager(fragmentActivity, 3)
             adapter = mListAdapter
+            //拽托帮助类
+            val itemTouchHelper = ItemTouchHelper(
+                RecyclerViewItemTouchCallback(object :
+                    RecyclerViewItemTouchCallback.OnItemMoveCallback {
+                    override fun isCanMove(
+                        current: RecyclerView.ViewHolder,
+                        target: RecyclerView.ViewHolder
+                    ): Boolean {
+                        //2种ViewType类型相同的条目才可以互换
+                        return current.itemViewType == target.itemViewType
+                    }
+
+                    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+                        //交换数据
+                        mRxTakePhoto.movePhotoPosition(fragmentActivity, fromPosition, toPosition)
+                            .lifecycle(lifecycleOwner)
+                            .subscribe({
+                                //移动Rv数据，和选择图片的数据联动
+                                Collections.swap(mListItems, fromPosition, toPosition)
+                                mListAdapter.notifyItemMoved(fromPosition, toPosition)
+                            }, {
+                                it.printStackTrace()
+                                showRequestDataWrong()
+                            })
+                    }
+                })
+            )
+            itemTouchHelper.attachToRecyclerView(this)
         }
         //单文字，隐藏图片、视频选择按钮
         if (mPublishType == MomentPublishType.SINGLE_TEXT) {
@@ -195,16 +230,15 @@ class MomentPublishFragment : BaseFragment() {
                     getString(R.string.base_take_gallery)
                 )
             ) { _, which ->
-                val rxTakePhoto = RxTakePhoto()
                 val observable = when (which) {
                     0 -> {
                         //拍照
                         when (mPublishType) {
                             MomentPublishType.TEXT_IMAGE -> {
-                                rxTakePhoto.takeImageByCamera(fragmentActivity, false)
+                                mRxTakePhoto.takeImageByCamera(fragmentActivity, false)
                             }
                             MomentPublishType.TEXT_VIDEO -> {
-                                rxTakePhoto.takeVideoByCamera(fragmentActivity)
+                                mRxTakePhoto.takeVideoByCamera(fragmentActivity)
                             }
                             else -> Observable.empty()
                         }
@@ -213,7 +247,7 @@ class MomentPublishFragment : BaseFragment() {
                         //选择图库
                         when (mPublishType) {
                             MomentPublishType.TEXT_IMAGE -> {
-                                rxTakePhoto.takeImageByGallery(
+                                mRxTakePhoto.takeImageByGallery(
                                     fragmentActivity,
                                     //图片可以多张
                                     residueSelectPicCount,
@@ -221,7 +255,7 @@ class MomentPublishFragment : BaseFragment() {
                                 )
                             }
                             MomentPublishType.TEXT_VIDEO -> {
-                                rxTakePhoto.takeVideoByGallery(
+                                mRxTakePhoto.takeVideoByGallery(
                                     fragmentActivity,
                                     //视频只能每次发表一个
                                     1

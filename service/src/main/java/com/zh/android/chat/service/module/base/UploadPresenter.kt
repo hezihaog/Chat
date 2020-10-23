@@ -1,6 +1,7 @@
 package com.zh.android.chat.service.module.base
 
 import android.graphics.BitmapFactory
+import com.zh.android.base.util.json.JsonProxy
 import com.zh.android.chat.service.module.base.model.ImageInfoModel
 import com.zh.android.chat.service.module.base.model.UploadImageInfoModel
 import io.reactivex.Observable
@@ -90,8 +91,10 @@ class UploadPresenter {
                     HashMap<String, Any>().apply {
                         put(
                             "extra",
-                            UploadImageInfoModel(
-                                infos.toList()
+                            JsonProxy.get().toJson(
+                                UploadImageInfoModel(
+                                    infos.toList()
+                                )
                             )
                         )
                     }

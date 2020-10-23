@@ -180,4 +180,13 @@ class AppConstant private constructor() {
             const val USER_ID = "userId"
         }
     }
+
+    class Config {
+        companion object {
+            /**
+             * 最多图片数量
+             */
+            const val MAX_IMAGE_COUNT = Int.MAX_VALUE
+        }
+    }
 }

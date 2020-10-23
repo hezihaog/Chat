@@ -28,6 +28,7 @@
                 android:background="@null"
                 android:gravity="start"
                 android:hint="@string/moment_publish_input_empty_tip"
+                android:minLines="5"
                 android:textColor="@color/base_black"
                 android:textColorHint="@color/base_gray4"
                 android:textSize="@dimen/base_dimen_sp_15" />
@@ -39,7 +40,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/image_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
 
             <LinearLayout
                 android:id="@+id/privacy_layout"

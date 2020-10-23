@@ -156,8 +156,8 @@ public class TakePhotoDelegateFragment extends AppDelegateFragment {
                 .maxSelectNum(residueSelectPicCount)
                 //多选
                 .selectionMode(PictureConfig.MULTIPLE)
-                //开启原图选项
-                .isOriginalImageControl(true)
+                //关闭原图选项
+                .isOriginalImageControl(false)
                 //裁剪比例
                 .withAspectRatio(1, 1)
                 //是否展示拍照图标

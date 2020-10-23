@@ -302,7 +302,8 @@ class ConversationChatFragment : BaseFragment() {
             if (userId.isBlank()) {
                 return@click
             }
-            val count = 6
+            //最大选择数量
+            val count = AppConstant.Config.MAX_IMAGE_COUNT
             mRxTakePhoto.takeImageByGallery(fragmentActivity, count, false)
                 .filter {
                     !it.isTakeCancel

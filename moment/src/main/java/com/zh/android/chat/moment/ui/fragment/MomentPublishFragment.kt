@@ -60,7 +60,9 @@ class MomentPublishFragment : BaseFragment() {
     /**
      * 添加图标
      */
-    private val mAddPublishImageModel = AddPublishMediaModel(MAX_IMAGE_COUNT)
+    private val mAddPublishImageModel = AddPublishMediaModel(
+        AppConstant.Config.MAX_IMAGE_COUNT
+    )
 
     private val mListItems by lazy {
         Items()
@@ -103,11 +105,6 @@ class MomentPublishFragment : BaseFragment() {
     }
 
     companion object {
-        /**
-         * 最多图片数量
-         */
-        private const val MAX_IMAGE_COUNT = 6
-
         fun newInstance(args: Bundle? = Bundle()): MomentPublishFragment {
             val fragment = MomentPublishFragment()
             fragment.arguments = args
@@ -278,7 +275,7 @@ class MomentPublishFragment : BaseFragment() {
                             }
                         )
                         //计算图片数量是否满了，没有满，则显示默认添加图片，满了则不显示
-                        if (getAllMediaItemModel().size == MAX_IMAGE_COUNT) {
+                        if (getAllMediaItemModel().size == AppConstant.Config.MAX_IMAGE_COUNT) {
                             mListItems.remove(mAddPublishImageModel)
                         }
                         mListAdapter.notifyDataSetChanged()

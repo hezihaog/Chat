@@ -110,7 +110,7 @@ class ModifyAvatarFragment : BaseFragment() {
      * 修改头像
      */
     private fun modifyAvatar(filePath: String) {
-        mUploadPresenter.uploadImage(fragmentActivity, filePath)
+        mUploadPresenter.uploadImage(filePath)
             .flatMap {
                 mMinePresenter.updateAvatar(mUserId, it)
             }

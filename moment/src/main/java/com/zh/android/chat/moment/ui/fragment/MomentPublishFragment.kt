@@ -282,7 +282,7 @@ class MomentPublishFragment : BaseFragment() {
                         when (mPublishType) {
                             //上传图片
                             MomentPublishType.TEXT_IMAGE -> {
-                                mUploadPresenter.uploadMultipleImage(fragmentActivity, it.imgPaths)
+                                mUploadPresenter.uploadMultipleImage(it.imgPaths)
                             }
                             //上传视频
                             MomentPublishType.TEXT_VIDEO -> {

@@ -18,6 +18,27 @@ import java.io.File
 class UploadRequester {
     companion object {
         /**
+         * 上传多个图片文件
+         */
+        fun uploadImages(
+            tag: String,
+            files: List<File>,
+            otherParams: Map<String, *> = mapOf<String, Any>()
+        ): Observable<HttpModel<List<String>>> {
+            val type = genericGsonType<HttpModel<List<String>>>()
+            val request: PostRequest<HttpModel<List<String>>> = OkGo.post(ApiUrl.UPLOAD_IMAGES)
+            return request.tag(tag)
+                .addFileParams("files", files).apply {
+                    //添加其他参数
+                    otherParams.forEach {
+                        params.put(it.key, it.value.toString())
+                    }
+                }
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
          * 上传文件
          */
         fun uploadFile(
@@ -37,12 +58,18 @@ class UploadRequester {
          */
         fun uploadFiles(
             tag: String,
-            files: List<File>
+            files: List<File>,
+            otherParams: Map<String, *> = mapOf<String, Any>()
         ): Observable<HttpModel<List<String>>> {
             val type = genericGsonType<HttpModel<List<String>>>()
             val request: PostRequest<HttpModel<List<String>>> = OkGo.post(ApiUrl.UPLOAD_FILES)
             return request.tag(tag)
-                .addFileParams("files", files)
+                .addFileParams("files", files).apply {
+                    //添加其他参数
+                    otherParams.forEach {
+                        params.put(it.key, it.value.toString())
+                    }
+                }
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

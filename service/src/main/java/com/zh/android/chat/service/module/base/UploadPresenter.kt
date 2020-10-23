@@ -1,6 +1,8 @@
 package com.zh.android.chat.service.module.base
 
-import android.app.Activity
+import android.graphics.BitmapFactory
+import com.zh.android.chat.service.module.base.model.ImageInfoModel
+import com.zh.android.chat.service.module.base.model.UploadImageInfoModel
 import io.reactivex.Observable
 import java.io.File
 
@@ -48,8 +50,8 @@ class UploadPresenter {
     /**
      * 上传单张图片
      */
-    fun uploadImage(activity: Activity, filePath: String): Observable<String> {
-        return uploadMultipleImage(activity, listOf(filePath))
+    fun uploadImage(filePath: String): Observable<String> {
+        return uploadMultipleImage(listOf(filePath))
             .map {
                 it[0]
             }
@@ -58,18 +60,42 @@ class UploadPresenter {
     /**
      * 上传多张图片
      */
-    fun uploadMultipleImage(activity: Activity, filePaths: List<String>): Observable<List<String>> {
+    fun uploadMultipleImage(filePaths: List<String>): Observable<List<String>> {
         return Observable.just(filePaths)
             .concatMap {
                 Observable.fromIterable(it)
             }.map {
                 File(it)
             }
+            .map {
+                val options = BitmapFactory.Options().apply {
+                    //仅做解码处理，不加载到内存
+                    inJustDecodeBounds = true
+                }
+                BitmapFactory.decodeFile(it.absolutePath, options)
+                //获取图片宽高
+                val width = options.outWidth
+                val height = options.outHeight
+                ImageInfoModel(it, width, height)
+            }
             .toList()
             .toObservable()
-            .flatMap { files ->
+            .flatMap { infos ->
                 //对每张压缩后的图片，进行上传
-                UploadRequester.uploadFiles(TAG, files)
+                UploadRequester.uploadImages(
+                    TAG,
+                    infos.map {
+                        it.file
+                    },
+                    HashMap<String, Any>().apply {
+                        put(
+                            "extra",
+                            UploadImageInfoModel(
+                                infos.toList()
+                            )
+                        )
+                    }
+                )
             }.flatMap {
                 //拆解图片地址
                 if (it.success()) {

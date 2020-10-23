@@ -115,9 +115,14 @@ object ApiUrl {
     val UPLOAD_FILE = "$API_V1/file/uploadFile"
 
     /**
-     * 上传多个图片
+     * 上传多个文件
      */
     val UPLOAD_FILES = "$API_V1/file/uploadFiles"
+
+    /**
+     * 上传多个图片
+     */
+    val UPLOAD_IMAGES = "$API_V1/file/uploadImages"
 
     /**
      * 下载文件

@@ -269,7 +269,7 @@ class ConversationChatFragment : BaseFragment() {
                 }
                 .flatMap {
                     //上传图片
-                    mUploadPresenter.uploadImage(fragmentActivity, it)
+                    mUploadPresenter.uploadImage(it)
                 }
                 .flatMap { img ->
                     //发送图片消息
@@ -310,7 +310,7 @@ class ConversationChatFragment : BaseFragment() {
                 }
                 .flatMap {
                     //上传图片
-                    mUploadPresenter.uploadMultipleImage(fragmentActivity, it.imgPaths)
+                    mUploadPresenter.uploadMultipleImage(it.imgPaths)
                 }
                 .flatMap {
                     Observable.fromIterable(it)

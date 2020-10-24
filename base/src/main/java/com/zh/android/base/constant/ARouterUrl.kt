@@ -197,5 +197,15 @@ class ARouterUrl {
          * 用户收货地址编辑
          */
         const val MALL_USER_ADDRESS_EDIT = "${MALL_GROUP}/user/address/edit"
+
+        /**
+         * 创建订单
+         */
+        const val MALL_CREATE_ORDER = "${MALL_GROUP}/user/order/create"
+
+        /**
+         * 选择用户收货地址
+         */
+        const val MALL_USER_CHOOSE_ADDRESS = "${MALL_GROUP}/user/address/choose"
     }
 }

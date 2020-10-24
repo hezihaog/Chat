@@ -79,4 +79,17 @@ class MallServiceImpl : MallService {
             .withString(AppConstant.Key.MALL_USER_ADDRESS_ID, addressId)
             .startNavigation(activity)
     }
+
+    override fun goCreateOrder(activity: Activity, cartItemIds: ArrayList<String>) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_CREATE_ORDER)
+            .withSerializable(AppConstant.Key.MALL_CART_ITEM_IDS, cartItemIds)
+            .startNavigation(activity)
+    }
+
+    override fun goChooseUserAddress(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_USER_CHOOSE_ADDRESS)
+            .startNavigation(activity, 1)
+    }
 }

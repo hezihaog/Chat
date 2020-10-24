@@ -43,7 +43,11 @@ data class UserAddressModel(
     /**
      * 详细地址
      */
-    val detailAddress: String
+    val detailAddress: String,
+    /**
+     * 是否是编辑，非后端字段，用于UI层显示编辑样式的
+     */
+    var isEdit: Boolean = false
 ) : Serializable {
     companion object {
         private const val serialVersionUID = -1L

@@ -427,4 +427,14 @@ object ApiUrl {
      * 删除一个收货地址
      */
     val MALL_DELETE_ADDRESS = "${API_V1}/mall/user/address/deleteAddress"
+
+    /**
+     * 获取用户的默认地址
+     */
+    val MALL_GET_DEFAULT_USER_ADDRESS = "${API_V1}/mall/user/address/getDefaultUserAddress"
+
+    /**
+     * 获取多个购物项信息
+     */
+    val MALL_GET_CART_ITEMS_FOR_SETTLE = "${API_V1}/mall/shoppingCart/getCartItemsForSettle"
 }

@@ -69,11 +69,14 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/edit_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/base_dimen_15"
-            android:src="@drawable/mall_edit" />
+            android:src="@drawable/mall_edit"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 
     <View style="@style/base_divider2" />

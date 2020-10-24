@@ -1,5 +1,6 @@
 package com.zh.android.circle.mall.ui.fragment
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -29,10 +30,10 @@ import me.drakeet.multitype.MultiTypeAdapter
 
 /**
  * @author wally
- * @date 2020/10/21
- * 用户收货地址管理
+ * @date 2020/10/24
+ * 选择用户收货地址
  */
-class MallUserAddressManageFragment : BaseFragment() {
+class MallChooseAddressFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.MALL_SERVICE)
     var mMallService: MallService? = null
@@ -48,12 +49,13 @@ class MallUserAddressManageFragment : BaseFragment() {
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
             register(UserAddressModel::class.java, UserAddressViewBinder {
-                //跳转去编辑地址
-                mMallService?.goUserAddressEdit(
-                    fragmentActivity,
-                    type = UserAddressEditType.UPDATE,
-                    addressId = it.addressId
-                )
+                //选择完毕，返回地址信息
+                fragmentActivity.run {
+                    setResult(Activity.RESULT_OK, Intent().apply {
+                        putExtra(AppConstant.Key.MALL_USER_ADDRESS_INFO, it)
+                    })
+                    finish()
+                }
             })
         }
     }
@@ -73,15 +75,15 @@ class MallUserAddressManageFragment : BaseFragment() {
     }
 
     companion object {
-        fun newInstance(args: Bundle? = Bundle()): MallUserAddressManageFragment {
-            val fragment = MallUserAddressManageFragment()
+        fun newInstance(args: Bundle? = Bundle()): MallChooseAddressFragment {
+            val fragment = MallChooseAddressFragment()
             fragment.arguments = args
             return fragment
         }
     }
 
     override fun onInflaterViewId(): Int {
-        return R.layout.mall_user_address_manage_fragment
+        return R.layout.mall_choose_address_fragment
     }
 
     override fun onBindView(view: View?) {
@@ -131,11 +133,11 @@ class MallUserAddressManageFragment : BaseFragment() {
                 vRefreshLayout.finishRefresh()
                 if (handlerErrorCode(httpModel)) {
                     val list = httpModel.data ?: mutableListOf()
-                    mListItems.clear()
-                    //设置为编辑状态
+                    //设置非编辑状态
                     list.map {
-                        it.isEdit = true
+                        it.isEdit = false
                     }
+                    mListItems.clear()
                     mListItems.addAll(list)
                     mListAdapter.notifyDataSetChanged()
                 }

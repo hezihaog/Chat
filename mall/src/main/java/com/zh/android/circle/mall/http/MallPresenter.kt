@@ -223,4 +223,26 @@ class MallPresenter {
     ): Observable<HttpModel<*>> {
         return MallRequester.deleteAddress(TAG, userId, addressId)
     }
+
+    /**
+     * 获取用户的默认收货地址
+     * @param userId 用户Id
+     */
+    fun getDefaultUserAddress(
+        userId: String
+    ): Observable<HttpModel<UserAddressModel>> {
+        return MallRequester.getDefaultUserAddress(TAG, userId)
+    }
+
+    /**
+     * 获取多个购物项信息
+     * @param userId 用户Id
+     * @param cartItemIds 多个购物车项Id
+     */
+    fun getCartItemsForSettle(
+        userId: String,
+        cartItemIds: List<String>
+    ): Observable<HttpModel<List<ShoppingCartItemModel>>> {
+        return MallRequester.getCartItemsForSettle(TAG, userId, cartItemIds)
+    }
 }

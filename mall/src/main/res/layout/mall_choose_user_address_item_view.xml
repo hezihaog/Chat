@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_dimen_20"
+                android:layout_marginTop="@dimen/base_dimen_20"
+                android:layout_marginEnd="@dimen/base_dimen_20"
+                android:layout_marginBottom="@dimen/base_dimen_20"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_14"
+                    tools:text="韩先生 13088888888" />
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_dimen_10" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_14"
+                    tools:text="广东省 广州市 天河区 58号大院3栋" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/base_dimen_20"
+                android:layout_marginTop="@dimen/base_dimen_20"
+                android:layout_marginEnd="@dimen/base_dimen_20"
+                android:layout_marginBottom="@dimen/base_dimen_20"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/mall_please_choose_user_address"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_16" />
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/base_dimen_20"
+            android:layout_height="@dimen/base_dimen_20"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/base_dimen_15"
+            android:src="@drawable/base_right_arrow"
+            app:tint="@color/base_black" />
+    </LinearLayout>
+
+    <View style="@style/base_divider3" />
+</LinearLayout>

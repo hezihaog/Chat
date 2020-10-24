@@ -95,6 +95,16 @@ class AppConstant private constructor() {
              * 收货地址Id
              */
             const val MALL_USER_ADDRESS_ID = "mall_user_address_id"
+
+            /**
+             * 购物车项Id列表
+             */
+            const val MALL_CART_ITEM_IDS = "mall_cart_item_ids"
+
+            /**
+             * 用户收货地址信息
+             */
+            const val MALL_USER_ADDRESS_INFO = "mall_user_address_info"
         }
     }
 

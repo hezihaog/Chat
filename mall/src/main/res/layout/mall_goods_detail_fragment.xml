@@ -119,23 +119,6 @@
                 android:text="@string/mall_add_to_shopping_car"
                 android:textColor="@color/base_white"
                 android:textSize="@dimen/base_dimen_sp_13" />
-
-            <View
-                style="@style/base_divider"
-                android:layout_width="@dimen/base_dimen_zero_point_five"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/pay_now"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingTop="@dimen/base_dimen_8"
-                android:paddingBottom="@dimen/base_dimen_8"
-                android:text="@string/mall_pay_now"
-                android:textColor="@color/base_white"
-                android:textSize="@dimen/base_dimen_sp_13" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

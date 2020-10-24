@@ -58,4 +58,15 @@ interface MallService : IProvider {
      * @param addressId 地址Id，只在更新时有值
      */
     fun goUserAddressEdit(activity: Activity, type: UserAddressEditType, addressId: String = "")
+
+    /**
+     * 跳转到创建订单
+     * @param cartItemIds 购物车项Id数组
+     */
+    fun goCreateOrder(activity: Activity, cartItemIds: ArrayList<String>)
+
+    /**
+     * 跳转到选择用户地址
+     */
+    fun goChooseUserAddress(activity: Activity)
 }

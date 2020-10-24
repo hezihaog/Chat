@@ -142,8 +142,17 @@ class MallShoppingCarFragment : BaseFragment() {
             )
         }
         vSettlement.click {
+            val cartItemIds = ArrayList(
+                getAllSelectItemList().map {
+                    it.cartItemId
+                }.toList()
+            )
+            if (cartItemIds.isEmpty()) {
+                toast(R.string.mall_please_select_goods)
+                return@click
+            }
             //去结算
-            toast("结算")
+            mMallService?.goCreateOrder(fragmentActivity, cartItemIds)
         }
     }
 
@@ -310,16 +319,23 @@ class MallShoppingCarFragment : BaseFragment() {
     }
 
     /**
+     * 获取所有选中的条目
+     */
+    private fun getAllSelectItemList(): List<ShoppingCartItemModel> {
+        return mListItems.filterIsInstance<ShoppingCartItemModel>()
+            .filter {
+                it.isSelect
+            }
+    }
+
+    /**
      * 是否选中所有
      */
     private fun isSelectAll(): Boolean {
         //所有购物车项的数量
         val allShoppingCardItemCount = mListItems.filterIsInstance<ShoppingCartItemModel>().count()
         //选中的数量
-        val selectCount = mListItems.filterIsInstance<ShoppingCartItemModel>()
-            .filter {
-                it.isSelect
-            }.count()
+        val selectCount = getAllSelectItemList().count()
         //他们的数量相同，则代表全选
         return allShoppingCardItemCount == selectCount
     }

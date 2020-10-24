@@ -35,7 +35,6 @@
 
     <string name="mall_add_to_shopping_car">加入购物车</string>
     <string name="mall_add_to_shopping_car_success">添加成功</string>
-    <string name="mall_pay_now">立即购买</string>
 
     <string name="mall_total">合计：</string>
     <string name="mall_settlement">结算</string>
@@ -70,8 +69,10 @@
     <string name="mall_detail_address_hint">街道门牌、楼层、房间号等信息</string>
     <string name="mall_detail_address_tip">请输入详细地址</string>
     <string name="mall_set_default_address">设为默认收货地址</string>
-
     <string name="mall_default">默认</string>
-
     <string name="mall_delete_user_address_confirm">是否删除该地址，删除后，不可恢复！</string>
+    <string name="mall_create_order">创建订单</string>
+    <string name="mall_please_select_goods">请选择要结算的商品</string>
+    <string name="mall_please_choose_user_address">请选择收货地址</string>
+    <string name="mall_goods_total_price">商品总价</string>
 </resources>

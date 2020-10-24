@@ -6,6 +6,7 @@ import com.lzy.okgo.request.PostRequest
 import com.lzy.okrx2.adapter.ObservableBody
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
+import com.zh.android.base.ext.listToString
 import com.zh.android.base.ext.toJson
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
@@ -353,6 +354,44 @@ class MallRequester {
             return request.tag(tag)
                 .params("userId", userId)
                 .params("addressId", addressId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 获取用户的默认收货地址
+         * @param userId 用户Id
+         */
+        fun getDefaultUserAddress(
+            tag: String,
+            userId: String
+        ): Observable<HttpModel<UserAddressModel>> {
+            val type = genericGsonType<HttpModel<UserAddressModel>>()
+            val request: GetRequest<HttpModel<UserAddressModel>> =
+                OkGo.get<HttpModel<UserAddressModel>>(ApiUrl.MALL_GET_DEFAULT_USER_ADDRESS)
+            return request.tag(tag)
+                .params("userId", userId)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 获取多个购物项信息
+         * @param userId 用户Id
+         * @param cartItemIds 多个购物车项Id
+         */
+        fun getCartItemsForSettle(
+            tag: String,
+            userId: String,
+            cartItemIds: List<String>
+        ): Observable<HttpModel<List<ShoppingCartItemModel>>> {
+            val type = genericGsonType<HttpModel<List<ShoppingCartItemModel>>>()
+            val request: GetRequest<HttpModel<List<ShoppingCartItemModel>>> =
+                OkGo.get<HttpModel<List<ShoppingCartItemModel>>>(ApiUrl.MALL_GET_CART_ITEMS_FOR_SETTLE)
+            //构建成字符串
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("cartItemIds", cartItemIds.toMutableList().listToString())
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

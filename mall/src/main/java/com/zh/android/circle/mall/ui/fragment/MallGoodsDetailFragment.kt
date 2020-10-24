@@ -44,7 +44,6 @@ class MallGoodsDetailFragment : BaseFragment() {
     private val vShoppingCar: View by bindView(R.id.shopping_car)
     private val vShoppingCarDot: TextView by bindView(R.id.shopping_car_dot)
     private val vAddToShoppingCard: View by bindView(R.id.add_to_shopping_card)
-    private val vPayNow: View by bindView(R.id.pay_now)
 
     /**
      * 商品Id
@@ -111,11 +110,7 @@ class MallGoodsDetailFragment : BaseFragment() {
         }
         vAddToShoppingCard.click {
             //将当前商品，添加到购物车
-            saveShoppingCartItem(mGoodsId, 1, false)
-        }
-        vPayNow.click {
-            //马上购买
-            saveShoppingCartItem(mGoodsId, 1, true)
+            saveShoppingCartItem(mGoodsId, 1)
         }
     }
 
@@ -190,12 +185,10 @@ class MallGoodsDetailFragment : BaseFragment() {
 
     /**
      * 保存商品到购物车
-     * @param isGoShoppingCar 是否添加成功后，跳转去购物车
      */
     private fun saveShoppingCartItem(
         goodsId: String,
-        goodsCount: Int,
-        isGoShoppingCar: Boolean
+        goodsCount: Int
     ) {
         val userId = getLoginService()?.getUserId()
         if (userId.isNullOrBlank()) {
@@ -206,15 +199,9 @@ class MallGoodsDetailFragment : BaseFragment() {
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
-                    //跳转去购物车
-                    if (isGoShoppingCar) {
-                        mMallService?.goShoppingCar(fragmentActivity)
-                        fragmentActivity.finish()
-                    } else {
-                        //添加成功，刷新一下购物车数量
-                        cartItemListCount()
-                        toast(R.string.mall_add_to_shopping_car_success)
-                    }
+                    //添加成功，刷新一下购物车数量
+                    cartItemListCount()
+                    toast(R.string.mall_add_to_shopping_car_success)
                 }
             }, {
                 it.printStackTrace()

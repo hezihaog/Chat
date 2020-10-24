@@ -143,7 +143,7 @@ class MomentVideoListFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
-        vRefreshLayout.autoRefresh()
+        refresh()
     }
 
     override fun onBackPressedSupport(): Boolean {

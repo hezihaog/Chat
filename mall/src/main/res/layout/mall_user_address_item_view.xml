@@ -14,10 +14,10 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_dimen_15"
-            android:layout_marginTop="@dimen/base_dimen_10"
-            android:layout_marginEnd="@dimen/base_dimen_15"
-            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:layout_marginStart="@dimen/base_dimen_20"
+            android:layout_marginTop="@dimen/base_dimen_20"
+            android:layout_marginEnd="@dimen/base_dimen_20"
+            android:layout_marginBottom="@dimen/base_dimen_20"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -55,7 +55,7 @@
 
             <androidx.legacy.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/base_dimen_5" />
+                android:layout_height="@dimen/base_dimen_10" />
 
             <TextView
                 android:id="@+id/address"

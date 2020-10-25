@@ -16,10 +16,10 @@ import me.drakeet.multitype.ItemViewBinder
  * @date 2020/10/20
  * 订单项条目
  */
-class OrderItemViewBinder :
-    ItemViewBinder<ShoppingCartItemModel, OrderItemViewBinder.ViewHolder>() {
+class CreateOrderShoppingCartItemViewBinder :
+    ItemViewBinder<ShoppingCartItemModel, CreateOrderShoppingCartItemViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
-        return ViewHolder(inflater.inflate(R.layout.mall_order_item_view, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.mall_create_order_shopping_cart_item_view, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, item: ShoppingCartItemModel) {

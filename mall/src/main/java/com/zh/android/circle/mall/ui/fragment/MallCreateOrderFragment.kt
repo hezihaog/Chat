@@ -23,7 +23,7 @@ import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.enums.PayType
 import com.zh.android.circle.mall.http.MallPresenter
 import com.zh.android.circle.mall.item.ChooseUserAddressViewBinder
-import com.zh.android.circle.mall.item.OrderItemViewBinder
+import com.zh.android.circle.mall.item.CreateOrderShoppingCartItemViewBinder
 import com.zh.android.circle.mall.model.ChooseUserAddressModel
 import com.zh.android.circle.mall.model.ShoppingCartItemModel
 import com.zh.android.circle.mall.model.UserAddressModel
@@ -66,7 +66,7 @@ class MallCreateOrderFragment : BaseFragment() {
                 mMallService?.goChooseUserAddress(fragmentActivity)
             })
             //购物车项
-            register(ShoppingCartItemModel::class.java, OrderItemViewBinder())
+            register(ShoppingCartItemModel::class.java, CreateOrderShoppingCartItemViewBinder())
         }
     }
 

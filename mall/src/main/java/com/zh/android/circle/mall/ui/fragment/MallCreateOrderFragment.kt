@@ -28,7 +28,6 @@ import com.zh.android.circle.mall.model.ChooseUserAddressModel
 import com.zh.android.circle.mall.model.ShoppingCartItemModel
 import com.zh.android.circle.mall.model.UserAddressModel
 import com.zh.android.circle.mall.ui.dialog.MallPayWayDialog
-import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -54,6 +53,11 @@ class MallCreateOrderFragment : BaseFragment() {
      * 用户选择的收货地址信息
      */
     private var mChooseUserAddressInfo = ChooseUserAddressModel()
+
+    /**
+     * 当前订单号，用于避免多次点击支付，生成多个订单，只要不退出页面，都支持这个订单号
+     */
+    private var mOrderNo: String? = null
 
     private val mListItems by lazy {
         Items()
@@ -121,8 +125,8 @@ class MallCreateOrderFragment : BaseFragment() {
             if (mCartItemIds.isEmpty()) {
                 return@click
             }
-            //弹出支付方式弹窗
-            showChoosePayWayDialog()
+            //创建订单
+            createOrder()
         }
     }
 
@@ -249,28 +253,9 @@ class MallCreateOrderFragment : BaseFragment() {
     }
 
     /**
-     * 显示选择支付方式弹窗
+     * 创建订单
      */
-    private fun showChoosePayWayDialog() {
-        MallPayWayDialog(fragmentActivity, lifecycleOwner).apply {
-            setCallback(object : MallPayWayDialog.Callback {
-                override fun onClickAlipay() {
-                    payNow(PayType.ALI_PAY)
-                }
-
-                override fun onClickWxpay() {
-                    payNow(PayType.WEI_XIN_PAY)
-                }
-            })
-            show()
-        }
-    }
-
-    /**
-     * 支付
-     * @param payType 支付方式
-     */
-    private fun payNow(payType: PayType) {
+    private fun createOrder() {
         val userId = getLoginService()?.getUserId()
         if (userId.isNullOrBlank()) {
             return
@@ -279,40 +264,90 @@ class MallCreateOrderFragment : BaseFragment() {
         if (addressId.isNullOrBlank()) {
             return
         }
-        mMallPresenter.run {
+        if (mOrderNo.isNullOrBlank()) {
             //1、创建订单
-            saveOrder(userId, mCartItemIds, addressId)
+            mMallPresenter.saveOrder(userId, mCartItemIds, addressId)
                 .doOnSubscribeUi {
                     mWaitLoadingController.showWait()
-                }
-                .flatMap { httpModel ->
-                    if (checkHttpResponse(httpModel)) {
-                        httpModel.data?.run {
-                            //2、模拟进行支付，支付成功
-                            paySuccess(orderNo, payType)
-                        }
-                    } else {
-                        Observable.error(RuntimeException("创建订单失败"))
-                    }
                 }
                 .ioToMain()
                 .lifecycle(lifecycleOwner)
                 .subscribe({
                     mWaitLoadingController.hideWait()
                     if (handlerErrorCode(it)) {
-                        toast(R.string.mall_pay_success)
-                        AppBroadcastManager.sendBroadcast(
-                            AppConstant.Action.MALL_PAY_SUCCESS
-                        )
-                        //跳转到订单列表
-                        mMallService?.goMyOrder(fragmentActivity)
-                        fragmentActivity.finish()
+                        it.data?.let { model ->
+                            //弹出支付方式弹窗
+                            showChoosePayWayDialog(model.orderNo)
+                        }
                     }
                 }, {
                     it.printStackTrace()
                     showRequestError()
                     mWaitLoadingController.hideWait()
                 })
+        } else {
+            //已经创建了订单了，就不重新创建多一张了
+            showChoosePayWayDialog(mOrderNo!!)
         }
+    }
+
+    /**
+     * 显示选择支付方式弹窗
+     * @param orderNo 订单号
+     */
+    private fun showChoosePayWayDialog(orderNo: String) {
+        MallPayWayDialog(fragmentActivity, lifecycleOwner).apply {
+            setCallback(object : MallPayWayDialog.Callback {
+                override fun onClickAlipay() {
+                    payNow(orderNo, PayType.ALI_PAY)
+                }
+
+                override fun onClickWxpay() {
+                    payNow(orderNo, PayType.WEI_XIN_PAY)
+                }
+            })
+            setOnDismissListener {
+                //取消支付，跳转到订单列表
+                goMyOrderAndFinish()
+            }
+            show()
+        }
+    }
+
+    /**
+     * 开始支付
+     * @param orderNo 订单号
+     * @param payType 支付方式
+     */
+    private fun payNow(orderNo: String, payType: PayType) {
+        mMallPresenter.paySuccess(orderNo, payType)
+            .doOnSubscribeUi {
+                mWaitLoadingController.showWait()
+            }
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({
+                mWaitLoadingController.hideWait()
+                if (handlerErrorCode(it)) {
+                    toast(R.string.mall_pay_success)
+                    AppBroadcastManager.sendBroadcast(
+                        AppConstant.Action.MALL_PAY_SUCCESS
+                    )
+                    //跳转到订单列表
+                    goMyOrderAndFinish()
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+                mWaitLoadingController.hideWait()
+            })
+    }
+
+    /**
+     * 跳转到我的订单，并关闭自己
+     */
+    private fun goMyOrderAndFinish() {
+        mMallService?.goMyOrder(fragmentActivity)
+        fragmentActivity.finish()
     }
 }

@@ -172,8 +172,8 @@ class MallShoppingCarFragment : BaseFragment() {
         }
     }
 
-    override fun setData() {
-        super.setData()
+    override fun onResume() {
+        super.onResume()
         refresh()
     }
 

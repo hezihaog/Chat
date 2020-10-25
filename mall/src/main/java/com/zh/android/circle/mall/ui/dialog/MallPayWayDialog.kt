@@ -23,6 +23,12 @@ class MallPayWayDialog(context: Context, private val owner: LifecycleOwner) :
 
     private var mCallback: Callback? = null
 
+    override fun onStart() {
+        super.onStart()
+        //点击阴影不关闭
+        setCanceledOnTouchOutside(false)
+    }
+
     override fun onCreateContentView(inflater: LayoutInflater?, parent: ViewGroup?): View {
         return inflater!!.inflate(R.layout.mall_pay_way_dialog, parent, false)
     }
@@ -44,7 +50,8 @@ class MallPayWayDialog(context: Context, private val owner: LifecycleOwner) :
 
     private fun bindView() {
         vRoot.click {
-            dismiss()
+            //不做关闭处理
+            //dismiss()
         }
         vClose.click {
             dismiss()

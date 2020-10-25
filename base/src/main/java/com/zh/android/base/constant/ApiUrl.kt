@@ -437,4 +437,14 @@ object ApiUrl {
      * 获取多个购物项信息
      */
     val MALL_GET_CART_ITEMS_FOR_SETTLE = "${API_V1}/mall/shoppingCart/getCartItemsForSettle"
+
+    /**
+     * 创建订单
+     */
+    val MALL_SAVE_ORDER = "${API_V1}/mall/order/saveOrder"
+
+    /**
+     * 支付成功时，主动回调后端更新状态
+     */
+    val MALL_PAY_SUCCESS = "${API_V1}/mall/order/paySuccess"
 }

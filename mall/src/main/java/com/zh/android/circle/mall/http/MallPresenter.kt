@@ -5,6 +5,7 @@ import com.zh.android.base.http.PageModel
 import com.zh.android.circle.mall.enums.DefaultAddressFlag
 import com.zh.android.circle.mall.enums.OrderByType
 import com.zh.android.circle.mall.enums.OrderStatus
+import com.zh.android.circle.mall.enums.PayType
 import com.zh.android.circle.mall.model.*
 import io.reactivex.Observable
 
@@ -244,5 +245,31 @@ class MallPresenter {
         cartItemIds: List<String>
     ): Observable<HttpModel<List<ShoppingCartItemModel>>> {
         return MallRequester.getCartItemsForSettle(TAG, userId, cartItemIds)
+    }
+
+    /**
+     * 创建订单
+     * @param userId 用户Id
+     * @param cartItemIds 要结算的购物车项Id列表
+     * @param addressId 收货地址Id
+     */
+    fun saveOrder(
+        userId: String,
+        cartItemIds: List<String>,
+        addressId: String
+    ): Observable<HttpModel<SaveOrderResultModel>> {
+        return MallRequester.saveOrder(TAG, userId, cartItemIds, addressId)
+    }
+
+    /**
+     * 支付成功时，主动回调后端更新状态
+     * @param orderNo 订单号
+     * @param payType 支付类型
+     */
+    fun paySuccess(
+        orderNo: String,
+        payType: PayType
+    ): Observable<HttpModel<*>> {
+        return MallRequester.paySuccess(TAG, orderNo, payType)
     }
 }

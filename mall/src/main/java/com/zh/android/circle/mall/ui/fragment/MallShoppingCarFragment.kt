@@ -1,5 +1,8 @@
 package com.zh.android.circle.mall.ui.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -12,8 +15,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.TopBar
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.circle.mall.R
@@ -93,6 +98,17 @@ class MallShoppingCarFragment : BaseFragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //支付成功，刷新购物车列表
+        BroadcastRegistry(lifecycleOwner)
+            .register(object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    refresh()
+                }
+            }, AppConstant.Action.MALL_PAY_SUCCESS)
     }
 
     override fun onInflaterViewId(): Int {

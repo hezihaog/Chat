@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <com.gcssloop.widget.RCRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_200"
+        android:layout_gravity="bottom"
+        app:round_corner_top_left="@dimen/base_dimen_5"
+        app:round_corner_top_right="@dimen/base_dimen_5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@color/base_white"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/base_dimen_10">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/mall_please_choose_pay_way"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_16" />
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:paddingStart="@dimen/base_dimen_10"
+                    android:paddingTop="@dimen/base_dimen_5"
+                    android:paddingEnd="@dimen/base_dimen_10"
+                    android:paddingBottom="@dimen/base_dimen_5"
+                    android:src="@drawable/base_close" />
+            </RelativeLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/alipay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_dimen_20"
+                    android:layout_marginEnd="@dimen/base_dimen_20"
+                    android:background="@drawable/mall_bg_blue_rectangle_angle_btn"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/base_dimen_12"
+                    android:paddingBottom="@dimen/base_dimen_12"
+                    android:text="@string/mall_alipay"
+                    android:textColor="@color/base_white"
+                    android:textSize="@dimen/base_dimen_sp_13" />
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_dimen_10" />
+
+                <TextView
+                    android:id="@+id/wxpay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_dimen_20"
+                    android:layout_marginEnd="@dimen/base_dimen_20"
+                    android:background="@drawable/mall_bg_green_rectangle_angle_btn"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/base_dimen_12"
+                    android:paddingBottom="@dimen/base_dimen_12"
+                    android:text="@string/mall_wxpay"
+                    android:textColor="@color/base_white"
+                    android:textSize="@dimen/base_dimen_sp_13" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.gcssloop.widget.RCRelativeLayout>
+</FrameLayout>

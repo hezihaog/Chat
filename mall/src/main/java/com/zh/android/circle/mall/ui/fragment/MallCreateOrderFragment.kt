@@ -13,17 +13,22 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.AppBroadcastManager
+import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.circle.mall.R
+import com.zh.android.circle.mall.enums.PayType
 import com.zh.android.circle.mall.http.MallPresenter
 import com.zh.android.circle.mall.item.ChooseUserAddressViewBinder
 import com.zh.android.circle.mall.item.OrderItemViewBinder
 import com.zh.android.circle.mall.model.ChooseUserAddressModel
 import com.zh.android.circle.mall.model.ShoppingCartItemModel
 import com.zh.android.circle.mall.model.UserAddressModel
+import com.zh.android.circle.mall.ui.dialog.MallPayWayDialog
+import io.reactivex.Observable
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -65,6 +70,9 @@ class MallCreateOrderFragment : BaseFragment() {
         }
     }
 
+    private val mWaitLoadingController by lazy {
+        WaitLoadingController(fragmentActivity, lifecycleOwner)
+    }
     private val mMallPresenter by lazy {
         MallPresenter()
     }
@@ -114,6 +122,7 @@ class MallCreateOrderFragment : BaseFragment() {
                 return@click
             }
             //弹出支付方式弹窗
+            showChoosePayWayDialog()
         }
     }
 
@@ -236,6 +245,74 @@ class MallCreateOrderFragment : BaseFragment() {
                     mListAdapter.notifyDataSetChanged()
                 }
             }
+        }
+    }
+
+    /**
+     * 显示选择支付方式弹窗
+     */
+    private fun showChoosePayWayDialog() {
+        MallPayWayDialog(fragmentActivity, lifecycleOwner).apply {
+            setCallback(object : MallPayWayDialog.Callback {
+                override fun onClickAlipay() {
+                    payNow(PayType.ALI_PAY)
+                }
+
+                override fun onClickWxpay() {
+                    payNow(PayType.WEI_XIN_PAY)
+                }
+            })
+            show()
+        }
+    }
+
+    /**
+     * 支付
+     * @param payType 支付方式
+     */
+    private fun payNow(payType: PayType) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        val addressId = mChooseUserAddressInfo.info?.addressId
+        if (addressId.isNullOrBlank()) {
+            return
+        }
+        mMallPresenter.run {
+            //1、创建订单
+            saveOrder(userId, mCartItemIds, addressId)
+                .doOnSubscribeUi {
+                    mWaitLoadingController.showWait()
+                }
+                .flatMap { httpModel ->
+                    if (checkHttpResponse(httpModel)) {
+                        httpModel.data?.run {
+                            //2、模拟进行支付，支付成功
+                            paySuccess(orderNo, payType)
+                        }
+                    } else {
+                        Observable.error(RuntimeException("创建订单失败"))
+                    }
+                }
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({
+                    mWaitLoadingController.hideWait()
+                    if (handlerErrorCode(it)) {
+                        toast(R.string.mall_pay_success)
+                        AppBroadcastManager.sendBroadcast(
+                            AppConstant.Action.MALL_PAY_SUCCESS
+                        )
+                        //跳转到订单列表
+                        mMallService?.goMyOrder(fragmentActivity)
+                        fragmentActivity.finish()
+                    }
+                }, {
+                    it.printStackTrace()
+                    showRequestError()
+                    mWaitLoadingController.hideWait()
+                })
         }
     }
 }

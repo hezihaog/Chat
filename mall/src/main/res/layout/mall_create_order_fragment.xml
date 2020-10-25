@@ -66,7 +66,7 @@
             android:id="@+id/create_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/mall_bg_rectangle_angle_btn"
+            android:background="@drawable/mall_bg_green_rectangle_angle_btn"
             android:gravity="center"
             android:paddingTop="@dimen/base_dimen_10"
             android:paddingBottom="@dimen/base_dimen_10"

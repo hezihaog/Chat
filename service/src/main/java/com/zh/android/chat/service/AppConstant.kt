@@ -169,6 +169,11 @@ class AppConstant private constructor() {
              * 刷新用户收货地址
              */
             const val MALL_USER_ADDRESS_REFRESH = "action_mall_user_address_refresh"
+
+            /**
+             * 支付成功
+             */
+            const val MALL_PAY_SUCCESS = "action_mall_pay_success"
         }
     }
 

@@ -75,4 +75,9 @@
     <string name="mall_please_select_goods">请选择要结算的商品</string>
     <string name="mall_please_choose_user_address">请选择收货地址</string>
     <string name="mall_goods_total_price">商品总价</string>
+
+    <string name="mall_please_choose_pay_way">请选择支付方式</string>
+    <string name="mall_alipay">支付宝支付</string>
+    <string name="mall_wxpay">微信支付</string>
+    <string name="mall_pay_success">支付成功</string>
 </resources>

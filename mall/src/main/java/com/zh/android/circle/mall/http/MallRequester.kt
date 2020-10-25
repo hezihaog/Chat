@@ -14,6 +14,7 @@ import com.zh.android.base.http.PageModel
 import com.zh.android.circle.mall.enums.DefaultAddressFlag
 import com.zh.android.circle.mall.enums.OrderByType
 import com.zh.android.circle.mall.enums.OrderStatus
+import com.zh.android.circle.mall.enums.PayType
 import com.zh.android.circle.mall.model.*
 import io.reactivex.Observable
 
@@ -392,6 +393,51 @@ class MallRequester {
             return request.tag(tag)
                 .params("userId", userId)
                 .params("cartItemIds", cartItemIds.toMutableList().listToString())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 创建订单
+         * @param userId 用户Id
+         * @param cartItemIds 要结算的购物车项Id列表
+         * @param addressId 收货地址Id
+         */
+        fun saveOrder(
+            tag: String,
+            userId: String,
+            cartItemIds: List<String>,
+            addressId: String
+        ): Observable<HttpModel<SaveOrderResultModel>> {
+            val type = genericGsonType<HttpModel<SaveOrderResultModel>>()
+            val request: PostRequest<HttpModel<SaveOrderResultModel>> =
+                OkGo.post<HttpModel<SaveOrderResultModel>>(ApiUrl.MALL_SAVE_ORDER)
+            return request.tag(tag)
+                .upJson(LinkedHashMap<String, Any>().apply {
+                    put("userId", userId)
+                    put("cartItemIds", cartItemIds)
+                    put("addressId", addressId)
+                }.toJson())
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 支付成功时，主动回调后端更新状态
+         * @param orderNo 订单号
+         * @param payType 支付类型
+         */
+        fun paySuccess(
+            tag: String,
+            orderNo: String,
+            payType: PayType
+        ): Observable<HttpModel<*>> {
+            val type = genericGsonType<HttpModel<*>>()
+            val request: PostRequest<HttpModel<*>> =
+                OkGo.post<HttpModel<*>>(ApiUrl.MALL_PAY_SUCCESS)
+            return request.tag(tag)
+                .params("orderNo", orderNo)
+                .params("payType", payType.code)
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

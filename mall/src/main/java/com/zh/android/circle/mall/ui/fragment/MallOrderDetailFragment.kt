@@ -10,11 +10,14 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
+import com.zh.android.base.util.AppBroadcastManager
+import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.circle.mall.R
+import com.zh.android.circle.mall.enums.PayType
 import com.zh.android.circle.mall.http.MallPresenter
 import com.zh.android.circle.mall.item.OrderDetailViewBinder
 import com.zh.android.circle.mall.item.OrderItemViewBinder
@@ -22,6 +25,7 @@ import com.zh.android.circle.mall.model.OrderAddressModel
 import com.zh.android.circle.mall.model.OrderAddressViewBinder
 import com.zh.android.circle.mall.model.OrderDetailModel
 import com.zh.android.circle.mall.model.OrderItemModel
+import com.zh.android.circle.mall.ui.dialog.MallPayWayDialog
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -52,11 +56,14 @@ class MallOrderDetailFragment : BaseFragment() {
         MultiTypeAdapter(mListItems).apply {
             //订单信息条目
             register(OrderDetailModel::class.java, OrderDetailViewBinder({
-                toast("去支付")
+                //去支付
+                showChoosePayWayDialog(it.orderNo)
             }, {
-                toast("确认收货")
+                //确认收货
+                finishOrder(it.orderNo)
             }, {
-                toast("取消订单")
+                //取消订单
+                cancelOrder(it.orderNo)
             }))
             //收货地址信息条目
             register(OrderAddressModel::class.java, OrderAddressViewBinder())
@@ -68,6 +75,9 @@ class MallOrderDetailFragment : BaseFragment() {
         }
     }
 
+    private val mWaitLoadingController by lazy {
+        WaitLoadingController(fragmentActivity, lifecycleOwner)
+    }
     private val mMallPresenter by lazy {
         MallPresenter()
     }
@@ -144,6 +154,110 @@ class MallOrderDetailFragment : BaseFragment() {
                 it.printStackTrace()
                 showRequestError()
                 vRefreshLayout.finishRefresh(false)
+            })
+    }
+
+    /**
+     * 显示选择支付方式弹窗
+     * @param orderNo 订单号
+     */
+    private fun showChoosePayWayDialog(orderNo: String) {
+        MallPayWayDialog(fragmentActivity, lifecycleOwner).apply {
+            setCallback(object : MallPayWayDialog.Callback {
+                override fun onClickAlipay() {
+                    payNow(orderNo, PayType.ALI_PAY)
+                }
+
+                override fun onClickWxpay() {
+                    payNow(orderNo, PayType.WEI_XIN_PAY)
+                }
+            })
+            show()
+        }
+    }
+
+    /**
+     * 开始支付
+     * @param orderNo 订单号
+     * @param payType 支付方式
+     */
+    private fun payNow(orderNo: String, payType: PayType) {
+        mMallPresenter.paySuccess(orderNo, payType)
+            .doOnSubscribeUi {
+                mWaitLoadingController.showWait()
+            }
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({
+                mWaitLoadingController.hideWait()
+                if (handlerErrorCode(it)) {
+                    toast(R.string.mall_pay_success)
+                    AppBroadcastManager.sendBroadcast(
+                        AppConstant.Action.MALL_PAY_SUCCESS
+                    )
+                    //支付完成，刷新页面
+                    refresh()
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+                mWaitLoadingController.hideWait()
+            })
+    }
+
+    /**
+     * 确认收货
+     */
+    private fun finishOrder(orderNo: String) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMallPresenter.finishOrder(userId, orderNo)
+            .doOnSubscribeUi {
+                mWaitLoadingController.showWait()
+            }
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({
+                mWaitLoadingController.hideWait()
+                if (handlerErrorCode(it)) {
+                    toast(R.string.mall_finish_order_success)
+                    refresh()
+                    AppBroadcastManager.sendBroadcast(AppConstant.Action.MALL_REFRESH_ORDER_STATUS)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+                mWaitLoadingController.hideWait()
+            })
+    }
+
+    /**
+     * 取消订单
+     */
+    private fun cancelOrder(orderNo: String) {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMallPresenter.cancelOrder(userId, orderNo)
+            .doOnSubscribeUi {
+                mWaitLoadingController.showWait()
+            }
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({
+                mWaitLoadingController.hideWait()
+                if (handlerErrorCode(it)) {
+                    toast(R.string.base_cancel_success)
+                    refresh()
+                    AppBroadcastManager.sendBroadcast(AppConstant.Action.MALL_REFRESH_ORDER_STATUS)
+                }
+            }, {
+                it.printStackTrace()
+                showRequestError()
+                mWaitLoadingController.hideWait()
             })
     }
 }

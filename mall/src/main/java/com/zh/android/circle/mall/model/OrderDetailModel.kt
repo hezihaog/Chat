@@ -31,7 +31,7 @@ data class OrderDetailModel(
     /**
      * 订单支付时间
      */
-    val payTime: String,
+    val payTime: String?,
     /**
      * 订单状态码
      */

@@ -63,12 +63,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/pay_time_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/base_dimen_15"
         android:layout_marginTop="@dimen/base_dimen_10"
         android:layout_marginEnd="@dimen/base_dimen_15"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -116,33 +119,6 @@
             android:textColor="@color/base_black"
             android:textSize="@dimen/base_dimen_sp_15"
             tools:text="¥8058" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/base_dimen_15"
-        android:layout_marginTop="@dimen/base_dimen_10"
-        android:layout_marginEnd="@dimen/base_dimen_15"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mall_courier"
-            android:textColor="@color/base_gray4"
-            android:textSize="@dimen/base_dimen_sp_15" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_dimen_10"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/mall_courier_info"
-            android:textColor="@color/base_black"
-            android:textSize="@dimen/base_dimen_sp_15" />
     </LinearLayout>
 
     <TextView

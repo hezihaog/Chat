@@ -179,6 +179,11 @@ class AppConstant private constructor() {
              * 支付成功
              */
             const val MALL_PAY_SUCCESS = "action_mall_pay_success"
+
+            /**
+             * 刷新订单状态
+             */
+            const val MALL_REFRESH_ORDER_STATUS = "action_mall_refresh_order_status"
         }
     }
 

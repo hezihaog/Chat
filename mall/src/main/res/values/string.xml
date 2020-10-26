@@ -91,4 +91,6 @@
     <string name="mall_pay_now">去支付</string>
     <string name="mall_cancel_order">取消订单</string>
     <string name="mall_finish_order">确认收货</string>
+
+    <string name="mall_finish_order_success">收货成功</string>
 </resources>

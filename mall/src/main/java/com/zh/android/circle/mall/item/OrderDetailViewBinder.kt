@@ -41,7 +41,13 @@ class OrderDetailViewBinder(
         item.run {
             holder.vOrderStatus.text = orderStatusString
             holder.vOrderNo.text = orderNo
-            holder.vPayTime.text = payTime
+            //未支付时，支付时间为空
+            if (payTime.isNullOrBlank()) {
+                holder.vPayTimeLayout.setGone()
+            } else {
+                holder.vPayTimeLayout.setVisible()
+                holder.vPayTime.text = payTime
+            }
             holder.vGoodsTotalPrice.text =
                 context.resources.getString(R.string.mall_rmb_price, getGoodsTotalPrice(item))
             //去支付
@@ -108,6 +114,7 @@ class OrderDetailViewBinder(
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val vOrderStatus: TextView = view.findViewById(R.id.order_status)
         val vOrderNo: TextView = view.findViewById(R.id.order_no)
+        val vPayTimeLayout: View = view.findViewById(R.id.pay_time_layout)
         val vPayTime: TextView = view.findViewById(R.id.pay_time)
         val vGoodsTotalPrice: TextView = view.findViewById(R.id.goods_total_price)
         val vPayNow: TextView = view.findViewById(R.id.pay_now)

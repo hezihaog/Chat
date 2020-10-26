@@ -283,4 +283,26 @@ class MallPresenter {
     ): Observable<HttpModel<OrderDetailModel>> {
         return MallRequester.orderDetail(TAG, userId, orderNo)
     }
+
+    /**
+     * 取消订单
+     * @param orderNo 订单号
+     */
+    fun cancelOrder(
+        userId: String,
+        orderNo: String
+    ): Observable<HttpModel<OrderDetailModel>> {
+        return MallRequester.cancelOrder(TAG, userId, orderNo)
+    }
+
+    /**
+     * 确认收货
+     * @param orderNo 订单号
+     */
+    fun finishOrder(
+        userId: String,
+        orderNo: String
+    ): Observable<HttpModel<OrderDetailModel>> {
+        return MallRequester.finishOrder(TAG, userId, orderNo)
+    }
 }

@@ -452,4 +452,14 @@ object ApiUrl {
      * 订单详情
      */
     val MALL_ORDER_DETAIL = "${API_V1}/mall/order/orderDetail"
+
+    /**
+     * 取消订单
+     */
+    val MALL_CANCEL_ORDER = "${API_V1}/mall/order/cancelOrder"
+
+    /**
+     * 确认收货
+     */
+    val MALL_FINISH_ORDER = "${API_V1}/mall/order/finishOrder"
 }

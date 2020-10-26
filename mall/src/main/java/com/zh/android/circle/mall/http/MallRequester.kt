@@ -460,5 +460,43 @@ class MallRequester {
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
+
+        /**
+         * 取消订单
+         * @param orderNo 订单号
+         */
+        fun cancelOrder(
+            tag: String,
+            userId: String,
+            orderNo: String
+        ): Observable<HttpModel<OrderDetailModel>> {
+            val type = genericGsonType<HttpModel<OrderDetailModel>>()
+            val request: PostRequest<HttpModel<OrderDetailModel>> =
+                OkGo.post(ApiUrl.MALL_CANCEL_ORDER)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("orderNo", orderNo)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
+
+        /**
+         * 确认收货
+         * @param orderNo 订单号
+         */
+        fun finishOrder(
+            tag: String,
+            userId: String,
+            orderNo: String
+        ): Observable<HttpModel<OrderDetailModel>> {
+            val type = genericGsonType<HttpModel<OrderDetailModel>>()
+            val request: PostRequest<HttpModel<OrderDetailModel>> =
+                OkGo.post(ApiUrl.MALL_FINISH_ORDER)
+            return request.tag(tag)
+                .params("userId", userId)
+                .params("orderNo", orderNo)
+                .converter(ModelConvert(type))
+                .adapt(ObservableBody())
+        }
     }
 }

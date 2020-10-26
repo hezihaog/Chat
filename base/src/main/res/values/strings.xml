@@ -5,6 +5,7 @@
     <string name="base_confirm">确定</string>
     <string name="base_confirm2">确认</string>
     <string name="base_cancel">取消</string>
+    <string name="base_cancel_success">取消成功</string>
     <string name="base_refuse">拒绝</string>
     <string name="base_more">更多</string>
     <string name="base_share">分享</string>

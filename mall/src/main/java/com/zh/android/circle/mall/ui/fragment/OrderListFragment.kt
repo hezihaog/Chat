@@ -1,5 +1,9 @@
 package com.zh.android.circle.mall.ui.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +16,7 @@ import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.handlerErrorCode
 import com.zh.android.base.ext.ioToMain
 import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.mall.MallService
@@ -64,6 +69,20 @@ class OrderListFragment : BaseFragment() {
 
     private val mMallPresenter by lazy {
         MallPresenter()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //支付成功或其他状态变更时，刷新列表
+        BroadcastRegistry(lifecycleOwner)
+            .register(
+                object : BroadcastReceiver() {
+                    override fun onReceive(context: Context?, intent: Intent?) {
+                        refresh()
+                    }
+                }, AppConstant.Action.MALL_PAY_SUCCESS,
+                AppConstant.Action.MALL_REFRESH_ORDER_STATUS
+            )
     }
 
     override fun onInflaterViewId(): Int {

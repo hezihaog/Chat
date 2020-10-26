@@ -44,6 +44,34 @@
                 android:textColor="@color/base_black"
                 android:textSize="@dimen/base_dimen_sp_14"
                 tools:text="广东省 广州市 天河区 58号大院3栋" />
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mall_courier"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_dimen_10"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/mall_courier_info"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

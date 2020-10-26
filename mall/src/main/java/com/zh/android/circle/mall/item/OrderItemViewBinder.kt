@@ -6,23 +6,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
-import com.zh.android.circle.mall.model.ShoppingCartItemModel
+import com.zh.android.circle.mall.model.OrderItemModel
 import me.drakeet.multitype.ItemViewBinder
 
 /**
  * @author wally
  * @date 2020/10/20
- * 创建订单时，购物车项条目
+ * 订单项条目
  */
-class CreateOrderShoppingCartItemViewBinder :
-    ItemViewBinder<ShoppingCartItemModel, CreateOrderShoppingCartItemViewBinder.ViewHolder>() {
+class OrderItemViewBinder(
+    private val clickItemCallback: (model: OrderItemModel) -> Unit
+) :
+    ItemViewBinder<OrderItemModel, OrderItemViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
-        return ViewHolder(inflater.inflate(R.layout.mall_create_order_shopping_cart_item_view, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.mall_order_item_view, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, item: ShoppingCartItemModel) {
+    override fun onBindViewHolder(holder: ViewHolder, item: OrderItemModel) {
         val context = holder.itemView.context
         item.run {
             holder.vImage.loadUrlImage(goodsCoverImg)
@@ -33,6 +36,9 @@ class CreateOrderShoppingCartItemViewBinder :
                 R.string.mall_rmb_price,
                 sellingPrice.toString()
             )
+            holder.itemView.click {
+                clickItemCallback(item)
+            }
         }
     }
 

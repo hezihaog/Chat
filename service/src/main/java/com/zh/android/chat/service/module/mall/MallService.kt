@@ -69,4 +69,10 @@ interface MallService : IProvider {
      * 跳转到选择用户地址
      */
     fun goChooseUserAddress(activity: Activity)
+
+    /**
+     * 跳转到订单详情
+     * @param orderNo 订单Id
+     */
+    fun goOrderDetail(activity: Activity, orderNo: String)
 }

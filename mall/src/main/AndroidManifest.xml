@@ -43,5 +43,9 @@
             android:name=".ui.activity.MallChooseAddressActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MallOrderDetailActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

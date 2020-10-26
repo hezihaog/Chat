@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_20"
+            android:layout_marginTop="@dimen/base_dimen_20"
+            android:layout_marginEnd="@dimen/base_dimen_20"
+            android:layout_marginBottom="@dimen/base_dimen_20"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_14"
+                tools:text="韩先生 13088888888" />
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_10" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_14"
+                tools:text="广东省 广州市 天河区 58号大院3栋" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/base_divider3" />
+</LinearLayout>

@@ -31,7 +31,7 @@
         android:layout_marginTop="@dimen/base_dimen_5"
         android:layout_marginEnd="@dimen/base_dimen_10"
         android:lineSpacingMultiplier="1.2"
-        android:text="@string/mall_mail_info"
+        android:text="@string/mall_courier_info"
         android:textColor="@color/base_gray4"
         android:textSize="@dimen/base_dimen_sp_14" />
 

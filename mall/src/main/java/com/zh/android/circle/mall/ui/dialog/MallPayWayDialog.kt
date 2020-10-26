@@ -14,7 +14,7 @@ import com.zh.android.circle.mall.R
  * @date 2020/10/25
  * 支付方式弹窗
  */
-class MallPayWayDialog(context: Context, private val owner: LifecycleOwner) :
+class MallPayWayDialog(context: Context, owner: LifecycleOwner) :
     BaseBottomSheetDialog(context, owner) {
     private lateinit var vRoot: View
     private lateinit var vClose: View

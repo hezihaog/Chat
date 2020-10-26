@@ -272,4 +272,15 @@ class MallPresenter {
     ): Observable<HttpModel<*>> {
         return MallRequester.paySuccess(TAG, orderNo, payType)
     }
+
+    /**
+     * 获取订单详情
+     * @param orderNo 订单号
+     */
+    fun orderDetail(
+        userId: String,
+        orderNo: String
+    ): Observable<HttpModel<OrderDetailModel>> {
+        return MallRequester.orderDetail(TAG, userId, orderNo)
+    }
 }

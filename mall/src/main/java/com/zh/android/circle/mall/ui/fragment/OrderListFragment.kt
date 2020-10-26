@@ -3,8 +3,10 @@ package com.zh.android.circle.mall.ui.fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.handlerErrorCode
@@ -12,6 +14,7 @@ import com.zh.android.base.ext.ioToMain
 import com.zh.android.base.ext.lifecycle
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
+import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.enums.OrderStatus
 import com.zh.android.circle.mall.http.MallPresenter
@@ -27,6 +30,10 @@ import me.drakeet.multitype.MultiTypeAdapter
  * 订单列表
  */
 class OrderListFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.MALL_SERVICE)
+    var mMallService: MallService? = null
+
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
 
@@ -48,7 +55,10 @@ class OrderListFragment : BaseFragment() {
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            register(OrderListModel::class.java, OrderListViewBinder())
+            register(OrderListModel::class.java, OrderListViewBinder {
+                //跳转到订单详情
+                mMallService?.goOrderDetail(fragmentActivity, it.orderNo)
+            })
         }
     }
 

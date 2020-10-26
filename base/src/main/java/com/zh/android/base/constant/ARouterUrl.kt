@@ -207,5 +207,10 @@ class ARouterUrl {
          * 选择用户收货地址
          */
         const val MALL_USER_CHOOSE_ADDRESS = "${MALL_GROUP}/user/address/choose"
+
+        /**
+         * 订单详情
+         */
+        const val MALL_ORDER_DETAIL = "${MALL_GROUP}/order/detail"
     }
 }

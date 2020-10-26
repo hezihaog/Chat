@@ -28,7 +28,7 @@
     <string name="mall_price">价格</string>
 
     <string name="mall_goods_detail">商品详情</string>
-    <string name="mall_mail_info">免邮费 顺丰快递</string>
+    <string name="mall_courier_info">免邮费 顺丰快递</string>
 
     <string name="mall_service">客服</string>
     <string name="mall_shopping_car">购物车</string>
@@ -80,4 +80,15 @@
     <string name="mall_alipay">支付宝支付</string>
     <string name="mall_wxpay">微信支付</string>
     <string name="mall_pay_success">支付成功</string>
+
+    <string name="mall_order_detail">订单详情</string>
+    <string name="mall_order_status">订单状态：</string>
+    <string name="mall_order_no">订单编号：</string>
+    <string name="mall_pay_time">下单时间：</string>
+    <string name="mall_goods_price">商品金额：</string>
+    <string name="mall_courier">配送方式：</string>
+
+    <string name="mall_pay_now">去支付</string>
+    <string name="mall_cancel_order">取消订单</string>
+    <string name="mall_finish_order">确认收货</string>
 </resources>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mall_order_status"
+            android:textColor="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_15" />
+
+        <TextView
+            android:id="@+id/order_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_15"
+            tools:text="待支付" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mall_order_no"
+            android:textColor="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_15" />
+
+        <TextView
+            android:id="@+id/order_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_15"
+            tools:text="16036331322092657" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mall_pay_time"
+            android:textColor="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_15" />
+
+        <TextView
+            android:id="@+id/pay_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_15"
+            tools:text="2020-10-25 21:38:52" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mall_goods_price"
+            android:textColor="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_15" />
+
+        <TextView
+            android:id="@+id/goods_total_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_15"
+            tools:text="¥8058" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mall_courier"
+            android:textColor="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_15" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_10"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/mall_courier_info"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_15" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pay_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:background="@drawable/mall_bg_green_rectangle_angle_btn"
+        android:gravity="center"
+        android:paddingTop="@dimen/base_dimen_10"
+        android:paddingBottom="@dimen/base_dimen_10"
+        android:text="@string/mall_pay_now"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/base_dimen_sp_15"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/finish_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:background="@drawable/mall_bg_green_rectangle_angle_btn"
+        android:gravity="center"
+        android:paddingTop="@dimen/base_dimen_10"
+        android:paddingBottom="@dimen/base_dimen_10"
+        android:text="@string/mall_finish_order"
+        android:textColor="@color/base_white"
+        android:textSize="@dimen/base_dimen_sp_15"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/cancel_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_15"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_15"
+        android:background="@drawable/mall_bg_hollow_rectangle_angle_btn"
+        android:gravity="center"
+        android:paddingTop="@dimen/base_dimen_10"
+        android:paddingBottom="@dimen/base_dimen_10"
+        android:text="@string/mall_cancel_order"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/base_dimen_sp_15"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <androidx.legacy.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_15" />
+
+    <View style="@style/base_divider3" />
+</LinearLayout>

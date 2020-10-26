@@ -92,4 +92,11 @@ class MallServiceImpl : MallService {
             .build(ARouterUrl.MALL_USER_CHOOSE_ADDRESS)
             .startNavigation(activity, 1)
     }
+
+    override fun goOrderDetail(activity: Activity, orderNo: String) {
+        ARouter.getInstance()
+            .build(ARouterUrl.MALL_ORDER_DETAIL)
+            .withString(AppConstant.Key.MALL_ORDER_NO, orderNo)
+            .startNavigation(activity)
+    }
 }

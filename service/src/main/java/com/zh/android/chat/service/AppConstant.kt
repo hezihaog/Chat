@@ -105,6 +105,11 @@ class AppConstant private constructor() {
              * 用户收货地址信息
              */
             const val MALL_USER_ADDRESS_INFO = "mall_user_address_info"
+
+            /**
+             * 订单号
+             */
+            const val MALL_ORDER_NO = "mall_order_no"
         }
     }
 

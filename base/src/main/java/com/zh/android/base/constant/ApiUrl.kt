@@ -447,4 +447,9 @@ object ApiUrl {
      * 支付成功时，主动回调后端更新状态
      */
     val MALL_PAY_SUCCESS = "${API_V1}/mall/order/paySuccess"
+
+    /**
+     * 订单详情
+     */
+    val MALL_ORDER_DETAIL = "${API_V1}/mall/order/orderDetail"
 }

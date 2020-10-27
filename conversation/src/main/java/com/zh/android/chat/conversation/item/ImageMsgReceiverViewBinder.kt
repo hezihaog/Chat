@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.base.ext.loadUrlImageToRound
@@ -40,12 +39,10 @@ class ImageMsgReceiverViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         item.run {
             holder.vAvatar.loadUrlImageToRound(
-                ApiUrl.getFullFileUrl(fromUser.avatar)
+                fromUser.avatar
             )
             holder.vImage.loadUrlImage(
-                ApiUrl.getFullFileUrl(
-                    image?.image
-                ),
+                image?.image,
                 R.drawable.base_def_img_rect
             )
             holder.vImage.click {

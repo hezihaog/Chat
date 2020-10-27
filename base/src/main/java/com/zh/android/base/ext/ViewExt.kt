@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.zh.android.base.R
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.util.SoftKeyBoardUtil
 import com.zh.android.base.util.listener.DelayOnClickListener
 import com.zh.android.base.util.rx.RxUtil
@@ -319,11 +320,12 @@ fun EditText.hideKeyboard() {
  * @param defaultImgResId 默认图片的资源Id
  */
 fun ImageView.loadUrlImage(url: String?, defaultImgResId: Int = R.drawable.base_def_img_rect) {
+    val imgUrl = ApiUrl.getFullFileUrl(url)
     val activity = getActivity()
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(
             LoadOption.Builder()
-                .setUrl(url)
+                .setUrl(imgUrl)
                 .setDefaultImgResId(defaultImgResId)
         ), this
     )
@@ -357,11 +359,12 @@ fun ImageView.loadUrlImageToRound(
     url: String?,
     defaultImgResId: Int = R.drawable.base_avatar_round
 ) {
+    val imgUrl = ApiUrl.getFullFileUrl(url)
     val activity = getActivity()
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(
             LoadOption.Builder()
-                .setUrl(url)
+                .setUrl(imgUrl)
                 .setRound()
                 .setDefaultImgResId(defaultImgResId)
         ), this
@@ -375,11 +378,12 @@ fun ImageView.loadUrlImageToCorner(
     url: String?,
     defaultImgResId: Int = R.drawable.base_avatar_round
 ) {
+    val imgUrl = ApiUrl.getFullFileUrl(url)
     val activity = getActivity()
     ImageLoader.get(activity).loader.load(
         activity, LoadOption(
             LoadOption.Builder()
-                .setUrl(url)
+                .setUrl(imgUrl)
                 .setDefaultImgResId(defaultImgResId)
                 .setRadius(8f)
         ), this

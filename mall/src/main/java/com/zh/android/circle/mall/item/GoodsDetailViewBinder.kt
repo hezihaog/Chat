@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
@@ -97,7 +96,7 @@ class GoodsDetailViewBinder(
         override fun bindData(data: String?, position: Int, pageSize: Int) {
             data?.run {
                 vImage.loadUrlImage(
-                    ApiUrl.getFullFileUrl(data)
+                    data
                 )
                 itemView.click {
                     val adapterPosition = adapterPosition

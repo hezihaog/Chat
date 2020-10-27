@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.chat.conversation.R
@@ -40,7 +39,7 @@ class VoiceMsgViewSenderBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         val context = holder.itemView.context
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(fromUser.avatar))
+            holder.vAvatar.loadUrlImageToRound(fromUser.avatar)
             holder.vTime.text = context.resources.getString(
                 R.string.conversation_voice_time,
                 voice?.mediaTime ?: 0

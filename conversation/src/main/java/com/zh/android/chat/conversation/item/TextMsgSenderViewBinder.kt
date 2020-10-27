@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.ext.longClick
 import com.zh.android.chat.conversation.R
@@ -33,7 +32,7 @@ class TextMsgSenderViewBinder(
 
     override fun onBindViewHolder(holder: ViewHolder, item: ChatRecord) {
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(fromUser.avatar))
+            holder.vAvatar.loadUrlImageToRound(fromUser.avatar)
             holder.vContent.text = text?.content
             holder.vContent.longClick {
                 longClickCallback(getPosition(holder), item)

@@ -8,7 +8,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.rd.PageIndicatorView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
@@ -101,7 +100,7 @@ class MallBannerViewBinder(
         override fun bindData(data: MallBannerModel.CarouselModel?, position: Int, pageSize: Int) {
             data?.run {
                 vImage.loadUrlImage(
-                    ApiUrl.getFullFileUrl(data.carouselUrl)
+                    data.carouselUrl
                 )
                 itemView.click {
                     onClickItemCallback(data)

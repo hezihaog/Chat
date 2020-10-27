@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.constant.ARouterUrl
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.handlerErrorCode
@@ -240,7 +239,7 @@ class MineFragment : BaseFragment() {
                             //保存用户信息
                             mUserInfo = it
                             render(
-                                ApiUrl.getFullFileUrl(it.avatar),
+                                it.avatar,
                                 it.nickname,
                                 it.username,
                                 it.qrCode ?: ""

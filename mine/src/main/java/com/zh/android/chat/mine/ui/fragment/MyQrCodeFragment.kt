@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.zh.android.base.constant.ARouterUrl
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.loading.WaitLoadingController
@@ -97,9 +96,9 @@ class MyQrCodeFragment : BaseFragment() {
      */
     private fun render(user: User) {
         user.run {
-            vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(avatar))
+            vAvatar.loadUrlImageToRound(avatar)
             vNickName.text = nickname
-            vQrCode.loadUrlImage(ApiUrl.getFullFileUrl(qrCode))
+            vQrCode.loadUrlImage(qrCode)
         }
     }
 }

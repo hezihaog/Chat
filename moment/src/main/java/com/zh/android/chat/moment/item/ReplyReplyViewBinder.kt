@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.base.ext.setGone
@@ -44,7 +43,7 @@ class ReplyReplyViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: MomentCommentReplyModel) {
         val context = holder.itemView.context
         item.run {
-            holder.avatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.avatar))
+            holder.avatar.loadUrlImage(userInfo.avatar)
             holder.nickname.text = userInfo.nickname
             holder.createTime.text = createTime
             holder.content.text =

@@ -282,7 +282,7 @@ class MomentDetailFragment : BaseFragment() {
         } else {
             vHeaderView.setVisible()
             data.run {
-                vAvatar.loadUrlImage(ApiUrl.getFullFileUrl(userInfo.avatar))
+                vAvatar.loadUrlImage(userInfo.avatar)
                 vNickname.text = userInfo.nickname
                 vCreateTime.text = createTime
                 vContent.text = content
@@ -301,8 +301,8 @@ class MomentDetailFragment : BaseFragment() {
                         addAll(
                             pictures.map {
                                 val info = ImageInfo()
-                                info.bigImageUrl = ApiUrl.getFullFileUrl(it)
-                                info.thumbnailUrl = ApiUrl.getFullFileUrl(it)
+                                info.bigImageUrl = it
+                                info.thumbnailUrl = it
                                 info
                             }
                         )

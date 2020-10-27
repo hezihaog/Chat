@@ -894,13 +894,13 @@ class ConversationChatFragment : BaseFragment() {
      * 点击了图片记录
      */
     private fun clickImageRecord(item: ChatRecord) {
-        val currentImageUrl = ApiUrl.getFullFileUrl(item.image!!.image)
+        val currentImageUrl = item.image!!.image
         //收集所有图片Url
         val imageUrls = mListItems.filterIsInstance<ChatRecord>()
             .filter {
                 it.type == ChatMsgType.IMAGE.code && it.image != null
             }.map {
-                ApiUrl.getFullFileUrl(it.image!!.image)
+                it.image!!.image
             }.toList()
             //因为列表是倒着排的，所以这里需要倒序一下
             .reversed()

@@ -6,7 +6,6 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.linghit.base.util.argument.bindArgument
 import com.luck.picture.lib.photoview.PhotoView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.AppBroadcastManager
@@ -65,7 +64,7 @@ class ModifyAvatarFragment : BaseFragment() {
 
     override fun setData() {
         super.setData()
-        vPhotoView.loadUrlImage(ApiUrl.getFullFileUrl(mAvatarUrl), R.drawable.base_def_img_rect)
+        vPhotoView.loadUrlImage(mAvatarUrl, R.drawable.base_def_img_rect)
     }
 
     /**
@@ -118,7 +117,7 @@ class ModifyAvatarFragment : BaseFragment() {
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
                 if (handlerErrorCode(httpModel)) {
-                    val newAvatarUrl = ApiUrl.getFullFileUrl(httpModel.data?.avatar)
+                    val newAvatarUrl = httpModel.data?.avatar
                     vPhotoView.loadUrlImage(newAvatarUrl, R.drawable.base_def_img_rect)
                     //通知更新头像
                     AppBroadcastManager.sendBroadcast(AppConstant.Action.UPDATE_AVATAR,

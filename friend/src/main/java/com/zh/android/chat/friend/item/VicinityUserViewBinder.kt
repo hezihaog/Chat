@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.ext.setGone
@@ -35,7 +34,7 @@ class VicinityUserViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: VicinityUserModel) {
         val context = holder.itemView.context
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(avatar))
+            holder.vAvatar.loadUrlImageToRound(avatar)
             holder.vNickName.text = nickname
             holder.vSign.apply {
                 if (sign.isNullOrBlank()) {

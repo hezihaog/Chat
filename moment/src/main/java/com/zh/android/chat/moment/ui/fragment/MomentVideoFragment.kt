@@ -85,7 +85,7 @@ class MomentVideoFragment : BaseFragment() {
 
     override fun onBindView(view: View?) {
         mMomentInfo.run {
-            vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(userInfo.avatar))
+            vAvatar.loadUrlImageToRound(userInfo.avatar)
             vNickname.text =
                 view!!.context.resources.getString(R.string.moment_nick_name, userInfo.nickname)
             vContent.text = content

@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.chat.moment.R
@@ -34,7 +33,7 @@ class MomentPublishMediaViewBinder(
 
     override fun onBindViewHolder(holder: ViewHolder, item: MomentPublishMediaModel) {
         item.run {
-            holder.vImage.loadUrlImage(ApiUrl.getFullFileUrl(url))
+            holder.vImage.loadUrlImage(url)
             holder.vDelete.click {
                 clickDeleteCallback(getPosition(holder), item)
             }

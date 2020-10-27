@@ -37,7 +37,7 @@ class MomentItemViewBinder(
     override fun onBindViewHolder(holder: ViewHolder, item: MomentModel) {
         val context = holder.itemView.context
         item.run {
-            holder.avatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(userInfo.avatar))
+            holder.avatar.loadUrlImageToRound(userInfo.avatar)
             holder.nickname.text = userInfo.nickname
             holder.createTime.text = createTime
             holder.content.text = content
@@ -48,8 +48,8 @@ class MomentItemViewBinder(
                     addAll(
                         pictures.map {
                             val info = ImageInfo()
-                            info.bigImageUrl = ApiUrl.getFullFileUrl(it)
-                            info.thumbnailUrl = ApiUrl.getFullFileUrl(it)
+                            info.bigImageUrl = it
+                            info.thumbnailUrl = it
                             info
                         }
                     )

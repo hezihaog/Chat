@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
@@ -74,7 +73,7 @@ class MallIndexGoodsCategoryViewBinder(
             item: MallIndexGoodsCategoryModel.CategoryModel
         ) {
             item.run {
-                holder.vImage.loadUrlImage(ApiUrl.getFullFileUrl(imgUrl))
+                holder.vImage.loadUrlImage(imgUrl)
                 holder.vName.text = name
                 holder.itemView.click {
                     onClickItemCallback(getPosition(holder), item)

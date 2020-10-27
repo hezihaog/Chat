@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.linghit.base.util.argument.bindArgument
 import com.zh.android.base.constant.ARouterUrl
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.loading.WaitLoadingController
@@ -124,7 +123,7 @@ class UserProfileFragment : BaseFragment() {
     private fun render() {
         mUserInfo?.run {
             vContentLayout.visibility = View.VISIBLE
-            vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(avatar))
+            vAvatar.loadUrlImageToRound(avatar)
             vNickname.text = nickname
             vUsername.text = getString(R.string.friend_chat_no, username)
         }

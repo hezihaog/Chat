@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.chat.friend.R
@@ -29,7 +28,7 @@ class FriendRequestViewBinder(
 
     override fun onBindViewHolder(holder: ViewHolder, item: FriendRequest) {
         item.run {
-            holder.vAvatar.loadUrlImageToRound(ApiUrl.getFullFileUrl(avatar))
+            holder.vAvatar.loadUrlImageToRound(avatar)
             holder.vNickName.text = nickname
             //拒绝
             holder.vIgnore.click {

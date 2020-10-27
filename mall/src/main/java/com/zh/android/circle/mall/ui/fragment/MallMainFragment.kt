@@ -21,12 +21,12 @@ import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.enums.GoodsGroupType
 import com.zh.android.circle.mall.http.MallPresenter
 import com.zh.android.circle.mall.item.MallBannerViewBinder
-import com.zh.android.circle.mall.item.MallIndexGoodsCategoryViewBinder
 import com.zh.android.circle.mall.item.MallIndexGoodsGroupViewBinder
+import com.zh.android.circle.mall.item.MallIndexNavViewBinder
 import com.zh.android.circle.mall.model.MallBannerModel
-import com.zh.android.circle.mall.model.MallIndexGoodsCategoryModel
 import com.zh.android.circle.mall.model.MallIndexGoodsGroupModel
 import com.zh.android.circle.mall.model.MallIndexInfoModel
+import com.zh.android.circle.mall.model.MallIndexNavModel
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -47,13 +47,6 @@ class MallMainFragment : BaseFragment() {
     private val vShoppingCar: View by bindView(R.id.shopping_car)
     private val vShoppingCarDot: TextView by bindView(R.id.shopping_car_dot)
 
-    /**
-     * 商品分类数据
-     */
-    private val mGoodsCategory by lazy {
-        generateGoodsCategory()
-    }
-
     private val mListItems by lazy {
         Items()
     }
@@ -68,10 +61,11 @@ class MallMainFragment : BaseFragment() {
             })
             //商品分类
             register(
-                MallIndexGoodsCategoryModel::class.java,
-                MallIndexGoodsCategoryViewBinder { position, _ ->
+                MallIndexNavModel::class.java,
+                MallIndexNavViewBinder { position, _ ->
+                    val navModel = mListItems.filterIsInstance<MallIndexNavModel>()[0]
                     //点击的是全部，跳转到商品分类
-                    if (position == mGoodsCategory.lastIndex) {
+                    if (position == navModel.navs.lastIndex) {
                         mMallService?.goGoodsCategory(fragmentActivity)
                     }
                 })
@@ -198,8 +192,8 @@ class MallMainFragment : BaseFragment() {
             }
             //分类列表
             add(
-                MallIndexGoodsCategoryModel(
-                    mGoodsCategory
+                MallIndexNavModel(
+                    model.navs
                 )
             )
             //最热商品
@@ -233,54 +227,6 @@ class MallMainFragment : BaseFragment() {
                 )
             }
         }
-    }
-
-    /**
-     * 组装商品分类列表
-     */
-    private fun generateGoodsCategory(): List<MallIndexGoodsCategoryModel.CategoryModel> {
-        return listOf(
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_super_market),
-                "http://s.weituibao.com/1583585285461/cs.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_clothes),
-                "http://s.weituibao.com/1583585285468/fs.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_global),
-                "http://s.weituibao.com/1583585285470/qq.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_fresh),
-                "http://s.weituibao.com/1583585285472/sx.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_distribution_home),
-                "http://s.weituibao.com/1583585285467/dj.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_pay_cost),
-                "http://s.weituibao.com/1583585285465/cz.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_spell_pay),
-                "http://s.weituibao.com/1583585285469/pt.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_get_coupons),
-                "http://s.weituibao.com/1583585285468/juan.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_save_money),
-                "http://s.weituibao.com/1583585285471/sq.png"
-            ),
-            MallIndexGoodsCategoryModel.CategoryModel(
-                getString(R.string.mall_all),
-                "http://s.weituibao.com/1583585285470/qb.png"
-            )
-        )
     }
 
     /**

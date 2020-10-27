@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
-import com.zh.android.circle.mall.model.MallIndexGoodsCategoryModel
+import com.zh.android.circle.mall.model.MallIndexNavModel
 import me.drakeet.multitype.ItemViewBinder
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter
@@ -18,30 +18,30 @@ import me.drakeet.multitype.MultiTypeAdapter
 /**
  * @author wally
  * @date 2020/10/17
- * 商城首页-商品分类条目
+ * 商城首页-导航条目
  */
-class MallIndexGoodsCategoryViewBinder(
-    private val onClickItemCallback: (position: Int, model: MallIndexGoodsCategoryModel.CategoryModel) -> Unit
+class MallIndexNavViewBinder(
+    private val onClickItemCallback: (position: Int, model: MallIndexNavModel.NavModel) -> Unit
 ) :
-    ItemViewBinder<MallIndexGoodsCategoryModel, MallIndexGoodsCategoryViewBinder.ViewHolder>() {
+    ItemViewBinder<MallIndexNavModel, MallIndexNavViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         return ViewHolder(
             inflater.inflate(
-                R.layout.mall_index_goods_category_item_view,
+                R.layout.mall_index_nav_item_view,
                 parent,
                 false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, item: MallIndexGoodsCategoryModel) {
+    override fun onBindViewHolder(holder: ViewHolder, item: MallIndexNavModel) {
         val context = holder.itemView.context
         item.run {
             holder.vList.apply {
                 layoutManager = GridLayoutManager(context, 5)
-                adapter = MultiTypeAdapter(Items(list)).apply {
+                adapter = MultiTypeAdapter(Items(navs)).apply {
                     register(
-                        MallIndexGoodsCategoryModel.CategoryModel::class.java,
+                        MallIndexNavModel.NavModel::class.java,
                         InnerViewBinder()
                     )
                 }
@@ -54,7 +54,7 @@ class MallIndexGoodsCategoryViewBinder(
     }
 
     inner class InnerViewBinder :
-        ItemViewBinder<MallIndexGoodsCategoryModel.CategoryModel, InnerViewBinder.InnerViewHolder>() {
+        ItemViewBinder<MallIndexNavModel.NavModel, InnerViewBinder.InnerViewHolder>() {
         override fun onCreateViewHolder(
             inflater: LayoutInflater,
             parent: ViewGroup
@@ -70,7 +70,7 @@ class MallIndexGoodsCategoryViewBinder(
 
         override fun onBindViewHolder(
             holder: InnerViewHolder,
-            item: MallIndexGoodsCategoryModel.CategoryModel
+            item: MallIndexNavModel.NavModel
         ) {
             item.run {
                 holder.vImage.loadUrlImage(imgUrl)

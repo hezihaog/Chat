@@ -13,6 +13,10 @@ data class MallIndexInfoModel(
      */
     val carousels: List<MallBannerModel.CarouselModel>,
     /**
+     * 导航列表
+     */
+    val navs: List<MallIndexNavModel.NavModel>,
+    /**
      * 最热商品
      */
     val hotGoods: List<MallGoodsModel>,

@@ -3,17 +3,20 @@ package com.zh.android.circle.mall.item
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ycbjie.webviewlib.view.X5WebView
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.model.GoodsWebDetailModel
+import com.zh.android.circle.mall.ui.widget.webview.MallDetailWebView
 import me.drakeet.multitype.ItemViewBinder
 
 /**
  * @author wally
  * @date 2020/10/19
  */
-class GoodsWebDetailViewBinder :
+class GoodsWebDetailViewBinder(
+    private val activity: FragmentActivity
+) :
     ItemViewBinder<GoodsWebDetailModel, GoodsWebDetailViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         return ViewHolder(inflater.inflate(R.layout.mall_goods_web_detail_item_view, parent, false))
@@ -21,14 +24,16 @@ class GoodsWebDetailViewBinder :
 
     override fun onBindViewHolder(holder: ViewHolder, item: GoodsWebDetailModel) {
         item.run {
-            //加载HTML内容
             holder.vWebView.run {
-                loadData(goodsDetailContent, "text/html", "UTF-8")
+                //开始配置
+                setup(activity, goodsDetailContent)
+                //开始加载
+                loadDetail()
             }
         }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val vWebView: X5WebView = view.findViewById(R.id.web_view)
+        val vWebView: MallDetailWebView = view.findViewById(R.id.web_view)
     }
 }

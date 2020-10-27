@@ -62,7 +62,7 @@ class MallGoodsDetailFragment : BaseFragment() {
                     list, index = position
                 )
             })
-            register(GoodsWebDetailModel::class.java, GoodsWebDetailViewBinder())
+            register(GoodsWebDetailModel::class.java, GoodsWebDetailViewBinder(fragmentActivity))
         }
     }
 

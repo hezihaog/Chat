@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>商品详情</title>
+    <style type="text/css">
+        body {
+            font-family: arial, Helvetica;
+            font-size: 18px;
+            line-height: 28px;
+            word-wrap: break-word;
+        }
+
+        img {
+            display: block;
+            height: auto;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 0;
+            text-align: justify;
+            word-break: break-all;
+            color: #333333;
+        }
+    </style>
+    <script>
+        function WebReady() {
+            NativeInjectContent();
+        }
+
+        function WebFillContent(content) {
+            var elem = document.getElementById("content");
+            elem.innerHTML = content;
+        }
+
+        /**
+         * 调用客户端展示图片的方法
+         */
+        function NativeShowImg(url) {
+            window.WKEventClient.showImage(url);
+        }
+
+        /**
+         * 调用客户端注入内容
+         */
+        function NativeInjectContent() {
+            //调用Native端，插入内容
+            window.WKEventClient.injectContent();
+            //给所有img标签添加点击事件，让Native处理
+            setTimeout(function () {
+                var objs = document.getElementsByTagName('img');
+                var arr = [];
+                for (var i = 0; i < objs.length; i++) {
+                    arr[i] = objs[i].src;
+                    objs[i].onclick = function () {
+                        NativeShowImg(this.src)
+                    }
+                }
+            }, 500);
+        }
+    </script>
+</head>
+<body>
+<div id="content"/>
+</body>
+</html>

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zh.android.base.ext.click
-import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.model.MallGoodsCategoryModel
 import me.drakeet.multitype.ItemViewBinder
@@ -73,7 +72,7 @@ class GoodsCategorySecondViewBinder(
 
         override fun onBindViewHolder(holder: ThreeLevelViewHolder, item: MallGoodsCategoryModel) {
             item.run {
-                holder.vImage.loadUrlImage("http://s.weituibao.com/1583591077131/%E5%88%86%E7%B1%BB.png")
+                holder.vImage.setImageResource(R.drawable.mall_goods_category_symbol)
                 holder.vName.text = categoryName
                 holder.itemView.click {
                     clickItemCallback(item)

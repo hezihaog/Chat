@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.draggable.library.extension.ImageViewerHelper
 import com.linghit.base.util.argument.bindArgument
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.AppBroadcastManager
@@ -84,7 +85,7 @@ class MomentPublishFragment : BaseFragment() {
                 }, { position, _ ->
                     //预览资源
                     val mediaUrls = getAllMediaItemModel().map {
-                        it.url
+                        ApiUrl.getFullFileUrl(it.url)
                     }
                     ImageViewerHelper.showImages(
                         fragmentActivity,

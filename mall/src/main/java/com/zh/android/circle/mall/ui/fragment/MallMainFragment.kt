@@ -2,10 +2,12 @@ package com.zh.android.circle.mall.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.apkfuns.logutils.LogUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
@@ -13,6 +15,7 @@ import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.web.BrowserActivity
 import com.zh.android.base.widget.TopBar
+import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.enums.GoodsGroupType
@@ -42,6 +45,7 @@ class MallMainFragment : BaseFragment() {
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
     private val vShoppingCar: View by bindView(R.id.shopping_car)
+    private val vShoppingCarDot: TextView by bindView(R.id.shopping_car_dot)
 
     /**
      * 商品分类数据
@@ -88,6 +92,11 @@ class MallMainFragment : BaseFragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        cartItemListCount()
     }
 
     override fun onInflaterViewId(): Int {
@@ -272,5 +281,34 @@ class MallMainFragment : BaseFragment() {
                 "http://s.weituibao.com/1583585285470/qb.png"
             )
         )
+    }
+
+    /**
+     * 获取购物车列表的数量
+     */
+    private fun cartItemListCount() {
+        val userId = getLoginService()?.getUserId()
+        if (userId.isNullOrBlank()) {
+            return
+        }
+        mMallPresenter.cartItemListCount(userId)
+            .ioToMain()
+            .lifecycle(lifecycleOwner)
+            .subscribe({
+                if (checkHttpResponse(it)) {
+                    val count = it.data ?: 0
+                    vShoppingCarDot.apply {
+                        if (count > 0) {
+                            setVisible()
+                            text = count.toString()
+                        } else {
+                            setGone()
+                        }
+                    }
+                }
+            }, {
+                it.printStackTrace()
+                LogUtils.d("获取购物车列表数量失败")
+            })
     }
 }

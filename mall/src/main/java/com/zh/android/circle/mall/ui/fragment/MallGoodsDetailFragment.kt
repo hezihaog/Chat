@@ -11,6 +11,7 @@ import com.draggable.library.extension.ImageViewerHelper
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
@@ -59,7 +60,9 @@ class MallGoodsDetailFragment : BaseFragment() {
                 //跳转到图片预览
                 ImageViewerHelper.showImages(
                     fragmentActivity,
-                    list, index = position
+                    list.map {
+                        ApiUrl.getFullFileUrl(it)
+                    }, index = position
                 )
             })
             register(GoodsWebDetailModel::class.java, GoodsWebDetailViewBinder(fragmentActivity))

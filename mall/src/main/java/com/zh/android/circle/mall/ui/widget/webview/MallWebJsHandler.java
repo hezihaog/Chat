@@ -59,8 +59,7 @@ public class MallWebJsHandler implements Serializable {
      */
     @JavascriptInterface
     public void showImage(String url) {
-        List<String> imageList = Collections.singletonList(url);
-        ImageViewerHelper.INSTANCE.showImages(activity, imageList, 0, true);
+        ImageViewerHelper.INSTANCE.showSimpleImage(activity, url, url, null, true);
     }
 
     /**

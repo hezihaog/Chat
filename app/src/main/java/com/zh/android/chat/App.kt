@@ -29,6 +29,7 @@ import com.shuyu.gsyvideoplayer.cache.CacheFactory
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import com.ycbjie.webviewlib.utils.X5WebUtils
+import com.youngfeng.snake.Snake
 import com.zh.android.base.ext.loadUrlImage
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
@@ -64,6 +65,7 @@ class App : Application() {
             )
             .addStartup(ToolBoxStartup())
             .addStartup(HttpStartup())
+            .addStartup(SnakeStartup())
             .addStartup(RouterStartup())
             .addStartup(RefreshStartup())
             .addStartup(ImageLoaderStartup())
@@ -133,6 +135,24 @@ class App : Application() {
                 .setOkHttpClient(builder.build())
                 .setCacheMode(CacheMode.NO_CACHE)
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE).retryCount = 0
+            return this.javaClass.simpleName
+        }
+    }
+
+    /**
+     * 侧滑返回
+     */
+    private class SnakeStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun waitOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun create(context: Context): String? {
+            Snake.init(context.applicationContext as Application?)
             return this.javaClass.simpleName
         }
     }

@@ -92,6 +92,9 @@ dependencies {
     api project(path: ':notice')
     api project(path: ':setting')
 
+    //侧滑删除
+    kapt rootProject.ext.deps.snake_slide_back_compiler
+
     testImplementation rootProject.ext.deps.junit
     androidTestImplementation rootProject.ext.deps.runner
     androidTestImplementation rootProject.ext.deps.espresso

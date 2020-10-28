@@ -1,15 +1,25 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/base_window_bg</item>
+        <item name="android:windowAnimationStyle">@style/activity_anim</item>
+    </style>
+
+    <style name="activity_anim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/base_anim_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/base_anim_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/base_anim_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/base_anim_close_exit</item>
     </style>
 
     <style name="AppWelcome" parent="AppTheme">
         <item name="android:windowBackground">@drawable/app_welcome_bg</item>
-        <!--        <item name="android:windowFullscreen">true</item>-->
+        <!-- 透明掉状态栏，设置为true，状态栏有阴影，false则无阴影 -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <!-- 设置状态栏颜色为透明色 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

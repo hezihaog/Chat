@@ -119,7 +119,11 @@ ext {
             page_indicator_view          : "com.romandanylyk:pageindicatorview:1.0.3",
 
             //地址选择器
-            picker_view                  : "com.contrarywind:Android-PickerView:4.1.9"
+            picker_view                  : "com.contrarywind:Android-PickerView:4.1.9",
+
+            //侧滑删除
+            snake_slide_back             : "com.youngfeng.android:snake:0.3.2",
+            snake_slide_back_compiler    : "com.youngfeng.android:snake-compiler:0.3.0"
     ]
 
     android = [

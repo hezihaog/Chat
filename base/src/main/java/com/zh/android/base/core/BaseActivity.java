@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.youngfeng.snake.annotations.EnableDragToClose;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
  * <b>Address:</b> qingyongai@gmail.com <br>
  * <b>Description:</b> baseActivity <br>
  */
+@EnableDragToClose()
 public abstract class BaseActivity extends BaseSupportActivity
         implements LayoutCallback, LifecycleOwnerExt {
     @Override

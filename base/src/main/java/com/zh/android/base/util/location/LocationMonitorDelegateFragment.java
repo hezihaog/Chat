@@ -97,7 +97,7 @@ public class LocationMonitorDelegateFragment extends AppDelegateFragment {
                 } else {
                     //没有开启位置
                     if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        ToastUtil.showMsg(activity, "请开启位置，查找附近的小伙伴");
+                        ToastUtil.showMsg(activity, "开启位置，查找附近的小伙伴");
                     }
                     return;
                 }

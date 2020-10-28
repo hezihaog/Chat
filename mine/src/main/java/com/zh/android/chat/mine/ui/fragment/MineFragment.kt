@@ -218,7 +218,7 @@ class MineFragment : BaseFragment() {
     override fun setData() {
         super.setData()
         //先渲染空数据
-        render("", "", "", "")
+        render("", "", "")
     }
 
     override fun onResume() {
@@ -241,8 +241,7 @@ class MineFragment : BaseFragment() {
                             render(
                                 it.avatar,
                                 it.nickname,
-                                it.username,
-                                it.qrCode ?: ""
+                                it.username
                             )
                         }
                     }
@@ -255,7 +254,7 @@ class MineFragment : BaseFragment() {
     /**
      * 渲染数据
      */
-    private fun render(avatar: String, nickname: String, account: String, qrCode: String) {
+    private fun render(avatar: String, nickname: String, account: String) {
         mListItems.clear()
         //头像
         mListItems.add(
@@ -290,7 +289,7 @@ class MineFragment : BaseFragment() {
             MineImageItemModel(
                 R.id.mine_item_qrcode,
                 getString(R.string.mine_qrcode),
-                qrCode,
+                "",
                 R.drawable.mine_qrcode,
                 true
             )

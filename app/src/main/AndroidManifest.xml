@@ -15,7 +15,7 @@
 
         <activity
             android:name=".LauncherActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppWelcome">
             <intent-filter>

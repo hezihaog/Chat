@@ -96,7 +96,7 @@ class QrCodeScanFragment : BaseFragment() {
                 //延迟一下，再继续识别
                 mMainHandler.postDelayed({
                     vScanView.startSpot()
-                }, 1000)
+                }, 1500)
             }
 
             override fun onCameraAmbientBrightnessChanged(isDark: Boolean) {

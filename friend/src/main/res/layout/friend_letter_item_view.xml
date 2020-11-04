@@ -6,8 +6,6 @@
     android:background="@color/base_gray3"
     android:orientation="vertical">
 
-    <View style="@style/base_divider" />
-
     <TextView
         android:id="@+id/letter"
         android:layout_width="wrap_content"

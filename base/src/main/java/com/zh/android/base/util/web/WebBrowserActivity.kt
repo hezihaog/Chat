@@ -12,13 +12,13 @@ import com.zh.android.base.core.BaseActivity
  * @date 2020/10/07
  * 内置Web浏览器
  */
-class BrowserActivity : BaseActivity() {
+class WebBrowserActivity : BaseActivity() {
     companion object {
         /**
          * 跳转
          */
         fun start(activity: Activity, url: String) {
-            activity.startActivity(Intent(activity, BrowserActivity::class.java).apply {
+            activity.startActivity(Intent(activity, WebBrowserActivity::class.java).apply {
                 putExtra(BaseConstant.ARGS_URL, url)
             })
         }
@@ -29,9 +29,9 @@ class BrowserActivity : BaseActivity() {
     }
 
     override fun onBindView(view: View?) {
-        if (findFragment(BrowserFragment::class.java) == null) {
+        if (findFragment(WebBrowserFragment::class.java) == null) {
             loadRootFragment(
-                R.id.base_container, BrowserFragment.newInstance(
+                R.id.base_container, WebBrowserFragment.newInstance(
                     intent.extras
                 )
             )

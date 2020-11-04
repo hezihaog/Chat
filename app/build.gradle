@@ -43,7 +43,7 @@ android {
         //开发包
         developer {
             applicationIdSuffix ".internal"
-            manifestPlaceholders = [app_name: "Circle圈子-测试"]
+            manifestPlaceholders = [app_name: "Circle圈子_T"]
             buildConfigField("boolean", "DEBUG_ENABLE", "true")
         }
 

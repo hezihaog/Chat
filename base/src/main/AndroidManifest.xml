@@ -30,7 +30,7 @@
             android:value="2.4" />
 
         <activity
-            android:name=".util.web.BrowserActivity"
+            android:name=".util.web.WebBrowserActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
     </application>

@@ -13,7 +13,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
-import com.zh.android.base.util.web.BrowserActivity
+import com.zh.android.base.util.web.WebBrowserActivity
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.mall.MallService
@@ -56,7 +56,7 @@ class MallMainFragment : BaseFragment() {
             register(MallBannerModel::class.java, MallBannerViewBinder {
                 val url = it.redirectUrl
                 if (url.isNotBlank() && RegexUtils.isURL(url)) {
-                    BrowserActivity.start(fragmentActivity, it.redirectUrl)
+                    WebBrowserActivity.start(fragmentActivity, it.redirectUrl)
                 }
             })
             //商品分类

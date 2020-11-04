@@ -27,7 +27,7 @@ import kotterknife.bindView
  * @date 2020/10/16
  * 内置Web浏览器
  */
-class BrowserFragment : BaseFragment() {
+class WebBrowserFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vWebView: X5WebView by bindView(R.id.web_view)
     private val vProgress: WebProgress by bindView(R.id.progress)
@@ -38,8 +38,8 @@ class BrowserFragment : BaseFragment() {
     private val mLoadUrl by bindArgument(BaseConstant.ARGS_URL, "")
 
     companion object {
-        fun newInstance(args: Bundle? = Bundle()): BrowserFragment {
-            val fragment = BrowserFragment()
+        fun newInstance(args: Bundle? = Bundle()): WebBrowserFragment {
+            val fragment = WebBrowserFragment()
             fragment.arguments = args
             return fragment
         }

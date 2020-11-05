@@ -358,7 +358,9 @@ public class MqttImpl implements MqttApi {
                         @Override
                         public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                             emitter.onNext(false);
-                            exception.printStackTrace();
+                            if (exception != null) {
+                                exception.printStackTrace();
+                            }
                         }
                     });
                 } catch (MqttException e) {

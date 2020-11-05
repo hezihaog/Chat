@@ -26,7 +26,7 @@ interface LoginService : IProvider {
 
     /**
      * 跳转到登录
-     * @param isClearOther 是否清除其他页面
+     * @param isClearOther 是否关闭其他页面
      * @param callback 跳转回调
      */
     fun goLogin(

@@ -3,11 +3,15 @@ package com.zh.android.chat.login
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.util.AppBroadcastManager
+import com.zh.android.base.util.activity.ActivityProvider
+import com.zh.android.chat.login.ui.activity.LoginActivity
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.login.LoginService
@@ -38,18 +42,41 @@ class LoginServiceImpl : LoginService {
         ARouter.getInstance()
             .build(ARouterUrl.LOGIN_LOGIN).apply {
                 if (isClearOther) {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    withFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
             }
-            .startNavigation(activity, callback = callback)
+            .withTransition(0, 0)
+            .startNavigation(activity, callback = object : NavigationCallback {
+                override fun onFound(postcard: Postcard?) {
+                    callback?.onFound(postcard)
+                }
+
+                override fun onLost(postcard: Postcard?) {
+                    callback?.onLost(postcard)
+                }
+
+                override fun onArrival(postcard: Postcard?) {
+                    callback?.onArrival(postcard)
+                    if (isClearOther) {
+                        ActivityProvider.get().finishOtherActivity(LoginActivity::class.java)
+                    }
+                }
+
+                override fun onInterrupt(postcard: Postcard?) {
+                    callback?.onInterrupt(postcard)
+                }
+            })
     }
 
     override fun logout(activity: Activity) {
-        //清除登录信息
-        LoginStorage.clean()
-        //通知其他模块
-        AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGOUT)
         //跳转到登录，并关闭其他页面
-        goLogin(activity, isClearOther = true)
+        goLogin(activity, isClearOther = true, callback = object : NavCallback() {
+            override fun onArrival(postcard: Postcard?) {
+                //清除登录信息
+                LoginStorage.clean()
+                //通知其他模块
+                AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGOUT)
+            }
+        })
     }
 }

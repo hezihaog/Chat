@@ -52,7 +52,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="@dimen/base_dimen_15"
                         app:sb_checked="false"
-                        app:sb_checked_bg="@color/base_green3"
+                        app:sb_checked_bg="@color/base_blue"
                         app:sb_circle_bg_margin="2.5dp"
                         app:sb_unchecked_bg="@color/base_gray5" />
                 </LinearLayout>

@@ -35,13 +35,14 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 public class GlideLoader implements ILoaderStrategy {
     private Context mApplicationContext;
-    private RequestOptions mRequestOptions;
+    private final RequestOptions mRequestOptions;
 
     public GlideLoader() {
         mRequestOptions = new RequestOptions()
                 .dontAnimate()
+                //内存缓存处理图,磁盘缓存原图
                 .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.ALL);
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
     }
 
     @Override
@@ -51,7 +52,6 @@ public class GlideLoader implements ILoaderStrategy {
 
     @Override
     public void load(Context context, LoadOption option, ImageView targetView) {
-        RequestManager manager = Glide.with(context);
         //复制一份Options
         RequestOptions requestOptions = mRequestOptions.clone();
         //根据option中的资源类型决定加载的资源类型，再加载加载
@@ -191,6 +191,9 @@ public class GlideLoader implements ILoaderStrategy {
         Glide.get(mApplicationContext).onConfigurationChanged(newConfig);
     }
 
+    /**
+     * 替换url中的换行符
+     */
     private String replaceEscape(String url) {
         if (TextUtils.isEmpty(url)) {
             return url;

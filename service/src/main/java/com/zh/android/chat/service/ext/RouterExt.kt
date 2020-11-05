@@ -47,7 +47,6 @@ fun Postcard.startNavigation(
                 if (extras.getBoolean(ARouterUrl.IS_LOGIN_INTERCEPTOR)) {
                     ARouter.getInstance()
                         .build(ARouterUrl.LOGIN_LOGIN)
-                        .withTransition(0, 0)
                         .navigation(activity)
                 }
             }

@@ -58,6 +58,7 @@ public class ActivityStackManager {
         try {
             return mActivityStack.lastElement();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -69,6 +70,7 @@ public class ActivityStackManager {
         try {
             return mActivityStack.lastElement();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -117,6 +119,29 @@ public class ActivityStackManager {
     }
 
     /**
+     * 除了指定的Activity，其他都结束
+     */
+    public void finishOtherActivity(Activity activity) {
+        for (Activity element : mActivityStack) {
+            if (element != activity) {
+                finishActivity(element);
+            }
+        }
+    }
+
+    /**
+     * 除了指定类名的Activity，其他都结束
+     */
+    public void finishOtherActivity(Class<?> cls) {
+        for (Activity activity : mActivityStack) {
+            if (!activity.getClass().equals(cls)) {
+                finishActivity(activity);
+                break;
+            }
+        }
+    }
+
+    /**
      * 结束所有Activity
      */
     public void finishAllActivity() {
@@ -135,6 +160,7 @@ public class ActivityStackManager {
         try {
             finishAllActivity();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

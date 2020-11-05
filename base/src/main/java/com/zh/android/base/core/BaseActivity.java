@@ -22,7 +22,7 @@ import java.util.List;
  * <b>Address:</b> qingyongai@gmail.com <br>
  * <b>Description:</b> baseActivity <br>
  */
-@EnableDragToClose()
+@EnableDragToClose(value = false)
 public abstract class BaseActivity extends BaseSupportActivity
         implements LayoutCallback, LifecycleOwnerExt {
     @Override

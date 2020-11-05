@@ -148,4 +148,18 @@ public class ActivityProvider {
         ensureInit();
         mActivityStackManager.finishAllActivity();
     }
+
+    /**
+     * 除了指定的Activity，其他都结束
+     */
+    public void finishOtherActivity(Activity activity) {
+        mActivityStackManager.finishOtherActivity(activity);
+    }
+
+    /**
+     * 除了指定类名的Activity，其他都结束
+     */
+    public void finishOtherActivity(Class<?> cls) {
+        mActivityStackManager.finishOtherActivity(cls);
+    }
 }

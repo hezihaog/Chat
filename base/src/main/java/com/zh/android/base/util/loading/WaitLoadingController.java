@@ -20,9 +20,18 @@ import androidx.lifecycle.OnLifecycleEvent;
  * <b>Description:</b> 封装LoadingDialog <br>
  */
 public class WaitLoadingController implements LifecycleObserver {
+    /**
+     * 一定要显示够指定时间
+     */
+    private static final long LOAD_MIN_TIME = 500;
+
     private Activity mActivity;
     private LoadingDialog vLoadingDialog;
     private final Handler mMainHandler;
+    /**
+     * 开始展示的时间
+     */
+    private long showTime;
 
     public WaitLoadingController(@NonNull Activity activity, LifecycleOwner lifecycleOwner) {
         mActivity = activity;
@@ -96,17 +105,30 @@ public class WaitLoadingController implements LifecycleObserver {
     public void showWait() {
         ensureMainThreadRun(() -> {
             if (vLoadingDialog != null && !vLoadingDialog.isShowing()) {
+                showTime = System.currentTimeMillis();
                 vLoadingDialog.show();
             }
         });
     }
 
     public void hideWait() {
-        ensureMainThreadRun(() -> {
+        long currentTime = System.currentTimeMillis();
+        Runnable runnable = () -> {
             if (vLoadingDialog != null) {
                 vLoadingDialog.dismiss();
             }
-        });
+        };
+        //显示到调用结束，间隔的时间
+        long intervalTime = currentTime - showTime;
+        //最少要显示够的时间
+        long leastTime = showTime + LOAD_MIN_TIME;
+        //如果显示时间比最大时间大，则马上隐藏
+        if (intervalTime >= LOAD_MIN_TIME) {
+            ensureMainThreadRun(runnable);
+        } else {
+            //否则，补够时间，再隐藏
+            ensureMainThreadRun(runnable, leastTime - currentTime);
+        }
     }
 
     private void destroy() {
@@ -126,5 +148,12 @@ public class WaitLoadingController implements LifecycleObserver {
         } else {
             mMainHandler.post(runnable);
         }
+    }
+
+    /**
+     * 延时执行，确保在主线程
+     */
+    public void ensureMainThreadRun(Runnable runnable, long delayMillis) {
+        mMainHandler.postDelayed(runnable, delayMillis);
     }
 }

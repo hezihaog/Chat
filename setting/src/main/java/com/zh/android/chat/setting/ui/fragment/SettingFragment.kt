@@ -60,7 +60,7 @@ class SettingFragment : BaseFragment() {
         }
         //退出登录
         vLogout.click {
-            mLoginService?.logout()
+            mLoginService?.logout(fragmentActivity)
         }
     }
 }

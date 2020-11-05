@@ -1,8 +1,10 @@
 package com.zh.android.chat
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.widget.ImageView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.LogUtils
@@ -31,6 +33,7 @@ import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.youngfeng.snake.Snake
 import com.zh.android.base.ext.loadUrlImage
+import com.zh.android.base.util.activity.ActivityLifecycleCallbacksAdapter
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
 import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
@@ -63,9 +66,9 @@ class App : Application() {
                         }
                     }).build()
             )
+            .addStartup(SnakeStartup())
             .addStartup(ToolBoxStartup())
             .addStartup(HttpStartup())
-            .addStartup(SnakeStartup())
             .addStartup(RouterStartup())
             .addStartup(RefreshStartup())
             .addStartup(ImageLoaderStartup())
@@ -92,7 +95,36 @@ class App : Application() {
             //前后台监听
             AppMonitor.get().initialize(context)
             //全局Activity管理
-            ActivityProvider.initialize()
+            ActivityProvider.initialize().apply {
+                registerLifecycleCallback(object : ActivityLifecycleCallbacksAdapter() {
+                    override fun onActivityCreated(
+                        activity: Activity,
+                        savedInstanceState: Bundle?
+                    ) {
+                        super.onActivityCreated(activity, savedInstanceState)
+//                        if (activity is BaseActivity) {
+//                            //根据配置进行切换
+//                            getSettingService()?.run {
+//                                Snake.enableDragToClose(activity, isEnableSwipeBack())
+//                            }
+//                            //注册，切换侧滑返回的广播
+//                            BroadcastRegistry(activity.lifecycleOwner)
+//                                .register(object : BroadcastReceiver() {
+//                                    override fun onReceive(context: Context?, intent: Intent?) {
+//                                        intent?.run {
+//                                            val isEnable =
+//                                                getBooleanExtra(
+//                                                    AppConstant.Key.IS_ENABLE_SWIPE_BACK,
+//                                                    true
+//                                                )
+//                                            Snake.enableDragToClose(activity, isEnable)
+//                                        }
+//                                    }
+//                                }, AppConstant.Action.CHANGE_SWIPE_BACK_ENABLE)
+//                        }
+                    }
+                })
+            }
             //初始化通用工具类
             Utils.init(context)
             return this.javaClass.simpleName

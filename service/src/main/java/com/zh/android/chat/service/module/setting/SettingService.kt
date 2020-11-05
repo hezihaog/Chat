@@ -14,6 +14,16 @@ interface SettingService : IProvider {
     fun getBaseUrl(): String
 
     /**
+     * 设置是否开启侧滑关闭功能
+     */
+    fun saveEnableSwipeBack(enableSwipeBack: Boolean)
+
+    /**
+     * 获取是否开启侧滑关闭功能
+     */
+    fun isEnableSwipeBack(): Boolean
+
+    /**
      * 跳转到设置首页
      */
     fun goSetting(activity: Activity)

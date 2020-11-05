@@ -16,6 +16,10 @@ class AppConstant private constructor() {
 
     class Key private constructor() {
         companion object {
+            /**
+             * 是否开启侧滑返回
+             */
+            const val IS_ENABLE_SWIPE_BACK = "is_enable_swipe_back"
             const val USER_ID = "user_id"
             const val USER_NAME = "user_name"
             const val NICK_NAME = "nickname"
@@ -115,6 +119,11 @@ class AppConstant private constructor() {
 
     class Action private constructor() {
         companion object {
+            /**
+             * 切换侧滑关闭
+             */
+            const val CHANGE_SWIPE_BACK_ENABLE = "action_change_swipe_back_enable"
+
             /**
              * 用户登录
              */

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="mine_mine">我</string>
-    <string name="mine_logout">退出登录</string>
     <string name="mine_avatar">头像</string>
     <string name="mine_nickname">昵称</string>
     <string name="mine_account">账号</string>

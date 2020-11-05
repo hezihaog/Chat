@@ -1,9 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/base_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:orientation="vertical">
 
-    <include layout="@layout/base_top_bar" />
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/base_top_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_10"
+                android:background="@color/base_white"
+                android:orientation="vertical">
+
+                <View style="@style/base_divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_dimen_15"
+                        android:layout_marginEnd="@dimen/base_dimen_15"
+                        android:layout_weight="1"
+                        android:paddingTop="@dimen/base_dimen_15"
+                        android:paddingBottom="@dimen/base_dimen_15"
+                        android:text="@string/setting_enable_swipe_back"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/base_dimen_sp_15" />
+
+                    <com.zh.android.base.widget.SwitchButton
+                        android:id="@+id/enable_swipe_back_switch"
+                        android:layout_width="50dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/base_dimen_15"
+                        app:sb_checked="false"
+                        app:sb_checked_bg="@color/base_green3"
+                        app:sb_circle_bg_margin="2.5dp"
+                        app:sb_unchecked_bg="@color/base_gray5" />
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:background="@color/base_white"
+            android:orientation="vertical">
+
+            <View style="@style/base_divider" />
+
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="@dimen/base_dimen_15"
+                android:paddingBottom="@dimen/base_dimen_15"
+                android:text="@string/setting_logout"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15" />
+
+            <View style="@style/base_divider" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

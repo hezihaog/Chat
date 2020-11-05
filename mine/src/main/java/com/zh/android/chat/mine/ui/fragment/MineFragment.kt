@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -70,7 +69,6 @@ class MineFragment : BaseFragment() {
     var mMallService: MallService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
-    private val vLogout: TextView by bindView(R.id.logout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
 
     /**
@@ -209,9 +207,6 @@ class MineFragment : BaseFragment() {
         vRefreshList.apply {
             layoutManager = LinearLayoutManager(fragmentActivity)
             adapter = mListAdapter
-        }
-        vLogout.click {
-            mLoginService?.logout()
         }
     }
 

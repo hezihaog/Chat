@@ -44,4 +44,17 @@ class SettingServiceImpl : SettingService {
             .build(ARouterUrl.SETTING_MAIN)
             .startNavigation(activity)
     }
+
+    override fun goPatternLockValidate(activity: Activity, actionCode: String) {
+        ARouter.getInstance()
+            .build(ARouterUrl.SETTING_PATTERN_LOCK_VALIDATE)
+            .withString(AppConstant.Key.PATTERN_LOCK_ACTION_CODE, actionCode)
+            .startNavigation(activity)
+    }
+
+    override fun goPatternLockSetting(activity: Activity, requestCode: Int) {
+        ARouter.getInstance()
+            .build(ARouterUrl.SETTING_PATTERN_LOCK_SETTING)
+            .startNavigation(activity, requestCode)
+    }
 }

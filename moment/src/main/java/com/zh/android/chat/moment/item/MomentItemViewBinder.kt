@@ -1,11 +1,13 @@
 package com.zh.android.chat.moment.item
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.draggable.library.extension.ImageViewerHelper
 import com.lzy.ninegrid.ImageInfo
 import com.lzy.ninegrid.NineGridView
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter
@@ -55,7 +57,23 @@ class MomentItemViewBinder(
                     )
                 }
                 //适配器
-                holder.nineGridView.setAdapter(NineGridViewClickAdapter(context, imageInfoList))
+                holder.nineGridView.setAdapter(object :
+                    NineGridViewClickAdapter(context, imageInfoList) {
+                    override fun onImageItemClick(
+                        context: Context?,
+                        nineGridView: NineGridView?,
+                        index: Int,
+                        imageInfo: MutableList<ImageInfo>?
+                    ) {
+                        ImageViewerHelper.showImages(
+                            context!!,
+                            imageInfo!!.map {
+                                ApiUrl.getFullFileUrl(it.bigImageUrl)
+                            },
+                            index
+                        )
+                    }
+                })
             } else {
                 holder.nineGridView.setGone()
             }

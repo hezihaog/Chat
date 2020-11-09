@@ -145,6 +145,16 @@ class ARouterUrl {
          */
         const val SETTING_MAIN = "$SETTING_GROUP/main"
 
+        /**
+         * 私密锁验证页面
+         */
+        const val SETTING_PATTERN_LOCK_VALIDATE = "$SETTING_GROUP/pattern/lock/validate"
+
+        /**
+         * 私密锁设置页面
+         */
+        const val SETTING_PATTERN_LOCK_SETTING = "$SETTING_GROUP/pattern/lock/setting"
+
         //============================== 通知 ==============================
         private const val NOTICE_GROUP = "/notice"
         const val NOTICE_SERVICE = "${NOTICE_GROUP}s/module"

@@ -27,4 +27,15 @@ interface SettingService : IProvider {
      * 跳转到设置首页
      */
     fun goSetting(activity: Activity)
+
+    /**
+     * 跳转到私密锁验证页面
+     * @param actionCode 本次操作的唯一标识
+     */
+    fun goPatternLockValidate(activity: Activity, actionCode: String)
+
+    /**
+     * 跳转到私密锁设置页面
+     */
+    fun goPatternLockSetting(activity: Activity, requestCode: Int)
 }

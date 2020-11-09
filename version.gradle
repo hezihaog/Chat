@@ -123,7 +123,10 @@ ext {
 
             //侧滑删除
             snake_slide_back             : "com.youngfeng.android:snake:0.3.2",
-            snake_slide_back_compiler    : "com.youngfeng.android:snake-compiler:0.3.0"
+            snake_slide_back_compiler    : "com.youngfeng.android:snake-compiler:0.3.0",
+
+            //图案解锁
+            pattern_locker               : "com.github.ihsg:PatternLocker:2.5.6"
     ]
 
     android = [

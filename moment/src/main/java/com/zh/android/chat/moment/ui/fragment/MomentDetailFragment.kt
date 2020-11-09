@@ -1,5 +1,6 @@
 package com.zh.android.chat.moment.ui.fragment
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
 import com.apkfuns.logutils.LogUtils
+import com.draggable.library.extension.ImageViewerHelper
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.linghit.base.util.argument.bindArgument
@@ -308,7 +310,23 @@ class MomentDetailFragment : BaseFragment() {
                         )
                     }
                     //适配器
-                    vNineGridView.setAdapter(NineGridViewClickAdapter(context, imageInfoList))
+                    vNineGridView.setAdapter(object :
+                        NineGridViewClickAdapter(context, imageInfoList) {
+                        override fun onImageItemClick(
+                            context: Context?,
+                            nineGridView: NineGridView?,
+                            index: Int,
+                            imageInfo: MutableList<ImageInfo>?
+                        ) {
+                            ImageViewerHelper.showImages(
+                                context!!,
+                                imageInfo!!.map {
+                                    ApiUrl.getFullFileUrl(it.bigImageUrl)
+                                },
+                                index
+                            )
+                        }
+                    })
                 } else {
                     vNineGridView.setGone()
                 }

@@ -11,6 +11,11 @@ class AppConstant private constructor() {
              * 是否需要登录
              */
             const val IS_NEED_LOGIN = 1000
+
+            /**
+             * 是否需要验证私密锁
+             */
+            const val IS_NEED_PATTERN_LOCK = 2000
         }
     }
 
@@ -114,6 +119,16 @@ class AppConstant private constructor() {
              * 订单号
              */
             const val MALL_ORDER_NO = "mall_order_no"
+
+            /**
+             * 私密锁的请求码
+             */
+            const val PATTERN_LOCK_ACTION_CODE = "pattern_lock_uuid"
+
+            /**
+             * 私密锁是否验证成功
+             */
+            const val PATTERN_LOCK_IS_VALIDATE = "pattern_lock_is_validate"
         }
     }
 
@@ -193,6 +208,11 @@ class AppConstant private constructor() {
              * 刷新订单状态
              */
             const val MALL_REFRESH_ORDER_STATUS = "action_mall_refresh_order_status"
+
+            /**
+             * 私密锁验证结果
+             */
+            const val PATTERN_LOCK_VALIDATE_RESULT = "action_pattern_lock_validate_result"
         }
     }
 

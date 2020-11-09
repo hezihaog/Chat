@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -55,6 +56,47 @@
                         app:sb_checked_bg="@color/base_blue"
                         app:sb_circle_bg_margin="2.5dp"
                         app:sb_unchecked_bg="@color/base_gray5" />
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_10"
+                android:background="@color/base_white"
+                android:orientation="vertical">
+
+                <View style="@style/base_divider" />
+
+                <LinearLayout
+                    android:id="@+id/clear_cache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_dimen_15"
+                        android:layout_marginEnd="@dimen/base_dimen_15"
+                        android:layout_weight="1"
+                        android:paddingTop="@dimen/base_dimen_15"
+                        android:paddingBottom="@dimen/base_dimen_15"
+                        android:text="@string/setting_clear_cache"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/base_dimen_sp_15" />
+
+                    <TextView
+                        android:id="@+id/app_cache_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/base_dimen_15"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/base_dimen_sp_14"
+                        tools:text="15M" />
                 </LinearLayout>
 
                 <View style="@style/base_divider" />

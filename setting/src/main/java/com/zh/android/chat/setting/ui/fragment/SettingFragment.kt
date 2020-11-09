@@ -6,12 +6,15 @@ import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
+import com.zh.android.base.ext.*
+import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.SwitchButton
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.setting.SettingService
 import com.zh.android.chat.setting.R
+import com.zh.android.imageloader.ImageLoader
+import io.reactivex.Observable
 import kotterknife.bindView
 
 /**
@@ -29,8 +32,14 @@ class SettingFragment : BaseFragment() {
     var mSettingService: SettingService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
-    private val vLogout: TextView by bindView(R.id.logout)
     private val vEnableSwipeBackSwitch: SwitchButton by bindView(R.id.enable_swipe_back_switch)
+    private val vLogout: TextView by bindView(R.id.logout)
+    private val vClearCache: View by bindView(R.id.clear_cache)
+    private val vAppCacheSize: TextView by bindView(R.id.app_cache_size)
+
+    private val mWaitController by lazy {
+        WaitLoadingController(fragmentActivity, fragment)
+    }
 
     companion object {
         fun newInstance(args: Bundle? = Bundle()): SettingFragment {
@@ -38,6 +47,12 @@ class SettingFragment : BaseFragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //渲染缓存信息
+        renderAppCacheSize()
     }
 
     override fun onInflaterViewId(): Int {
@@ -58,10 +73,41 @@ class SettingFragment : BaseFragment() {
                 mSettingService?.saveEnableSwipeBack(isChecked)
             }
         }
+        //清除缓存
+        vClearCache.click {
+            Observable.create<Boolean> { emitter ->
+                //清除app缓存
+                applicationContext?.clearAppCache()
+                //清除图片缓存
+                ImageLoader.get(fragmentActivity).loader.clearDiskCache()
+                emitter.onNext(true)
+            }.doOnSubscribeUi {
+                mWaitController.showWait()
+            }
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({
+                    mWaitController.hideWait()
+                    toast(R.string.base_operation_success)
+                    //更新缓存大小
+                    renderAppCacheSize()
+                }, { error ->
+                    error.printStackTrace()
+                    mWaitController.hideWait()
+                    toast(R.string.base_operation_fail)
+                })
+        }
         //退出登录
         vLogout.click {
             mLoginService?.logout(fragmentActivity)
             fragmentActivity.finish()
         }
+    }
+
+    /**
+     * 渲染缓存信息
+     */
+    private fun renderAppCacheSize() {
+        vAppCacheSize.text = applicationContext?.getAppCacheSize() ?: ""
     }
 }

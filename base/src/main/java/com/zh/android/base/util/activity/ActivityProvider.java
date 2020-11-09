@@ -132,12 +132,14 @@ public class ActivityProvider {
     }
 
     public void registerLifecycleCallback(ActivityLifecycleCallbacksAdapter callback) {
+        ensureInit();
         if (!mCallbacksAdapters.contains(callback)) {
             mCallbacksAdapters.add(callback);
         }
     }
 
     public void unregisterLifecycleCallback(ActivityLifecycleCallbacksAdapter callback) {
+        ensureInit();
         mCallbacksAdapters.remove(callback);
     }
 

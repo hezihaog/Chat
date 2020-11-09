@@ -21,9 +21,7 @@ public class RecyclerViewScrollHelper {
     private boolean isScrollToBottom;
 
     public RecyclerViewScrollHelper attachRecyclerView(RecyclerView recyclerView) {
-        this.mRecyclerView = recyclerView;
-        setup();
-        return this;
+        return attachRecyclerView(recyclerView, null);
     }
 
     public RecyclerViewScrollHelper attachRecyclerView(RecyclerView recyclerView, Callback callback) {
@@ -39,6 +37,9 @@ public class RecyclerViewScrollHelper {
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 isNotFirst = true;
+                if (mCallback != null) {
+                    mCallback.onScrollStateChanged(recyclerView, newState);
+                }
                 //如果滚动到最后一行，RecyclerView.canScrollVertically(1)的值表示是否能向上滚动，false表示已经滚动到底部
                 if (newState == RecyclerView.SCROLL_STATE_IDLE &&
                         !recyclerView.canScrollVertically(1)) {
@@ -89,6 +90,11 @@ public class RecyclerViewScrollHelper {
         void onScrolled(RecyclerView recyclerView, int dx, int dy);
 
         /**
+         * 滚动状态切换
+         */
+        void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState);
+
+        /**
          * 当前正在向上滚动
          */
         void onScrolledToUp();
@@ -112,6 +118,10 @@ public class RecyclerViewScrollHelper {
     public static class SimpleCallback implements Callback {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        }
+
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
         }
 
         @Override

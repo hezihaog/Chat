@@ -10,8 +10,6 @@ import java.util.*
  * <b>Description:</b> Mqtt共性存储 <br>
  */
 object MqttStorage {
-    private const val MODULE_KEY_NAME = "toilet_mqtt"
-
     /**
      * 保存Username对应的Mqtt-ClientId
      */

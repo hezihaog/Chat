@@ -5,7 +5,10 @@ import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
@@ -32,7 +35,9 @@ import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.youngfeng.snake.Snake
+import com.zh.android.base.ext.getAllChildView
 import com.zh.android.base.ext.loadUrlImage
+import com.zh.android.base.util.RecyclerViewScrollHelper
 import com.zh.android.base.util.activity.ActivityLifecycleCallbacksAdapter
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
@@ -268,6 +273,41 @@ class App : Application() {
                     return null
                 }
             })
+            //注册页面列表滚动
+            ActivityProvider.get()
+                .registerLifecycleCallback(object : ActivityLifecycleCallbacksAdapter() {
+                    override fun onActivityCreated(
+                        activity: Activity,
+                        savedInstanceState: Bundle?
+                    ) {
+                        super.onActivityResumed(activity)
+                        val rootView: View = activity.findViewById(android.R.id.content) ?: return
+                        if (rootView is ViewGroup) {
+                            rootView.getAllChildView().forEach {
+                                if (it is RecyclerView) {
+                                    RecyclerViewScrollHelper().attachRecyclerView(it, object :
+                                        RecyclerViewScrollHelper.SimpleCallback() {
+                                        override fun onScrollStateChanged(
+                                            recyclerView: RecyclerView,
+                                            newState: Int
+                                        ) {
+                                            super.onScrollStateChanged(recyclerView, newState)
+                                            ImageLoader.get(context).loader.run {
+                                                //列表滚动时，暂停图片请求
+                                                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                                                    pause(context)
+                                                } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                                                    //列表停止时，再恢复图片请求
+                                                    resume(context)
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                })
             return this.javaClass.simpleName
         }
     }

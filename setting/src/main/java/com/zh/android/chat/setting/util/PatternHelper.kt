@@ -85,11 +85,15 @@ open class PatternHelper {
         SettingStorage.savePatternLockString(encryptPwd)
     }
 
-    private val fromStorage: String? =
-        SettingStorage.getPatternLockString().let {
-            SecurityUtil.decrypt(it)
+    private val fromStorage: String?
+        get() {
+            val str = SettingStorage.getPatternLockString()
+            return if (str.isNotBlank()) {
+                SecurityUtil.decrypt(str)
+            } else {
+                ""
+            }
         }
-
 
     companion object {
         const val MAX_SIZE = 4

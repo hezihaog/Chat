@@ -9,6 +9,10 @@
         android:title="@string/base_copy_web_path" />
 
     <item
-        android:id="@+id/open_system_browse"
-        android:title="@string/open_system_browse" />
+        android:id="@+id/open_system_browser"
+        android:title="@string/open_system_browser" />
+
+    <item
+        android:id="@+id/clear_browser_cache"
+        android:title="@string/clear_browser_cache" />
 </menu>

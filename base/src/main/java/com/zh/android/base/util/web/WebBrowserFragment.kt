@@ -4,10 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.webkit.CookieManager
 import androidx.appcompat.widget.PopupMenu
 import com.linghit.base.util.argument.bindArgument
+import com.tencent.smtt.sdk.CookieSyncManager
 import com.ycbjie.webviewlib.inter.InterWebListener
 import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.ycbjie.webviewlib.view.X5WebView
@@ -98,8 +101,13 @@ class WebBrowserFragment : BaseFragment() {
                                 toast(R.string.base_copy_success)
                                 true
                             }
-                            R.id.open_system_browse -> {
-                                openForSystemBrowse(vWebView.url)
+                            R.id.open_system_browser -> {
+                                openForSystemBrowser(vWebView.url)
+                                true
+                            }
+                            R.id.clear_browser_cache -> {
+                                //清除浏览器缓存
+                                clearBrowserCache()
                                 true
                             }
                             else -> {
@@ -165,7 +173,7 @@ class WebBrowserFragment : BaseFragment() {
     /**
      * 系统浏览器打开
      */
-    private fun openForSystemBrowse(url: String) {
+    private fun openForSystemBrowser(url: String) {
         val intent = Intent.createChooser(
             Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(url)
@@ -177,5 +185,25 @@ class WebBrowserFragment : BaseFragment() {
         } else {
             toast(R.string.base_your_not_browser)
         }
+    }
+
+    /**
+     * 清除浏览器缓存
+     */
+    private fun clearBrowserCache() {
+        CookieSyncManager.createInstance(fragmentActivity.applicationContext)
+        val cookieManager = CookieManager.getInstance();
+        cookieManager.run {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                removeSessionCookies(null)
+                removeAllCookie()
+                flush()
+            } else {
+                removeSessionCookies(null)
+                removeAllCookie()
+                CookieSyncManager.getInstance().sync()
+            }
+        }
+        toast(R.string.base_operation_success)
     }
 }

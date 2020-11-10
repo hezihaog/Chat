@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
+import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.zh.android.base.constant.ARouterUrl
@@ -19,6 +20,7 @@ import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.ShareUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.moment.R
+import com.zh.android.chat.moment.enums.PublicFlag
 import com.zh.android.chat.moment.http.MomentPresenter
 import com.zh.android.chat.moment.item.MomentItemViewBinder
 import com.zh.android.chat.moment.model.MomentModel
@@ -46,6 +48,11 @@ class MomentSearchFragment : BaseFragment() {
     }
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
+
+    /**
+     * 是否从我的动态页面跳转过来的
+     */
+    private val mIsMyMoment by bindArgument(AppConstant.Key.IS_MY_MOMENT, false)
 
     private var mCurrentPage: Int = ApiUrl.FIRST_PAGE
 
@@ -257,7 +264,12 @@ class MomentSearchFragment : BaseFragment() {
         val isFirstPage = pageNum == ApiUrl.FIRST_PAGE
         val pageSize = ApiUrl.PAGE_SIZE
         mMomentPresenter.searchMoment(
-            userId, keyword, pageNum, ApiUrl.PAGE_SIZE
+            userId,
+            keyword,
+            //如果是从我的动态跳转过来，则不限制公开，如果是动态广场跳转过来，则显示都是公开的动态
+            if (mIsMyMoment) null else PublicFlag.PUBLIC,
+            pageNum,
+            ApiUrl.PAGE_SIZE
         ).ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->

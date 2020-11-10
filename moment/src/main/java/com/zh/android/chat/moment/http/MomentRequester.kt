@@ -73,11 +73,13 @@ class MomentRequester {
          * @param keyword 关键字
          * @param pageNum 页码
          * @param pageSize 每页多少条
+         * @param publicFlag 是否私密，如果传null，则不限制
          */
         fun searchMoment(
             tag: String,
             userId: String?,
             keyword: String,
+            publicFlag: PublicFlag?,
             pageNum: Int,
             pageSize: Int
         ): Observable<HttpModel<PageModel<MomentModel>>> {
@@ -86,7 +88,11 @@ class MomentRequester {
                 OkGo.get(ApiUrl.SEARCH_MOMENT)
             return request.tag(tag)
                 .params("userId", userId)
-                .params("keyword", keyword)
+                .params("keyword", keyword).apply {
+                    if (publicFlag != null) {
+                        params("publicFlag", publicFlag.code)
+                    }
+                }
                 .params("pageNum", pageNum)
                 .params("pageSize", pageSize)
                 .converter(ModelConvert(type))

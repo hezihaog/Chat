@@ -44,17 +44,20 @@ class MomentPresenter {
 
     /**
      * 搜索动态
+     *
      * @param keyword 关键字
      * @param pageNum 页码
      * @param pageSize 每页多少条
+     * @param publicFlag 是否私密，如果传null，则不限制
      */
     fun searchMoment(
         userId: String?,
         keyword: String,
+        publicFlag: PublicFlag?,
         pageNum: Int,
         pageSize: Int
     ): Observable<HttpModel<PageModel<MomentModel>>> {
-        return MomentRequester.searchMoment(TAG, userId, keyword, pageNum, pageSize)
+        return MomentRequester.searchMoment(TAG, userId, keyword, publicFlag, pageNum, pageSize)
     }
 
     /**

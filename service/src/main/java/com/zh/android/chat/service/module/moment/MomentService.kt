@@ -27,8 +27,9 @@ interface MomentService : IProvider {
 
     /**
      * 跳转到动态搜索
+     * @param isMyMoment 是否是我的动态页面跳转过去的
      */
-    fun goMomentSearch(activity: Activity)
+    fun goMomentSearch(activity: Activity, isMyMoment: Boolean)
 
     /**
      * 跳转到动态详情

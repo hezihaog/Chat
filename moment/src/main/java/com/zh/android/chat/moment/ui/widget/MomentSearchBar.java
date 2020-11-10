@@ -76,6 +76,10 @@ public class MomentSearchBar extends FrameLayout {
                         }
                     }
                 });
+        //让输入框获取焦点
+        vInput.setFocusable(true);
+        vInput.setFocusableInTouchMode(true);
+        vInput.requestFocus();
     }
 
     public interface Callback {

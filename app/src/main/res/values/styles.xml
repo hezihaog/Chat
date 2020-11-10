@@ -16,7 +16,7 @@
     </style>
 
     <style name="AppWelcome" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/app_welcome_bg</item>
+<!--        <item name="android:windowBackground">@drawable/app_welcome_bg</item>-->
         <!-- 透明掉状态栏，设置为true，状态栏有阴影，false则无阴影 -->
         <item name="android:windowTranslucentStatus">false</item>
         <!-- 设置状态栏颜色为透明色 -->

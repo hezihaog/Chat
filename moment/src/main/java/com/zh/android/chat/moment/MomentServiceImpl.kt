@@ -38,9 +38,10 @@ class MomentServiceImpl : MomentService {
             .startNavigation(activity)
     }
 
-    override fun goMomentSearch(activity: Activity) {
+    override fun goMomentSearch(activity: Activity, isMyMoment: Boolean) {
         ARouter.getInstance()
             .build(ARouterUrl.MOMENT_SEARCH)
+            .withBoolean(AppConstant.Key.IS_MY_MOMENT, isMyMoment)
             .startNavigation(activity)
     }
 

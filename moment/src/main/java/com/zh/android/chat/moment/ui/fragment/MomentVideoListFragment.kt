@@ -111,7 +111,7 @@ class MomentVideoListFragment : BaseFragment() {
             }
             addRightImageButton(R.drawable.base_search_white, R.id.topbar_item_search)
                 .click {
-                    mMomentService?.goMomentSearch(fragmentActivity)
+                    mMomentService?.goMomentSearch(fragmentActivity, false)
                 }
         }
         vRefreshLayout.apply {

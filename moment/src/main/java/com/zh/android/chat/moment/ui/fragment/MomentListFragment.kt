@@ -179,7 +179,7 @@ class MomentListFragment : BaseFragment() {
             //搜索
             addRightImageButton(R.drawable.base_search_black, R.id.topbar_item_search)
                 .click {
-                    mMomentService?.goMomentSearch(fragmentActivity)
+                    mMomentService?.goMomentSearch(fragmentActivity, mIsMyMoment)
                 }
             //发布
             addRightImageButton(R.drawable.moment_publish, R.id.moment_publish).apply {

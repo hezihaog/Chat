@@ -462,4 +462,36 @@ object ApiUrl {
      * 确认收货
      */
     val MALL_FINISH_ORDER = "${API_V1}/mall/order/finishOrder"
+
+    //---------------------------- 代办事项 ----------------------------
+
+    /**
+     * 按类型，获取Todo列表
+     */
+    val TODO_GET_TODO_LIST_BY_STATUS = "${API_V1}/todo/getTodoListByStatus"
+
+    /**
+     * 获取代办事项信息
+     */
+    val TODO_GET_TODO_BY_ID = "${API_V1}/todo/getTodoById"
+
+    /**
+     * 增加一个代办事项
+     */
+    val TODO_ADD_TODO = "${API_V1}/todo/addTodo"
+
+    /**
+     * 更新一个代办事项
+     */
+    val TODO_UPDATE_TODO = "${API_V1}/todo/updateTodo"
+
+    /**
+     * 删除一个代办事项
+     */
+    val TODO_DELETE_TODO = "${API_V1}/todo/deleteTodo"
+
+    /**
+     * 更新Todo的状态
+     */
+    val TODO_UPDATE_TODO_STATUS = "${API_V1}/todo/updateTodoStatus"
 }

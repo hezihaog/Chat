@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/check_symbol"
+            android:layout_width="@dimen/base_dimen_25"
+            android:layout_height="@dimen/base_dimen_25"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:layout_marginEnd="@dimen/base_dimen_15"
+            android:src="@drawable/base_un_select" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_dimen_10"
+            android:layout_marginBottom="@dimen/base_dimen_10"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15"
+                tools:text="学习" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_5"
+                android:textColor="@color/base_gray4"
+                android:textSize="@dimen/base_dimen_sp_13"
+                tools:text="学习一下" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        style="@style/base_divider2" />
+</LinearLayout>

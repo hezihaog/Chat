@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="todo_module_name">代办事项</string>
+    <string name="todo_unfinished">未完成（%1$s）</string>
+    <string name="todo_finished">已完成（%1$s）</string>
+    <string name="todo_add">新增Todo</string>
+    <string name="todo_update">更新Todo</string>
+    <string name="todo_title">标题：</string>
+    <string name="todo_content">内容：</string>
+    <string name="todo_title_hint">请输入标题</string>
+    <string name="todo_content_hint">请输入内容，非必填</string>
+
+    <string name="todo_type">类型</string>
+    <string name="todo_work">工作</string>
+    <string name="todo_life">生活</string>
+    <string name="todo_entertainment">娱乐</string>
+
+    <string name="todo_priority">优先级</string>
+    <string name="todo_important">重要</string>
+    <string name="todo_ordinary">普通</string>
+
+    <string name="todo_complete_date">预计完成时间</string>
+
+    <string name="todo_add_success">添加成功</string>
+
+    <string name="todo_delete_tip">是否删除该代办事项？</string>
+</resources>

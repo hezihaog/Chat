@@ -130,6 +130,32 @@
 
                 <View style="@style/base_divider" />
             </LinearLayout>
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_dimen_10" />
+
+            <LinearLayout style="@style/discovery_main_item_layout">
+
+                <View style="@style/base_divider" />
+
+                <LinearLayout
+                    android:id="@+id/todo_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/discovery_main_item_icon"
+                        android:src="@drawable/discovery_todo" />
+
+                    <TextView
+                        style="@style/discovery_main_item_text"
+                        android:text="@string/discovery_todo" />
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

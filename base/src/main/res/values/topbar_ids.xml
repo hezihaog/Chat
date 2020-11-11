@@ -10,6 +10,10 @@
     <item name="topbar_item_focus" type="id" />
     <!--搜索-->
     <item name="topbar_item_search" type="id" />
+    <!--下一步-->
+    <item name="topbar_item_next" type="id" />
+    <!--提交-->
+    <item name="topbar_item_submit" type="id" />
     <!--关闭-->
     <item name="topbar_item_close" type="id" />
 

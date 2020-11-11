@@ -6,6 +6,7 @@
     <string name="discovery_mall">商城</string>
     <string name="discovery_add_friend">添加好友</string>
     <string name="discovery_scan_qrcode">扫一扫</string>
+    <string name="discovery_todo">待办事项</string>
     <string name="discovery_ambient_brightness_tip">\n环境过暗，请打开闪光灯</string>
     <string name="discovery_open_camera_fail">打开相机出错</string>
     <string name="discovery_not_user_qr_core_tip">不是用户二维码，请使用其他工具进行扫描</string>

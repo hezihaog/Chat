@@ -91,6 +91,7 @@ dependencies {
     api project(path: ':mine')
     api project(path: ':notice')
     api project(path: ':setting')
+    api project(path: ':todo')
 
     //侧滑删除
     kapt rootProject.ext.deps.snake_slide_back_compiler

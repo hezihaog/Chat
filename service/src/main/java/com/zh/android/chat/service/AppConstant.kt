@@ -129,6 +129,16 @@ class AppConstant private constructor() {
              * 私密锁是否验证成功
              */
             const val PATTERN_LOCK_IS_VALIDATE = "pattern_lock_is_validate"
+
+            /**
+             * 代办事项Id
+             */
+            const val TODO_ID = "todo_id"
+
+            /**
+             * 代办事项编辑类型
+             */
+            const val TODO_EDIT_TYPE = "todo_edit_type"
         }
     }
 
@@ -213,6 +223,11 @@ class AppConstant private constructor() {
              * 私密锁验证结果
              */
             const val PATTERN_LOCK_VALIDATE_RESULT = "action_pattern_lock_validate_result"
+
+            /**
+             * 刷新代办事项列表
+             */
+            const val TODO_REFRESH_TODO_LIST = "action_refresh_todo_list"
         }
     }
 

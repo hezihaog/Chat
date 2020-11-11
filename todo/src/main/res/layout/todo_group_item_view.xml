@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_10"
+        android:layout_marginTop="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_10"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/arrow"
+            android:layout_width="@dimen/base_dimen_20"
+            android:layout_height="@dimen/base_dimen_20"
+            android:src="@drawable/base_right_arrow"
+            android:tint="@color/base_black"
+            tools:rotation="90" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_dimen_15"
+            android:layout_weight="1"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_15"
+            tools:text="未完成" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        style="@style/base_divider2"
+        android:layout_marginTop="@dimen/base_dimen_8" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_dimen_10"
+        android:layout_marginEnd="@dimen/base_dimen_10"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <androidx.legacy.widget.Space
+        android:id="@+id/bottom_space"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_dimen_10" />
+</LinearLayout>

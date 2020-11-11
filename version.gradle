@@ -75,6 +75,9 @@ ext {
             //反射封装类库
             reflection_joor              : "org.jooq:joor-java-6:0.9.7",
 
+            //时间处理库
+            joda_time                     : "joda-time:joda-time:2.10.3",
+
             //日志
             logger                       : "com.apkfuns.logutils:library:1.7.5",
 

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/base_top_bar" />
+
+        <EditText
+            android:id="@+id/title_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="@string/todo_title_hint"
+            android:maxLines="1"
+            android:paddingStart="@dimen/base_dimen_10"
+            android:paddingTop="@dimen/base_dimen_15"
+            android:paddingEnd="@dimen/base_dimen_10"
+            android:paddingBottom="@dimen/base_dimen_15"
+            android:textColor="@color/base_black"
+            android:textColorHint="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_15" />
+
+        <View style="@style/base_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="@dimen/base_dimen_15"
+                android:paddingTop="@dimen/base_dimen_10"
+                android:paddingEnd="@dimen/base_dimen_15"
+                android:paddingBottom="@dimen/base_dimen_10"
+                android:text="@string/todo_type"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15" />
+
+            <RadioGroup
+                android:id="@+id/todo_type_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/type_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/todo_work"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15" />
+
+                <RadioButton
+                    android:id="@+id/type_life"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_dimen_5"
+                    android:layout_marginEnd="@dimen/base_dimen_5"
+                    android:text="@string/todo_life"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15" />
+
+                <RadioButton
+                    android:id="@+id/type_entertainment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/todo_entertainment"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <View style="@style/base_divider2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="@dimen/base_dimen_15"
+                android:paddingTop="@dimen/base_dimen_10"
+                android:paddingEnd="@dimen/base_dimen_15"
+                android:paddingBottom="@dimen/base_dimen_10"
+                android:text="@string/todo_priority"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15" />
+
+            <RadioGroup
+                android:id="@+id/todo_priority_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/priority_important"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/todo_important"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15" />
+
+                <RadioButton
+                    android:id="@+id/priority_ordinary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_dimen_5"
+                    android:layout_marginEnd="@dimen/base_dimen_5"
+                    android:checked="true"
+                    android:text="@string/todo_ordinary"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/base_dimen_sp_15" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <View style="@style/base_divider2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="@dimen/base_dimen_15"
+                android:paddingTop="@dimen/base_dimen_10"
+                android:paddingEnd="@dimen/base_dimen_15"
+                android:paddingBottom="@dimen/base_dimen_10"
+                android:text="@string/todo_complete_date"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15" />
+
+            <TextView
+                android:id="@+id/complete_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/base_dimen_sp_15"
+                tools:text="2020-12-28" />
+
+            <ImageView
+                android:id="@+id/complete_date_symbol"
+                android:layout_width="@dimen/base_dimen_25"
+                android:layout_height="@dimen/base_dimen_25"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/base_dimen_10"
+                android:src="@drawable/todo_calendar" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_dimen_10"
+            android:background="@color/base_window_bg" />
+
+        <EditText
+            android:id="@+id/content_input"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="@string/todo_content_hint"
+            android:lineSpacingMultiplier="1.2"
+            android:paddingStart="@dimen/base_dimen_10"
+            android:paddingTop="@dimen/base_dimen_15"
+            android:paddingEnd="@dimen/base_dimen_10"
+            android:paddingBottom="@dimen/base_dimen_15"
+            android:textColor="@color/base_black"
+            android:textColorHint="@color/base_gray4"
+            android:textSize="@dimen/base_dimen_sp_14" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

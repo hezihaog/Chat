@@ -222,5 +222,20 @@ class ARouterUrl {
          * 订单详情
          */
         const val MALL_ORDER_DETAIL = "${MALL_GROUP}/order/detail"
+
+        //============================== 代办事项 ==============================
+
+        private const val MALL_TODO = "/todo"
+        const val TODO_SERVICE = "${MALL_TODO}s/module"
+
+        /**
+         * 代办事项列表
+         */
+        const val TODO_LIST = "${MALL_TODO}/main/list"
+
+        /**
+         * 代办事项编辑
+         */
+        const val TODO_EDIT = "${MALL_TODO}/edit"
     }
 }

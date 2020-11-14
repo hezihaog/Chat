@@ -9,11 +9,6 @@ import com.alibaba.android.arouter.facade.template.IProvider
  */
 interface SettingService : IProvider {
     /**
-     * 获取配置的BaseUrl
-     */
-    fun getBaseUrl(): String
-
-    /**
      * 设置是否开启侧滑关闭功能
      */
     fun saveEnableSwipeBack(enableSwipeBack: Boolean)

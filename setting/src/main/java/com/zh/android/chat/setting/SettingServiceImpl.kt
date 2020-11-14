@@ -21,10 +21,6 @@ class SettingServiceImpl : SettingService {
     override fun init(context: Context?) {
     }
 
-    override fun getBaseUrl(): String {
-        return SettingStorage.getBaseUrl()
-    }
-
     override fun saveEnableSwipeBack(enableSwipeBack: Boolean) {
         SettingStorage.saveEnableSwipeBack(enableSwipeBack)
         //发送切换广播

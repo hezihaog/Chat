@@ -39,6 +39,22 @@ class LoginServiceImpl : LoginService {
         return LoginDbMaster.getCurrentLoginUser()?.token ?: ""
     }
 
+    override fun savePatternLockStr(encryptStr: String) {
+        LoginDbMaster.savePatternLockStr(encryptStr)
+    }
+
+    override fun getPatternLockStr(): String {
+        return LoginDbMaster.getPatternLockStr()
+    }
+
+    override fun saveIsOpenPatternLock(isOpen: Boolean) {
+        LoginDbMaster.saveIsOpenPatternLock(isOpen)
+    }
+
+    override fun isOpenPatternLock(): Boolean {
+        return LoginDbMaster.isOpenPatternLock()
+    }
+
     override fun goLogin(activity: Activity, isClearOther: Boolean, callback: NavigationCallback?) {
         ARouter.getInstance()
             .build(ARouterUrl.LOGIN_LOGIN).apply {

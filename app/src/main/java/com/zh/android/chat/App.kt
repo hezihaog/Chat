@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.LogUtils
+import com.apkfuns.logutils.LogUtils
 import com.blankj.utilcode.util.Utils
 import com.lzy.ninegrid.NineGridView
 import com.lzy.okgo.OkGo
@@ -45,6 +45,7 @@ import com.zh.android.chat.service.db.AppDatabase
 import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
 import com.zh.android.imageloader.ImageLoader
 import com.zh.android.imageloader.strategy.impl.GlideLoader
+import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
 import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager
@@ -74,6 +75,7 @@ class App : Application() {
             )
             .addStartup(SnakeStartup())
             .addStartup(ToolBoxStartup())
+            .addStartup(RxJavaStartup())
             .addStartup(HttpStartup())
             .addStartup(DatabaseStartup())
             .addStartup(RouterStartup())
@@ -134,6 +136,27 @@ class App : Application() {
             }
             //初始化通用工具类
             Utils.init(context)
+            return this.javaClass.simpleName
+        }
+    }
+
+    /**
+     * RxJava初始化
+     */
+    private class RxJavaStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun waitOnMainThread(): Boolean {
+            return false
+        }
+
+        override fun create(context: Context): String? {
+            //设置全局错误处理器
+            RxJavaPlugins.setErrorHandler {
+                it.printStackTrace()
+            }
             return this.javaClass.simpleName
         }
     }

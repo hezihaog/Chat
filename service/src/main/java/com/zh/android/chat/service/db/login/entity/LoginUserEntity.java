@@ -45,6 +45,18 @@ public class LoginUserEntity implements Serializable {
     @ColumnInfo(name = "login_flag")
     private Boolean loginFlag;
 
+    /**
+     * 私密锁字符串
+     */
+    @ColumnInfo(name = "pattern_lock_str")
+    private String patternLockStr;
+
+    /**
+     * 是否开启私密锁
+     */
+    @ColumnInfo(name = "is_open_pattern_lock")
+    private Boolean isOpenPatternLock;
+
     public LoginUserEntity() {
     }
 
@@ -103,6 +115,22 @@ public class LoginUserEntity implements Serializable {
         this.loginFlag = loginFlag;
     }
 
+    public String getPatternLockStr() {
+        return patternLockStr;
+    }
+
+    public void setPatternLockStr(String patternLockStr) {
+        this.patternLockStr = patternLockStr;
+    }
+
+    public Boolean getOpenPatternLock() {
+        return isOpenPatternLock;
+    }
+
+    public void setOpenPatternLock(Boolean openPatternLock) {
+        isOpenPatternLock = openPatternLock;
+    }
+
     @Override
     public String toString() {
         return "LoginUserEntity{" +
@@ -111,6 +139,8 @@ public class LoginUserEntity implements Serializable {
                 ", username='" + username + '\'' +
                 ", token='" + token + '\'' +
                 ", loginFlag=" + loginFlag +
+                ", patternLockStr='" + patternLockStr + '\'' +
+                ", isOpenPatternLock=" + isOpenPatternLock +
                 '}';
     }
 }

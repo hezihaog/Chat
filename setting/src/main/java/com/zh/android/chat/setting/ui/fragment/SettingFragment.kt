@@ -20,7 +20,6 @@ import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.login.LoginService
 import com.zh.android.chat.service.module.setting.SettingService
 import com.zh.android.chat.setting.R
-import com.zh.android.chat.setting.SettingStorage
 import com.zh.android.imageloader.ImageLoader
 import io.reactivex.Observable
 import kotterknife.bindView
@@ -78,8 +77,8 @@ class SettingFragment : BaseFragment() {
                         val result =
                             getBooleanExtra(AppConstant.Key.PATTERN_LOCK_IS_VALIDATE, false)
                         if (result) {
-                            //验证成功，清除设置的图案锁字符串即可关闭
-                            SettingStorage.savePatternLockString("")
+                            //验证成功，关闭私密锁
+                            mLoginService?.saveIsOpenPatternLock(false)
                             //切换按钮状态
                             vEnablePatternLockSwitch.isChecked = false
                         } else {
@@ -117,14 +116,20 @@ class SettingFragment : BaseFragment() {
         }
         //切换开关私密锁
         vEnablePatternLockSwitch.apply {
-            isChecked = SettingStorage.getIsOpenPatternLock()
+            isChecked = mLoginService?.isOpenPatternLock() ?: false
             setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    //开启，跳转到私密锁的设置页面
-                    mSettingService?.goPatternLockSetting(
-                        fragmentActivity,
-                        PATTERN_LOCK_REQUEST_CODE
-                    )
+                    //开启私密锁
+                    if (mLoginService?.getPatternLockStr().isNullOrBlank()) {
+                        //没设置过，跳转到私密锁的设置页面，进行设置
+                        mSettingService?.goPatternLockSetting(
+                            fragmentActivity,
+                            PATTERN_LOCK_REQUEST_CODE
+                        )
+                    } else {
+                        //如果已经设置过私密锁，直接切换为开
+                        mLoginService?.saveIsOpenPatternLock(true)
+                    }
                 } else {
                     //关闭私密锁，先验证，成功后，再进行关闭
                     mSettingService?.goPatternLockValidate(

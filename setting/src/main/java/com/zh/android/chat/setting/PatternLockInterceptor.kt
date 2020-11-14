@@ -12,6 +12,7 @@ import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.UUIDUtil
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.ext.getSettingService
 
 /**
@@ -32,7 +33,7 @@ class PatternLockInterceptor : IInterceptor {
         //判断跳转的页面是否需要验证私密锁
         val isNeedPatternLock = postcard.extra == AppConstant.Flag.IS_NEED_PATTERN_LOCK
         //是否开启私密锁
-        val isOpenPatternLock = SettingStorage.getIsOpenPatternLock()
+        val isOpenPatternLock = getLoginService()?.isOpenPatternLock() ?: false
         if (isNeedPatternLock && isOpenPatternLock) {
             val actionCode = UUIDUtil.get32UUID()
             //注册广播，用于回调结果

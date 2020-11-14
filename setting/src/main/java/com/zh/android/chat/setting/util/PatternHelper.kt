@@ -1,7 +1,7 @@
 package com.zh.android.chat.setting.util
 
 import android.text.TextUtils
-import com.zh.android.chat.setting.SettingStorage
+import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.setting.util.SecurityUtil.encrypt
 
 /**
@@ -82,16 +82,18 @@ open class PatternHelper {
 
     private fun saveToStorage(gesturePwd: String?) {
         val encryptPwd = encrypt(gesturePwd!!)
-        SettingStorage.savePatternLockString(encryptPwd)
+        //保存私密锁和开关状态
+        getLoginService()?.savePatternLockStr(encryptPwd)
+        getLoginService()?.saveIsOpenPatternLock(true)
     }
 
     private val fromStorage: String?
         get() {
-            val str = SettingStorage.getPatternLockString()
-            return if (str.isNotBlank()) {
-                SecurityUtil.decrypt(str)
-            } else {
+            val str = getLoginService()?.getPatternLockStr()
+            return if (str.isNullOrBlank()) {
                 ""
+            } else {
+                SecurityUtil.decrypt(str)
             }
         }
 

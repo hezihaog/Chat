@@ -23,7 +23,7 @@ class LoginDbMaster {
             //把所有信息的登录标记都先设置为false
             makeAllLoginFlagToFalse()
             val entity = mLoginUserDao.findByUserId(userId)
-            //已存在，则更新，否则新增
+            //不存在，新增
             if (entity == null) {
                 mLoginUserDao.saveLoginUser(
                     LoginUserEntity(
@@ -34,15 +34,12 @@ class LoginDbMaster {
                     )
                 )
             } else {
-                mLoginUserDao.updateLoginUser(
-                    LoginUserEntity(
-                        entity.id,
-                        userId,
-                        username,
-                        token,
-                        true
-                    )
-                )
+                //存在，更新
+                entity.run {
+                    this.token = token
+                    this.loginFlag = true
+                }
+                mLoginUserDao.updateLoginUser(entity)
             }
         }
 
@@ -72,10 +69,9 @@ class LoginDbMaster {
          */
         @JvmStatic
         fun logout() {
-            val entity = getCurrentLoginUser()
-            if (entity != null) {
-                entity.loginFlag = true
-                mLoginUserDao.updateLoginUser(entity)
+            getCurrentLoginUser()?.let {
+                it.loginFlag = true
+                mLoginUserDao.updateLoginUser(it)
             }
         }
 
@@ -92,6 +88,43 @@ class LoginDbMaster {
             }.forEach {
                 mLoginUserDao.updateLoginUser(it)
             }
+        }
+
+        /**
+         * 保存私密锁字符串
+         */
+        @JvmStatic
+        fun savePatternLockStr(encryptStr: String) {
+            getCurrentLoginUser()?.let {
+                it.patternLockStr = encryptStr
+                mLoginUserDao.updateLoginUser(it)
+            }
+        }
+
+        /**
+         * 获取私密锁字符串
+         */
+        @JvmStatic
+        fun getPatternLockStr(): String {
+            return getCurrentLoginUser()?.patternLockStr ?: ""
+        }
+
+        /**
+         * 保存是否开启私密锁
+         */
+        fun saveIsOpenPatternLock(isOpen: Boolean) {
+            getCurrentLoginUser()?.let {
+                it.openPatternLock = isOpen
+                mLoginUserDao.updateLoginUser(it)
+            }
+        }
+
+        /**
+         * 是否开启私密锁
+         */
+        @JvmStatic
+        fun isOpenPatternLock(): Boolean {
+            return getCurrentLoginUser()?.openPatternLock ?: false
         }
     }
 }

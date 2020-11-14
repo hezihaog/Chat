@@ -25,6 +25,26 @@ interface LoginService : IProvider {
     fun getToken(): String
 
     /**
+     * 保存私密锁字符串
+     */
+    fun savePatternLockStr(encryptStr: String)
+
+    /**
+     * 获取私密锁字符串
+     */
+    fun getPatternLockStr(): String
+
+    /**
+     * 保存是否开启私密锁
+     */
+    fun saveIsOpenPatternLock(isOpen: Boolean)
+
+    /**
+     * 是否开启私密锁
+     */
+    fun isOpenPatternLock(): Boolean
+
+    /**
      * 跳转到登录
      * @param isClearOther 是否关闭其他页面
      * @param callback 跳转回调

@@ -41,6 +41,7 @@ import com.zh.android.base.util.RecyclerViewScrollHelper
 import com.zh.android.base.util.activity.ActivityLifecycleCallbacksAdapter
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
+import com.zh.android.chat.service.db.AppDatabase
 import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
 import com.zh.android.imageloader.ImageLoader
 import com.zh.android.imageloader.strategy.impl.GlideLoader
@@ -74,6 +75,7 @@ class App : Application() {
             .addStartup(SnakeStartup())
             .addStartup(ToolBoxStartup())
             .addStartup(HttpStartup())
+            .addStartup(DatabaseStartup())
             .addStartup(RouterStartup())
             .addStartup(RefreshStartup())
             .addStartup(ImageLoaderStartup())
@@ -173,6 +175,24 @@ class App : Application() {
                 .setCacheMode(CacheMode.NO_CACHE)
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)
                 .retryCount = 0
+            return this.javaClass.simpleName
+        }
+    }
+
+    /**
+     * 数据库初始化
+     */
+    private class DatabaseStartup : AndroidStartup<String>() {
+        override fun callCreateOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun waitOnMainThread(): Boolean {
+            return true
+        }
+
+        override fun create(context: Context): String? {
+            AppDatabase.initialize(context)
             return this.javaClass.simpleName
         }
     }

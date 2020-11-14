@@ -4,7 +4,7 @@ import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.ext.handlerErrorCode
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.util.AppBroadcastManager
-import com.zh.android.chat.login.LoginStorage
+import com.zh.android.chat.login.db.master.LoginDbMaster
 import com.zh.android.chat.login.model.LoginModel
 import com.zh.android.chat.service.AppConstant
 import io.reactivex.Observable
@@ -30,12 +30,10 @@ class LoginPresenter {
         return LoginRequester.login(TAG, username, password)
             .doOnNext {
                 if (handlerErrorCode(it)) {
-                    //保存信息到本地
-                    it.data?.let { data ->
-                        LogUtils.json(data.toString())
-                        LoginStorage.saveUserId(data.id)
-                        LoginStorage.saveUsername(data.username)
-                        LoginStorage.saveToken(data.token)
+                    //保存信息到数据库
+                    it.data?.let { model ->
+                        LogUtils.json(model.toString())
+                        LoginDbMaster.saveLoginUser(model.id, model.username, model.token)
                     }
                     //通知其他模块
                     AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGIN)
@@ -77,12 +75,10 @@ class LoginPresenter {
         return LoginRequester.loginByAuthCode(TAG, telephone, authCode)
             .doOnNext {
                 if (handlerErrorCode(it)) {
-                    //保存信息到本地
-                    it.data?.let { data ->
-                        LogUtils.json(data.toString())
-                        LoginStorage.saveUserId(data.id)
-                        LoginStorage.saveUsername(data.username)
-                        LoginStorage.saveToken(data.token)
+                    //保存信息到数据库
+                    it.data?.let { model ->
+                        LogUtils.json(model.toString())
+                        LoginDbMaster.saveLoginUser(model.id, model.username, model.token)
                     }
                 }
             }

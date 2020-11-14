@@ -55,6 +55,7 @@ dependencies {
 
     kapt rootProject.ext.deps.aroutercompiler
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler
+    kapt rootProject.ext.deps.jetpack_room_compiler
 
     testImplementation rootProject.ext.deps.junit
     androidTestImplementation rootProject.ext.deps.runner

@@ -80,6 +80,13 @@ dependencies {
     api rootProject.ext.deps.jetpack_lifecycle
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler
 
+    //database
+    api rootProject.ext.deps.wcdb
+    api rootProject.ext.deps.jetpack_room
+    api rootProject.ext.deps.jetpack_room_ktx
+    api rootProject.ext.deps.jetpack_room_rx
+    kapt rootProject.ext.deps.jetpack_room_compiler
+
     api rootProject.ext.deps.rx_permission
     api rootProject.ext.deps.fragmentation
     api rootProject.ext.deps.logger

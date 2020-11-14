@@ -52,7 +52,7 @@ class VicinityUserFragment : BaseFragment() {
                     return@VicinityUserViewBinder
                 }
                 //检查toUserId
-                val toUserId = item.userId ?: ""
+                val toUserId = item.userId
                 if (toUserId.isBlank()) {
                     return@VicinityUserViewBinder
                 }

@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.callback.InterceptorCallback
 import com.alibaba.android.arouter.facade.template.IInterceptor
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.ext.getLoginService
 
 /**
  * @author wally
@@ -28,7 +29,7 @@ class LoginRouterInterceptor : IInterceptor {
             callback.onContinue(postcard)
         } else {
             if (isNeedInterceptor) {
-                val isLogin: Boolean = LoginStorage.isLogin()
+                val isLogin: Boolean = getLoginService()?.isLogin() ?: false
                 //没有登录，拦截
                 if (!isLogin) {
                     //加一个被拦截的标识代表被登录拦截

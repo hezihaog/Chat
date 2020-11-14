@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.base.util.activity.ActivityProvider
+import com.zh.android.chat.login.db.master.LoginDbMaster
 import com.zh.android.chat.login.ui.activity.LoginActivity
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.startNavigation
@@ -27,15 +28,15 @@ class LoginServiceImpl : LoginService {
     }
 
     override fun isLogin(): Boolean {
-        return LoginStorage.isLogin()
+        return LoginDbMaster.getCurrentLoginUser()?.loginFlag == true
     }
 
     override fun getUserId(): String {
-        return LoginStorage.getUserId()
+        return LoginDbMaster.getCurrentLoginUser()?.userId ?: ""
     }
 
     override fun getToken(): String {
-        return LoginStorage.getToken()
+        return LoginDbMaster.getCurrentLoginUser()?.token ?: ""
     }
 
     override fun goLogin(activity: Activity, isClearOther: Boolean, callback: NavigationCallback?) {
@@ -72,8 +73,8 @@ class LoginServiceImpl : LoginService {
         //跳转到登录，并关闭其他页面
         goLogin(activity, isClearOther = true, callback = object : NavCallback() {
             override fun onArrival(postcard: Postcard?) {
-                //清除登录信息
-                LoginStorage.clean()
+                //数据库清空登录标记
+                LoginDbMaster.logout()
                 //通知其他模块
                 AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGOUT)
             }

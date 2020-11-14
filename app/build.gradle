@@ -77,8 +77,10 @@ kapt {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     api rootProject.ext.deps.kotlin
+
     kapt rootProject.ext.deps.aroutercompiler
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler
+    kapt rootProject.ext.deps.jetpack_room_compiler
 
     //依赖的模块
     api project(path: ':login')

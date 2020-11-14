@@ -27,6 +27,11 @@ class ARouterUrl {
          */
         const val LOGIN_BY_PHONE = "${LOGIN_GROUP}/login/phone"
 
+        /**
+         * 切换登录账号
+         */
+        const val LOGIN_SWITCH_LOGIN_ACCOUNT = "${LOGIN_GROUP}/account/switch"
+
         //============================== 首页 ==============================
         private const val HOME_GROUP = "/home"
         const val HOME_SERVICE = "${HOME_GROUP}s/module"

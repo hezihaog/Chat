@@ -1,4 +1,4 @@
-package com.zh.android.chat.login.db.master
+package com.zh.android.chat.login.db
 
 import com.zh.android.chat.service.db.AppDatabase
 import com.zh.android.chat.service.db.login.entity.LoginUserEntity
@@ -19,9 +19,18 @@ class LoginDbMaster {
          * 保存登录用户信息
          */
         @JvmStatic
-        fun saveLoginUser(userId: String, username: String, token: String) {
-            //把所有信息的登录标记都先设置为false
-            makeAllLoginFlagToFalse()
+        fun saveLoginUser(
+            userId: String,
+            username: String,
+            nickname: String,
+            avatar: String,
+            token: String
+        ) {
+            //如果当前已经有登录，则把当前登录用户的标记去除
+            val currentLoginUser = getCurrentLoginUser()
+            currentLoginUser?.let {
+                updateLoginUserFlag(it.userId, false)
+            }
             val entity = mLoginUserDao.findByUserId(userId)
             //不存在，新增
             if (entity == null) {
@@ -29,6 +38,8 @@ class LoginDbMaster {
                     LoginUserEntity(
                         userId,
                         username,
+                        nickname,
+                        avatar,
                         token,
                         true
                     )
@@ -36,6 +47,10 @@ class LoginDbMaster {
             } else {
                 //存在，更新
                 entity.run {
+                    this.userId = userId
+                    this.username = username
+                    this.nickname = nickname
+                    this.avatar = avatar
                     this.token = token
                     this.loginFlag = true
                 }
@@ -76,16 +91,30 @@ class LoginDbMaster {
         }
 
         /**
-         * 将所有用户信息的登录标记都设置为false
+         * 更新用户登录标记
          */
         @JvmStatic
-        fun makeAllLoginFlagToFalse() {
-            val list = mLoginUserDao.findAll()
-            list.map {
-                it.apply {
-                    loginFlag = false
-                }
-            }.forEach {
+        fun updateLoginUserFlag(userId: String, loginFlag: Boolean) {
+            val entity = mLoginUserDao.findByUserId(userId)
+            entity?.let {
+                it.loginFlag = loginFlag
+                mLoginUserDao.updateLoginUser(it)
+            }
+        }
+
+        /**
+         * 切换登录账号
+         * @param newLoginUserId 新登录用户信息
+         */
+        fun switchLoginUser(newLoginUserId: String) {
+            //先将当前登录用户的标记去掉
+            getCurrentLoginUser()?.let {
+                it.loginFlag = false
+                mLoginUserDao.updateLoginUser(it)
+            }
+            //再将新的登录用户设置标记
+            mLoginUserDao.findByUserId(newLoginUserId)?.let {
+                it.loginFlag = true
                 mLoginUserDao.updateLoginUser(it)
             }
         }

@@ -45,7 +45,7 @@ fun Postcard.startNavigation(
             //未登录，拦截了，跳转到登录
             postcard?.run {
                 if (extras.getBoolean(ARouterUrl.IS_LOGIN_INTERCEPTOR)) {
-                    getLoginService()?.goLogin(activity, false)
+                    getLoginService()?.goLogin(activity, false, isShowBackBtn = false)
                 }
             }
             //路由被拦截时调用

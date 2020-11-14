@@ -19,4 +19,8 @@
     <string name="login_please_input_auth_code_tip">请输入验证码</string>
     <string name="login_count_down_str">%1$d s</string>
     <string name="login_is_send_auth_code_tip">已发送验证码，请注意查收</string>
+    <string name="login_switch_login_account">切换登录账号</string>
+    <string name="login_current_login">当前登录</string>
+    <string name="login_use_other_account">使用其他账号</string>
+    <string name="login_switch_login_user_success">切换成功</string>
 </resources>

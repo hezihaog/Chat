@@ -4,9 +4,10 @@ import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.ext.handlerErrorCode
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.util.AppBroadcastManager
-import com.zh.android.chat.login.db.master.LoginDbMaster
+import com.zh.android.chat.login.db.LoginDbMaster
 import com.zh.android.chat.login.model.LoginModel
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.db.login.entity.LoginUserEntity
 import io.reactivex.Observable
 
 /**
@@ -33,7 +34,13 @@ class LoginPresenter {
                     //保存信息到数据库
                     it.data?.let { model ->
                         LogUtils.json(model.toString())
-                        LoginDbMaster.saveLoginUser(model.id, model.username, model.token)
+                        LoginDbMaster.saveLoginUser(
+                            model.id,
+                            model.username,
+                            model.nickname,
+                            model.avatar,
+                            model.token
+                        )
                     }
                     //通知其他模块
                     AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGIN)
@@ -78,9 +85,47 @@ class LoginPresenter {
                     //保存信息到数据库
                     it.data?.let { model ->
                         LogUtils.json(model.toString())
-                        LoginDbMaster.saveLoginUser(model.id, model.username, model.token)
+                        LoginDbMaster.saveLoginUser(
+                            model.id,
+                            model.username,
+                            model.nickname,
+                            model.avatar,
+                            model.token
+                        )
                     }
                 }
+            }
+    }
+
+    /**
+     * 获取所有登录账号
+     */
+    fun getAllLoginUser(): Observable<List<LoginUserEntity>> {
+        return Observable.create {
+            it.onNext(
+                LoginDbMaster.getAllLoginUser()
+            )
+        }
+    }
+
+
+    /**
+     * 切换登录账号
+     * @param newLoginUserId 新登录用户信息
+     */
+    fun switchLoginUser(newLoginUserId: String): Observable<Boolean> {
+        return Observable.just(true)
+            .doOnSubscribe {
+                //发送广播，通知退出登录
+                AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGOUT)
+            }
+            .flatMap<Boolean> {
+                //切换账号
+                LoginDbMaster.switchLoginUser(newLoginUserId)
+                Observable.just(it)
+            }.doOnNext {
+                //发送广播，通知登录成功
+                AppBroadcastManager.sendBroadcast(AppConstant.Action.LOGIN_USER_LOGIN)
             }
     }
 }

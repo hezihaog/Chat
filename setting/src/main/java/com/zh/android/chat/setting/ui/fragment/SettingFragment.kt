@@ -41,6 +41,7 @@ class SettingFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vEnableSwipeBackSwitch: SwitchButton by bindView(R.id.enable_swipe_back_switch)
     private val vEnablePatternLockSwitch: SwitchButton by bindView(R.id.is_enable_pattern_lock)
+    private val vSwitchLoginAccount: TextView by bindView(R.id.switch_login_account)
     private val vLogout: TextView by bindView(R.id.logout)
     private val vClearCache: View by bindView(R.id.clear_cache)
     private val vAppCacheSize: TextView by bindView(R.id.app_cache_size)
@@ -162,6 +163,10 @@ class SettingFragment : BaseFragment() {
                     mWaitController.hideWait()
                     toast(R.string.base_operation_fail)
                 })
+        }
+        //切换登录账号
+        vSwitchLoginAccount.click {
+            mLoginService?.goSwitchLoginAccount(fragmentActivity)
         }
         //退出登录
         vLogout.click {

@@ -17,6 +17,14 @@ data class LoginModel(
      */
     val username: String,
     /**
+     * 昵称
+     */
+    val nickname: String,
+    /**
+     * 头像
+     */
+    val avatar: String,
+    /**
      * 令牌
      */
     val token: String

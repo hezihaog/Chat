@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.callback.NavCallback
+import com.linghit.base.util.argument.bindArgument
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
@@ -37,6 +38,11 @@ class LoginFragment : BaseFragment() {
     private val vLogin: TextView by bindView(R.id.login)
     private val vRegister: TextView by bindView(R.id.register)
 
+    /**
+     * 是否显示返回键
+     */
+    private val mIsShowBackBtn by bindArgument(AppConstant.Key.IS_SHOW_BACK_BTN, false)
+
     private val mLoginPresenter by lazy {
         LoginPresenter()
     }
@@ -64,6 +70,11 @@ class LoginFragment : BaseFragment() {
 
     override fun onBindView(view: View?) {
         vTopBar.apply {
+            if (mIsShowBackBtn) {
+                addLeftBackImageButton().click {
+                    fragmentActivity.finish()
+                }
+            }
             setTitle(getAppContext().getApplicationName())
             addRightTextButton(
                 getString(R.string.login_by_phone),

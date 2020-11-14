@@ -34,6 +34,18 @@ public class LoginUserEntity implements Serializable {
     private String username;
 
     /**
+     * 昵称
+     */
+    @ColumnInfo(name = "nickname")
+    private String nickname;
+
+    /**
+     * 头像
+     */
+    @ColumnInfo(name = "avatar")
+    private String avatar;
+
+    /**
      * 令牌
      */
     @ColumnInfo(name = "token")
@@ -60,17 +72,11 @@ public class LoginUserEntity implements Serializable {
     public LoginUserEntity() {
     }
 
-    public LoginUserEntity(Integer id, String userId, String username, String token, Boolean loginFlag) {
-        this.id = id;
+    public LoginUserEntity(String userId, String username, String nickname, String avatar, String token, Boolean loginFlag) {
         this.userId = userId;
         this.username = username;
-        this.token = token;
-        this.loginFlag = loginFlag;
-    }
-
-    public LoginUserEntity(String userId, String username, String token, Boolean loginFlag) {
-        this.userId = userId;
-        this.username = username;
+        this.nickname = nickname;
+        this.avatar = avatar;
         this.token = token;
         this.loginFlag = loginFlag;
     }
@@ -97,6 +103,22 @@ public class LoginUserEntity implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getToken() {
@@ -137,6 +159,8 @@ public class LoginUserEntity implements Serializable {
                 "id=" + id +
                 ", userId='" + userId + '\'' +
                 ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", token='" + token + '\'' +
                 ", loginFlag=" + loginFlag +
                 ", patternLockStr='" + patternLockStr + '\'' +

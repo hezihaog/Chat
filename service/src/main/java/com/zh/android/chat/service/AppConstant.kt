@@ -31,6 +31,11 @@ class AppConstant private constructor() {
             const val AVATAR_URL = "avatar_url"
 
             /**
+             * 是否显示返回键
+             */
+            const val IS_SHOW_BACK_BTN = "is_show_back_btn"
+
+            /**
              * 聊天记录的Id
              */
             const val CHAT_RECORD_ID = "chat_record_id"

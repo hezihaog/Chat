@@ -47,13 +47,20 @@ interface LoginService : IProvider {
     /**
      * 跳转到登录
      * @param isClearOther 是否关闭其他页面
+     * @param isShowBackBtn 是否显示返回按钮
      * @param callback 跳转回调
      */
     fun goLogin(
         activity: Activity,
         isClearOther: Boolean,
+        isShowBackBtn: Boolean,
         callback: NavigationCallback? = null
     )
+
+    /**
+     * 跳转到切换登录账号
+     */
+    fun goSwitchLoginAccount(activity: Activity)
 
     /**
      * 退出登录

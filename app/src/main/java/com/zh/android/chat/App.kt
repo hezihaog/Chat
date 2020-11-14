@@ -149,7 +149,7 @@ class App : Application() {
         }
 
         override fun create(context: Context): String? {
-            val loggingInterceptor = HttpLoggingInterceptor("[OkGo][Chat]").apply {
+            val loggingInterceptor = HttpLoggingInterceptor("[OkGo][Circle]").apply {
                 setPrintLevel(HttpLoggingInterceptor.Level.BODY)
                 setColorLevel(java.util.logging.Level.INFO)
             }
@@ -171,7 +171,8 @@ class App : Application() {
             OkGo.getInstance().init(context as Application?)
                 .setOkHttpClient(builder.build())
                 .setCacheMode(CacheMode.NO_CACHE)
-                .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE).retryCount = 0
+                .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)
+                .retryCount = 0
             return this.javaClass.simpleName
         }
     }

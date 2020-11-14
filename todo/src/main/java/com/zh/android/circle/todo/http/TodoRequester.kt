@@ -7,6 +7,7 @@ import com.lzy.okrx2.adapter.ObservableBody
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.ext.toJson
+import com.zh.android.base.ext.useCache
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.circle.todo.enums.TodoPriority
@@ -35,6 +36,7 @@ class TodoRequester {
                 OkGo.get(ApiUrl.TODO_GET_TODO_LIST_BY_STATUS)
             return request.tag(tag)
                 .params("userId", userId)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -52,6 +54,7 @@ class TodoRequester {
                 OkGo.get(ApiUrl.TODO_GET_TODO_BY_ID)
             return request.tag(tag)
                 .params("id", id)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

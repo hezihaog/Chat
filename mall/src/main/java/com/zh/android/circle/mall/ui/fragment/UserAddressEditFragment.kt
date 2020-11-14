@@ -267,9 +267,8 @@ class UserAddressEditFragment : BaseFragment() {
                 }
             }, {
                 it.printStackTrace()
-                showRequestError()
                 mWaitLoadingController.hideWait()
-                fragmentActivity.finish()
+                showRequestError()
             })
     }
 

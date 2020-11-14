@@ -8,6 +8,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
 import com.zh.android.base.ext.listToString
 import com.zh.android.base.ext.toJson
+import com.zh.android.base.ext.useCache
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.base.http.PageModel
@@ -35,6 +36,7 @@ class MallRequester {
             val request: GetRequest<HttpModel<MallIndexInfoModel>> =
                 OkGo.get(ApiUrl.MALL_INDEX_INFOS)
             return request.tag(tag)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -49,6 +51,7 @@ class MallRequester {
             val request: GetRequest<HttpModel<List<MallGoodsCategoryModel>>> =
                 OkGo.get(ApiUrl.MALL_GET_GOODS_CATEGORY)
             return request.tag(tag)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -82,6 +85,7 @@ class MallRequester {
                     params("pageNum", pageNum)
                     params("pageSize", pageSize)
                 }
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -98,6 +102,7 @@ class MallRequester {
                 OkGo.get(ApiUrl.MALL_GET_GOODS_DETAIL)
             return request.tag(tag)
                 .params("goodsId", goodsId)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -114,6 +119,7 @@ class MallRequester {
                 OkGo.get(ApiUrl.MALL_CART_ITEM_LIST)
             return request.tag(tag)
                 .params("userId", userId)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -193,6 +199,7 @@ class MallRequester {
                 OkGo.get(ApiUrl.MALL_CART_ITEM_LIST_COUNT)
             return request.tag(tag)
                 .params("userId", userId)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -220,6 +227,7 @@ class MallRequester {
                 }
                 .params("pageNum", pageNum)
                 .params("pageSize", pageSize)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -236,6 +244,7 @@ class MallRequester {
                 OkGo.get(ApiUrl.MALL_GET_MY_ADDRESS_LIST)
             return request.tag(tag)
                 .params("userId", userId)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -253,6 +262,7 @@ class MallRequester {
                 OkGo.get(ApiUrl.MALL_GET_USER_ADDRESS)
             return request.tag(tag)
                 .params("addressId", addressId)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -372,6 +382,7 @@ class MallRequester {
                 OkGo.get<HttpModel<UserAddressModel>>(ApiUrl.MALL_GET_DEFAULT_USER_ADDRESS)
             return request.tag(tag)
                 .params("userId", userId)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -393,6 +404,7 @@ class MallRequester {
             return request.tag(tag)
                 .params("userId", userId)
                 .params("cartItemIds", cartItemIds.toMutableList().listToString())
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }
@@ -457,6 +469,7 @@ class MallRequester {
             return request.tag(tag)
                 .params("userId", userId)
                 .params("orderNo", orderNo)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

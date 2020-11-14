@@ -1,8 +1,9 @@
 package com.zh.android.base.ext
 
+import com.lzy.okgo.cache.CacheMode
+import com.lzy.okgo.request.GetRequest
 import com.zh.android.base.R
 import com.zh.android.base.http.HttpModel
-import com.zh.android.base.util.net.NetManager
 
 
 /**
@@ -17,37 +18,26 @@ import com.zh.android.base.util.net.NetManager
  */
 @JvmOverloads
 fun handlerErrorCode(
-    httpModel: HttpModel<*>?, noNetworkBlock: (() -> Unit) = {
-        toast(R.string.base_request_no_network)
-    }
+    httpModel: HttpModel<*>?
 ): Boolean {
     return checkHttpResponse(httpModel, {
         showRequestError()
     }, {
         toast(it)
-    }, noNetworkBlock)
+    })
 }
 
 /**
  * 检查响应是否成功
  * @param noMsgErrorBlock 没有Msg的异常回调
  * @param msgErrorBlock 有Msg的异常回调
- * @param noNetworkBlock 请求时，当前设备没有网络时回调，有传时才进行网络情况判断
  */
 @JvmOverloads
 fun checkHttpResponse(
     httpModel: HttpModel<*>?,
     noMsgErrorBlock: (() -> Unit)? = null,
-    msgErrorBlock: ((msg: String) -> Unit)? = null,
-    noNetworkBlock: (() -> Unit)? = null
+    msgErrorBlock: ((msg: String) -> Unit)? = null
 ): Boolean {
-    //有传没有网络回调时，才检查网络情况
-    if (noNetworkBlock != null) {
-        //当前设备，没有连接上网络
-        if (!NetManager.isNetworkConnected(getAppContext())) {
-            return false
-        }
-    }
     if (httpModel == null) {
         noMsgErrorBlock?.invoke()
         return false
@@ -68,11 +58,7 @@ fun checkHttpResponse(
  * 显示请求失败提示
  */
 fun showRequestError() {
-    if (NetManager.isNetworkConnected(getAppContext())) {
-        toastLong(R.string.base_request_error_tip_msg)
-    } else {
-        toastLong(R.string.base_request_no_network)
-    }
+    toastLong(R.string.base_request_error_tip_msg)
 }
 
 /**
@@ -80,4 +66,25 @@ fun showRequestError() {
  */
 fun showRequestDataWrong() {
     toastLong(R.string.base_request_data_is_wrong)
+}
+
+/**
+ * 设置缓存
+ * @param mode 缓存模式
+ * @param key 缓存Key
+ */
+fun <R> GetRequest<R>.useCache(mode: CacheMode? = null, key: String? = null): GetRequest<R> {
+    //缓存模式，默认先使用缓存，再请求网络
+    cacheMode(
+        mode ?: CacheMode.FIRST_CACHE_THEN_REQUEST
+    )
+    //缓存Key
+    cacheKey(
+        if (key.isNullOrBlank()) {
+            url + params.toString()
+        } else {
+            key
+        }
+    )
+    return this
 }

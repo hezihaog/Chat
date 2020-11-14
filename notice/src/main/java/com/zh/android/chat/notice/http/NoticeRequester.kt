@@ -6,6 +6,7 @@ import com.lzy.okgo.request.PostRequest
 import com.lzy.okrx2.adapter.ObservableBody
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.ext.genericGsonType
+import com.zh.android.base.ext.useCache
 import com.zh.android.base.http.HttpModel
 import com.zh.android.base.http.ModelConvert
 import com.zh.android.base.http.PageModel
@@ -34,6 +35,7 @@ class NoticeRequester {
                 .params("userId", userId)
                 .params("pageNum", pageNum)
                 .params("pageSize", pageSize)
+                .useCache()
                 .converter(ModelConvert(type))
                 .adapt(ObservableBody())
         }

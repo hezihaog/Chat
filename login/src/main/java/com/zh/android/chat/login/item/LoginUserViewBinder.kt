@@ -6,10 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.loadUrlImageToRound
-import com.zh.android.base.ext.setGone
-import com.zh.android.base.ext.setVisible
+import com.zh.android.base.ext.*
 import com.zh.android.chat.login.R
 import com.zh.android.chat.service.db.login.entity.LoginUserEntity
 import me.drakeet.multitype.ItemViewBinder
@@ -20,7 +17,8 @@ import me.drakeet.multitype.ItemViewBinder
  * 登录账号信息条目
  */
 class LoginUserViewBinder(
-    private val itemClickCallback: (model: LoginUserEntity) -> Unit
+    private val itemClickCallback: (model: LoginUserEntity) -> Unit,
+    private val itemLongClickCallback: (position: Int, model: LoginUserEntity) -> Boolean
 ) : ItemViewBinder<LoginUserEntity, LoginUserViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         return ViewHolder(inflater.inflate(R.layout.login_user_item_view, parent, false))
@@ -39,6 +37,9 @@ class LoginUserViewBinder(
             }
             holder.itemView.click {
                 itemClickCallback(item)
+            }
+            holder.itemView.longClick {
+                itemLongClickCallback(getPosition(holder), item)
             }
         }
     }

@@ -59,6 +59,17 @@ class LoginDbMaster {
         }
 
         /**
+         * 删除指定用户Id的用户信息
+         */
+        @JvmStatic
+        fun deleteLoginUser(userId: String) {
+            val entity = mLoginUserDao.findByUserId(userId)
+            entity?.let {
+                mLoginUserDao.deleteLoginUser(entity)
+            }
+        }
+
+        /**
          * 获取当前登录的用户信息
          */
         @JvmStatic

@@ -2,16 +2,14 @@ package com.zh.android.chat.login.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
-import com.zh.android.base.ext.toast
+import com.zh.android.base.ext.*
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.login.R
 import com.zh.android.chat.login.http.LoginPresenter
@@ -46,20 +44,46 @@ class SwitchLoginAccountFragment : BaseFragment() {
     }
     private val mListAdapter by lazy {
         MultiTypeAdapter(mListItems).apply {
-            register(LoginUserEntity::class.java, LoginUserViewBinder {
-                //点击的是当前登录的用户，不做切换处理
-                if (it.loginFlag) {
-                    return@LoginUserViewBinder
-                }
-                //切换账号
-                mLoginPresenter.switchLoginUser(it.userId)
-                    .lifecycle(lifecycleOwner)
-                    .subscribe {
-                        //切换成功，跳转回首页
-                        toast(R.string.login_switch_login_user_success)
-                        mHomeService?.goHome(fragmentActivity)
+            register(LoginUserEntity::class.java, LoginUserViewBinder(
+                {
+                    //点击的是当前登录的用户，不做切换处理
+                    if (it.loginFlag) {
+                        return@LoginUserViewBinder
                     }
-            })
+                    //切换账号
+                    mLoginPresenter.switchLoginUser(it.userId)
+                        .lifecycle(lifecycleOwner)
+                        .subscribe {
+                            //切换成功，跳转回首页
+                            toast(R.string.login_switch_login_user_success)
+                            mHomeService?.goHome(fragmentActivity)
+                        }
+                }, { position, model ->
+                    //不能删除正在登录的账号
+                    if (model.loginFlag) {
+                        return@LoginUserViewBinder false
+                    }
+                    //长按显示删除
+                    AlertDialog.Builder(fragmentActivity)
+                        .setMessage(R.string.login_is_delete_this_account_confirm)
+                        .setPositiveButton(R.string.base_confirm) { _, _ ->
+                            //删除
+                            mLoginPresenter.deleteLoginUser(model.userId)
+                                .ioToMain()
+                                .lifecycle(lifecycleOwner)
+                                .subscribe {
+                                    //删除条目
+                                    mListItems.removeAt(position)
+                                    fixNotifyItemRemoved(position)
+                                    toast(R.string.base_delete_success)
+                                }
+                        }
+                        .setNegativeButton(R.string.base_cancel) { dialog, _ ->
+                            dialog.dismiss()
+                        }.create().show()
+                    true
+                }
+            ))
         }
     }
 

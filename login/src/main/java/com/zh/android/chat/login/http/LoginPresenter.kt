@@ -98,6 +98,16 @@ class LoginPresenter {
     }
 
     /**
+     * 删除指定用户Id的用户信息
+     */
+    fun deleteLoginUser(userId: String): Observable<Boolean> {
+        return Observable.create {
+            LoginDbMaster.deleteLoginUser(userId)
+            it.onNext(true)
+        }
+    }
+
+    /**
      * 获取所有登录账号
      */
     fun getAllLoginUser(): Observable<List<LoginUserEntity>> {

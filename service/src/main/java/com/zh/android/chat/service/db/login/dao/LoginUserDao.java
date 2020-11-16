@@ -1,6 +1,7 @@
 package com.zh.android.chat.service.db.login.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -30,6 +31,12 @@ public interface LoginUserDao {
     void updateLoginUser(LoginUserEntity entity);
 
     /**
+     * 删除指定的登录用户信息
+     */
+    @Delete
+    void deleteLoginUser(LoginUserEntity entity);
+
+    /**
      * 根据用户Id，查询登录用户信息
      */
     @Query("SELECT * FROM tb_login_user WHERE user_id = :userId")
@@ -38,7 +45,7 @@ public interface LoginUserDao {
     /**
      * 获取所有登录用户信息
      */
-    @Query("SELECT * FROM tb_login_user")
+    @Query("SELECT * FROM tb_login_user ORDER BY login_flag DESC")
     List<LoginUserEntity> findAll();
 
     /**

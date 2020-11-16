@@ -287,7 +287,14 @@ class MomentDetailFragment : BaseFragment() {
                 vAvatar.loadUrlImage(userInfo.avatar)
                 vNickname.text = userInfo.nickname
                 vCreateTime.text = createTime
-                vContent.text = content
+                vContent.run {
+                    if (content.isBlank()) {
+                        setGone()
+                    } else {
+                        setVisible()
+                        text = content
+                    }
+                }
                 //删除动态
                 vDelete.run {
                     if (me) {

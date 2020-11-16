@@ -42,7 +42,14 @@ class MomentItemViewBinder(
             holder.avatar.loadUrlImageToRound(userInfo.avatar)
             holder.nickname.text = userInfo.nickname
             holder.createTime.text = createTime
-            holder.content.text = content
+            holder.content.run {
+                if (content.isBlank()) {
+                    setGone()
+                } else {
+                    setVisible()
+                    text = content
+                }
+            }
             if (pictures.isNotEmpty()) {
                 holder.nineGridView.setVisible()
                 //图片信息

@@ -23,7 +23,7 @@ public class WaitLoadingController implements LifecycleObserver {
     /**
      * 一定要显示够指定时间
      */
-    private static final long LOAD_MIN_TIME = 500;
+    private static final long LOAD_MIN_TIME = 100;
 
     private Activity mActivity;
     private LoadingDialog vLoadingDialog;

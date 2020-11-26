@@ -12,6 +12,8 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.zh.android.base.util.SoftKeyBoardUtil;
+
 
 /**
  * <b>Package:</b> com.linghit.lingjidashi.base.lib.utils <br>
@@ -104,6 +106,8 @@ public class WaitLoadingController implements LifecycleObserver {
 
     public void showWait() {
         ensureMainThreadRun(() -> {
+            //隐藏输入法
+            SoftKeyBoardUtil.hideKeyboard(mActivity.findViewById(android.R.id.content));
             if (vLoadingDialog != null && !vLoadingDialog.isShowing()) {
                 showTime = System.currentTimeMillis();
                 vLoadingDialog.show();

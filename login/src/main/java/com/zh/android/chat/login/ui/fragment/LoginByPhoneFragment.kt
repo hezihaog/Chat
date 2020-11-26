@@ -14,6 +14,7 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.ClipboardUtil
+import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.util.rx.RxUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.login.R
@@ -44,6 +45,9 @@ class LoginByPhoneFragment : BaseFragment() {
 
     private val mLoginPresenter by lazy {
         LoginPresenter()
+    }
+    private val mWaitController by lazy {
+        WaitLoadingController(fragmentActivity, fragment)
     }
 
     companion object {
@@ -87,6 +91,9 @@ class LoginByPhoneFragment : BaseFragment() {
             return
         }
         mLoginPresenter.getAuthCode(phoneInput)
+            .doOnSubscribeUi {
+                mWaitController.showWait()
+            }
             .doOnNext {
                 //开始倒计时
                 startCountDown()
@@ -94,6 +101,7 @@ class LoginByPhoneFragment : BaseFragment() {
             .ioToMain()
             .lifecycle(lifecycleOwner)
             .subscribe({ httpModel ->
+                mWaitController.hideWait()
                 if (handlerErrorCode(httpModel)) {
                     if (httpModel.data.isNullOrBlank()) {
                         return@subscribe
@@ -108,11 +116,14 @@ class LoginByPhoneFragment : BaseFragment() {
                         .setNegativeButton(R.string.base_cancel) { dialog, _ ->
                             dialog.dismiss()
                         }
+                        .setCancelable(false)
                         .create()
                         .show()
                 }
             }, {
                 it.printStackTrace()
+                mWaitController.hideWait()
+                showRequestError()
             })
     }
 

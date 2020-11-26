@@ -5,7 +5,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/base_window_bg</item>
-<!--        <item name="android:windowAnimationStyle">@style/activity_anim</item>-->
+        <!--        <item name="android:windowAnimationStyle">@style/activity_anim</item>-->
     </style>
 
     <style name="activity_anim" parent="@android:style/Animation.Activity">
@@ -16,7 +16,8 @@
     </style>
 
     <style name="AppWelcome" parent="AppTheme">
-<!--        <item name="android:windowBackground">@drawable/app_welcome_bg</item>-->
+        <!--        <item name="android:windowBackground">@drawable/app_welcome_bg</item>-->
+        <item name="android:windowBackground">@drawable/ic_splash</item>
         <!-- 透明掉状态栏，设置为true，状态栏有阴影，false则无阴影 -->
         <item name="android:windowTranslucentStatus">false</item>
         <!-- 设置状态栏颜色为透明色 -->

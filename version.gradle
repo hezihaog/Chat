@@ -12,9 +12,10 @@ ext {
             runner                       : "androidx.test:runner:1.1.0",
             espresso                     : 'androidx.test.espresso:espresso-core:3.1.0',
 
-            design                       : "com.google.android.material:material:1.1.0",
+            design                       : "com.google.android.material:material:1.2.1",
             v7                           : "androidx.appcompat:appcompat:$androidx_version",
             rv                           : "androidx.recyclerview:recyclerview:$androidx_version",
+            tablayout_ext                : "com.github.loperSeven:tablayout-ext:0.0.1",
 
             fragment_ktx                 : "androidx.fragment:fragment-ktx:1.2.0",
             viewpager2                   : "androidx.viewpager2:viewpager2:1.0.0",

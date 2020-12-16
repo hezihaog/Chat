@@ -42,6 +42,7 @@ dependencies {
     api rootProject.ext.deps.viewpager2
 
     api rootProject.ext.deps.android_startup
+    api rootProject.ext.deps.tablayout_ext
 
     api rootProject.ext.deps.circle_image_view
 

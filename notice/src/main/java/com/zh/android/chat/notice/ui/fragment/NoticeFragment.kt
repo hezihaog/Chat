@@ -237,7 +237,6 @@ class NoticeFragment : BaseFragment() {
                 }
             }, {
                 it.printStackTrace()
-                showRequestError()
             })
     }
 

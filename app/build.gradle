@@ -82,6 +82,9 @@ dependencies {
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler
     kapt rootProject.ext.deps.jetpack_room_compiler
 
+    //手机端-数据库查看工具，debug包有效
+    debugImplementation rootProject.ext.deps.glance
+
     //依赖的模块
     api project(path: ':login')
     api project(path: ':home')

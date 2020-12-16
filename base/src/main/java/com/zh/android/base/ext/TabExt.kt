@@ -18,8 +18,7 @@ fun TabLayout.setupWithViewPager2(
     pager: ViewPager2,
     callback: (tab: TabLayout.Tab, position: Int) -> Unit
 ) {
-    TabLayoutMediator(this, pager,
-        TabLayoutMediator.OnConfigureTabCallback { tab, position ->
-            callback(tab, position)
-        }).attach()
+    TabLayoutMediator(this, pager) { tab, position ->
+        callback(tab, position)
+    }.attach()
 }

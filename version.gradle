@@ -12,12 +12,12 @@ ext {
             runner                       : "androidx.test:runner:1.1.0",
             espresso                     : 'androidx.test.espresso:espresso-core:3.1.0',
 
-            design                       : "com.google.android.material:material:1.1.0-alpha09",
+            design                       : "com.google.android.material:material:1.1.0",
             v7                           : "androidx.appcompat:appcompat:$androidx_version",
             rv                           : "androidx.recyclerview:recyclerview:$androidx_version",
 
-            fragment_ktx                 : "androidx.fragment:fragment-ktx:1.2.0-alpha02",
-            viewpager2                   : "androidx.viewpager2:viewpager2:1.0.0-beta03",
+            fragment_ktx                 : "androidx.fragment:fragment-ktx:1.2.0",
+            viewpager2                   : "androidx.viewpager2:viewpager2:1.0.0",
 
             android_startup              : "com.rousetime.android:android-startup:1.0.5",
 
@@ -116,6 +116,8 @@ ext {
             mqtt_service                 : "org.eclipse.paho:org.eclipse.paho.android.service:1.1.1",
 
             web_view                     : "cn.yc:WebViewLib:1.4.0",
+            //手机端数据库查看工具
+            glance                       : "com.glance.guolindev:glance:1.0.0-alpha01",
 
             //轮播图
             banner_view_pager            : "com.github.zhpanvip:BannerViewPager:3.2.0",

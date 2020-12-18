@@ -1,5 +1,6 @@
 package com.zh.android.base.constant
 
+import com.zh.android.base.core.BaseStorage
 import java.net.URLEncoder
 
 
@@ -53,8 +54,18 @@ object ApiUrl {
     /**
      * 主机地址
      */
-    private val HOST: String
-        get() = "192.168.1.6"
+    var HOST: String
+        get() {
+            val baseUrl = BaseStorage.getBaseUrl()
+            return if (baseUrl.isNotBlank()) {
+                baseUrl
+            } else {
+                "192.168.1.10"
+            }
+        }
+        set(value) {
+            BaseStorage.saveBaseUrl(value)
+        }
 
     /**
      * Url基础部分

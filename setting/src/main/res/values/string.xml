@@ -5,7 +5,10 @@
     <string name="setting_enable_pattern_lock">私密锁</string>
     <string name="setting_switch_login_account">切换账号</string>
     <string name="setting_logout">退出登录</string>
+    <string name="setting_save_base_url">设置BaseUrl</string>
     <string name="setting_clear_cache">清除缓存</string>
     <string name="setting_pattern_lock">私密锁</string>
     <string name="setting_pattern_lock_setting">设置私密锁</string>
+    <string name="setting_set_base_url_will_reboot">设置后，需要重启应用，即可生效！</string>
+    <string name="setting_please_input_cant_not_is_empty">输入不能为空</string>
 </resources>

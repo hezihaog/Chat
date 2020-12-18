@@ -30,6 +30,44 @@
                 <View style="@style/base_divider" />
 
                 <LinearLayout
+                    android:id="@+id/set_base_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_dimen_15"
+                        android:layout_marginEnd="@dimen/base_dimen_15"
+                        android:layout_weight="1"
+                        android:paddingTop="@dimen/base_dimen_15"
+                        android:paddingBottom="@dimen/base_dimen_15"
+                        android:text="@string/setting_save_base_url"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/base_dimen_sp_15" />
+
+                    <ImageView
+                        android:layout_width="@dimen/base_dimen_20"
+                        android:layout_height="@dimen/base_dimen_20"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/base_dimen_15"
+                        android:src="@drawable/base_right_arrow" />
+                </LinearLayout>
+
+                <View style="@style/base_divider" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base_dimen_10"
+                android:background="@color/base_white"
+                android:orientation="vertical">
+
+                <View style="@style/base_divider" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">

@@ -6,12 +6,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.blankj.utilcode.util.AppUtils
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.BroadcastRegistry
+import com.zh.android.base.util.SoftKeyBoardUtil
 import com.zh.android.base.util.UUIDUtil
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.widget.SwitchButton
@@ -43,6 +48,7 @@ class SettingFragment : BaseFragment() {
     private val vEnablePatternLockSwitch: SwitchButton by bindView(R.id.is_enable_pattern_lock)
     private val vSwitchLoginAccount: TextView by bindView(R.id.switch_login_account)
     private val vLogout: TextView by bindView(R.id.logout)
+    private val vSetBaseUrl: View by bindView(R.id.set_base_url)
     private val vClearCache: View by bindView(R.id.clear_cache)
     private val vAppCacheSize: TextView by bindView(R.id.app_cache_size)
 
@@ -110,7 +116,7 @@ class SettingFragment : BaseFragment() {
         }
         //切换开关侧滑返回
         vEnableSwipeBackSwitch.apply {
-            isChecked = mSettingService?.isEnableSwipeBack() ?: true
+            isChecked = mSettingService?.isEnableSwipeBack() ?: false
             setOnCheckedChangeListener { _, isChecked ->
                 mSettingService?.saveEnableSwipeBack(isChecked)
             }
@@ -139,6 +145,36 @@ class SettingFragment : BaseFragment() {
                     )
                 }
             }
+        }
+        vSetBaseUrl.click {
+            //设置当前的BaseUrl
+            val inputView = EditText(fragmentActivity).apply {
+                ApiUrl.HOST.let {
+                    setText(it)
+                    setSelection(it.length)
+                    SoftKeyBoardUtil.showKeyboard(this)
+                }
+            }
+            AlertDialog.Builder(fragmentActivity)
+                .setTitle(R.string.setting_set_base_url_will_reboot)
+                //输入框
+                .setView(inputView)
+                .setNegativeButton(R.string.base_cancel) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton(R.string.base_confirm) { _, _ ->
+                    val inputUrl = inputView.text.toString().trim()
+                    if (inputUrl.isBlank()) {
+                        toast(R.string.setting_please_input_cant_not_is_empty)
+                        return@setPositiveButton
+                    }
+                    //保存到本地
+                    ApiUrl.HOST = inputUrl
+                    //重启App
+                    AppUtils.relaunchApp()
+                }
+                .create()
+                .show()
         }
         //清除缓存
         vClearCache.click {

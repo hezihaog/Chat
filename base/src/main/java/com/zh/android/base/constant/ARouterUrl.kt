@@ -230,17 +230,27 @@ class ARouterUrl {
 
         //============================== 代办事项 ==============================
 
-        private const val MALL_TODO = "/todo"
-        const val TODO_SERVICE = "${MALL_TODO}s/module"
+        private const val TODO_GROUP = "/todo"
+        const val TODO_SERVICE = "${TODO_GROUP}s/module"
 
         /**
          * 代办事项列表
          */
-        const val TODO_LIST = "${MALL_TODO}/main/list"
+        const val TODO_LIST = "${TODO_GROUP}/main/list"
 
         /**
          * 代办事项编辑
          */
-        const val TODO_EDIT = "${MALL_TODO}/edit"
+        const val TODO_EDIT = "${TODO_GROUP}/edit"
+
+        //============================== Gankio ==============================
+
+        private const val GANKIO_GROUP = "/gankio"
+        const val GANKIO_SERVICE = "${GANKIO_GROUP}s/module"
+
+        /**
+         * Gankio首页
+         */
+        const val GANKIO_HOME = "${GANKIO_GROUP}/home"
     }
 }

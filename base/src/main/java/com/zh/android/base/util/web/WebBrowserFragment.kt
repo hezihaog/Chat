@@ -20,6 +20,7 @@ import com.zh.android.base.constant.BaseConstant
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.setGone
+import com.zh.android.base.ext.setVisible
 import com.zh.android.base.ext.toast
 import com.zh.android.base.util.ClipboardUtil
 import com.zh.android.base.widget.TopBar
@@ -34,6 +35,11 @@ class WebBrowserFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vWebView: X5WebView by bindView(R.id.web_view)
     private val vProgress: WebProgress by bindView(R.id.progress)
+
+    /**
+     * 是否显示顶部栏
+     */
+    private val isShowTopBar by bindArgument(BaseConstant.IS_SHOW_TOP_BAR, true)
 
     /**
      * 要加载的Url
@@ -80,6 +86,11 @@ class WebBrowserFragment : BaseFragment() {
 
     override fun onBindView(view: View?) {
         vTopBar.apply {
+            if (isShowTopBar) {
+                setVisible()
+            } else {
+                setGone()
+            }
             addLeftBackImageButton().click {
                 fragmentActivity.onBackPressed()
             }

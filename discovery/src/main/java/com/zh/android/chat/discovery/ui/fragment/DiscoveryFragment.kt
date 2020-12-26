@@ -12,6 +12,7 @@ import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.discovery.R
 import com.zh.android.chat.service.module.discovery.DiscoveryService
 import com.zh.android.chat.service.module.friend.FriendService
+import com.zh.android.chat.service.module.gankio.GankioService
 import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.chat.service.module.moment.MomentService
 import com.zh.android.chat.service.module.todo.TodoService
@@ -42,6 +43,10 @@ class DiscoveryFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.TODO_SERVICE)
     var mTodoService: TodoService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.GANKIO_SERVICE)
+    var mGankioService: GankioService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vMomentLayout: View by bindView(R.id.moment_layout)
@@ -80,6 +85,10 @@ class DiscoveryFragment : BaseFragment() {
             mFriendService?.run {
                 goAddFriend(fragmentActivity)
             }
+        }
+        vAddFriendLayout.longClick {
+            mGankioService?.goGankioHome(fragmentActivity)
+            true
         }
         //扫一扫
         vScanQrcodeLayout.click {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)http://www.todolist.cn/ -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>ToDoList—最简单的待办事项列表</title>
+	<meta name="description" content="ToDoList无须注册即可使用，数据存储在用户浏览器的html5本地数据库里，是最简单最安全的待办事项列表应用！">
+	<link rel="stylesheet" href="./css/index.css">
+	<script type="text/javascript" src="./js/jquery.js"></script>
+	<script src="./js/todolist.js"></script>
+</head>
+
+<body>
+<header>
+	<section>
+		<form action="javascript:postaction()" id="form">
+			<label for="title">ToDoList</label>
+			<input type="text" id="title" name="title" placeholder="添加ToDo">
+		</form>
+	</section>
+</header>
+<section>
+	<h2 onclick="save()">正在进行 <span id="todocount">0</span></h2>
+	<ol id="todolist" class="demo-box"></ol>
+	<h2>已经完成 <span id="donecount">0</span></h2>
+	<ul id="donelist"></ul>
+</section>
+<footer>
+	Copyright © 2014 todolist.cn <a href="javascript:clear();">clear</a>
+</footer>
+</body>
+</html>

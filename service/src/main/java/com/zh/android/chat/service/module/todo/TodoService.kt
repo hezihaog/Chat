@@ -11,7 +11,12 @@ interface TodoService : IProvider {
     /**
      * 跳转到Todo列表
      */
-    fun goTodoList(activity: Activity);
+    fun goTodoList(activity: Activity)
+
+    /**
+     * 跳转到Todo列表（Web版）
+     */
+    fun goTodoListWeb(activity: Activity)
 
     /**
      * 跳转到Todo添加

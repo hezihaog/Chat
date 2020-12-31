@@ -5,6 +5,7 @@ import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.base.util.web.WebBrowserActivity
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.todo.TodoService
@@ -23,6 +24,10 @@ class TodoServiceImpl : TodoService {
         ARouter.getInstance()
             .build(ARouterUrl.TODO_LIST)
             .startNavigation(activity)
+    }
+
+    override fun goTodoListWeb(activity: Activity) {
+        WebBrowserActivity.start(activity, "file:///android_asset/todolist/ToDoList.html")
     }
 
     override fun goTodoAdd(activity: Activity) {

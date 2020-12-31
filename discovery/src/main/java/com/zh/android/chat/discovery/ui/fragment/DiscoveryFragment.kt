@@ -96,16 +96,24 @@ class DiscoveryFragment : BaseFragment() {
                 goQrCodeScan(fragmentActivity)
                     .lifecycle(lifecycleOwner)
                     .subscribe({
-                        LogUtils.d("跳转二维码扫描：成功")
+                        if (it) {
+                            LogUtils.d("跳转二维码扫描：成功")
+                        } else {
+                            LogUtils.d("跳转二维码扫描：失败")
+                        }
                     }, {
                         it.printStackTrace()
-                        LogUtils.d("跳转二维码扫描：失败")
+                        LogUtils.d("跳转二维码扫描：失败，原因：${it.message}")
                     })
             }
         }
         //待办事项
         vTodoLayout.click {
             mTodoService?.goTodoList(fragmentActivity)
+        }
+        vTodoLayout.longClick {
+            mTodoService?.goTodoListWeb(fragmentActivity)
+            true
         }
     }
 }

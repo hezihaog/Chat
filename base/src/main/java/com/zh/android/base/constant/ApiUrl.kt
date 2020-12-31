@@ -60,7 +60,7 @@ object ApiUrl {
             return if (baseUrl.isNotBlank()) {
                 baseUrl
             } else {
-                "192.168.1.10"
+                "192.168.1.4"
             }
         }
         set(value) {

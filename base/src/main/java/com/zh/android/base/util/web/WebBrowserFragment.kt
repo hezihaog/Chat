@@ -18,10 +18,7 @@ import com.ycbjie.webviewlib.widget.WebProgress
 import com.zh.android.base.R
 import com.zh.android.base.constant.BaseConstant
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.setGone
-import com.zh.android.base.ext.setVisible
-import com.zh.android.base.ext.toast
+import com.zh.android.base.ext.*
 import com.zh.android.base.util.ClipboardUtil
 import com.zh.android.base.widget.TopBar
 import kotterknife.bindView
@@ -121,6 +118,11 @@ class WebBrowserFragment : BaseFragment() {
                                 clearBrowserCache()
                                 true
                             }
+                            R.id.hide_top_bar -> {
+                                //隐藏顶部栏
+                                vTopBar.setGone()
+                                true
+                            }
                             else -> {
                                 false
                             }
@@ -174,6 +176,12 @@ class WebBrowserFragment : BaseFragment() {
     }
 
     override fun onBackPressedSupport(): Boolean {
+        //如果顶部栏隐藏，则先显示顶部栏
+        if (vTopBar.isHide()) {
+            vTopBar.setVisible()
+            return true
+        }
+        //如果WebView可以返回上一页，则返回上一页
         if (vWebView.canGoBack()) {
             vWebView.goBack()
             return true
@@ -203,7 +211,7 @@ class WebBrowserFragment : BaseFragment() {
      */
     private fun clearBrowserCache() {
         CookieSyncManager.createInstance(fragmentActivity.applicationContext)
-        val cookieManager = CookieManager.getInstance();
+        val cookieManager = CookieManager.getInstance()
         cookieManager.run {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 removeSessionCookies(null)

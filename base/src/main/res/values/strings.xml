@@ -33,6 +33,7 @@
     <string name="base_copy_web_path">复制网址</string>
     <string name="open_system_browser">从系统浏览器打开</string>
     <string name="clear_browser_cache">清除浏览器缓存</string>
+    <string name="hide_top_bar">隐藏顶部栏</string>
 
     <string name="base_right_arrow"></string>
 

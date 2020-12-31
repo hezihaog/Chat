@@ -72,6 +72,10 @@ fun View.setInVisible() {
     this.visibility = View.INVISIBLE
 }
 
+fun View.isHide(): Boolean {
+    return this.visibility != View.VISIBLE
+}
+
 fun TextView.setTextWithDefault(text: CharSequence?, default: CharSequence = "") {
     if (text.isNull()) {
         this.text = default

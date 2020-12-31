@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
+import com.blankj.utilcode.util.RegexUtils
 import com.draggable.library.extension.ImageViewerHelper
 import com.hule.dashi.mediaplayer.*
 import com.linghit.base.util.argument.bindArgument
@@ -27,6 +28,7 @@ import com.zh.android.base.util.VibratorHelper
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.util.rx.RxUtil
 import com.zh.android.base.util.takephoto.RxTakePhoto
+import com.zh.android.base.util.web.WebBrowserActivity
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.WebSocketAgent
@@ -135,14 +137,24 @@ class ConversationChatFragment : BaseFragment() {
                     //低版本提示
                     VersionTooLowViewBinder(),
                     //文字
-                    TextMsgReceiverViewBinder { position, item ->
+                    TextMsgReceiverViewBinder({ _, item ->
+                        val url = item.text?.content ?: ""
+                        if (url.isNotBlank() && RegexUtils.isURL(url)) {
+                            WebBrowserActivity.start(fragmentActivity, url)
+                        }
+                    }, { position, item ->
                         showTextLongClickDialog(position, item)
                         true
-                    },
-                    TextMsgSenderViewBinder { position, item ->
+                    }),
+                    TextMsgSenderViewBinder({ _, item ->
+                        val url = item.text?.content ?: ""
+                        if (url.isNotBlank() && RegexUtils.isURL(url)) {
+                            WebBrowserActivity.start(fragmentActivity, url)
+                        }
+                    }, { position, item ->
                         showTextLongClickDialog(position, item)
                         true
-                    },
+                    }),
                     //图片
                     ImageMsgReceiverViewBinder(
                         longClickCallback = { position, item ->

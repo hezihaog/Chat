@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.zh.android.base.ext.click
 import com.zh.android.base.ext.loadUrlImageToRound
 import com.zh.android.base.ext.longClick
 import com.zh.android.chat.conversation.R
@@ -18,6 +19,7 @@ import me.drakeet.multitype.ItemViewBinder
  * 文字消息-发送方条目
  */
 class TextMsgSenderViewBinder(
+    private val clickCallback: (position: Int, item: ChatRecord) -> Unit,
     private val longClickCallback: (position: Int, item: ChatRecord) -> Boolean
 ) : ItemViewBinder<ChatRecord, TextMsgSenderViewBinder.ViewHolder>() {
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
@@ -34,8 +36,13 @@ class TextMsgSenderViewBinder(
         item.run {
             holder.vAvatar.loadUrlImageToRound(fromUser.avatar)
             holder.vContent.text = text?.content
-            holder.vContent.longClick {
-                longClickCallback(getPosition(holder), item)
+            holder.vContent.run {
+                click {
+                    clickCallback(getPosition(holder), item)
+                }
+                longClick {
+                    longClickCallback(getPosition(holder), item)
+                }
             }
         }
     }

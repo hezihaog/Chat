@@ -118,7 +118,7 @@ ext {
 
             web_view                     : "cn.yc:WebViewLib:1.4.0",
             //手机端数据库查看工具
-            glance                       : "com.glance.guolindev:glance:1.0.0-alpha01",
+            glance                       : "com.glance.guolindev:glance:1.0.0-alpha02",
 
             //轮播图
             banner_view_pager            : "com.github.zhpanvip:BannerViewPager:3.2.0",

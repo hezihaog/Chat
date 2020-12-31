@@ -152,10 +152,12 @@ class QrCodeScanFragment : BaseFragment() {
                 }
                 //跳转到用户详情
                 mFriendService?.goUserProfile(fragmentActivity, userId)
+                fragmentActivity.finish()
             }
             //普通网页
             RegexUtils.isURL(result) -> {
                 WebBrowserActivity.start(fragmentActivity, result)
+                fragmentActivity.finish()
             }
             //不能识别类型
             else -> {

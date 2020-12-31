@@ -2,9 +2,11 @@ package com.zh.android.chat.conversation.ui.fragment
 
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.apkfuns.logutils.LogUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
@@ -16,6 +18,8 @@ import com.zh.android.chat.conversation.item.ConversationMainViewBinder
 import com.zh.android.chat.service.ext.getLoginService
 import com.zh.android.chat.service.module.conversation.ConversationService
 import com.zh.android.chat.service.module.conversation.model.Conversation
+import com.zh.android.chat.service.module.discovery.DiscoveryService
+import com.zh.android.chat.service.module.friend.FriendService
 import com.zh.android.chat.service.module.login.LoginService
 import kotterknife.bindView
 import me.drakeet.multitype.Items
@@ -34,6 +38,14 @@ class ConversationMainFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.CONVERSATION_SERVICE)
     var mConversationService: ConversationService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.DISCOVERY_SERVICE)
+    var mDiscoveryService: DiscoveryService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.FRIEND_SERVICE)
+    var mFriendService: FriendService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
@@ -100,6 +112,42 @@ class ConversationMainFragment : BaseFragment() {
     override fun onBindView(view: View?) {
         vTopBar.apply {
             setTitle(getString(R.string.conversation_module_name))
+            addRightImageButton(R.drawable.base_add, R.id.topbar_item_add).click {
+                PopupMenu(fragmentActivity, it).apply {
+                    menuInflater.inflate(R.menu.conversation_main_menu, menu)
+                    setOnMenuItemClickListener { menu ->
+                        when (menu.itemId) {
+                            //添加好友
+                            R.id.add_friend -> {
+                                mFriendService?.goAddFriend(fragmentActivity)
+                                true
+                            }
+                            //扫一扫
+                            R.id.scan_qrcode -> {
+                                mDiscoveryService?.run {
+                                    goQrCodeScan(fragmentActivity)
+                                        .lifecycle(lifecycleOwner)
+                                        .subscribe({ result ->
+                                            if (result) {
+                                                LogUtils.d("跳转二维码扫描：成功")
+                                            } else {
+                                                LogUtils.d("跳转二维码扫描：失败")
+                                            }
+                                        }, { error ->
+                                            error.printStackTrace()
+                                            LogUtils.d("跳转二维码扫描：失败，原因：${error.message}")
+                                        })
+                                }
+                                true
+                            }
+                            else -> {
+                                false
+                            }
+                        }
+                    }
+                    show()
+                }
+            }
         }
         vRefreshLayout.apply {
             setEnableLoadMore(false)

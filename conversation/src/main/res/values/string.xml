@@ -26,4 +26,7 @@
     <string name="conversation_voice_time">%1$d＂</string>
 
     <string name="conversation_send_fail">发送失败</string>
+
+    <string name="conversation_scan_qrcode">扫一扫</string>
+    <string name="conversation_add_friend">添加好友</string>
 </resources>

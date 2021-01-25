@@ -22,6 +22,7 @@ import com.zh.android.circle.todo.enums.TodoPriority
 import com.zh.android.circle.todo.enums.TodoType
 import com.zh.android.circle.todo.http.TodoPresenter
 import com.zh.android.circle.todo.model.TodoModel
+import io.github.prototypez.savestate.core.annotation.AutoRestore
 import kotterknife.bindView
 import org.joda.time.DateTime
 import java.util.*
@@ -56,7 +57,8 @@ class TodoEditFragment : BaseFragment() {
     /**
      * 预计完成时间
      */
-    private var mCompleteDate: Long = 0
+    @AutoRestore
+    var mCompleteDate: Long = 0
 
     private val mTodoPresenter by lazy {
         TodoPresenter()
@@ -107,8 +109,7 @@ class TodoEditFragment : BaseFragment() {
                 TimePickerBuilder(activity, OnTimeSelectListener { selectDate, _ ->
                     //保存选择的时间
                     mCompleteDate = selectDate.time
-                    //格式化时间
-                    vCompleteDate.text = DateTime(selectDate).toString("yyyy.MM.dd")
+                    renderCompleteDate()
                 })
                     //处理有些机子的NavigationBar虚拟键在DecorView里面，导致和弹窗重合的问题
                     .setDecorView(activity.findViewById(android.R.id.content))
@@ -124,6 +125,7 @@ class TodoEditFragment : BaseFragment() {
                     .show()
             }
         }
+        renderCompleteDate()
     }
 
     override fun setData() {
@@ -172,6 +174,15 @@ class TodoEditFragment : BaseFragment() {
         //预计完成时间
         mCompleteDate = model.date
         vCompleteDate.text = model.dateStr
+    }
+
+    /**
+     * 渲染完成时间
+     */
+    private fun renderCompleteDate() {
+        if (mCompleteDate > 0) {
+            vCompleteDate.text = DateTime(mCompleteDate).toString("yyyy.MM.dd")
+        }
     }
 
     /**

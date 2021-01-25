@@ -24,6 +24,7 @@ import com.zh.android.circle.mall.item.GoodsDetailViewBinder
 import com.zh.android.circle.mall.item.GoodsWebDetailViewBinder
 import com.zh.android.circle.mall.model.GoodsWebDetailModel
 import com.zh.android.circle.mall.model.MallGoodsModel
+import io.github.prototypez.savestate.core.annotation.AutoRestore
 import kotterknife.bindView
 import me.drakeet.multitype.Items
 import me.drakeet.multitype.MultiTypeAdapter

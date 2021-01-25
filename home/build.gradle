@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.alibaba.arouter'
+apply plugin: 'save.state'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -18,6 +19,12 @@ android {
 
         ndk {
             abiFilters "armeabi-v7a"
+        }
+    }
+
+    kapt {
+        arguments {
+            arg("serializer", "gson")
         }
     }
 

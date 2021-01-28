@@ -80,10 +80,10 @@
 
     <style name="base_web_navigation_item">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">@dimen/base_dimen_54</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/base_black</item>
-        <item name="android:textSize">@dimen/base_dimen_sp_18</item>
+        <item name="android:textSize">@dimen/base_dimen_sp_20</item>
     </style>
 </resources>

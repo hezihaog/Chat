@@ -28,6 +28,10 @@ public class MallDetailWebView extends X5WebView {
      * 自定义WebViewClient
      */
     private JsX5WebViewClient webViewClient;
+    /**
+     * 自定义WebChromeClient
+     */
+    private X5WebChromeClient webChromeClient;
 
     public MallDetailWebView(Context context) {
         super(context);
@@ -79,7 +83,10 @@ public class MallDetailWebView extends X5WebView {
 
     @Override
     public X5WebChromeClient getCustomWebChromeClient() {
-        return new X5WebChromeClient(this, getContext());
+        if (webChromeClient == null) {
+            webChromeClient = new X5WebChromeClient(this, getContext());
+        }
+        return webChromeClient;
     }
 
     /**

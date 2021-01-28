@@ -19,6 +19,10 @@ public class BrowserWebView extends X5WebView {
      */
     private JsX5WebViewClient webViewClient;
     /**
+     * 自定义WebChromeClient
+     */
+    private X5WebChromeClient webChromeClient;
+    /**
      * 回调
      */
     private Callback mCallback;
@@ -49,7 +53,10 @@ public class BrowserWebView extends X5WebView {
 
     @Override
     public X5WebChromeClient getCustomWebChromeClient() {
-        return new X5WebChromeClient(this, getContext());
+        if (webChromeClient == null) {
+            webChromeClient = new X5WebChromeClient(this, getContext());
+        }
+        return webChromeClient;
     }
 
     public interface Callback {

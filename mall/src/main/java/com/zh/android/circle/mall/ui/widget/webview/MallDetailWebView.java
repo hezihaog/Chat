@@ -79,7 +79,7 @@ public class MallDetailWebView extends X5WebView {
 
     @Override
     public X5WebChromeClient getCustomWebChromeClient() {
-        return super.getCustomWebChromeClient();
+        return new X5WebChromeClient(this, getContext());
     }
 
     /**

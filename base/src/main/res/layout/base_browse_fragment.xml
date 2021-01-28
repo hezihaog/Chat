@@ -11,11 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.ycbjie.webviewlib.view.X5WebView
-            android:id="@+id/web_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbarSize="@dimen/base_dimen_3" />
+            android:orientation="vertical">
+
+            <com.zh.android.base.widget.web.BrowserWebView
+                android:id="@+id/web_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scrollbarSize="@dimen/base_dimen_3" />
+
+            <com.zh.android.base.widget.web.WebNavigationBottomBar
+                android:id="@+id/navigation_bottom_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <com.ycbjie.webviewlib.widget.WebProgress
             android:id="@+id/progress"

@@ -13,7 +13,6 @@ import com.linghit.base.util.argument.bindArgument
 import com.tencent.smtt.sdk.CookieSyncManager
 import com.ycbjie.webviewlib.inter.InterWebListener
 import com.ycbjie.webviewlib.utils.X5WebUtils
-import com.ycbjie.webviewlib.view.X5WebView
 import com.ycbjie.webviewlib.widget.WebProgress
 import com.zh.android.base.R
 import com.zh.android.base.constant.BaseConstant
@@ -21,6 +20,8 @@ import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.ClipboardUtil
 import com.zh.android.base.widget.TopBar
+import com.zh.android.base.widget.web.BrowserWebView
+import com.zh.android.base.widget.web.WebNavigationBottomBar
 import kotterknife.bindView
 
 /**
@@ -30,8 +31,9 @@ import kotterknife.bindView
  */
 class WebBrowserFragment : BaseFragment() {
     private val vTopBar: TopBar by bindView(R.id.top_bar)
-    private val vWebView: X5WebView by bindView(R.id.web_view)
+    private val vWebView: BrowserWebView by bindView(R.id.web_view)
     private val vProgress: WebProgress by bindView(R.id.progress)
+    private val vNavigationBottomBar: WebNavigationBottomBar by bindView(R.id.navigation_bottom_bar)
 
     /**
      * 是否显示顶部栏
@@ -139,6 +141,10 @@ class WebBrowserFragment : BaseFragment() {
         vWebView.apply {
             //取消硬件加速
             setOpenLayerType(false)
+            //当页面刷新时，刷新底部导航栏的状态
+            setCallback { _, _ ->
+                refreshNavigationBottomBar()
+            }
             x5WebChromeClient.setWebListener(object : InterWebListener {
                 override fun hindProgressBar() {
                     vProgress.setGone()
@@ -173,6 +179,38 @@ class WebBrowserFragment : BaseFragment() {
             })
             loadUrl(mLoadUrl)
         }
+        vNavigationBottomBar.apply {
+            setCallBack(object : WebNavigationBottomBar.CallBack {
+                override fun onGoBack() {
+                    if (vWebView.canGoBack()) {
+                        vWebView.goBack()
+                    }
+                }
+
+                override fun onForward() {
+                    if (vWebView.canGoForward()) {
+                        vWebView.goForward()
+                    }
+                }
+
+                override fun onRefresh() {
+                    vWebView.reLoadView()
+                }
+
+                override fun onCollect(isCollect: Boolean) {
+                    //切换收藏
+                    setCollect(!isCollect)
+                }
+            })
+        }
+    }
+
+    /**
+     * 刷新底部导航栏
+     */
+    private fun refreshNavigationBottomBar() {
+        vNavigationBottomBar.setCanGoBack(vWebView.canGoBack())
+        vNavigationBottomBar.setCanForward(vWebView.canGoForward())
     }
 
     override fun onBackPressedSupport(): Boolean {

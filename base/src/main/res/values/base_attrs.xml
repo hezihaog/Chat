@@ -10,4 +10,11 @@
         <!--  是否默认打开  -->
         <attr name="sb_checked" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="IconFontTextView">
+        <attr name="ift_typeface" format="enum">
+            <enum name="app" value="1" />
+            <enum name="flutter" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>

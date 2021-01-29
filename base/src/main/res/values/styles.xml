@@ -85,5 +85,6 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/base_black</item>
         <item name="android:textSize">@dimen/base_dimen_sp_20</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 </resources>

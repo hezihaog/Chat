@@ -46,6 +46,15 @@ public class BrowserWebView extends X5WebView {
                         mCallback.onPageFinished(view, url);
                     }
                 }
+
+                @Override
+                public boolean onCustomShouldOverrideUrlLoading(String url) {
+                    //因为简书跳转有问题，将简书的所有跳珠屏蔽
+                    if (url.startsWith("jianshu://")) {
+                        return true;
+                    }
+                    return super.onCustomShouldOverrideUrlLoading(url);
+                }
             };
         }
         return webViewClient;

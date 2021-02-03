@@ -90,9 +90,6 @@ class WebBrowserFragment : BaseFragment() {
             } else {
                 setGone()
             }
-            addLeftBackImageButton().click {
-                fragmentActivity.onBackPressed()
-            }
             addLeftImageButton(R.drawable.base_close, R.id.topbar_item_close).click {
                 fragmentActivity.finish()
             }

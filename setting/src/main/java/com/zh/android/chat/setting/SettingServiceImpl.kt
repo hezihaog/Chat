@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.util.AppBroadcastManager
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.setting.SettingService
 
@@ -17,7 +18,7 @@ import com.zh.android.chat.service.module.setting.SettingService
  * 设置模块服务实现
  */
 @Route(path = ARouterUrl.SETTING_SERVICE, name = "设置模块服务")
-class SettingServiceImpl : SettingService {
+class SettingServiceImpl : BaseModuleService(), SettingService {
     override fun init(context: Context?) {
     }
 

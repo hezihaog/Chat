@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.apkfuns.logutils.LogUtils
@@ -272,16 +273,16 @@ class App : Application() {
             return true
         }
 
-        override fun create(context: Context): String? {
-            SmartRefreshLayout.setDefaultRefreshHeaderCreator { context: Context?, _: RefreshLayout? ->
+        override fun create(context: Context): String {
+            SmartRefreshLayout.setDefaultRefreshHeaderCreator { _: Context?, _: RefreshLayout? ->
                 MaterialHeader(
                     context
                 )
             }
-            SmartRefreshLayout.setDefaultRefreshFooterCreator { context: Context, _: RefreshLayout? ->
+            SmartRefreshLayout.setDefaultRefreshFooterCreator { _: Context, _: RefreshLayout? ->
                 ClassicsFooter(context).apply {
                     setDrawableSize(20f)
-                    setBackgroundColor(context.resources.getColor(R.color.base_list_divider))
+                    setBackgroundColor(ActivityCompat.getColor(context, R.color.base_list_divider))
                 }
             }
             return this.javaClass.simpleName

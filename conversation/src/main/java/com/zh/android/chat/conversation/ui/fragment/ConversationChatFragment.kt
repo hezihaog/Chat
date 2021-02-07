@@ -28,7 +28,6 @@ import com.zh.android.base.util.VibratorHelper
 import com.zh.android.base.util.loading.WaitLoadingController
 import com.zh.android.base.util.rx.RxUtil
 import com.zh.android.base.util.takephoto.RxTakePhoto
-import com.zh.android.base.util.web.WebBrowserActivity
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.conversation.R
 import com.zh.android.chat.conversation.WebSocketAgent
@@ -140,7 +139,7 @@ class ConversationChatFragment : BaseFragment() {
                     TextMsgReceiverViewBinder({ _, item ->
                         val url = item.text?.content ?: ""
                         if (url.isNotBlank() && RegexUtils.isURL(url)) {
-                            WebBrowserActivity.start(fragmentActivity, url)
+                            mLoginService?.goInnerWebBrowser(fragmentActivity, url)
                         }
                     }, { position, item ->
                         showTextLongClickDialog(position, item)
@@ -149,7 +148,7 @@ class ConversationChatFragment : BaseFragment() {
                     TextMsgSenderViewBinder({ _, item ->
                         val url = item.text?.content ?: ""
                         if (url.isNotBlank() && RegexUtils.isURL(url)) {
-                            WebBrowserActivity.start(fragmentActivity, url)
+                            mLoginService?.goInnerWebBrowser(fragmentActivity, url)
                         }
                     }, { position, item ->
                         showTextLongClickDialog(position, item)

@@ -1,8 +1,8 @@
 package com.zh.android.chat.service.module.mine
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
 import com.zh.android.base.http.HttpModel
+import com.zh.android.chat.service.core.IBaseModuleService
 import com.zh.android.chat.service.module.mine.model.User
 import io.reactivex.Observable
 
@@ -10,7 +10,7 @@ import io.reactivex.Observable
  * @author wally
  * @date 2020/08/26
  */
-interface MineService : IProvider {
+interface MineService : IBaseModuleService {
     /**
      * 获取我的首页
      */

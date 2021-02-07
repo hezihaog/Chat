@@ -5,8 +5,8 @@ import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
-import com.zh.android.base.util.web.WebBrowserActivity
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.todo.TodoService
 import com.zh.android.circle.todo.enums.TodoEditType
@@ -16,7 +16,7 @@ import com.zh.android.circle.todo.enums.TodoEditType
  * @date 2020/11/11
  */
 @Route(path = ARouterUrl.TODO_SERVICE, name = "代办事项模块服务")
-class TodoServiceImpl : TodoService {
+class TodoServiceImpl : BaseModuleService(), TodoService {
     override fun init(context: Context?) {
     }
 
@@ -27,7 +27,7 @@ class TodoServiceImpl : TodoService {
     }
 
     override fun goTodoListWeb(activity: Activity) {
-        WebBrowserActivity.start(activity, "file:///android_asset/todolist/ToDoList.html")
+        goInnerWebBrowser(activity, "file:///android_asset/todolist/ToDoList.html")
     }
 
     override fun goTodoAdd(activity: Activity) {

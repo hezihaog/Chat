@@ -1,4 +1,4 @@
-package com.zh.android.base.widget.web;
+package com.zh.android.chat.service.module.base.widget.web;
 
 import android.content.Context;
 import android.util.AttributeSet;

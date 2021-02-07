@@ -14,6 +14,7 @@ import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.chat.login.db.LoginDbMaster
 import com.zh.android.chat.login.ui.activity.LoginActivity
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.login.LoginService
 
@@ -23,7 +24,7 @@ import com.zh.android.chat.service.module.login.LoginService
  * 登录服务实现
  */
 @Route(path = ARouterUrl.LOGIN_SERVICE, name = "登录模块服务")
-class LoginServiceImpl : LoginService {
+class LoginServiceImpl : BaseModuleService(), LoginService {
     override fun init(context: Context?) {
     }
 

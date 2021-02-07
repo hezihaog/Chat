@@ -1,13 +1,13 @@
 package com.zh.android.chat.service.module.todo
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 
 /**
  * @author wally
  * @date 2020/11/11
  */
-interface TodoService : IProvider {
+interface TodoService : IBaseModuleService {
     /**
      * 跳转到Todo列表
      */

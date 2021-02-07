@@ -1,7 +1,7 @@
 package com.zh.android.chat.service.module.mall
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 import com.zh.android.chat.service.module.mall.enums.UserAddressEditType
 
 /**
@@ -9,7 +9,7 @@ import com.zh.android.chat.service.module.mall.enums.UserAddressEditType
  * @date 2020/10/16
  * 商城模块服务接口
  */
-interface MallService : IProvider {
+interface MallService : IBaseModuleService {
     /**
      * 跳转到原生的商城页面
      */

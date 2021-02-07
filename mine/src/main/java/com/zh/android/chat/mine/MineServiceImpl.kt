@@ -9,6 +9,7 @@ import com.zh.android.base.http.HttpModel
 import com.zh.android.chat.mine.http.MinePresenter
 import com.zh.android.chat.mine.ui.fragment.MineFragment
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.mine.MineService
 import com.zh.android.chat.service.module.mine.model.User
@@ -19,7 +20,7 @@ import io.reactivex.Observable
  * @date 2020/08/26
  */
 @Route(path = ARouterUrl.MINE_SERVICE, name = "我的模块服务")
-class MineServiceImpl : MineService {
+class MineServiceImpl : MineService, BaseModuleService() {
     private val mMinePresenter by lazy {
         MinePresenter()
     }

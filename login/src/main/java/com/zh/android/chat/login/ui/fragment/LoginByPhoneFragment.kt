@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.callback.NavCallback
@@ -188,8 +189,13 @@ class LoginByPhoneFragment : BaseFragment() {
         } else {
             //透明底，灰字的按钮
             vGetAuthCode.apply {
-                setBackgroundColor(fragmentActivity.resources.getColor(R.color.base_transparent))
-                setTextColor(fragmentActivity.resources.getColor(R.color.base_gray))
+                setBackgroundColor(
+                    ActivityCompat.getColor(
+                        fragmentActivity,
+                        R.color.base_transparent
+                    )
+                )
+                setTextColor(ActivityCompat.getColor(fragmentActivity, R.color.base_gray))
                 text = getString(R.string.login_count_down_str, second)
             }
         }
@@ -202,7 +208,7 @@ class LoginByPhoneFragment : BaseFragment() {
     private fun resetAuthStatus() {
         vGetAuthCode.apply {
             setBackgroundResource(R.drawable.base_btn_green)
-            setTextColor(fragmentActivity.resources.getColor(R.color.base_white))
+            setTextColor(ActivityCompat.getColor(fragmentActivity, R.color.base_white))
             text = getString(R.string.login_get_auth_code)
         }
         isEnableRequestAuthCode = true

@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.chat.discovery.ui.fragment.DiscoveryFragment
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.discovery.DiscoveryService
 import io.reactivex.Observable
@@ -18,7 +19,7 @@ import io.reactivex.Observable
  * @date 2020/08/26
  */
 @Route(path = ARouterUrl.DISCOVERY_SERVICE, name = "发现模块服务")
-class DiscoveryServiceImpl : DiscoveryService {
+class DiscoveryServiceImpl : BaseModuleService(), DiscoveryService {
     override fun init(context: Context?) {
     }
 

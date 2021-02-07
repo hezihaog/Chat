@@ -1,13 +1,13 @@
 package com.zh.android.chat.service.module.setting
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 
 /**
  * @author wally
  * @date 2020/08/26
  */
-interface SettingService : IProvider {
+interface SettingService : IBaseModuleService {
     /**
      * 设置是否开启侧滑关闭功能
      */

@@ -1,7 +1,7 @@
 package com.zh.android.chat.service.module.notice
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 import com.zh.android.chat.service.module.notice.model.NoticeModel
 
 /**
@@ -9,7 +9,7 @@ import com.zh.android.chat.service.module.notice.model.NoticeModel
  * @date 2020/10/06
  * 通知模块接口
  */
-interface NoticeService : IProvider {
+interface NoticeService : IBaseModuleService {
     /**
      * 跳转到通知页面
      */

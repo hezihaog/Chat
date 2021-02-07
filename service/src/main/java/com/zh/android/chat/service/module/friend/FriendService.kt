@@ -1,13 +1,13 @@
 package com.zh.android.chat.service.module.friend
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 
 /**
  * @author wally
  * @date 2020/08/26
  */
-interface FriendService : IProvider {
+interface FriendService : IBaseModuleService {
     /**
      * 获取好友首页Fragment
      */

@@ -16,7 +16,6 @@ import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
 import com.zh.android.base.ext.toast
-import com.zh.android.base.util.web.WebBrowserActivity
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.discovery.R
 import com.zh.android.chat.service.AppConstant
@@ -156,7 +155,7 @@ class QrCodeScanFragment : BaseFragment() {
             }
             //普通网页
             RegexUtils.isURL(result) -> {
-                WebBrowserActivity.start(fragmentActivity, result)
+                mFriendService?.goInnerWebBrowser(fragmentActivity, result)
                 fragmentActivity.finish()
             }
             //不能识别类型

@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zh.android.chat.service">
 
-    /
+    <application>
+        <activity
+            android:name=".module.base.web.WebBrowserActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+    </application>
 </manifest>

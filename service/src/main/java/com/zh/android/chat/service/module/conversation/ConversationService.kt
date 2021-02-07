@@ -1,14 +1,14 @@
 package com.zh.android.chat.service.module.conversation
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
 
 /**
  * @author wally
  * @date 2020/08/26
  */
-interface ConversationService : IProvider {
+interface ConversationService : IBaseModuleService {
     /**
      * 获取会话首页
      */

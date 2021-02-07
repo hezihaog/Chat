@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.chat.friend.ui.fragment.FriendMainFragment
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.friend.FriendService
 
@@ -15,7 +16,7 @@ import com.zh.android.chat.service.module.friend.FriendService
  * @date 2020/08/26
  */
 @Route(path = ARouterUrl.FRIEND_SERVICE, name = "好友模块服务")
-class FriendServiceImpl : FriendService {
+class FriendServiceImpl : FriendService, BaseModuleService() {
     override fun init(context: Context?) {
     }
 

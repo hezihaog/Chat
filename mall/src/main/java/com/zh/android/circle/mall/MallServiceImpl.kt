@@ -5,8 +5,8 @@ import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
-import com.zh.android.base.util.web.WebBrowserActivity
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.mall.MallService
 import com.zh.android.chat.service.module.mall.enums.UserAddressEditType
@@ -16,7 +16,7 @@ import com.zh.android.chat.service.module.mall.enums.UserAddressEditType
  * @date 2020/10/16
  */
 @Route(path = ARouterUrl.MALL_SERVICE, name = "商城模块服务")
-class MallServiceImpl : MallService {
+class MallServiceImpl : BaseModuleService(), MallService {
     override fun init(context: Context?) {
     }
 
@@ -27,7 +27,7 @@ class MallServiceImpl : MallService {
     }
 
     override fun goMallWeb(activity: Activity) {
-        WebBrowserActivity.start(activity, "http://47.99.134.126:5000/#/home")
+        goInnerWebBrowser(activity, "http://47.99.134.126:5000/#/home")
     }
 
     override fun goGoodsCategory(activity: Activity) {

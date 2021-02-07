@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.BaseConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.gankio.GankioService
 
@@ -14,7 +15,7 @@ import com.zh.android.chat.service.module.gankio.GankioService
  * @date 2020/12/26
  */
 @Route(path = ARouterUrl.GANKIO_SERVICE, name = "代办事项模块服务")
-class GankioServiceImpl : GankioService {
+class GankioServiceImpl : BaseModuleService(), GankioService {
     override fun init(context: Context?) {
     }
 

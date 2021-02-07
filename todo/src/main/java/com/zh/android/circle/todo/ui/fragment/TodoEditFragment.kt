@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.linghit.base.util.argument.bindArgument
@@ -117,8 +118,8 @@ class TodoEditFragment : BaseFragment() {
                     .setDate(calendar)
                     //配置可选 年、月、日
                     .setType(booleanArrayOf(true, true, true, false, false, false))
-                    .setSubmitColor(activity.resources.getColor(R.color.base_blue))
-                    .setCancelColor(activity.resources.getColor(R.color.base_blue))
+                    .setSubmitColor(ActivityCompat.getColor(activity, R.color.base_blue))
+                    .setCancelColor(ActivityCompat.getColor(activity, R.color.base_blue))
                     //禁止循环
                     .isCyclic(false)
                     .build()

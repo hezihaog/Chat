@@ -12,6 +12,7 @@ import com.zh.android.chat.conversation.service.ConversationMqttService
 import com.zh.android.chat.conversation.ui.activity.ConversationChatActivity
 import com.zh.android.chat.conversation.ui.fragment.ConversationMainFragment
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.conversation.ConversationService
 import com.zh.android.chat.service.module.conversation.model.ChatRecord
@@ -21,7 +22,7 @@ import com.zh.android.chat.service.module.conversation.model.ChatRecord
  * @date 2020/08/26
  */
 @Route(path = ARouterUrl.CONVERSATION_SERVICE, name = "会话模块服务")
-class ConversationServiceImpl : ConversationService {
+class ConversationServiceImpl : BaseModuleService(), ConversationService {
     private lateinit var mContext: Context
 
     override fun init(context: Context?) {

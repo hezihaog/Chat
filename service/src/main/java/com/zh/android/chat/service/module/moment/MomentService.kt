@@ -1,7 +1,7 @@
 package com.zh.android.chat.service.module.moment
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 import com.zh.android.chat.service.module.moment.enums.MomentPublishType
 
 /**
@@ -9,7 +9,7 @@ import com.zh.android.chat.service.module.moment.enums.MomentPublishType
  * @date 2020/09/19
  * 动态模块服务接口
  */
-interface MomentService : IProvider {
+interface MomentService : IBaseModuleService {
     /**
      * 跳转到动态列表
      */

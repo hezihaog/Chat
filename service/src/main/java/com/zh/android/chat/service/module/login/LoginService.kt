@@ -2,13 +2,13 @@ package com.zh.android.chat.service.module.login
 
 import android.app.Activity
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 
 /**
  * @author wally
  * @date 2020/08/26
  */
-interface LoginService : IProvider {
+interface LoginService : IBaseModuleService {
     /**
      * 是否登录了
      */

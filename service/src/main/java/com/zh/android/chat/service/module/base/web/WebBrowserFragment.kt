@@ -1,4 +1,4 @@
-package com.zh.android.base.util.web
+package com.zh.android.chat.service.module.base.web
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -14,14 +14,14 @@ import com.tencent.smtt.sdk.CookieSyncManager
 import com.ycbjie.webviewlib.inter.InterWebListener
 import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.ycbjie.webviewlib.widget.WebProgress
-import com.zh.android.base.R
 import com.zh.android.base.constant.BaseConstant
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.ClipboardUtil
 import com.zh.android.base.widget.TopBar
-import com.zh.android.base.widget.web.BrowserWebView
-import com.zh.android.base.widget.web.WebNavigationBottomBar
+import com.zh.android.chat.service.R
+import com.zh.android.chat.service.module.base.widget.web.BrowserWebView
+import com.zh.android.chat.service.module.base.widget.web.WebNavigationBottomBar
 import kotterknife.bindView
 
 /**
@@ -80,7 +80,7 @@ class WebBrowserFragment : BaseFragment() {
     }
 
     override fun onInflaterViewId(): Int {
-        return R.layout.base_browse_fragment
+        return R.layout.service_web_browse_fragment
     }
 
     override fun onBindView(view: View?) {

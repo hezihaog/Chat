@@ -3,6 +3,7 @@ package com.zh.android.chat.moment.ui.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.app.ActivityCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -98,11 +99,16 @@ class MomentVideoListFragment : BaseFragment() {
         }
         vTopBar.apply {
             //透明顶部栏
-            setTopBarBackgroundColor(resources.getColor(R.color.base_transparent))
+            setTopBarBackgroundColor(
+                ActivityCompat.getColor(
+                    fragmentActivity,
+                    R.color.base_transparent
+                )
+            )
             //隐藏分割线
             setBackgroundDividerEnabled(false)
             //白色字体
-            setTitleTextColor(resources.getColor(R.color.base_white))
+            setTitleTextColor(ActivityCompat.getColor(fragmentActivity, R.color.base_white))
             addLeftBackImageButton().apply {
                 setImageResource(R.drawable.base_topview_back_white)
                 click {

@@ -5,7 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.R
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
-import com.zh.android.base.util.web.WebBrowserFragment
+import com.zh.android.chat.service.module.base.web.WebBrowserFragment
 
 /**
  * @author wally

@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.moment.MomentService
 import com.zh.android.chat.service.module.moment.enums.MomentPublishType
@@ -15,7 +16,7 @@ import com.zh.android.chat.service.module.moment.enums.MomentPublishType
  * @date 2020/09/19
  */
 @Route(path = ARouterUrl.MOMENT_SERVICE, name = "动态模块服务")
-class MomentServiceImpl : MomentService {
+class MomentServiceImpl : MomentService, BaseModuleService() {
     override fun init(context: Context?) {
     }
 

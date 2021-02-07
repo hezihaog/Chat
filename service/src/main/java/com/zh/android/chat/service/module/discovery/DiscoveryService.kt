@@ -1,14 +1,14 @@
 package com.zh.android.chat.service.module.discovery
 
 import android.app.Activity
-import com.alibaba.android.arouter.facade.template.IProvider
+import com.zh.android.chat.service.core.IBaseModuleService
 import io.reactivex.Observable
 
 /**
  * @author wally
  * @date 2020/08/26
  */
-interface DiscoveryService : IProvider {
+interface DiscoveryService : IBaseModuleService {
     /**
      * 获取发现首页Fragment
      */

@@ -11,6 +11,7 @@ import com.zh.android.base.util.monitor.AppMonitor
 import com.zh.android.chat.notice.service.NoticeMqttService
 import com.zh.android.chat.notice.ui.activity.NoticeActivity
 import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.notice.NoticeService
 import com.zh.android.chat.service.module.notice.model.NoticeModel
@@ -21,7 +22,7 @@ import com.zh.android.chat.service.module.notice.model.NoticeModel
  * 通知服务实现
  */
 @Route(path = ARouterUrl.NOTICE_SERVICE, name = "通知服务")
-class NoticeServiceImpl : NoticeService {
+class NoticeServiceImpl : BaseModuleService(), NoticeService {
     private lateinit var mContext: Context
 
     override fun init(context: Context?) {

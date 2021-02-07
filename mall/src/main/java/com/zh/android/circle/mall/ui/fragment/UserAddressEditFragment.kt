@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.blankj.utilcode.util.RegexUtils
@@ -201,13 +202,23 @@ class UserAddressEditFragment : BaseFragment() {
                     //隐藏标题文字
                     .setTitleText("")
                     //隐藏分割线
-                    .setDividerColor(resources.getColor(R.color.base_transparent))
+                    .setDividerColor(
+                        ActivityCompat.getColor(
+                            fragmentActivity,
+                            R.color.base_transparent
+                        )
+                    )
                     //设置选中项文字颜色
-                    .setTextColorCenter(resources.getColor(R.color.base_black))
+                    .setTextColorCenter(
+                        ActivityCompat.getColor(
+                            fragmentActivity,
+                            R.color.base_black
+                        )
+                    )
                     //设置确认文字的字体颜色
-                    .setSubmitColor(resources.getColor(R.color.base_blue))
+                    .setSubmitColor(ActivityCompat.getColor(fragmentActivity, R.color.base_blue))
                     //设置取消文字的字体颜色
-                    .setCancelColor(resources.getColor(R.color.base_blue))
+                    .setCancelColor(ActivityCompat.getColor(fragmentActivity, R.color.base_blue))
                     //设置文字字体大小
                     .setContentTextSize(16)
                     //设置取消、确认的字体大小

@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zh.android.base.constant.ARouterUrl
+import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.home.HomeService
 
@@ -14,7 +15,7 @@ import com.zh.android.chat.service.module.home.HomeService
  * @date 2020/08/26
  */
 @Route(path = ARouterUrl.HOME_SERVICE, name = "首页模块服务")
-class HomeServiceImpl : HomeService {
+class HomeServiceImpl : BaseModuleService(), HomeService {
     override fun init(context: Context?) {
     }
 

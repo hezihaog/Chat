@@ -6,19 +6,21 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.blankj.utilcode.util.RegexUtils
 import com.linghit.base.util.argument.bindArgument
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
-import com.zh.android.base.util.web.WebBrowserActivity
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.notice.R
 import com.zh.android.chat.notice.http.NoticePresenter
 import com.zh.android.chat.notice.item.NoticeItemViewBinder
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.ext.getLoginService
+import com.zh.android.chat.service.module.notice.NoticeService
 import com.zh.android.chat.service.module.notice.model.NoticeModel
 import kotterknife.bindView
 import me.drakeet.multitype.Items
@@ -30,6 +32,10 @@ import me.drakeet.multitype.MultiTypeAdapter
  * 通知
  */
 class NoticeFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.NOTICE_SERVICE)
+    var mNoticeService: NoticeService? = null
+
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vRefreshLayout: SmartRefreshLayout by bindView(R.id.base_refresh_layout)
     private val vRefreshList: RecyclerView by bindView(R.id.base_refresh_list)
@@ -270,7 +276,7 @@ class NoticeFragment : BaseFragment() {
      */
     private fun goWebBrowse(url: String) {
         if (url.isNotBlank() && RegexUtils.isURL(url)) {
-            WebBrowserActivity.start(fragmentActivity, url)
+            mNoticeService?.goInnerWebBrowser(fragmentActivity, url)
         }
     }
 }

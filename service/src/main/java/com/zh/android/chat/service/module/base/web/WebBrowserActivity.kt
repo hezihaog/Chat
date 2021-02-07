@@ -1,4 +1,4 @@
-package com.zh.android.base.util.web
+package com.zh.android.chat.service.module.base.web
 
 import android.app.Activity
 import android.content.Intent

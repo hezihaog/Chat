@@ -9,19 +9,24 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.CookieManager
 import androidx.appcompat.widget.PopupMenu
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.apkfuns.logutils.LogUtils
 import com.linghit.base.util.argument.bindArgument
 import com.tencent.smtt.sdk.CookieSyncManager
 import com.ycbjie.webviewlib.inter.InterWebListener
 import com.ycbjie.webviewlib.utils.X5WebUtils
 import com.ycbjie.webviewlib.widget.WebProgress
+import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.constant.BaseConstant
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.ClipboardUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.service.R
+import com.zh.android.chat.service.module.base.web.http.WebPresenter
 import com.zh.android.chat.service.module.base.widget.web.BrowserWebView
 import com.zh.android.chat.service.module.base.widget.web.WebNavigationBottomBar
+import com.zh.android.chat.service.module.login.LoginService
 import kotterknife.bindView
 
 /**
@@ -30,6 +35,10 @@ import kotterknife.bindView
  * 内置Web浏览器
  */
 class WebBrowserFragment : BaseFragment() {
+    @JvmField
+    @Autowired(name = ARouterUrl.LOGIN_SERVICE)
+    var mLoginService: LoginService? = null
+
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vWebView: BrowserWebView by bindView(R.id.web_view)
     private val vProgress: WebProgress by bindView(R.id.progress)
@@ -44,6 +53,10 @@ class WebBrowserFragment : BaseFragment() {
      * 要加载的Url
      */
     private val mLoadUrl by bindArgument(BaseConstant.ARGS_URL, "")
+
+    private val mWebPresenter by lazy {
+        WebPresenter()
+    }
 
     companion object {
         fun newInstance(args: Bundle? = Bundle()): WebBrowserFragment {
@@ -196,9 +209,32 @@ class WebBrowserFragment : BaseFragment() {
 
                 override fun onCollect(isCollect: Boolean) {
                     //切换收藏
-                    setCollect(!isCollect)
+                    mLoginService?.getUserId()?.let { userId ->
+                        mWebPresenter.toggleCollect(userId, vWebView.title, mLoadUrl)
+                            .ioToMain()
+                            .lifecycle(lifecycleOwner)
+                            .subscribe({
+                                //切换收藏状态
+                                setCollect(!isCollect)
+                            }, {
+                                it.printStackTrace()
+                                toast("切换收藏失败，请重试")
+                            })
+                    }
                 }
             })
+            mLoginService?.getUserId()?.let { userId ->
+                mWebPresenter.isCollect(userId, mLoadUrl)
+                    .ioToMain()
+                    .lifecycle(lifecycleOwner)
+                    .subscribe({
+                        //设置初始收藏状态
+                        isCollect = it
+                    }, {
+                        it.printStackTrace()
+                        LogUtils.d("判断当前url是否已收藏，失败，userId：${userId}，url：${mLoadUrl}")
+                    })
+            }
         }
     }
 

@@ -9,13 +9,16 @@ import androidx.room.RoomDatabase;
 import com.tencent.wcdb.room.db.WCDBOpenHelperFactory;
 import com.zh.android.chat.service.db.login.dao.LoginUserDao;
 import com.zh.android.chat.service.db.login.entity.LoginUserEntity;
+import com.zh.android.chat.service.db.web.dao.WebCollectDao;
+import com.zh.android.chat.service.db.web.entity.WebCollectEntity;
 
 /**
  * @author wally
  * @date 2020/11/14
  */
 @Database(entities = {
-        LoginUserEntity.class
+        LoginUserEntity.class,
+        WebCollectEntity.class
 }, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     /**
@@ -60,4 +63,9 @@ public abstract class AppDatabase extends RoomDatabase {
      * 获取LoginUserDao
      */
     public abstract LoginUserDao getLoginUserDao();
+
+    /**
+     * 获取WebCollectDao
+     */
+    public abstract WebCollectDao getWebCollectDao();
 }

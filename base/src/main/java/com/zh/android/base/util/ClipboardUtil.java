@@ -3,6 +3,7 @@ package com.zh.android.base.util;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.text.TextUtils;
 
 /**
  * @author wally
@@ -25,5 +26,35 @@ public class ClipboardUtil {
         ClipData clipData = ClipData.newPlainText("Label", text);
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(clipData);
+    }
+
+    /**
+     * 获取剪切板内容
+     */
+    public static String getClipboardText(Context context) {
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = cm.getPrimaryClip();
+        ClipData.Item item = clipData.getItemAt(0);
+        if (item != null) {
+            CharSequence text = item.getText();
+            if (text == null) {
+                return "";
+            }
+            return String.valueOf(text);
+        }
+        return "";
+    }
+
+    /**
+     * 清空剪切板内容
+     */
+    public static void clearClipboard(Context context) {
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        try {
+            cm.setPrimaryClip(cm.getPrimaryClip());
+            cm.setText(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

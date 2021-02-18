@@ -38,7 +38,7 @@ class WebDbMaster {
          * 删除一个收藏
          */
         @JvmStatic
-        fun deleteCollectBy(id: Int) {
+        fun deleteCollectById(id: Int) {
             val entity = mWebCollectDao.getCollectById(id)
             entity?.let {
                 mWebCollectDao.deleteCollect(it)

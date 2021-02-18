@@ -1,7 +1,8 @@
 package com.zh.android.chat.service.core
 
 import android.app.Activity
-import com.zh.android.chat.service.module.base.web.WebBrowserActivity
+import com.zh.android.chat.service.module.base.web.ui.activity.WebBrowserActivity
+import com.zh.android.chat.service.module.base.web.ui.activity.WebCollectListActivity
 
 /**
  * @author wally
@@ -11,5 +12,9 @@ import com.zh.android.chat.service.module.base.web.WebBrowserActivity
 abstract class BaseModuleService : IBaseModuleService {
     override fun goInnerWebBrowser(activity: Activity, url: String) {
         WebBrowserActivity.start(activity, url)
+    }
+
+    override fun goWebCollectList(activity: Activity) {
+        WebCollectListActivity.start(activity)
     }
 }

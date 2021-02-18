@@ -1,4 +1,4 @@
-package com.zh.android.chat.service.module.base.web
+package com.zh.android.chat.service.module.base.web.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.view.View
 import com.zh.android.base.R
 import com.zh.android.base.constant.BaseConstant
 import com.zh.android.base.core.BaseActivity
+import com.zh.android.chat.service.module.base.web.ui.fragment.WebBrowserFragment
 
 /**
  * @author wally

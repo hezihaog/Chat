@@ -99,6 +99,15 @@ public class WebNavigationBottomBar extends FrameLayout {
                 }
             }
         }));
+        vCollect.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mCallBack != null) {
+                    return mCallBack.onGoCollectList();
+                }
+                return false;
+            }
+        });
         render();
     }
 
@@ -139,6 +148,11 @@ public class WebNavigationBottomBar extends FrameLayout {
          * @param isCollect 当前是否收藏
          */
         void onCollect(boolean isCollect);
+
+        /**
+         * 跳转到收藏列表
+         */
+        boolean onGoCollectList();
     }
 
     /**

@@ -13,4 +13,9 @@ interface IBaseModuleService : IProvider {
      * 跳转到内部浏览器
      */
     fun goInnerWebBrowser(activity: Activity, url: String)
+
+    /**
+     * 跳转到Web收藏列表
+     */
+    fun goWebCollectList(activity: Activity)
 }

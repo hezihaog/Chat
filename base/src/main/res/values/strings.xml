@@ -16,6 +16,7 @@
     <string name="base_submit">提交</string>
 
     <string name="base_delete_success">删除成功</string>
+    <string name="base_delete_fail">删除失败，请重试</string>
     <string name="base_copy_success">复制成功</string>
 
     <string name="base_please_choose_browser">请选择浏览器</string>

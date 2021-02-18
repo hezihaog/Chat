@@ -19,8 +19,11 @@ class WebPresenter {
     /**
      * 删除一个收藏
      */
-    fun deleteCollectBy(id: Int) {
-        WebDbMaster.deleteCollectBy(id)
+    fun deleteCollectById(id: Int): Observable<Boolean> {
+        return Observable.create {
+            WebDbMaster.deleteCollectById(id)
+            it.onNext(true)
+        }
     }
 
     /**
@@ -31,7 +34,7 @@ class WebPresenter {
             val entity = WebDbMaster.getCollectByUrl(userId, url)
             //已收藏，取消收藏
             if (entity != null) {
-                WebDbMaster.deleteCollectBy(entity.id)
+                WebDbMaster.deleteCollectById(entity.id)
             } else {
                 //未收藏，增加收藏
                 WebDbMaster.saveCollect(userId, title, url)

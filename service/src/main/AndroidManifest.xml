@@ -3,7 +3,12 @@
 
     <application>
         <activity
-            android:name=".module.base.web.WebBrowserActivity"
+            android:name=".module.base.web.ui.activity.WebBrowserActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.base.web.ui.activity.WebCollectListActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
     </application>

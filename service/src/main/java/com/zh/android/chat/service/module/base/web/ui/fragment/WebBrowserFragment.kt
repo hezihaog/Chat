@@ -1,4 +1,4 @@
-package com.zh.android.chat.service.module.base.web
+package com.zh.android.chat.service.module.base.web.ui.fragment
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -77,6 +77,7 @@ class WebBrowserFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         vWebView.settings.javaScriptEnabled = true
+        refreshNavigationBottomBar()
     }
 
     override fun onStop() {
@@ -208,9 +209,9 @@ class WebBrowserFragment : BaseFragment() {
                 }
 
                 override fun onCollect(isCollect: Boolean) {
-                    //切换收藏
+                    //切换收藏当前加载的Url
                     mLoginService?.getUserId()?.let { userId ->
-                        mWebPresenter.toggleCollect(userId, vWebView.title, mLoadUrl)
+                        mWebPresenter.toggleCollect(userId, vWebView.title, vWebView.url)
                             .ioToMain()
                             .lifecycle(lifecycleOwner)
                             .subscribe({
@@ -222,19 +223,13 @@ class WebBrowserFragment : BaseFragment() {
                             })
                     }
                 }
+
+                override fun onGoCollectList(): Boolean {
+                    //跳转到收藏列表
+                    mLoginService?.goWebCollectList(fragmentActivity)
+                    return true
+                }
             })
-            mLoginService?.getUserId()?.let { userId ->
-                mWebPresenter.isCollect(userId, mLoadUrl)
-                    .ioToMain()
-                    .lifecycle(lifecycleOwner)
-                    .subscribe({
-                        //设置初始收藏状态
-                        isCollect = it
-                    }, {
-                        it.printStackTrace()
-                        LogUtils.d("判断当前url是否已收藏，失败，userId：${userId}，url：${mLoadUrl}")
-                    })
-            }
         }
     }
 
@@ -244,6 +239,22 @@ class WebBrowserFragment : BaseFragment() {
     private fun refreshNavigationBottomBar() {
         vNavigationBottomBar.setCanGoBack(vWebView.canGoBack())
         vNavigationBottomBar.setCanForward(vWebView.canGoForward())
+        //判断Url是否已收藏
+        val url = vWebView.url ?: ""
+        if (url.isBlank()) {
+            return
+        }
+        mLoginService?.getUserId()?.let { userId ->
+            mWebPresenter.isCollect(userId, url)
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({
+                    vNavigationBottomBar.isCollect = it
+                }, {
+                    it.printStackTrace()
+                    LogUtils.d("判断url是否已收藏，失败，userId：${userId}，url：${mLoadUrl}")
+                })
+        }
     }
 
     override fun onBackPressedSupport(): Boolean {

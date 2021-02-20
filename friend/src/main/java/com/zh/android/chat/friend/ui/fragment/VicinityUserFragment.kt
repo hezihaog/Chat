@@ -99,6 +99,10 @@ class VicinityUserFragment : BaseFragment() {
         mRxLocation.getLocation(fragmentActivity)
             .lifecycle(lifecycleOwner)
             .subscribe({
+                if (it.isNotOpenLocation) {
+                    toast(R.string.friend_not_open_location)
+                    return@subscribe
+                }
                 getVicinityUserList(it.longitude, it.latitude)
             }, {
                 toast("获取位置信息失败，请重试")

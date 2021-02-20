@@ -33,7 +33,7 @@ public class LocationMonitorDelegateFragment extends AppDelegateFragment {
     private LocationManager mLocationManager;
     private String mLocationProvider = null;
 
-    private CopyOnWriteArrayList<OnLocationChangeCallback> mCallbacks = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<OnLocationChangeCallback> mCallbacks = new CopyOnWriteArrayList<>();
 
     /**
      * 位置改变回调
@@ -75,9 +75,19 @@ public class LocationMonitorDelegateFragment extends AppDelegateFragment {
     }
 
     /**
+     * 错误回调
+     */
+    public interface ErrorCallback {
+        /**
+         * 没有开启位置
+         */
+        void onNotOpenLocation();
+    }
+
+    /**
      * 开启位置监听
      */
-    public void startLocationMonitor() {
+    public void startLocationMonitor(ErrorCallback errorCallback) {
         runTaskOnStart(new LifecycleTask() {
             @Override
             public void execute(BaseDelegateFragment delegateFragment) {
@@ -97,7 +107,9 @@ public class LocationMonitorDelegateFragment extends AppDelegateFragment {
                 } else {
                     //没有开启位置
                     if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        ToastUtil.showMsg(activity, "开启位置，查找附近的小伙伴");
+                        if (errorCallback != null) {
+                            errorCallback.onNotOpenLocation();
+                        }
                     }
                     return;
                 }

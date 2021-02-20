@@ -21,4 +21,5 @@
     <string name="friend_is_send_request">已申请</string>
     <string name="friend_reject_add">对方拒绝添加</string>
     <string name="friend_distance">%1$skm</string>
+    <string name="friend_not_open_location">开启位置，查找附近的小伙伴</string>
 </resources>

@@ -25,6 +25,14 @@ public class RxLocation {
          * 纬度
          */
         private double latitude;
+        /**
+         * 是否没有开启位置
+         */
+        private boolean isNotOpenLocation;
+
+        public LocationEvent(boolean isNotOpenLocation) {
+            this.isNotOpenLocation = isNotOpenLocation;
+        }
 
         private LocationEvent(double longitude, double latitude) {
             this.longitude = longitude;
@@ -37,6 +45,10 @@ public class RxLocation {
 
         public double getLatitude() {
             return latitude;
+        }
+
+        public boolean isNotOpenLocation() {
+            return isNotOpenLocation;
         }
     }
 
@@ -59,7 +71,12 @@ public class RxLocation {
                                         emitter.onNext(new LocationEvent(longitude, latitude));
                                     }
                                 });
-                                fragment.startLocationMonitor();
+                                fragment.startLocationMonitor(new LocationMonitorDelegateFragment.ErrorCallback() {
+                                    @Override
+                                    public void onNotOpenLocation() {
+                                        emitter.onNext(new LocationEvent(true));
+                                    }
+                                });
                             }
                         });
                     }

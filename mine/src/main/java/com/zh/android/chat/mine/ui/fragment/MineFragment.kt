@@ -164,6 +164,10 @@ class MineFragment : BaseFragment() {
         mRxLocation.getLocation(fragmentActivity)
             .lifecycle(lifecycleOwner)
             .subscribe({ event ->
+                //没有开启位置
+                if (event.isNotOpenLocation) {
+                    return@subscribe
+                }
                 val userId = mLoginService?.getUserId()
                 if (userId.isNullOrBlank()) {
                     return@subscribe

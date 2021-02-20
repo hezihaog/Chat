@@ -59,10 +59,16 @@ public class BaseSwipeBackActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 是否开启侧滑关闭
+     */
     protected boolean swipeBackEnable() {
         return true;
     }
 
+    /**
+     * 是否只允许边缘滑动
+     */
     protected boolean swipeBackOnlyEdge() {
         return false;
     }
@@ -71,6 +77,9 @@ public class BaseSwipeBackActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * 侧滑方向
+     */
     @SwipeBackDirection
     protected int swipeBackDirection() {
         return SwipeBackDirection.FROM_LEFT;

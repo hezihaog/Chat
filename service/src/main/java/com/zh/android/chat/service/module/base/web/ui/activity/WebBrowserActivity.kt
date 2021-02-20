@@ -25,6 +25,11 @@ class WebBrowserActivity : BaseActivity() {
         }
     }
 
+    override fun swipeBackOnlyEdge(): Boolean {
+        //因为WebView中的轮播图左右滑动会被侧滑布局影响导致被先拦截，所以只允许边缘滑动来规避这个问题
+        return true
+    }
+
     override fun onInflaterViewId(): Int {
         return R.layout.base_container
     }

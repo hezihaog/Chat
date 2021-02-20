@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.zh.android.base.R;
 import com.zh.android.base.util.listener.DelayOnClickListener;
+import com.zh.android.chat.service.R;
 
 /**
  * @author wally
@@ -22,6 +22,7 @@ import com.zh.android.base.util.listener.DelayOnClickListener;
 public class WebNavigationBottomBar extends FrameLayout {
     private TextView vGoBack;
     private TextView vForward;
+    private TextView vNewUrl;
     private TextView vRefresh;
     private TextView vCollect;
 
@@ -54,7 +55,7 @@ public class WebNavigationBottomBar extends FrameLayout {
     }
 
     private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        LayoutInflater.from(context).inflate(R.layout.base_web_navigation_bar_view, this);
+        LayoutInflater.from(context).inflate(R.layout.service_web_navigation_bar_view, this);
         findView(this);
         bindView();
     }
@@ -62,6 +63,7 @@ public class WebNavigationBottomBar extends FrameLayout {
     private void findView(View view) {
         vGoBack = view.findViewById(R.id.go_back);
         vForward = view.findViewById(R.id.forward);
+        vNewUrl = view.findViewById(R.id.new_url);
         vRefresh = view.findViewById(R.id.refresh);
         vCollect = view.findViewById(R.id.collect);
     }
@@ -80,6 +82,14 @@ public class WebNavigationBottomBar extends FrameLayout {
             public void onClick(View v) {
                 if (mCallBack != null) {
                     mCallBack.onForward();
+                }
+            }
+        }));
+        vNewUrl.setOnClickListener(new DelayOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCallBack != null) {
+                    mCallBack.onNewUrl();
                 }
             }
         }));
@@ -116,22 +126,26 @@ public class WebNavigationBottomBar extends FrameLayout {
      */
     private void render() {
         Resources resources = getContext().getResources();
+        int enableColor = resources.getColor(R.color.base_black);
+        int disableColor = resources.getColor(R.color.base_gray4);
         if (isCanGoBack) {
-            vGoBack.setTextColor(resources.getColor(R.color.base_black));
+            vGoBack.setTextColor(enableColor);
         } else {
-            vGoBack.setTextColor(resources.getColor(R.color.base_gray));
+            vGoBack.setTextColor(disableColor);
         }
         if (isCanForward) {
-            vForward.setTextColor(resources.getColor(R.color.base_black));
+            vForward.setTextColor(enableColor);
         } else {
-            vForward.setTextColor(resources.getColor(R.color.base_gray));
+            vForward.setTextColor(disableColor);
         }
         if (isCollect) {
-            vCollect.setText(resources.getString(R.string.base_web_navigation_bar_is_collect));
-            vCollect.setTextColor(resources.getColor(R.color.base_red));
+            vCollect.setText(resources.getString(R.string.service_web_navigation_bar_is_collect));
+            enableColor = resources.getColor(R.color.base_red);
+            vCollect.setTextColor(enableColor);
         } else {
-            vCollect.setText(resources.getString(R.string.base_web_navigation_bar_not_collect));
-            vCollect.setTextColor(resources.getColor(R.color.base_black));
+            vCollect.setText(resources.getString(R.string.service_web_navigation_bar_not_collect));
+            disableColor = resources.getColor(R.color.base_black);
+            vCollect.setTextColor(disableColor);
         }
     }
 
@@ -139,6 +153,11 @@ public class WebNavigationBottomBar extends FrameLayout {
         void onGoBack();
 
         void onForward();
+
+        /**
+         * 打开新地址
+         */
+        void onNewUrl();
 
         void onRefresh();
 

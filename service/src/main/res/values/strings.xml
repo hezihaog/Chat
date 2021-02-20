@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="service_web_collect">网页收藏</string>
+    <string name="service_input_url_tip">请输入你要跳转的地址</string>
+    <string name="service_url_invalidate">地址格式非法，请输入正确的地址</string>
 </resources>

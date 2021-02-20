@@ -18,27 +18,33 @@
         <com.zh.android.base.widget.iconfont.IconFontTextView
             android:id="@+id/go_back"
             style="@style/base_web_navigation_item"
-            android:text="@string/base_web_navigation_bar_go_back"
+            android:text="@string/service_web_navigation_bar_go_back"
             android:textColor="@color/base_gray"
             app:ift_typeface="flutter" />
 
         <com.zh.android.base.widget.iconfont.IconFontTextView
             android:id="@+id/forward"
             style="@style/base_web_navigation_item"
-            android:text="@string/base_web_navigation_bar_forward"
+            android:text="@string/service_web_navigation_bar_forward"
             android:textColor="@color/base_gray"
+            app:ift_typeface="flutter" />
+
+        <com.zh.android.base.widget.iconfont.IconFontTextView
+            android:id="@+id/new_url"
+            style="@style/base_web_navigation_item"
+            android:text="@string/service_web_navigation_bar_new_url"
             app:ift_typeface="flutter" />
 
         <com.zh.android.base.widget.iconfont.IconFontTextView
             android:id="@+id/refresh"
             style="@style/base_web_navigation_item"
-            android:text="@string/base_web_navigation_bar_refresh"
+            android:text="@string/service_web_navigation_bar_refresh"
             app:ift_typeface="flutter" />
 
         <com.zh.android.base.widget.iconfont.IconFontTextView
             android:id="@+id/collect"
             style="@style/base_web_navigation_item"
-            android:text="@string/base_web_navigation_bar_is_collect"
+            android:text="@string/service_web_navigation_bar_is_collect"
             app:ift_typeface="flutter" />
     </LinearLayout>
 </LinearLayout>

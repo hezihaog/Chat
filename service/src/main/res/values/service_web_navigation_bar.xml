@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_web_navigation_bar_go_back"></string>
+    <string name="service_web_navigation_bar_forward"></string>
+    <string name="service_web_navigation_bar_new_url"></string>
+    <string name="service_web_navigation_bar_refresh"></string>
+    <string name="service_web_navigation_bar_is_collect"></string>
+    <string name="service_web_navigation_bar_not_collect"></string>
+</resources>

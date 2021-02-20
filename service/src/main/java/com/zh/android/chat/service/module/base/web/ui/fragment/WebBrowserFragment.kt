@@ -8,9 +8,12 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.webkit.CookieManager
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
+import com.blankj.utilcode.util.RegexUtils
 import com.linghit.base.util.argument.bindArgument
 import com.tencent.smtt.sdk.CookieSyncManager
 import com.ycbjie.webviewlib.inter.InterWebListener
@@ -21,6 +24,8 @@ import com.zh.android.base.constant.BaseConstant
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.*
 import com.zh.android.base.util.ClipboardUtil
+import com.zh.android.base.util.ShareUtil
+import com.zh.android.base.util.SoftKeyBoardUtil
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.service.R
 import com.zh.android.chat.service.module.base.web.http.WebPresenter
@@ -110,7 +115,7 @@ class WebBrowserFragment : BaseFragment() {
             addRightImageButton(R.drawable.base_more, R.id.topbar_item_more).click {
                 //更多
                 PopupMenu(fragmentActivity, it).apply {
-                    menuInflater.inflate(R.menu.base_browse_menu, menu)
+                    menuInflater.inflate(R.menu.service_web_browse_menu, menu)
                     setOnMenuItemClickListener { menu ->
                         when (menu.itemId) {
                             R.id.base_refresh -> {
@@ -134,6 +139,16 @@ class WebBrowserFragment : BaseFragment() {
                             R.id.hide_top_bar -> {
                                 //隐藏顶部栏
                                 vTopBar.setGone()
+                                true
+                            }
+                            R.id.share_url -> {
+                                val url = if (vWebView.url.isNullOrBlank()) {
+                                    mLoadUrl
+                                } else {
+                                    vWebView.url
+                                }
+                                val shareText = "${vWebView.title} $url"
+                                ShareUtil.shareText(fragmentActivity, shareText)
                                 true
                             }
                             else -> {
@@ -204,6 +219,40 @@ class WebBrowserFragment : BaseFragment() {
                     }
                 }
 
+                override fun onNewUrl() {
+                    //自己输入地址来加载
+                    val inputView = EditText(fragmentActivity)
+                    AlertDialog.Builder(fragmentActivity)
+                        .setTitle(R.string.service_input_url_tip)
+                        .setView(inputView)
+                        .setPositiveButton(R.string.base_confirm) { _, _ ->
+                            var inputText = inputView.text.trim().toString()
+                            if (inputText.isBlank()) {
+                                toast(R.string.service_input_url_tip)
+                                return@setPositiveButton
+                            }
+                            //自动补充协议前缀
+                            if (inputText.startsWith("www.")) {
+                                inputText = "http://$inputText"
+                            }
+                            if (!RegexUtils.isURL(inputText)) {
+                                toast(R.string.service_url_invalidate)
+                                return@setPositiveButton
+                            }
+                            //跳转新的Url
+                            vWebView.loadUrl(inputText)
+                        }
+                        .setNegativeButton(R.string.base_cancel) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                        .create()
+                    //延时弹起输入框
+                    runTaskOnUiWithDelayed({
+                        SoftKeyBoardUtil.showKeyboard(inputView)
+                    }, 400)
+                }
+
                 override fun onRefresh() {
                     vWebView.reLoadView()
                 }
@@ -231,6 +280,8 @@ class WebBrowserFragment : BaseFragment() {
                 }
             })
         }
+        //一开始就获取要加载的Url是否已收藏
+        refreshCollectState(mLoadUrl)
     }
 
     /**
@@ -239,8 +290,13 @@ class WebBrowserFragment : BaseFragment() {
     private fun refreshNavigationBottomBar() {
         vNavigationBottomBar.setCanGoBack(vWebView.canGoBack())
         vNavigationBottomBar.setCanForward(vWebView.canGoForward())
-        //判断Url是否已收藏
-        val url = vWebView.url ?: ""
+        refreshCollectState(vWebView.url ?: "")
+    }
+
+    /**
+     * 刷新收藏状态
+     */
+    private fun refreshCollectState(url: String) {
         if (url.isBlank()) {
             return
         }

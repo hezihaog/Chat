@@ -57,6 +57,6 @@ public interface WebCollectDao {
      *
      * @param userId 用户Id
      */
-    @Query("SELECT * FROM tb_web_collect WHERE user_id=:userId")
+    @Query("SELECT * FROM tb_web_collect WHERE user_id=:userId ORDER BY id DESC")
     List<WebCollectEntity> getCollectList(String userId);
 }

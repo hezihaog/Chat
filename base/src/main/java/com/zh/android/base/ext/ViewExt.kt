@@ -42,17 +42,19 @@ fun measureView(target: View): Pair<Int, Int> {
 /**
  * 给View设置带有防暴击的监听
  */
-fun View.click(listener: (view: View) -> Unit) {
+fun View.click(listener: (view: View) -> Unit): View {
     this.setOnClickListener(DelayOnClickListener(listener))
+    return this
 }
 
 /**
  * 长按
  */
-fun View.longClick(listener: (view: View) -> Boolean) {
+fun View.longClick(listener: (view: View) -> Boolean): View {
     this.setOnLongClickListener {
         listener(it)
     }
+    return this
 }
 
 fun <T : View> androidx.fragment.app.Fragment.findView(id: Int): T {

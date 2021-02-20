@@ -11,10 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseFragment
-import com.zh.android.base.ext.click
-import com.zh.android.base.ext.handlerErrorCode
-import com.zh.android.base.ext.ioToMain
-import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.*
 import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.location.RxLocation
 import com.zh.android.base.widget.TopBar
@@ -202,6 +199,9 @@ class MineFragment : BaseFragment() {
             addRightImageButton(R.drawable.mine_notice, R.id.mine_item_notice)
                 .click {
                     mNoticeService?.goNotice(fragmentActivity)
+                }.longClick {
+                    mMineService?.goWebCollectList(fragmentActivity)
+                    true
                 }
         }
         vRefreshList.apply {

@@ -20,6 +20,6 @@ object SettingStorage {
 
     @JvmStatic
     fun isEnableSwipeBack(): Boolean {
-        return SPUtils.getInstance().getBoolean(KEY_ENABLE_SWIPE_BACK, false)
+        return SPUtils.getInstance().getBoolean(KEY_ENABLE_SWIPE_BACK, true)
     }
 }

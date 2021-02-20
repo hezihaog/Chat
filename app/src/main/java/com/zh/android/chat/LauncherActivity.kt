@@ -7,7 +7,6 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.apkfuns.logutils.LogUtils
 import com.blankj.utilcode.util.DeviceUtils
-import com.youngfeng.snake.annotations.EnableDragToClose
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
 import com.zh.android.chat.service.module.home.HomeService
@@ -17,7 +16,6 @@ import com.zh.android.chat.service.module.login.LoginService
  * @author wally
  * @date 2020/08/26
  */
-@EnableDragToClose(value = false)
 class LauncherActivity : BaseActivity() {
     @JvmField
     @Autowired(name = ARouterUrl.LOGIN_SERVICE)
@@ -31,6 +29,15 @@ class LauncherActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         //获取当前运行的系统版本号
         obtainDeviceVersion()
+    }
+
+    override fun swipeBackEnable(): Boolean {
+        return false
+    }
+
+    override fun setEnableSwipeBack(enable: Boolean) {
+        //注释掉切换功能，强制不允许动态切换
+        //super.setEnableSwipeBack(enable)
     }
 
     override fun onInflaterViewId(): Int {

@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.youngfeng.snake.annotations.EnableDragToClose;
 
 import java.util.List;
 
@@ -22,7 +21,6 @@ import java.util.List;
  * <b>Address:</b> qingyongai@gmail.com <br>
  * <b>Description:</b> baseActivity <br>
  */
-@EnableDragToClose(value = false)
 public abstract class BaseActivity extends BaseSupportActivity
         implements LayoutCallback, LifecycleOwnerExt {
     @Override
@@ -75,6 +73,18 @@ public abstract class BaseActivity extends BaseSupportActivity
 
     @Override
     public void onInflaterViewAfter(View view) {
+    }
+
+    @Override
+    protected boolean swipeBackEnable() {
+        return true;
+    }
+
+    /**
+     * 切换是否允许侧滑返回
+     */
+    public void setEnableSwipeBack(boolean enable) {
+        mSwipeBackHelper.setSwipeBackEnable(enable);
     }
 
     public LifecycleOwnerExt getLifecycleOwner() {

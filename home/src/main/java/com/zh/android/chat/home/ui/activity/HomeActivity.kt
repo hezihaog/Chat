@@ -7,7 +7,6 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.apkfuns.logutils.LogUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.youngfeng.snake.annotations.EnableDragToClose
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
 import com.zh.android.base.ext.lifecycle
@@ -23,7 +22,6 @@ import com.zh.android.chat.service.module.notice.NoticeService
  * @author wally
  * @date 2020/08/26
  */
-@EnableDragToClose(value = false)
 @Route(path = ARouterUrl.HOME_HOME, extras = AppConstant.Flag.IS_NEED_LOGIN)
 class HomeActivity : BaseActivity() {
     @JvmField
@@ -56,6 +54,14 @@ class HomeActivity : BaseActivity() {
                     LogUtils.d("deviceUniqueId：$deviceUniqueId")
                 }
         }
+    }
+
+    override fun swipeBackEnable(): Boolean {
+        return false
+    }
+
+    override fun setEnableSwipeBack(enable: Boolean) {
+        //super.setEnableSwipeBack(enable)
     }
 
     override fun onInflaterViewId(): Int {

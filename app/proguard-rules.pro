@@ -57,11 +57,6 @@
 -keep class androidx.recyclerview.widget.**{*;}
 -keep class androidx.viewpager2.widget.**{*;}
 
-# Snake 侧滑返回
--keepattributes *Annotation*
--keep class **.*_SnakeProxy
--keep @com.youngfeng.snake.annotations.EnableDragToClose public class *
-
 # 原生TabLayout拓展
 -dontwarn com.loper7.tablayout-ext.**
 -keep class com.loper7.tablayout-ext.**{*;}

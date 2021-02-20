@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import me.yokeyword.fragmentation.ExtraTransaction;
 import me.yokeyword.fragmentation.ISupportActivity;
@@ -23,7 +22,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * <b>Author:</b> zihe <br>
  * <b>Description:</b> 单独实现一份ISupportActivity <br>
  */
-public class BaseSupportActivity extends AppCompatActivity implements ISupportActivity {
+public class BaseSupportActivity extends BaseSwipeBackActivity implements ISupportActivity {
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
 
     @Override

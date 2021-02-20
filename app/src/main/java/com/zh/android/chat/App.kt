@@ -2,7 +2,9 @@ package com.zh.android.chat
 
 import android.app.Activity
 import android.app.Application
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
@@ -35,14 +37,17 @@ import com.shuyu.gsyvideoplayer.cache.CacheFactory
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import com.ycbjie.webviewlib.utils.X5WebUtils
-import com.youngfeng.snake.Snake
+import com.zh.android.base.core.BaseActivity
 import com.zh.android.base.ext.getAllChildView
 import com.zh.android.base.ext.loadUrlImage
+import com.zh.android.base.util.BroadcastRegistry
 import com.zh.android.base.util.RecyclerViewScrollHelper
 import com.zh.android.base.util.activity.ActivityLifecycleCallbacksAdapter
 import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.db.AppDatabase
+import com.zh.android.chat.service.ext.getSettingService
 import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
 import com.zh.android.imageloader.ImageLoader
 import com.zh.android.imageloader.strategy.impl.GlideLoader
@@ -74,8 +79,8 @@ class App : Application() {
                         }
                     }).build()
             )
-            .addStartup(SnakeStartup())
             .addStartup(ToolBoxStartup())
+            .addStartup(SwipeBackStartup())
             .addStartup(RxJavaStartup())
             .addStartup(HttpStartup())
             .addStartup(DatabaseStartup())
@@ -105,36 +110,7 @@ class App : Application() {
             //前后台监听
             AppMonitor.get().initialize(context)
             //全局Activity管理
-            ActivityProvider.initialize().apply {
-                registerLifecycleCallback(object : ActivityLifecycleCallbacksAdapter() {
-                    override fun onActivityCreated(
-                        activity: Activity,
-                        savedInstanceState: Bundle?
-                    ) {
-                        super.onActivityCreated(activity, savedInstanceState)
-//                        if (activity is BaseActivity) {
-//                            //根据配置进行切换
-//                            getSettingService()?.run {
-//                                Snake.enableDragToClose(activity, isEnableSwipeBack())
-//                            }
-//                            //注册，切换侧滑返回的广播
-//                            BroadcastRegistry(activity.lifecycleOwner)
-//                                .register(object : BroadcastReceiver() {
-//                                    override fun onReceive(context: Context?, intent: Intent?) {
-//                                        intent?.run {
-//                                            val isEnable =
-//                                                getBooleanExtra(
-//                                                    AppConstant.Key.IS_ENABLE_SWIPE_BACK,
-//                                                    true
-//                                                )
-//                                            Snake.enableDragToClose(activity, isEnable)
-//                                        }
-//                                    }
-//                                }, AppConstant.Action.CHANGE_SWIPE_BACK_ENABLE)
-//                        }
-                    }
-                })
-            }
+            ActivityProvider.initialize()
             //初始化通用工具类
             Utils.init(context)
             return this.javaClass.simpleName
@@ -222,9 +198,9 @@ class App : Application() {
     }
 
     /**
-     * 侧滑返回
+     * 侧滑关闭
      */
-    private class SnakeStartup : AndroidStartup<String>() {
+    private class SwipeBackStartup : AndroidStartup<String>() {
         override fun callCreateOnMainThread(): Boolean {
             return true
         }
@@ -233,8 +209,37 @@ class App : Application() {
             return true
         }
 
-        override fun create(context: Context): String? {
-            Snake.init(context.applicationContext as Application?)
+        override fun create(context: Context): String {
+            ActivityProvider.get().registerLifecycleCallback(object : ActivityLifecycleCallbacksAdapter() {
+                override fun onActivityCreated(
+                    activity: Activity,
+                    savedInstanceState: Bundle?
+                ) {
+                    super.onActivityCreated(activity, savedInstanceState)
+                    if (activity is BaseActivity) {
+                        //初始化侧滑返回
+                        activity.initSwipeBack()
+                        //创建页面，先根据配置进行切换
+                        getSettingService()?.run {
+                            activity.setEnableSwipeBack(isEnableSwipeBack())
+                        }
+                        //注册，切换侧滑返回的广播，动态切换
+                        BroadcastRegistry(activity.lifecycleOwner)
+                            .register(object : BroadcastReceiver() {
+                                override fun onReceive(context: Context?, intent: Intent?) {
+                                    intent?.run {
+                                        val isEnable =
+                                            getBooleanExtra(
+                                                AppConstant.Key.IS_ENABLE_SWIPE_BACK,
+                                                true
+                                            )
+                                        activity.setEnableSwipeBack(isEnable)
+                                    }
+                                }
+                            }, AppConstant.Action.CHANGE_SWIPE_BACK_ENABLE)
+                    }
+                }
+            })
             return this.javaClass.simpleName
         }
     }

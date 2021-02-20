@@ -102,9 +102,8 @@ dependencies {
     api rootProject.ext.deps.banner_view_pager
     api rootProject.ext.deps.page_indicator_view
 
-    //侧滑删除
-    api rootProject.ext.deps.snake_slide_back
-    kapt rootProject.ext.deps.snake_slide_back_compiler
+    //侧滑关闭
+    api rootProject.ext.deps.swipe_back
 
     testImplementation rootProject.ext.deps.junit
     androidTestImplementation rootProject.ext.deps.runner

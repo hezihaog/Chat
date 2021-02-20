@@ -116,7 +116,7 @@ class SettingFragment : BaseFragment() {
         }
         //切换开关侧滑返回
         vEnableSwipeBackSwitch.apply {
-            isChecked = mSettingService?.isEnableSwipeBack() ?: false
+            isChecked = mSettingService?.isEnableSwipeBack() ?: true
             setOnCheckedChangeListener { _, isChecked ->
                 mSettingService?.saveEnableSwipeBack(isChecked)
             }

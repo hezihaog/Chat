@@ -128,9 +128,8 @@ ext {
             //地址选择器
             picker_view                  : "com.contrarywind:Android-PickerView:4.1.9",
 
-            //侧滑删除
-            snake_slide_back             : "com.youngfeng.android:snake:0.3.2",
-            snake_slide_back_compiler    : "com.youngfeng.android:snake-compiler:0.3.0",
+            //侧滑关闭
+            swipe_back             : "com.github.goweii:SwipeBack:1.1.0",
 
             //图案解锁
             pattern_locker               : "com.github.ihsg:PatternLocker:2.5.6"

@@ -4,6 +4,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
+import com.zh.android.base.ext.loadMainFragment
 import com.zh.android.chat.friend.R
 import com.zh.android.chat.friend.ui.fragment.FriendRequestRecordFragment
 
@@ -19,8 +20,6 @@ class FriendRequestRecordActivity : BaseActivity() {
     }
 
     override fun onBindView(view: View?) {
-        if (findFragment(FriendRequestRecordFragment::class.java) == null) {
-            loadRootFragment(R.id.base_container, FriendRequestRecordFragment.newInstance())
-        }
+        loadMainFragment(R.id.base_container, FriendRequestRecordFragment.newInstance())
     }
 }

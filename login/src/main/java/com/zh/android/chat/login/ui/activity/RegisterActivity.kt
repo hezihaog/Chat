@@ -4,6 +4,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
+import com.zh.android.base.ext.loadMainFragment
 import com.zh.android.chat.login.R
 import com.zh.android.chat.login.ui.fragment.RegisterFragment
 
@@ -19,8 +20,6 @@ class RegisterActivity : BaseActivity() {
     }
 
     override fun onBindView(view: View?) {
-        if (findFragment(RegisterFragment::class.java) == null) {
-            loadRootFragment(R.id.base_container, RegisterFragment.newInstance())
-        }
+        loadMainFragment(R.id.base_container, RegisterFragment.newInstance())
     }
 }

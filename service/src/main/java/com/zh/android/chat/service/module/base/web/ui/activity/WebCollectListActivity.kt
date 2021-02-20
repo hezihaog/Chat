@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import com.zh.android.base.core.BaseActivity
+import com.zh.android.base.ext.loadMainFragment
 import com.zh.android.chat.service.R
 import com.zh.android.chat.service.module.base.web.ui.fragment.WebCollectListFragment
 
@@ -27,8 +28,6 @@ class WebCollectListActivity : BaseActivity() {
     }
 
     override fun onBindView(view: View?) {
-        if (findFragment(WebCollectListFragment::class.java) == null) {
-            loadRootFragment(R.id.base_container, WebCollectListFragment.newInstance())
-        }
+        loadMainFragment(R.id.base_container, WebCollectListFragment.newInstance())
     }
 }

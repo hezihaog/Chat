@@ -10,6 +10,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
 import com.zh.android.base.ext.lifecycle
+import com.zh.android.base.ext.loadMainFragment
 import com.zh.android.base.util.DeviceIdUtil
 import com.zh.android.base.util.NotificationUtil
 import com.zh.android.chat.home.R
@@ -69,9 +70,7 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onBindView(view: View?) {
-        if (findFragment(HomeMainFragment::class.java) == null) {
-            loadRootFragment(R.id.base_container, HomeMainFragment.newInstance())
-        }
+        loadMainFragment(R.id.base_container, HomeMainFragment.newInstance())
     }
 
     override fun onBackPressedSupport() {

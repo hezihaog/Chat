@@ -5,6 +5,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
+import com.zh.android.base.ext.loadMainFragment
 import com.zh.android.chat.notice.R
 import com.zh.android.chat.notice.ui.fragment.NoticeFragment
 
@@ -20,13 +21,11 @@ class NoticeActivity : BaseActivity() {
     }
 
     override fun onBindView(view: View?) {
-        if (findFragment(NoticeFragment::class.java) == null) {
-            loadRootFragment(
-                R.id.base_container, NoticeFragment.newInstance(
-                    intent.extras
-                )
+        loadMainFragment(
+            R.id.base_container, NoticeFragment.newInstance(
+                intent.extras
             )
-        }
+        )
     }
 
     override fun onNewIntent(intent: Intent?) {

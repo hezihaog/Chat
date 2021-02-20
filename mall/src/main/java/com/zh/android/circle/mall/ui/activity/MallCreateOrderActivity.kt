@@ -4,6 +4,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.base.core.BaseActivity
+import com.zh.android.base.ext.loadMainFragment
 import com.zh.android.circle.mall.R
 import com.zh.android.circle.mall.ui.fragment.MallCreateOrderFragment
 
@@ -19,12 +20,10 @@ class MallCreateOrderActivity : BaseActivity() {
     }
 
     override fun onBindView(view: View?) {
-        if (findFragment(MallCreateOrderFragment::class.java) == null) {
-            loadRootFragment(
-                R.id.base_container, MallCreateOrderFragment.newInstance(
-                    intent.extras
-                )
+        loadMainFragment(
+            R.id.base_container, MallCreateOrderFragment.newInstance(
+                intent.extras
             )
-        }
+        )
     }
 }

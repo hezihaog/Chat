@@ -136,11 +136,6 @@ class WebBrowserFragment : BaseFragment() {
                                 clearBrowserCache()
                                 true
                             }
-                            R.id.hide_top_bar -> {
-                                //隐藏顶部栏
-                                vTopBar.setGone()
-                                true
-                            }
                             R.id.share_url -> {
                                 val url = if (vWebView.url.isNullOrBlank()) {
                                     mLoadUrl
@@ -158,6 +153,10 @@ class WebBrowserFragment : BaseFragment() {
                     }
                     show()
                 }
+            }.longClick {
+                //长按，隐藏顶部栏
+                vTopBar.setGone()
+                true
             }
         }
         vProgress.apply {
@@ -239,8 +238,12 @@ class WebBrowserFragment : BaseFragment() {
                                 toast(R.string.service_url_invalidate)
                                 return@setPositiveButton
                             }
-                            //跳转新的Url
-                            vWebView.loadUrl(inputText)
+                            //新开一个页面来加载Url
+                            if (mLoginService != null) {
+                                mLoginService?.goInnerWebBrowser(fragmentActivity, inputText)
+                            } else {
+                                vWebView.loadUrl(inputText)
+                            }
                         }
                         .setNegativeButton(R.string.base_cancel) { dialog, _ ->
                             dialog.dismiss()

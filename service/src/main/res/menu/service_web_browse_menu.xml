@@ -17,10 +17,6 @@
         android:title="@string/clear_browser_cache" />
 
     <item
-        android:id="@+id/hide_top_bar"
-        android:title="@string/hide_top_bar" />
-
-    <item
         android:id="@+id/share_url"
         android:title="@string/share_url" />
 </menu>

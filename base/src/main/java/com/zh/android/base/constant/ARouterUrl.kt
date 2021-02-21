@@ -83,6 +83,16 @@ class ARouterUrl {
          */
         const val QR_CODE_SCAN = "${DISCOVERY_GROUP}/qrcode/scan"
 
+        /**
+         * 二维码扫描结果
+         */
+        const val QR_CODE_SCAN_RESULT = "${DISCOVERY_GROUP}/qrcode/scan/result"
+
+        /**
+         * 二维码扫描历史
+         */
+        const val QR_CODE_SCAN_HISTORY = "${DISCOVERY_GROUP}/qrcode/scan/history"
+
         //============================== 动态 ==============================
         private const val MOMENT_GROUP = "/moment"
         const val MOMENT_SERVICE = "${MOMENT_GROUP}s/module"

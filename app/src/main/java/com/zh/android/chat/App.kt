@@ -47,6 +47,7 @@ import com.zh.android.base.util.activity.ActivityProvider
 import com.zh.android.base.util.monitor.AppMonitor
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.db.AppDatabase
+import com.zh.android.chat.service.db.greendao.core.GreenDaoManager
 import com.zh.android.chat.service.ext.getSettingService
 import com.zh.android.chat.service.module.base.interceptor.RequestProcessor
 import com.zh.android.imageloader.ImageLoader
@@ -192,7 +193,10 @@ class App : Application() {
         }
 
         override fun create(context: Context): String? {
+            //初始化Room
             AppDatabase.initialize(context)
+            //初始化GreenDao
+            GreenDaoManager.init(context)
             return this.javaClass.simpleName
         }
     }

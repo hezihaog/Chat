@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zh.android.base.constant.ARouterUrl
 import com.zh.android.chat.discovery.ui.fragment.DiscoveryFragment
+import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.core.BaseModuleService
 import com.zh.android.chat.service.ext.startNavigation
 import com.zh.android.chat.service.module.discovery.DiscoveryService
@@ -39,5 +40,18 @@ class DiscoveryServiceImpl : BaseModuleService(), DiscoveryService {
                 }
                 Observable.just(it)
             }
+    }
+
+    override fun goQrCodeScanResult(activity: Activity, result: String) {
+        ARouter.getInstance()
+            .build(ARouterUrl.QR_CODE_SCAN_RESULT)
+            .withString(AppConstant.Key.QR_CODE_SCAN_RESULT, result)
+            .startNavigation(activity)
+    }
+
+    override fun goQrCodeScanHistory(activity: Activity) {
+        ARouter.getInstance()
+            .build(ARouterUrl.QR_CODE_SCAN_HISTORY)
+            .startNavigation(activity)
     }
 }

@@ -18,4 +18,14 @@ interface DiscoveryService : IBaseModuleService {
      * 跳转到二维码扫描
      */
     fun goQrCodeScan(activity: Activity): Observable<Boolean>
+
+    /**
+     * 跳转到二维码扫描结果
+     */
+    fun goQrCodeScanResult(activity: Activity, result: String)
+
+    /**
+     * 跳转到二维码扫描历史
+     */
+    fun goQrCodeScanHistory(activity: Activity)
 }

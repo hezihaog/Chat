@@ -10,18 +10,20 @@ import cn.bingoogolapple.qrcode.core.QRCodeView
 import cn.bingoogolapple.qrcode.zxing.ZXingView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.apkfuns.logutils.LogUtils
-import com.blankj.utilcode.util.RegexUtils
 import com.zh.android.base.constant.ARouterUrl
-import com.zh.android.base.constant.ApiUrl
 import com.zh.android.base.core.BaseFragment
 import com.zh.android.base.ext.click
+import com.zh.android.base.ext.ioToMain
+import com.zh.android.base.ext.lifecycle
 import com.zh.android.base.ext.toast
 import com.zh.android.base.widget.TopBar
 import com.zh.android.chat.discovery.R
-import com.zh.android.chat.service.AppConstant
+import com.zh.android.chat.discovery.http.DiscoveryPresenter
+import com.zh.android.chat.discovery.util.QrCodeUtil
+import com.zh.android.chat.service.module.discovery.DiscoveryService
 import com.zh.android.chat.service.module.friend.FriendService
+import com.zh.android.chat.service.module.login.LoginService
 import kotterknife.bindView
-import java.net.URI
 
 
 /**
@@ -31,14 +33,26 @@ import java.net.URI
  */
 class QrCodeScanFragment : BaseFragment() {
     @JvmField
+    @Autowired(name = ARouterUrl.LOGIN_SERVICE)
+    var mLoginService: LoginService? = null
+
+    @JvmField
     @Autowired(name = ARouterUrl.FRIEND_SERVICE)
     var mFriendService: FriendService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.DISCOVERY_SERVICE)
+    var mDiscoveryService: DiscoveryService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vScanView: ZXingView by bindView(R.id.scan_view)
 
     private val mMainHandler by lazy {
         Handler(Looper.getMainLooper())
+    }
+
+    private val mDiscoveryPresenter by lazy {
+        DiscoveryPresenter()
     }
 
     companion object {
@@ -80,6 +94,11 @@ class QrCodeScanFragment : BaseFragment() {
                 fragmentActivity.finish()
             }
             setTitle(R.string.discovery_scan_qrcode)
+            addRightTextButton(R.string.discovery_qr_scan_history, R.id.discovery_qr_scan_history)
+                .click {
+                    //跳转到扫描历史
+                    mDiscoveryService?.goQrCodeScanHistory(fragmentActivity)
+                }
         }
         vScanView.setDelegate(object : QRCodeView.Delegate {
             override fun onScanQRCodeSuccess(result: String?) {
@@ -125,43 +144,45 @@ class QrCodeScanFragment : BaseFragment() {
      * 解析扫描结果
      */
     private fun parseScanResult(result: String) {
-        val uri = URI(result)
-        when {
-            //用户二维码，跳转到用户页面
-            uri.scheme == ApiUrl.QR_CODE_SCHEME -> {
-                val path = uri.path
-                val query = uri.query
-                if (path != ApiUrl.QR_CODE_USER_PATH) {
-                    return
-                }
-                //按等号，拆分参数
-                val queryArray = query.split("=")
-                //将参数数组转为Map，注意步长要为2
-                val queryMap = mutableMapOf<String, String>().apply {
-                    for (index in queryArray.indices step 2) {
-                        val key = queryArray[index]
-                        val value = queryArray[index + 1]
-                        put(key, value)
-                    }
-                }
-                //获取传过来的UserId
-                val userId = queryMap[AppConstant.Key.USER_ID]
-                if (userId.isNullOrBlank()) {
-                    return
-                }
-                //跳转到用户详情
-                mFriendService?.goUserProfile(fragmentActivity, userId)
-                fragmentActivity.finish()
-            }
+        //保存扫描记录
+        saveScanHistory(result)
+        //判断二维码内容的类型
+        QrCodeUtil.parseScanResult(result, {
+            //跳转到用户详情
+            mFriendService?.goUserProfile(fragmentActivity, it)
+            fragmentActivity.finish()
+        }, {
             //普通网页
-            RegexUtils.isURL(result) -> {
-                mFriendService?.goInnerWebBrowser(fragmentActivity, result)
-                fragmentActivity.finish()
+            mFriendService?.goInnerWebBrowser(fragmentActivity, it)
+            fragmentActivity.finish()
+        }, {
+            //不能识别，跳转到结果页面直接显示
+            mDiscoveryService?.goQrCodeScanResult(fragmentActivity, it)
+        })
+    }
+
+    /**
+     * 保存扫描记录到数据库中
+     * @param qrCodeContent 二维码内容
+     */
+    private fun saveScanHistory(qrCodeContent: String) {
+        mLoginService?.getUserId().let { userId ->
+            if (userId.isNullOrBlank()) {
+                return@let
             }
-            //不能识别类型
-            else -> {
-                toast(getString(R.string.discovery_not_user_qr_core_tip))
-            }
+            mDiscoveryPresenter.saveScanHistory(userId, qrCodeContent)
+                .ioToMain()
+                .lifecycle(lifecycleOwner)
+                .subscribe({
+                    if (it) {
+                        LogUtils.d("保存二维码扫描记录到数据库，成功")
+                    } else {
+                        LogUtils.d("保存二维码扫描记录到数据库，失败")
+                    }
+                }, {
+                    it.printStackTrace()
+                    LogUtils.d("保存二维码扫描记录到数据库，异常 ${it.message}")
+                })
         }
     }
 

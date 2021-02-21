@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_top_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/base_dimen_15"
+            android:paddingTop="@dimen/base_dimen_5"
+            android:paddingEnd="@dimen/base_dimen_15"
+            android:paddingBottom="@dimen/base_dimen_5"
+            android:textColor="@color/base_black"
+            android:textIsSelectable="true"
+            android:textSize="@dimen/base_dimen_sp_15"
+            tools:text="123456789110~123456789110~123456789110~123456789110~" />
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

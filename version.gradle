@@ -35,6 +35,11 @@ ext {
             jetpack_lifecycle            : "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
             jetpack_lifecycle_compiler   : "androidx.lifecycle:lifecycle-compiler:$lifecycle_version",
 
+            //GreenDao
+            greendao                     : "org.greenrobot:greendao:3.3.0",
+            //GreenDao升级帮助类
+            greendao_upgrade_helper      : "io.github.yuweiguocn:GreenDaoUpgradeHelper:v2.2.1",
+
             wcdb                         : "com.tencent.wcdb:room:1.0.8",
             jetpack_room                 : "androidx.room:room-runtime:$room_version",
             jetpack_room_ktx             : "androidx.room:room-ktx:$room_version",
@@ -129,7 +134,7 @@ ext {
             picker_view                  : "com.contrarywind:Android-PickerView:4.1.9",
 
             //侧滑关闭
-            swipe_back             : "com.github.goweii:SwipeBack:1.1.0",
+            swipe_back                   : "com.github.goweii:SwipeBack:1.1.0",
 
             //图案解锁
             pattern_locker               : "com.github.ihsg:PatternLocker:2.5.6"

@@ -10,4 +10,6 @@
     <string name="discovery_ambient_brightness_tip">\n环境过暗，请打开闪光灯</string>
     <string name="discovery_open_camera_fail">打开相机出错</string>
     <string name="discovery_not_user_qr_core_tip">不是用户二维码，请使用其他工具进行扫描</string>
+    <string name="discovery_qr_scan_result">扫描结果</string>
+    <string name="discovery_qr_scan_history">扫描历史</string>
 </resources>

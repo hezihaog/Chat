@@ -144,6 +144,11 @@ class AppConstant private constructor() {
              * 代办事项编辑类型
              */
             const val TODO_EDIT_TYPE = "todo_edit_type"
+
+            /**
+             * 二维码扫描结果
+             */
+            const val QR_CODE_SCAN_RESULT = "qr_code_scan_result"
         }
     }
 

@@ -82,6 +82,9 @@ dependencies {
     kapt rootProject.ext.deps.jetpack_lifecycle_compiler
 
     //database
+    api rootProject.ext.deps.greendao
+    api rootProject.ext.deps.greendao_upgrade_helper
+
     api rootProject.ext.deps.wcdb
     api rootProject.ext.deps.jetpack_room
     api rootProject.ext.deps.jetpack_room_ktx

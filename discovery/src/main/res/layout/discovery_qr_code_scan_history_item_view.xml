@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/base_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/base_dimen_15"
+        android:paddingTop="@dimen/base_dimen_10"
+        android:paddingEnd="@dimen/base_dimen_15"
+        android:paddingBottom="@dimen/base_dimen_10">
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/base_dimen_sp_16"
+            tools:text="http://www.baidu.com" />
+
+        <androidx.legacy.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_dimen_3" />
+
+        <TextView
+            android:id="@+id/create_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/base_dimen_sp_13"
+            tools:text="2020-12-28 11:18:10" />
+    </LinearLayout>
+
+    <View style="@style/base_divider2" />
+</LinearLayout>

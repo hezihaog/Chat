@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.alibaba.arouter'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -39,6 +40,13 @@ kapt {
         arg("AROUTER_MODULE_NAME", project.getName())
         arg("AROUTER_GENERATE_DOC", "enable")
     }
+}
+
+//GreenDao配置
+greendao {
+    schemaVersion 2
+    daoPackage 'com.zh.android.chat.service.db.greendao'
+    targetGenDir 'src/main/java'
 }
 
 dependencies {

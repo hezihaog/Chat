@@ -16,10 +16,6 @@ import org.greenrobot.greendao.database.Database;
  * @date 2021/02/21
  */
 public class GreenDaoSQLiteOpenHelper extends DaoMaster.OpenHelper {
-    public GreenDaoSQLiteOpenHelper(Context context, String name) {
-        super(context, name);
-    }
-
     public GreenDaoSQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
         super(context, name, factory);
     }
@@ -33,6 +29,16 @@ public class GreenDaoSQLiteOpenHelper extends DaoMaster.OpenHelper {
         }
         LogUtils.i("数据库从" + oldVersion + "升级到 ::: " + newVersion + "版本");
         //使用GreenDaoUpgradeHelper辅助类进行升级
-        MigrationHelper.migrate(db, QrCodeScanHistoryEntityDao.class);
+        MigrationHelper.migrate(db, new MigrationHelper.ReCreateAllTableListener() {
+            @Override
+            public void onCreateAllTables(Database db, boolean ifNotExists) {
+                DaoMaster.createAllTables(db, ifNotExists);
+            }
+
+            @Override
+            public void onDropAllTables(Database db, boolean ifExists) {
+                DaoMaster.dropAllTables(db, ifExists);
+            }
+        }, QrCodeScanHistoryEntityDao.class);
     }
 }

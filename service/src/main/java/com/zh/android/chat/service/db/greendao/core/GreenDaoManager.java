@@ -28,7 +28,7 @@ public class GreenDaoManager {
             if (mContext == null) {
                 throw new IllegalStateException("请先调用init()进行初始化操作");
             }
-            GreenDaoSQLiteOpenHelper openHelper = new GreenDaoSQLiteOpenHelper(mContext, DB_NAME);
+            GreenDaoSQLiteOpenHelper openHelper = new GreenDaoSQLiteOpenHelper(mContext, DB_NAME, null);
             SQLiteDatabase db = openHelper.getWritableDatabase();
             mDaoMaster = new DaoMaster(db);
             mDaoSession = mDaoMaster.newSession();
@@ -37,7 +37,6 @@ public class GreenDaoManager {
 
     public static void init(Context context) {
         GreenDaoManager.mContext = context.getApplicationContext();
-        getInstance();
     }
 
     public static GreenDaoManager getInstance() {

@@ -21,6 +21,15 @@ android {
         }
     }
 
+    //配置kotlin目录也是src源码目录进行编译
+    sourceSets {
+        main {
+            java {
+                java.srcDirs += 'src/main/kotlin'
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
@@ -65,7 +74,7 @@ dependencies {
     api rootProject.ext.deps.arouterapi
     api rootProject.ext.deps.arouterannotation
 
-    api rootProject.ext.deps.kotterknife
+    //api rootProject.ext.deps.kotterknife
     api rootProject.ext.deps.indicator
 
     api rootProject.ext.deps.multitype

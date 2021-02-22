@@ -20,6 +20,7 @@ import com.zh.android.chat.login.R
 import com.zh.android.chat.login.http.LoginPresenter
 import com.zh.android.chat.service.AppConstant
 import com.zh.android.chat.service.module.home.HomeService
+import com.zh.android.chat.service.module.setting.SettingService
 import kotterknife.bindView
 
 /**
@@ -31,6 +32,10 @@ class LoginFragment : BaseFragment() {
     @JvmField
     @Autowired(name = ARouterUrl.HOME_SERVICE)
     var mHomeService: HomeService? = null
+
+    @JvmField
+    @Autowired(name = ARouterUrl.SETTING_SERVICE)
+    var mSettingService: SettingService? = null
 
     private val vTopBar: TopBar by bindView(R.id.top_bar)
     private val vUsername: EditText by bindView(R.id.username)
@@ -75,7 +80,10 @@ class LoginFragment : BaseFragment() {
                     fragmentActivity.finish()
                 }
             }
-            setTitle(getAppContext().getApplicationName())
+            setTitle(getAppContext().getApplicationName()).longClick {
+                mSettingService?.goSetting(fragmentActivity)
+                true
+            }
             addRightTextButton(
                 getString(R.string.login_by_phone),
                 R.id.login_by_phone

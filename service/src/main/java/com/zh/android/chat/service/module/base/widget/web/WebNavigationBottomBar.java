@@ -89,10 +89,19 @@ public class WebNavigationBottomBar extends FrameLayout {
             @Override
             public void onClick(View v) {
                 if (mCallBack != null) {
-                    mCallBack.onNewUrl();
+                    mCallBack.onNewUrl(false);
                 }
             }
         }));
+        vNewUrl.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mCallBack != null) {
+                    mCallBack.onNewUrl(true);
+                }
+                return true;
+            }
+        });
         vRefresh.setOnClickListener(new DelayOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,8 +165,10 @@ public class WebNavigationBottomBar extends FrameLayout {
 
         /**
          * 打开新地址
+         *
+         * @param isNewTab 是否新开一个标签页打开
          */
-        void onNewUrl();
+        void onNewUrl(boolean isNewTab);
 
         void onRefresh();
 

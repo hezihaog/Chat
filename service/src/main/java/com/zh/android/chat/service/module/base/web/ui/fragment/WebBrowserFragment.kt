@@ -218,7 +218,7 @@ class WebBrowserFragment : BaseFragment() {
                     }
                 }
 
-                override fun onNewUrl() {
+                override fun onNewUrl(isNewTab: Boolean) {
                     //自己输入地址来加载
                     val inputView = EditText(fragmentActivity)
                     AlertDialog.Builder(fragmentActivity)
@@ -238,10 +238,11 @@ class WebBrowserFragment : BaseFragment() {
                                 toast(R.string.service_url_invalidate)
                                 return@setPositiveButton
                             }
-                            //新开一个页面来加载Url
-                            if (mLoginService != null) {
+                            if (isNewTab) {
+                                //新开一个页面来加载Url
                                 mLoginService?.goInnerWebBrowser(fragmentActivity, inputText)
                             } else {
+                                //直接当前页面加载
                                 vWebView.loadUrl(inputText)
                             }
                         }
